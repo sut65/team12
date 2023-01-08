@@ -27,3 +27,8 @@ type Role struct {
 	Name      string
 	Employees []Employee `gorm:"foreignKey:RoleID"`
 }
+type Gender struct {
+	gorm.Model
+	Name      string
+	Employees []Employee `gorm:"foreignKey:GenderID"`
+}
