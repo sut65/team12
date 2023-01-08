@@ -9,9 +9,9 @@ type Employee struct {
 	gorm.Model
 	FirstName string
 	LastName  string
-	Civ       string
+	Civ       string `gorm:"uniqueIndex"`
 	Phone     string
-	Email     string
+	Email     string `gorm:"uniqueIndex"`
 	Password  string
 	Address   string
 	//save Role ID in FK
@@ -39,8 +39,8 @@ type Gender struct {
 }
 type Department struct {
 	gorm.Model
-	Type        string
-	Departments []Department `gorm:"foreignKey:DepartmentID"`
+	Type      string
+	Employees []Employee `gorm:"foreignKey:DepartmentID"`
 }
 
 //=========================================================================================================================================================
