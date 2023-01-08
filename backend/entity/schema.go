@@ -4,6 +4,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// ====================================================Employee part=============================================================
 type Employee struct {
 	gorm.Model
 	FirstName string
@@ -21,6 +22,10 @@ type Employee struct {
 	GenderID *uint
 	//to easier for adding FK
 	Gender Gender `gorm:"references:id"`
+	//save Department ID in FK
+	DepartmentID *uint
+	//to easier for adding FK
+	Department Department `gorm:"references:id"`
 }
 type Role struct {
 	gorm.Model
@@ -32,3 +37,10 @@ type Gender struct {
 	Name      string
 	Employees []Employee `gorm:"foreignKey:GenderID"`
 }
+type Department struct {
+	gorm.Model
+	Type        string
+	Departments []Department `gorm:"foreignKey:DepartmentID"`
+}
+
+//=========================================================================================================================================================
