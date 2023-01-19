@@ -1,6 +1,8 @@
 package entity
 
 import (
+	"time"
+
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -27,6 +29,10 @@ func SetupDatabase() {
 		&Role{},
 		&Employee{},
 		&Gender{},
+		&PatientType{},
+		&PatientRight{},
+		&Employee{},
+		&Patient{},
 	)
 
 	db = database
@@ -209,5 +215,71 @@ func SetupDatabase() {
 		Gender:     gender2,
 	}
 	db.Model(&Employee{}).Create(&emp5)
+	////////////////////////////////////////////////////////////////////////////
+	patienttype1 := PatientType{
+		Type: "ปกติ",
+	}
+	db.Model(&PatientType{}).Create(&patienttype1)
 
+	patienttype2 := PatientType{
+		Type: "อุบัติเหตุ/ฉุกเฉิน",
+	}
+	db.Model(&PatientType{}).Create(&patienttype2)
+
+	patienttype3 := PatientType{
+		Type: "เด็กแรกเกิด",
+	}
+	db.Model(&PatientType{}).Create(&patienttype3)
+
+	patienttype4 := PatientType{
+		Type: "คลอดบุตร",
+	}
+	db.Model(&PatientType{}).Create(&patienttype4)
+
+	patientright1 := PatientRight{
+		Type: "เจ็บป่วยปกติ",
+	}
+	db.Model(&PatientRight{}).Create(&patientright1)
+
+	patientright2 := PatientRight{
+		Type: "เจ็บป่วยฉุกเฉิน/อุบัติเหตุ",
+	}
+	db.Model(&PatientRight{}).Create(&patientright2)
+
+	patientright3 := PatientRight{
+		Type: "คลอดบุตร",
+	}
+	db.Model(&PatientRight{}).Create(&patientright3)
+
+	patient1 := Patient{
+		Civ:          "1309902756650",
+		FirstName:    "paramet",
+		LastName:     "chitlamom",
+		PatientType:  patienttype1,
+		Employee:     emp3,
+		PatientRight: patientright1,
+		Gender:       gender1,
+		Age:          22,
+		Weight:       56.23,
+		Brithdate:    time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC),
+		Underlying:   "ภูมิแพ้",
+		PatientTime:  time.Date(2002, 12, 3, 0, 0, 0, 0, time.UTC),
+	}
+	db.Model(&Patient{}).Create(&patient1)
+
+	patient2 := Patient{
+		Civ:          "1309956926351",
+		FirstName:    "parama",
+		LastName:     "chitlamom",
+		PatientType:  patienttype2,
+		Employee:     emp3,
+		PatientRight: patientright2,
+		Gender:       gender2,
+		Age:          26,
+		Weight:       56.20,
+		Underlying:   "หอบหืด",
+		Brithdate:    time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC),
+		PatientTime:  time.Date(2002, 12, 12, 0, 0, 0, 0, time.UTC),
+	}
+	db.Model(&Patient{}).Create(&patient2)
 }

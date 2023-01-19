@@ -1,6 +1,8 @@
 package entity
 
 import (
+	"time"
+
 	"gorm.io/gorm"
 )
 
@@ -26,6 +28,7 @@ type Employee struct {
 	DepartmentID *uint
 	//to easier for adding FK
 	Department Department `gorm:"references:id"`
+	Patient    []Patient  `gorm:"foreignKey:EmployeeID"`
 }
 type Role struct {
 	gorm.Model
@@ -36,6 +39,7 @@ type Gender struct {
 	gorm.Model
 	Name      string
 	Employees []Employee `gorm:"foreignKey:GenderID"`
+	Patient   []Patient  `gorm:"foreignKey:GenderID"`
 }
 type Department struct {
 	gorm.Model
@@ -43,4 +47,41 @@ type Department struct {
 	Employees []Employee `gorm:"foreignKey:DepartmentID"`
 }
 
-//=========================================================================================================================================================
+// =========================================================================================================================================================
+type PatientType struct {
+	gorm.Model
+	Type    string
+	Patient []Patient `gorm:"foreignKey:PatientTypeID"`
+}
+
+type PatientRight struct {
+	gorm.Model
+	Type    string
+	Patient []Patient `gorm:"foreignKey:PatientRightID"`
+}
+
+type Patient struct {
+	gorm.Model
+	Civ         string `gorm:"uniqueIndex"`
+	FirstName   string
+	LastName    string
+	Age         int
+	Weight      float32
+	Underlying  string
+	Brithdate   time.Time
+	PatientTime time.Time
+
+	//FK
+	PatientTypeID  *uint
+	EmployeeID     *uint
+	PatientRightID *uint
+	GenderID       *uint
+
+	//JOIN
+	PatientType  PatientType  `gorm:"references:id"`
+	Employee     Employee     `gorm:"references:id"`
+	PatientRight PatientRight `gorm:"references:id"`
+	Gender       Gender       `gorm:"references:id"`
+}
+
+// =========================================================================================================================================================
