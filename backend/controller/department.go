@@ -11,8 +11,8 @@ import (
 func GetDepartment(c *gin.Context) {
 	var department entity.Department
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM departments WHERE id = ?", id).Scan(&department).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	if tx := entity.DB().Where("id = ?", id).First(&department); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "department not found"})
 		return
 	}
 
@@ -22,7 +22,7 @@ func GetDepartment(c *gin.Context) {
 // GET /departments
 func ListDepartment(c *gin.Context) {
 	var departments []entity.Department
-	if err := entity.DB().Raw("SELECT * FROM departments").Scan(&departments).Error; err != nil {
+	if err := entity.DB().Preload("Role").Raw("SELECT * FROM departments").Scan(&departments).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -31,8 +31,8 @@ func ListDepartment(c *gin.Context) {
 }
 func ListDepartmentByRole(c *gin.Context) {
 	var departments []entity.Department
-	id := c.Param("role_id")
-	if err := entity.DB().Raw("SELECT * FROM departments where role_id = ?", id).Scan(&departments).Error; err != nil {
+	id := c.Param("id")
+	if err := entity.DB().Preload("Role").Raw("SELECT * FROM departments where role_id = ?", id).Scan(&departments).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
