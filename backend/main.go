@@ -26,6 +26,8 @@ func main() {
 
 			// Get by id
 			router.GET("/employee/:id", controller.GetEmployee)
+			// List
+			router.GET("/employees", controller.ListEmployee)
 			// Create
 			router.POST("/employee", controller.CreateEmployee)
 			// UPDATE
@@ -39,6 +41,12 @@ func main() {
 			// router.POST("/roles", controller.CreateRole)
 			// router.PATCH("/roles", controller.UpdateRole)
 			// router.DELETE("/roles/:id", controller.DeleteRole)
+			// Gender
+			router.GET("/genders", controller.ListGender)
+			router.GET("/gender/:id", controller.GetGender)
+			// Department
+			router.GET("/departments", controller.ListDepartment)
+			router.GET("/department/:id", controller.GetDepartment)
 		}
 	}
 	// // Signup User Route
