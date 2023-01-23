@@ -73,7 +73,7 @@ func CreateEmployee(c *gin.Context) {
 	}
 
 	// get department from database
-	if tx := entity.DB().Where("id = ?", employee.Department).First(&department); tx.RowsAffected == 0 {
+	if tx := entity.DB().Where("id = ?", employee.DepartmentID).First(&department); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "Status is not found",
 		})
