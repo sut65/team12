@@ -29,6 +29,7 @@ type Employee struct {
 	//to easier for adding FK
 	Department Department `gorm:"references:id"`
 	Patient    []Patient  `gorm:"foreignKey:EmployeeID"`
+	LabXrays []LabXray `gorm:"foreignKey:DoctorID"`
 }
 type Role struct {
 	gorm.Model
@@ -53,10 +54,31 @@ type Department struct {
 	
 }
 // ============================================LabXray=========================================================
+type LabXray struct{
+	gorm.Model
+	Description string
+	Date time.Time
+	Pic string
+	//save LabType ID in FK
+	LabTypeID *uint
+	//to easier for adding FK
+	LabType LabType `gorm:"references:id"`
+	//save Doctor ID in FK
+	DoctorID *uint
+	//to easier for adding FK
+	Doctor Employee `gorm:"references:id"`
+	//save Patient ID in FK
+	PatientID *uint
+	//to easier for adding FK
+	Patient Patient `gorm:"references:id"`
+}
+
 type LabType struct{
 	gorm.Model
 	Name string
 	Price int
+	
+	LabXrays []LabXray `gorm:"foreignKey:LabTypeID"`
 }
 // =========================================================================================================================================================
 type PatientType struct {
@@ -93,6 +115,8 @@ type Patient struct {
 	Employee     Employee     `gorm:"references:id"`
 	PatientRight PatientRight `gorm:"references:id"`
 	Gender       Gender       `gorm:"references:id"`
+
+	LabXrays []LabXray `gorm:"foreignKey:PatientID"`
 }
 
 // =========================================================================================================================================================
