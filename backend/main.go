@@ -47,6 +47,7 @@ func main() {
 			// Department
 			router.GET("/departments", controller.ListDepartment)
 			router.GET("/department/:id", controller.GetDepartment)
+			router.GET("/departmentbyrole/:id", controller.ListDepartmentByRole)
 		}
 	}
 	// // Signup User Route

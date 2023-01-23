@@ -34,6 +34,7 @@ type Role struct {
 	gorm.Model
 	Name      string
 	Employees []Employee `gorm:"foreignKey:RoleID"`
+	Departments []Department `gorm:"foreignKey:RoleID"`
 }
 type Gender struct {
 	gorm.Model
@@ -45,7 +46,13 @@ type Department struct {
 	gorm.Model
 	Type      string
 	Employees []Employee `gorm:"foreignKey:DepartmentID"`
+	//save Role ID in FK
+	RoleID *uint
+	//to easier for adding FK
+	Role Role `gorm:"references:id"`
+	
 }
+
 
 // =========================================================================================================================================================
 type PatientType struct {

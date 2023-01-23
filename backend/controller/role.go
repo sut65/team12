@@ -11,8 +11,8 @@ import (
 func GetRole(c *gin.Context) {
 	var role entity.Role
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM roles WHERE id = ?", id).Scan(&role).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	if tx := entity.DB().Where("id = ?", id).First(&role); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "role not found"})
 		return
 	}
 

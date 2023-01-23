@@ -82,71 +82,85 @@ func SetupDatabase() {
 	// ทำการเพิ่ม Dummy department ผู้ดูแลระบบ
 	dep1 := Department{
 		Type: "Emergency Room (แผนกฉุกเฉินและอุบัติเหตุ)",
+		Role: admin2,
 	}
 	db.Model(&Department{}).Create(&dep1)
 
 	dep2 := Department{
 		Type: "Radiology Department (แผนกรังสีกรรม)",
+		Role: admin2,
 	}
 	db.Model(&Department{}).Create(&dep2)
 
 	dep3 := Department{
 		Type: "Surgical Department (แผนกศัลยกรรม)",
+		Role: admin2,
 	}
 	db.Model(&Department{}).Create(&dep3)
 
 	dep4 := Department{
 		Type: "Department of Anaesthesia (แผนกวิสัญญี)",
+		Role: admin2,
 	}
 	db.Model(&Department{}).Create(&dep4)
 
 	dep5 := Department{
 		Type: "Pediatrics Department (แผนกกุมารเวชกรรม)",
+		Role: admin2,
 	}
 	db.Model(&Department{}).Create(&dep5)
 
 	dep6 := Department{
 		Type: "Obstretic (แผนกสูตินรีเวชกรรม)",
+		Role: admin2,
 	}
 	db.Model(&Department{}).Create(&dep6)
 
 	dep7 := Department{
 		Type: "Physical Therapy Department (แผนกเวชศาสตร์ฟื้นฟู)",
+		Role: admin2,
 	}
 	db.Model(&Department{}).Create(&dep7)
 
 	dep8 := Department{
 		Type: "Medicine Department (แผนกอายุรกรรม)",
+		Role: admin2,
 	}
 	db.Model(&Department{}).Create(&dep8)
 
 	dep9 := Department{
 		Type: "Ophthalmology Department (แผนกจักษุ)",
+		Role: admin2,
 	}
 	db.Model(&Department{}).Create(&dep9)
 
 	dep10 := Department{
 		Type: "Ear nose and throat Department (แผนกหู คอ จมูก)",
+		Role: admin2,
 	}
 	db.Model(&Department{}).Create(&dep10)
 
 	dep11 := Department{
 		Type: "Phamarceutical Department (แผนกเภสัชกรรม)",
+		Role: admin5,
 	}
 	db.Model(&Department{}).Create(&dep11)
 
 	dep12 := Department{
 		Type: "Psychology Department (แผนกจิตเวช)",
+		Role: admin2,
 	}
 	db.Model(&Department{}).Create(&dep12)
 
 	dep13 := Department{
 		Type: "Human and Resourse (แผนกฝ่ายบุคคล)",
+		Role: admin3,
 	}
 	db.Model(&Department{}).Create(&dep13)
 
 	dep14 := Department{
 		Type: "Finance Department (แผนกฝ่ายการเงิน)",
+		Role: admin4,
 	}
 	db.Model(&Department{}).Create(&dep14)
 

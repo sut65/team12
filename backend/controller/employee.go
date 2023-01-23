@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
 	"github.com/aamjazrk/team12/entity"
+	"github.com/gin-gonic/gin"
 )
+
 // ---------------- Employee ---------------
 
 // List all Employee
@@ -30,16 +31,11 @@ func ListEmployee(c *gin.Context) {
 func GetEmployee(c *gin.Context) {
 	var employee entity.Employee
 	id := c.Param("id")
-	if err := entity.DB().Preload("Gender").Preload("Role").Preload("Department").Raw("SELECT * FROM employees WHERE id = ?", id).Find(&employee).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
-		})
-		c.Abort()
+	if tx := entity.DB().Where("id = ?", id).First(&employee); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "employee not found"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"data": employee,
-	})
+	c.JSON(http.StatusOK, gin.H{"data": employee})
 }
 
 // Create Employee
@@ -85,17 +81,16 @@ func CreateEmployee(c *gin.Context) {
 	}
 
 	emp := entity.Employee{
-		FirstName: employee.FirstName,
-		LastName: employee.LastName,
-		Civ: employee.Civ,
-		Phone: employee.Phone,
-		Email: employee.Email,
-		Password: employee.Password,
-		Address: employee.Address,
-		Role: role,
+		FirstName:  employee.FirstName,
+		LastName:   employee.LastName,
+		Civ:        employee.Civ,
+		Phone:      employee.Phone,
+		Email:      employee.Email,
+		Password:   employee.Password,
+		Address:    employee.Address,
+		Role:       role,
 		Department: department,
-		Gender: gender,
-
+		Gender:     gender,
 	}
 
 	if err := entity.DB().Create(&emp).Error; err != nil {
@@ -234,14 +229,3 @@ func DeleteEmployee(c *gin.Context) {
 
 }
 
-// GET /employee/:id
-func GetEmployeeByRole(c *gin.Context) {
-	var employee entity.Employee
-	id := c.Param("role_id")
-	if err := entity.DB().Raw("SELECT * FROM employees WHERE role_id = ?", id).Scan(&employee).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"data": employee})
-}
