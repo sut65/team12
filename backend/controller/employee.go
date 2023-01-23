@@ -233,3 +233,15 @@ func DeleteEmployee(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": id})
 
 }
+
+// GET /employee/:id
+func GetEmployeeByRole(c *gin.Context) {
+	var employee entity.Employee
+	id := c.Param("role_id")
+	if err := entity.DB().Raw("SELECT * FROM employees WHERE role_id = ?", id).Scan(&employee).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": employee})
+}
