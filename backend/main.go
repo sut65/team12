@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/aamjazrk/team12/controller"
 	"github.com/aamjazrk/team12/entity"
-	"github.com/aamjazrk/team12/middlewares"
+//"github.com/aamjazrk/team12/middlewares"
 
 	//"github.com/aamjazrk/team12/middlewares"
 	"github.com/gin-gonic/gin"
@@ -15,41 +15,43 @@ func main() {
 	r := gin.Default()
 	r.Use(CORSMiddleware())
 
-	router := r.Group("/")
+	// router := r.Group("/")
 
-	{
-		router.Use(middlewares.Authorizes())
-		{
+	// {
+	// 	router.Use(middlewares.Authorizes())
+	// 	{
 			//router.GET("/bills", controller.ListPatient)
 			//router.GET("/bill/:id", controller.GetPatient)
 			//router.POST("/createbills", controller.UpdatePatient)
 
 			// Get by id
-			router.GET("/employee/:id", controller.GetEmployee)
+			r.GET("/employee/:id", controller.GetEmployee)
 			// List
-			router.GET("/employees", controller.ListEmployee)
+			r.GET("/employees", controller.ListEmployee)
 			// Create
-			router.POST("/employee", controller.CreateEmployee)
+			r.POST("/employee", controller.CreateEmployee)
 			// UPDATE
-			router.PATCH("/employee", controller.UpdateEmployee)
+			r.PATCH("/employee", controller.UpdateEmployee)
 			// DELETE
-			router.DELETE("/employee/:id", controller.DeleteEmployee)
+			r.DELETE("/employee/:id", controller.DeleteEmployee)
 			// ----------------- Employee ----------------------------
 			// Role Routes
-			router.GET("/roles", controller.ListRole)
-			router.GET("/role/:id", controller.GetRole)
+			r.GET("/roles", controller.ListRole)
+			r.GET("/role/:id", controller.GetRole)
 			// router.POST("/roles", controller.CreateRole)
 			// router.PATCH("/roles", controller.UpdateRole)
 			// router.DELETE("/roles/:id", controller.DeleteRole)
 			// Gender
-			router.GET("/genders", controller.ListGender)
-			router.GET("/gender/:id", controller.GetGender)
+			r.GET("/genders", controller.ListGender)
+			r.GET("/gender/:id", controller.GetGender)
 			// Department
-			router.GET("/departments", controller.ListDepartment)
-			router.GET("/department/:id", controller.GetDepartment)
-			router.GET("/departmentbyrole/:id", controller.ListDepartmentByRole)
-		}
-	}
+			r.GET("/departments", controller.ListDepartment)
+			r.GET("/department/:id", controller.GetDepartment)
+			r.GET("/departmentbyrole/:id", controller.ListDepartmentByRole)
+			// Lab X ray
+			
+	// 	}
+	// }
 	// // Signup User Route
 	r.POST("/signup", controller.CreateLoginUser)
 	// // login User Route
