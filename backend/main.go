@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/aamjazrk/team12/controller"
 	"github.com/aamjazrk/team12/entity"
+	"github.com/aamjazrk/team12/middlewares"
 
 	//"github.com/aamjazrk/team12/middlewares"
 	"github.com/gin-gonic/gin"
@@ -14,38 +15,40 @@ func main() {
 	r := gin.Default()
 	r.Use(CORSMiddleware())
 
-	//api := r.Group("")
-	//{
-	//protected := api.Use(middlewares.Authorizes())
-	//{
+	router := r.Group("/")
 
-	// ----------------- Employee ----------------------------
-	// List
-	r.GET("/employees", controller.ListEmployee)
-	// Get by id
-	r.GET("/employee/:id", controller.GetEmployee)
-	// Create
-	r.POST("/employee", controller.CreateEmployee)
-	// UPDATE
-	r.PATCH("/employee", controller.UpdateEmployee)
-	// DELETE
-	r.DELETE("/employee/:id", controller.DeleteEmployee)
-	// ----------------- Employee ----------------------------
-	// Role Routes
-	r.GET("/roles", controller.ListRole)
-	r.GET("/role/:id", controller.GetRole)
-	r.POST("/roles", controller.CreateRole)
-	r.PATCH("/roles", controller.UpdateRole)
-	r.DELETE("/roles/:id", controller.DeleteRole)
+	{
+		router.Use(middlewares.Authorizes())
+		{
+			//router.GET("/bills", controller.ListPatient)
+			//router.GET("/bill/:id", controller.GetPatient)
+			//router.POST("/createbills", controller.UpdatePatient)
 
-	//}
-	//}
+			// Get by id
+			router.GET("/employee/:id", controller.GetEmployee)
+			// Create
+			router.POST("/employee", controller.CreateEmployee)
+			// UPDATE
+			router.PATCH("/employee", controller.UpdateEmployee)
+			// DELETE
+			router.DELETE("/employee/:id", controller.DeleteEmployee)
+			// ----------------- Employee ----------------------------
+			// Role Routes
+			router.GET("/roles", controller.ListRole)
+			router.GET("/role/:id", controller.GetRole)
+			router.POST("/roles", controller.CreateRole)
+			router.PATCH("/roles", controller.UpdateRole)
+			router.DELETE("/roles/:id", controller.DeleteRole)
+		}
+	}
+	// // Signup User Route
+	r.POST("/signup", controller.CreateLoginUser)
+	// // login User Route
+	r.POST("/login", controller.Login)
 
-	// Authentication Routes
-	//r.POST("/login", controller.Login)
-
-	// Run the server
-	r.Run()
+	// Run the server go run main.go
+	//r.Run("localhost: " + PORT)
+	r.Run("0.0.0.0:8080")
 }
 
 func CORSMiddleware() gin.HandlerFunc {

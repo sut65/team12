@@ -3,6 +3,7 @@ package entity
 import (
 	"time"
 
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -36,7 +37,11 @@ func SetupDatabase() {
 	)
 
 	db = database
-
+	password1, _ := bcrypt.GenerateFromPassword([]byte("123456"), 14)
+	password2, _ := bcrypt.GenerateFromPassword([]byte("123456"), 14)
+	password3, _ := bcrypt.GenerateFromPassword([]byte("123456"), 14)
+	password4, _ := bcrypt.GenerateFromPassword([]byte("123456"), 14)
+	password5, _ := bcrypt.GenerateFromPassword([]byte("123456"), 14)
 	// ทำการเพิ่ม Dummy Role ผู้ดูแลระบบ
 	admin1 := Role{
 		Name: "Doctor(แพทย์)",
@@ -152,7 +157,7 @@ func SetupDatabase() {
 		Civ:        "1250008896345",
 		Phone:      "0811111111",
 		Email:      "preechapat@mail.com",
-		Password:   "123456",
+		Password:   string(password1),
 		Address:    "45 บ้านฟ้าปิยรมณ์ ต.บึงคำพร้อย อ.ลำลูกกาจ.ปทุมธานี 11350",
 		Role:       admin1,
 		Department: dep3,
@@ -166,7 +171,7 @@ func SetupDatabase() {
 		Civ:        "1234567890124",
 		Phone:      "0899999999",
 		Email:      "kawin@mail.com",
-		Password:   "123456",
+		Password:   string(password2),
 		Address:    "37/123 บ้านหนองพิลุม ต.บ้านท่า อ.เมือง จ.ปราจีนบุรี 12150",
 		Role:       admin3,
 		Department: dep13,
@@ -180,7 +185,7 @@ func SetupDatabase() {
 		Civ:        "1258896675256",
 		Phone:      "0633333333",
 		Email:      "sirinya@mail.com",
-		Password:   "123456",
+		Password:   string(password3),
 		Address:    "23/777 บ้านหนองบึง ต.ท่าช้าง อ.เมือง จ.ลพบุรี 13000",
 		Role:       admin2,
 		Department: dep2,
@@ -194,7 +199,7 @@ func SetupDatabase() {
 		Civ:        "1234445678055",
 		Phone:      "0432536678",
 		Email:      "poramate@mail.com",
-		Password:   "123456",
+		Password:   string(password4),
 		Address:    "56/77 บ้านตาก ต.หนองคุ้ม อ.ระงัน จ.ระยอง 13500",
 		Role:       admin5,
 		Department: dep11,
@@ -208,7 +213,7 @@ func SetupDatabase() {
 		Civ:        "1274563346856",
 		Phone:      "0456673256",
 		Email:      "siwa@mail.com",
-		Password:   "123456",
+		Password:   string(password5),
 		Address:    "324 ฟาร์มโชคชัย ต.โชคชัย อ.เมือง จ.นครราชศรีมา 12300",
 		Role:       admin4,
 		Department: dep14,
