@@ -36,9 +36,9 @@ func main() {
 			// Role Routes
 			router.GET("/roles", controller.ListRole)
 			router.GET("/role/:id", controller.GetRole)
-			router.POST("/roles", controller.CreateRole)
-			router.PATCH("/roles", controller.UpdateRole)
-			router.DELETE("/roles/:id", controller.DeleteRole)
+			// router.POST("/roles", controller.CreateRole)
+			// router.PATCH("/roles", controller.UpdateRole)
+			// router.DELETE("/roles/:id", controller.DeleteRole)
 		}
 	}
 	// // Signup User Route
