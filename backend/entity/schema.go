@@ -266,3 +266,15 @@ type ToE struct {
 	Roomtype string
 	ErRecord []ErRecord `gorm:"foreginKey:ErRecordID`
 }
+
+type Room struct {
+	gorm.Model
+	Roomname string
+	Price    float32
+
+	//save in FK
+	ToEID *uint
+
+	//JOIN
+	ToE ToE `gorm:"references:id"`
+}
