@@ -210,6 +210,13 @@ type VitalSignsRecord struct {
 	Status   Status `gorm:"references:id"`
 }
 
+// Status
+type Status struct {
+	gorm.Model
+	Status string
+	//Statuses []VitalSignsRecord `gorm:"foreignKey:StatusID"`
+}
+
 // ============================PrincipalDiagnosis======================================
 
 type PrincipalDiagnosis struct {
