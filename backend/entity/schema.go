@@ -260,3 +260,9 @@ type ErRecord struct {
 	ToE      ToE      `gorm:"references:id"`
 	Room     Room     `gorm:"references:id"`
 }
+
+type ToE struct {
+	gorm.Model
+	Roomtype string
+	ErRecord []ErRecord `gorm:"foreginKey:ErRecordID`
+}
