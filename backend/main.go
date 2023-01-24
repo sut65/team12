@@ -49,7 +49,22 @@ func main() {
 	r.GET("/departments", controller.ListDepartment)
 	r.GET("/department/:id", controller.GetDepartment)
 	r.GET("/departmentbyrole/:id", controller.ListDepartmentByRole)
-	// Lab X ray
+
+	// ------------------ Lab X ray ------------------------------
+	// labtype Routes
+	r.GET("/labtypes", controller.ListLabType)
+	r.GET("/labtype/:id", controller.GetLabType)
+	// labxray Routes
+	// Get by id
+	r.GET("/labxray/:id", controller.GetLabXray)
+	// List
+	r.GET("/labxrays", controller.ListLabXray)
+	// Create
+	r.POST("/labxray", controller.CreateLabXray)
+	// UPDATE
+	r.PATCH("/labxray", controller.UpdateLabXray)
+	// DELETE
+	r.DELETE("/labxray/:id", controller.DeleteLabXray)
 
 	// ----------------- ManageBed ----------------------------
 	// Bed Routes
