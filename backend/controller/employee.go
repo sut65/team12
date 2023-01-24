@@ -165,7 +165,7 @@ func UpdateEmployee(c *gin.Context) {
 		fmt.Print("NOT NULL")
 		employee.Role = role
 	} else {
-		if tx := entity.DB().Where("id = ?", oldemployee.Role).First(&role); tx.RowsAffected == 0 {
+		if tx := entity.DB().Where("id = ?", oldemployee.RoleID).First(&role); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "not found user"})
 			return
 		}
@@ -181,7 +181,7 @@ func UpdateEmployee(c *gin.Context) {
 		}
 		employee.Department = department
 	} else {
-		if tx := entity.DB().Where("id = ?", oldemployee.Department).First(&department); tx.RowsAffected == 0 {
+		if tx := entity.DB().Where("id = ?", oldemployee.DepartmentID).First(&department); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "not found status"})
 			return
 		}
@@ -228,4 +228,3 @@ func DeleteEmployee(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": id})
 
 }
-
