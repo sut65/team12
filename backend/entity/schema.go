@@ -240,3 +240,23 @@ type LoD struct {
 	Disease            string
 	PrincipalDiagnosis []PrincipalDiagnosis `gorm:"foreignKey:LoDID"`
 }
+
+//======================================ExclusiveRoom==================================
+
+type ErRecord struct {
+	gorm.Model
+	Price float32
+	Date  time.Time
+
+	//save in FK
+	EmployeeID *uint
+	PatientID  *uint
+	ToEID      *uint
+	RoomID     *uint
+
+	//JOIN
+	Employee Employee `gorm:"references:id"`
+	Patient  Patient  `gorm:"references:id"`
+	ToE      ToE      `gorm:"references:id"`
+	Room     Room     `gorm:"references:id"`
+}
