@@ -209,3 +209,21 @@ type VitalSignsRecord struct {
 	StatusID *uint  //FK
 	Status   Status `gorm:"references:id"`
 }
+
+// ============================PrincipalDiagnosis======================================
+
+type PrincipalDiagnosis struct {
+	gorm.Model
+	Note string
+	Date time.Time
+
+	//save in FK
+	EmployeeID *uint
+	PatientID  *uint
+	LoDID      *uint
+
+	//JOIN
+	Employee Employee `gorm:"references:id"`
+	Patient  Patient  `gorm:"references:id"`
+	LoD      LoD      `gorm:"references:id"`
+}
