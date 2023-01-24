@@ -426,7 +426,7 @@ func SetupDatabase() {
 	db.Model(&Prescription{}).Create(&prescription2)
 
 	// ทำการเพิ่ม Dummy ข้อมูล เตียงคนไข้
-	
+
 	Status1 := BedStatus{
 		Name: "Available",
 	}
