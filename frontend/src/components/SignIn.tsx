@@ -9,7 +9,9 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+//import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import LocalHospitalRoundedIcon from '@mui/icons-material/LocalHospitalRounded';
+
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -23,7 +25,20 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
   
-const theme = createTheme();
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#009688",
+    },
+    secondary: {
+      main: "#009688"
+    },
+    text: {
+      primary: "#008573",
+      secondary: "#000000"
+    }
+  },
+})
 
 function SignIn() {
   const [signin, setSignin] = useState<Partial<SigninInterface>>({});
@@ -114,7 +129,7 @@ function SignIn() {
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <LockOutlinedIcon />
+              <LocalHospitalRoundedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
               Sign in

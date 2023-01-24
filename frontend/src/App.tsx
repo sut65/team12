@@ -11,6 +11,8 @@ import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
+import BedroomChildIcon from '@mui/icons-material/BedroomChild';
+
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -21,7 +23,10 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Container from "@mui/material/Container";
+
 import Home from './components/Home';
+import ManageBed from './components/managebed/ManageBed';
+import ManageBedCreate from './components/managebed/ManageBedCreate';
 
 const drawerWidth = 240;
 
@@ -73,11 +78,24 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-const mdTheme = createTheme();
+const mdTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#009688",
+    },
+    secondary: {
+      main: "#009688"
+    },
+    text: {
+      primary: "#008573",
+      secondary: "#000000"
+    }
+  },
+})
 
 const menu = [
-  { name: "หน้าแรก", icon: <HomeIcon />, path: "/" ,role: "Nurse"},
-  { name: "หน้าแรก", icon: <HomeIcon />, path: "/" ,role: "Nurse"},
+  { name: " : หน้าหลัก", icon: <HomeIcon color="primary" />, path: "/home" , role: "Nurse"},
+  { name: " : จัดการเตียงคนไข้", icon: <BedroomChildIcon color="primary" />, path: "/managebed/create" ,role: "Nurse"},
   //{ name: "ลงทะเบียนหนังสือ", icon: <MenuBookRoundedIcon />, path: "/books",role: "admin"},
   //{ name: "ลงทะเบียนสมาชิก", icon: <PeopleIcon />, path: "/users",role: "admin"},
   //{ name: "จองห้องค้นคว้า", icon: <MeetingRoomIcon />, path: "/researchroomreservationrecords" ,role: "user"},
@@ -149,10 +167,10 @@ function App() {
                 noWrap
                 sx={{ flexGrow: 1 }}
               >
-                ระบบห้องสมุด
+                G12 : ระบบจัดการผู้ป่วยใน
               </Typography>
-              <Button color="inherit" onClick={signout}>
-                ออกจากระบบ
+              <Button variant="outlined" color="inherit" onClick={signout}>
+                Log out
               </Button>
             </Toolbar>
           </AppBar>
@@ -204,6 +222,8 @@ function App() {
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
               <Routes>
                 <Route path="/" element={<Home/>} />
+                <Route  path="/managebed/create" element={<ManageBedCreate />} />
+                <Route  path="/managebed" element={<ManageBed />} />
                 
               </Routes>
             </Container>
