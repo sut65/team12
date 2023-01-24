@@ -1,8 +1,6 @@
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
+
 import Typography from '@mui/material/Typography';
 import Container from "@mui/material/Container";
-
 
 
 function Home() {
@@ -11,7 +9,7 @@ function Home() {
     <Container maxWidth="md">
 
     <Typography variant="h1" gutterBottom>
-        Welcome to library
+        Welcome to The Impatienting we healing the World
       </Typography>
     </Container>
     
