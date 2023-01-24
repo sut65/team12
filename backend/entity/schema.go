@@ -32,6 +32,8 @@ type Employee struct {
 	LabXrays          []LabXray      `gorm:"foreignKey:DoctorID"`
 	Prescription      []Prescription `gorm:"foreignKey:EmployeeID"`
 	PrescriptionOrder []Prescription `gorm:"foreignKey:OrderID"`
+
+	ManageBeds []ManageBed `gorm:"foreignKey:EmployeeID"`
 }
 type Role struct {
 	gorm.Model
@@ -121,6 +123,8 @@ type Patient struct {
 
 	LabXrays     []LabXray      `gorm:"foreignKey:PatientID"`
 	Prescription []Prescription `gorm:"foreignKey:PatientID"`
+
+	ManageBeds []ManageBed `gorm:"foreignKey:PatientID"`
 }
 
 // =========================================================================================================================================================
@@ -150,3 +154,37 @@ type Prescription struct {
 }
 
 // =========================================================================================================================================================
+
+// ============================================ManageBed=========================================================
+type BedStatus struct {
+	gorm.Model
+	Name       string
+	ManageBeds []ManageBed `gorm:"foreignKey:BedStatusID"`
+}
+
+type Bed struct {
+	gorm.Model
+	Number      string
+	ClassProbID int
+	ManageBeds  []ManageBed `gorm:"foreignKey:BedID"`
+}
+
+type ManageBed struct {
+	gorm.Model
+	Note       string
+	Hn         int
+	ManageDate time.Time
+
+	//FK
+	PatientID *uint
+	Patient   Patient
+
+	EmployeeID *uint
+	Employee   Employee
+
+	BedID *uint
+	Bed   Bed
+
+	BedStatusID *uint
+	BedStatus   BedStatus
+}
