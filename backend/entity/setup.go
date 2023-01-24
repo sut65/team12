@@ -36,6 +36,7 @@ func SetupDatabase() {
 		&Patient{},
 		&LabXray{},
 		&Medicine{},
+		&Prescription{},
 	)
 
 	db = database
@@ -397,4 +398,25 @@ func SetupDatabase() {
 		Cost: 80,
 	}
 	db.Model(&Medicine{}).Create(&drug7)
+
+	// ทำการเพิ่ม Dummy ข้อมูล ใบสั่งยา
+	prescription1 := Prescription{
+		Patient:    patient1,
+		Medicine:   drug2,
+		Employee:   emp4,
+		Order:      emp1,
+		Annotation: "รับประทานหลังอาหารครั้งละ 1 เม็ด",
+		ScriptTime: time.Date(2002, 12, 12, 0, 0, 0, 0, time.UTC),
+	}
+	db.Model(&Prescription{}).Create(&prescription1)
+
+	prescription2 := Prescription{
+		Patient:    patient2,
+		Medicine:   drug5,
+		Employee:   emp4,
+		Order:      emp1,
+		Annotation: "รับประทานก่อนอาหารครั้งละ 1 เม็ด",
+		ScriptTime: time.Date(2002, 12, 12, 0, 0, 0, 0, time.UTC),
+	}
+	db.Model(&Prescription{}).Create(&prescription2)
 }

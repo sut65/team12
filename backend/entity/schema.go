@@ -27,9 +27,11 @@ type Employee struct {
 	//save Department ID in FK
 	DepartmentID *uint
 	//to easier for adding FK
-	Department Department `gorm:"references:id"`
-	Patient    []Patient  `gorm:"foreignKey:EmployeeID"`
-	LabXrays   []LabXray  `gorm:"foreignKey:DoctorID"`
+	Department        Department     `gorm:"references:id"`
+	Patient           []Patient      `gorm:"foreignKey:EmployeeID"`
+	LabXrays          []LabXray      `gorm:"foreignKey:DoctorID"`
+	Prescription      []Prescription `gorm:"foreignKey:EmployeeID"`
+	PrescriptionOrder []Prescription `gorm:"foreignKey:OrderID"`
 }
 type Role struct {
 	gorm.Model
@@ -117,14 +119,34 @@ type Patient struct {
 	PatientRight PatientRight `gorm:"references:id"`
 	Gender       Gender       `gorm:"references:id"`
 
-	LabXrays []LabXray `gorm:"foreignKey:PatientID"`
+	LabXrays     []LabXray      `gorm:"foreignKey:PatientID"`
+	Prescription []Prescription `gorm:"foreignKey:PatientID"`
 }
 
 // =========================================================================================================================================================
 type Medicine struct {
 	gorm.Model
-	Drug string
-	Cost float32
+	Drug         string
+	Cost         float32
+	Prescription []Prescription `gorm:"foreignKey:MedicineID"`
+}
+
+type Prescription struct {
+	gorm.Model
+	Annotation string
+	ScriptTime time.Time
+
+	//FK
+	PatientID  *uint
+	MedicineID *uint
+	EmployeeID *uint
+	OrderID    *uint
+
+	//JOIN
+	Patient  Patient  `gorm:"references:id"`
+	Medicine Medicine `gorm:"references:id"`
+	Employee Employee `gorm:"references:id"`
+	Order    Employee `gorm:"references:id"`
 }
 
 // =========================================================================================================================================================
