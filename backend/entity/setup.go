@@ -487,4 +487,51 @@ func SetupDatabase() {
 		Patient:    patient2,
 	}
 	db.Model(&ManageBed{}).Create(&managebed2)
+
+	//=====================================================================================
+
+	//Principle data
+	lod1 := LoD{
+		Disease: "Minor (เล็กน้อย)",
+	}
+	db.Model(&LoD{}).Create(&lod1)
+
+	lod2 := LoD{
+		Disease: "Moderate (ปานกลาง)",
+	}
+	db.Model(&LoD{}).Create(&lod2)
+
+	lod3 := LoD{
+		Disease: "Serious (มากแต่ไม่คุกคามต่อชีวิต)",
+	}
+	db.Model(&LoD{}).Create(&lod3)
+
+	lod4 := LoD{
+		Disease: "Severe (มากและคุกคามต่อชีวิต)",
+	}
+	db.Model(&LoD{}).Create(&lod4)
+
+	lod5 := LoD{
+		Disease: "Critical (วิกฤต, ไม่แน่ใจโอกาสรอดชีวิต",
+	}
+	db.Model(&LoD{}).Create(&lod5)
+
+	pd1 := PrincipalDiagnosis{
+		Employee: emp1,
+		Patient:  patient1,
+		LoD:      lod3,
+		Note:     "-ความดันโลหิตสูงชนิิด Primary Hypertension, -ห้ามสูบบุหรี่",
+		Date:     time.Now(),
+	}
+	db.Model(&PrincipalDiagnosis{}).Create(&pd1)
+
+	pd2 := PrincipalDiagnosis{
+		Employee: emp1,
+		Patient:  patient2,
+		LoD:      lod5,
+		Note:     "-ไอมีเลือดปน, -หายใจมีเสียงหวีด, -การตัดชิ้นเนื้อเพื่อวิเคราะห์ (biopsy)",
+		Date:     time.Now(),
+	}
+	db.Model(&PrincipalDiagnosis{}).Create(&pd2)
+	//==========================================================================================//
 }
