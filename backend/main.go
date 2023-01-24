@@ -3,7 +3,8 @@ package main
 import (
 	"github.com/aamjazrk/team12/controller"
 	"github.com/aamjazrk/team12/entity"
-//"github.com/aamjazrk/team12/middlewares"
+
+	//"github.com/aamjazrk/team12/middlewares"
 
 	//"github.com/aamjazrk/team12/middlewares"
 	"github.com/gin-gonic/gin"
@@ -20,36 +21,52 @@ func main() {
 	// {
 	// 	router.Use(middlewares.Authorizes())
 	// 	{
-			//router.GET("/bills", controller.ListPatient)
-			//router.GET("/bill/:id", controller.GetPatient)
-			//router.POST("/createbills", controller.UpdatePatient)
+	//router.GET("/bills", controller.ListPatient)
+	//router.GET("/bill/:id", controller.GetPatient)
+	//router.POST("/createbills", controller.UpdatePatient)
 
-			// Get by id
-			r.GET("/employee/:id", controller.GetEmployee)
-			// List
-			r.GET("/employees", controller.ListEmployee)
-			// Create
-			r.POST("/employee", controller.CreateEmployee)
-			// UPDATE
-			r.PATCH("/employee", controller.UpdateEmployee)
-			// DELETE
-			r.DELETE("/employee/:id", controller.DeleteEmployee)
-			// ----------------- Employee ----------------------------
-			// Role Routes
-			r.GET("/roles", controller.ListRole)
-			r.GET("/role/:id", controller.GetRole)
-			// router.POST("/roles", controller.CreateRole)
-			// router.PATCH("/roles", controller.UpdateRole)
-			// router.DELETE("/roles/:id", controller.DeleteRole)
-			// Gender
-			r.GET("/genders", controller.ListGender)
-			r.GET("/gender/:id", controller.GetGender)
-			// Department
-			r.GET("/departments", controller.ListDepartment)
-			r.GET("/department/:id", controller.GetDepartment)
-			r.GET("/departmentbyrole/:id", controller.ListDepartmentByRole)
-			// Lab X ray
-			
+	// Get by id
+	r.GET("/employee/:id", controller.GetEmployee)
+	// List
+	r.GET("/employees", controller.ListEmployee)
+	// Create
+	r.POST("/employee", controller.CreateEmployee)
+	// UPDATE
+	r.PATCH("/employee", controller.UpdateEmployee)
+	// DELETE
+	r.DELETE("/employee/:id", controller.DeleteEmployee)
+	// ----------------- Employee ----------------------------
+	// Role Routes
+	r.GET("/roles", controller.ListRole)
+	r.GET("/role/:id", controller.GetRole)
+	// router.POST("/roles", controller.CreateRole)
+	// router.PATCH("/roles", controller.UpdateRole)
+	// router.DELETE("/roles/:id", controller.DeleteRole)
+	// Gender
+	r.GET("/genders", controller.ListGender)
+	r.GET("/gender/:id", controller.GetGender)
+	// Department
+	r.GET("/departments", controller.ListDepartment)
+	r.GET("/department/:id", controller.GetDepartment)
+	r.GET("/departmentbyrole/:id", controller.ListDepartmentByRole)
+	// Lab X ray
+
+	// ----------------- ManageBed ----------------------------
+	// Bed Routes
+	r.GET("/beds", controller.ListBed)
+	r.GET("/bed/:id", controller.GetBed)
+
+	// BedStatus Routes
+	r.GET("/bedstatuses", controller.ListBedStatus)
+	r.GET("/bedstatus/:id", controller.GetBedStatus)
+
+	// ManageBed Routes
+	r.GET("/managebeds", controller.ManageBed)
+	r.GET("/managebed/:id", controller.GetManageBed)
+	r.POST("/managebeds", controller.CreateManageBed)
+	r.PATCH("/managebeds", controller.UpdateManageBed)
+	r.DELETE("/managebeds/:id", controller.DeleteManageBed)
+
 	// 	}
 	// }
 	// // Signup User Route

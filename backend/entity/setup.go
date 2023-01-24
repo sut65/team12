@@ -419,4 +419,67 @@ func SetupDatabase() {
 		ScriptTime: time.Date(2002, 12, 12, 0, 0, 0, 0, time.UTC),
 	}
 	db.Model(&Prescription{}).Create(&prescription2)
+
+	// ทำการเพิ่ม Dummy ข้อมูล เตียงคนไข้
+	
+	Status1 := BedStatus{
+		Name: "Available",
+	}
+	db.Model(&BedStatus{}).Create(&Status1)
+
+	Status2 := BedStatus{
+		Name: "Unavailable",
+	}
+	db.Model(&BedStatus{}).Create(&Status2)
+
+	Status3 := BedStatus{
+		Name: "Ruined",
+	}
+	db.Model(&BedStatus{}).Create(&Status3)
+
+	bed1 := Bed{
+		Number:      "A-001",
+		ClassProbID: 3,
+	}
+	db.Model(&Bed{}).Create(&bed1)
+
+	bed2 := Bed{
+		Number:      "A-002",
+		ClassProbID: 3,
+	}
+	db.Model(&Bed{}).Create(&bed2)
+
+	bed3 := Bed{
+		Number:      "B-001",
+		ClassProbID: 3,
+	}
+	db.Model(&Bed{}).Create(&bed3)
+
+	bed4 := Bed{
+		Number:      "C-002",
+		ClassProbID: 3,
+	}
+	db.Model(&Bed{}).Create(&bed4)
+
+	managebed1 := ManageBed{
+		Note:       "*",
+		Hn:         20020938,
+		ManageDate: time.Date(2002, 12, 12, 0, 0, 0, 0, time.UTC),
+		Bed:        bed1,
+		BedStatus:  Status1,
+		Employee:   emp3,
+		Patient:    patient1,
+	}
+	db.Model(&ManageBed{}).Create(&managebed1)
+
+	managebed2 := ManageBed{
+		Note:       "**",
+		Hn:         20020939,
+		ManageDate: time.Date(2002, 12, 14, 0, 0, 0, 0, time.UTC),
+		Bed:        bed2,
+		BedStatus:  Status2,
+		Employee:   emp3,
+		Patient:    patient2,
+	}
+	db.Model(&ManageBed{}).Create(&managebed2)
 }
