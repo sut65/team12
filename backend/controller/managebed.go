@@ -148,7 +148,7 @@ func UpdateManageBed(c *gin.Context) {
 		fmt.Print("NOT NULL")
 		managebed.Bed = bed
 	} else {
-		if tx := entity.DB().Where("id = ?", oldmanagebed.Bed).First(&bed); tx.RowsAffected == 0 {
+		if tx := entity.DB().Where("id = ?", oldmanagebed.BedID).First(&bed); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "not found bed"})
 			return
 		}
@@ -164,7 +164,7 @@ func UpdateManageBed(c *gin.Context) {
 		}
 		managebed.BedStatus = bedstatus
 	} else {
-		if tx := entity.DB().Where("id = ?", oldmanagebed.BedStatus).First(&bedstatus); tx.RowsAffected == 0 {
+		if tx := entity.DB().Where("id = ?", oldmanagebed.BedStatusID).First(&bedstatus); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "not found bedstatus"})
 			return
 		}
