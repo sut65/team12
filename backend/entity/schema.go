@@ -188,3 +188,24 @@ type ManageBed struct {
 	BedStatusID *uint
 	BedStatus   BedStatus
 }
+
+// =====================================================Vital Signs====================================================
+// Vital Sings Record
+type VitalSignsRecord struct {
+	gorm.Model
+	CheckDate         time.Time
+	BloodPressureHigh int
+	BloodPressureLow  int
+	PulseRate         int
+	RespirationRate   int
+	BodyTemperature   float32
+
+	EmployeeID *uint    //FK
+	Employee   Employee `gorm:"references:id"` //JOIN
+
+	PatientID *uint   //FK
+	Patient   Patient `gorm:"references:id"`
+
+	StatusID *uint  //FK
+	Status   Status `gorm:"references:id"`
+}
