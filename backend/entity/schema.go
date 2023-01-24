@@ -227,3 +227,9 @@ type PrincipalDiagnosis struct {
 	Patient  Patient  `gorm:"references:id"`
 	LoD      LoD      `gorm:"references:id"`
 }
+
+type LoD struct {
+	gorm.Model
+	Disease            string
+	PrincipalDiagnosis []PrincipalDiagnosis `gorm:"foreignKey:LoDID"`
+}
