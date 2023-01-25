@@ -121,12 +121,59 @@ async function CreateManageBed(data: ManageBedInterface) {
   return res;
 }
 
+async function UpdateManageBed(data: ManageBedInterface) {
+    
+  const requestOptions = {
+      method: "PATCH",
+      headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+  }
+
+  let res = await fetch(`${apiUrl}/managebed`, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+          if (res.data) {
+              return res.data
+          } else {
+              return false
+          }
+      })
+  return res
+}
+
+async function DeleteManageBed(ID:number) {
+  const requestOptions = {
+      method: "DELETE",
+      headers:{
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+      }
+  };
+  
+  let res = await fetch(`${apiUrl}/managebed/${ID}`, requestOptions)
+  .then((response) => response.json())
+  .then((res) => {
+      if(res.data){
+          return res.data
+      } else{
+          return false
+      }
+  })
+  return res
+}
+
+
 export {
     Login,
-    
-    
+  
     GetManageBed,
     GetBed,
     GetBedStatus,
     CreateManageBed,
+    UpdateManageBed,
+    DeleteManageBed,
+
 };
