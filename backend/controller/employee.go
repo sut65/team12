@@ -166,7 +166,7 @@ func UpdateEmployee(c *gin.Context) {
 		employee.Role = role
 	} else {
 		if tx := entity.DB().Where("id = ?", oldemployee.RoleID).First(&role); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found user"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "not found role"})
 			return
 		}
 		fmt.Print("NULL")
@@ -176,13 +176,13 @@ func UpdateEmployee(c *gin.Context) {
 	// if new have department id
 	if employee.DepartmentID != nil {
 		if tx := entity.DB().Where("id = ?", employee.DepartmentID).First(&department); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found status"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "not found department"})
 			return
 		}
 		employee.Department = department
 	} else {
 		if tx := entity.DB().Where("id = ?", oldemployee.DepartmentID).First(&department); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found status"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "not found department"})
 			return
 		}
 		employee.Department = department
@@ -191,13 +191,13 @@ func UpdateEmployee(c *gin.Context) {
 	//if new have gender id
 	if employee.GenderID != nil {
 		if tx := entity.DB().Where("id = ?", employee.GenderID).First(&gender); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found workingarea"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "not found gender"})
 			return
 		}
 		employee.Gender = gender
 	} else {
 		if tx := entity.DB().Where("id = ?", oldemployee.GenderID).First(&gender); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found workingarea"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "not found gender"})
 			return
 		}
 		employee.Gender = gender
