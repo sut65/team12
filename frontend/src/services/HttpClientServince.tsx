@@ -31,7 +31,32 @@ async function Login(data: SigninInterface) {
 }
 
 // -------------------------------------ManageBed-----------------------------------------------------------------
+async function GetManageBedID() {
+  let aid = localStorage.getItem("aid");
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        },
+    };
 
+    let res = await fetch(
+        `${apiUrl}/managebeds/${aid}`,
+        requestOptions
+    )
+        .then((response) => response.json())
+        .then((res) => {
+            if (res.data) {
+                return res.data;
+            } else {
+                return false;
+            }
+        });
+
+    return res;
+
+}
 async function GetManageBed() {
   const requestOptions = {
     method: "GET",
@@ -132,7 +157,7 @@ async function UpdateManageBed(data: ManageBedInterface) {
       body: JSON.stringify(data)
   }
 
-  let res = await fetch(`${apiUrl}/managebed`, requestOptions)
+  let res = await fetch(`${apiUrl}/managebeds`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
           if (res.data) {
@@ -153,7 +178,7 @@ async function DeleteManageBed(ID:number) {
       }
   };
   
-  let res = await fetch(`${apiUrl}/managebed/${ID}`, requestOptions)
+  let res = await fetch(`${apiUrl}/managebed/:id/${ID}`, requestOptions)
   .then((response) => response.json())
   .then((res) => {
       if(res.data){
@@ -170,6 +195,7 @@ export {
     Login,
   
     GetManageBed,
+    GetManageBedID,
     GetBed,
     GetBedStatus,
     CreateManageBed,

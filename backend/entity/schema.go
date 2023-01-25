@@ -32,8 +32,11 @@ type Employee struct {
 	LabXrays          []LabXray      `gorm:"foreignKey:DoctorID"`
 	Prescription      []Prescription `gorm:"foreignKey:EmployeeID"`
 	PrescriptionOrder []Prescription `gorm:"foreignKey:OrderID"`
-
-	ManageBeds []ManageBed `gorm:"foreignKey:EmployeeID"`
+	userORrecord      []ORrecord     `gorm:"foreignKey:UserID"`
+	drORrecord        []ORrecord     `gorm:"foreignKey:DoctorID"`
+	rcORrecord        []ORrecord     `gorm:"foreignKey:StaffRecivingID"`
+	rtORrecord        []ORrecord     `gorm:"foreignKey:StaffReturingID"`
+	ManageBeds        []ManageBed    `gorm:"foreignKey:EmployeeID"`
 }
 type Role struct {
 	gorm.Model
@@ -277,4 +280,63 @@ type Room struct {
 
 	//JOIN
 	ToE ToE `gorm:"references:id"`
+}
+
+/***************** OperatingRoom ***********************/
+type Specialist struct {
+	gorm.Model
+	SpclistName string
+	//
+	ORrecord []ORrecord `gorm:"foreignKey:SpecialistID"`
+}
+type SurgeryType struct {
+	gorm.Model
+	TypeName string
+	//
+	OperatingRoom []OperatingRoom `gorm:"foreignKey:ORtypeID"`
+	ORrecord      []ORrecord      `gorm:"foreignKey:SurgeryTypeID"`
+}
+type SurgeryState struct {
+	gorm.Model
+	StateName string
+	//*
+	ORrecord []ORrecord `gorm:"foreignKey:SurgeryStateID"`
+}
+type OperatingRoom struct {
+	gorm.Model
+	ORname string
+	//FK
+	ORtypeID *uint
+	//JOIN
+	ORtype SurgeryType `gorm:"references:id"`
+	//
+	ORrecord []ORrecord `gorm:"foreignKey:OperatingRoomID"`
+}
+type ORrecord struct {
+	gorm.Model
+	//FK
+	UserID          *uint
+	OperatingRoomID *uint
+	PatientID       *uint
+	DoctorID        *uint
+	SpecialistID    *uint
+	SurgeryTypeID   *uint
+	SurgeryStateID  *uint
+	StaffRecivingID *uint
+	StaffReturingID *uint
+
+	SurgeryStart    time.Time
+	SurgeryEnd      time.Time
+	OperatingResult string
+	Note            string
+	//JOIN
+	User          Employee      `gorm:"references:id"`
+	OperatingRoom OperatingRoom `gorm:"references:id"`
+	Patient       Patient       `gorm:"references:id"`
+	Doctor        Employee      `gorm:"references:id"`
+	Specialist    Specialist    `gorm:"references:id"`
+	SurgeryType   SurgeryType   `gorm:"references:id"`
+	SurgeryState  SurgeryState  `gorm:"references:id"`
+	StaffReciving Employee      `gorm:"references:id"`
+	StaffReturing Employee      `gorm:"references:id"`
 }
