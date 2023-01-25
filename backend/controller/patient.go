@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/aamjazrk/team12/entity"
@@ -8,7 +9,7 @@ import (
 )
 
 // POST /patient
-func Patient(c *gin.Context) {
+func CreatePatient(c *gin.Context) {
 	var patientright entity.PatientRight
 	var patienttype entity.PatientType
 	var gender entity.Gender
@@ -68,6 +69,11 @@ func Patient(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": p1})
 
+	c.JSON(http.StatusOK, gin.H{
+		"status": "create Patient Success",
+		"data":   p1,
+	})
+
 }
 
 // Get Patient
@@ -105,21 +111,121 @@ func DeletePatient(c *gin.Context) {
 
 // Update Patient
 func UpdatePatient(c *gin.Context) {
-	var patient entity.Patient
-	if err := c.ShouldBindJSON(&patient); err != nil {
+	//main
+	var newpatient entity.Patient
+	var oldpatient entity.Patient
+	//relation
+	var patienttype entity.PatientType
+	var patientright entity.PatientRight
+	var employee entity.Employee
+	var gender entity.Gender
+
+	// Bind Json to var patient
+	if err := c.ShouldBindJSON(&newpatient); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		c.Abort()
+		return
+	}
+
+	// Check patient is haved ?
+	if tx := entity.DB().Where("id = ?", newpatient.ID).First(&oldpatient); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("Patient id = %d not found", newpatient.ID)})
+		c.Abort()
+		return
+	}
+
+	if newpatient.Civ == "" {
+		newpatient.Civ = oldpatient.Civ
+	}
+
+	if newpatient.FirstName == "" {
+		newpatient.FirstName = oldpatient.FirstName
+	}
+
+	if newpatient.LastName == "" {
+		newpatient.LastName = oldpatient.LastName
+	}
+
+	if newpatient.Age == 0 {
+		newpatient.Age = oldpatient.Age
+	}
+
+	if newpatient.Weight == 0 {
+		newpatient.Weight = oldpatient.Weight
+	}
+
+	if newpatient.Underlying == "" {
+		newpatient.Underlying = oldpatient.Underlying
+	}
+
+	if newpatient.PatientTime.String() == "0001-01-01 00:00:00 +0000 UTC" {
+		newpatient.PatientTime = oldpatient.PatientTime
+	}
+
+	if newpatient.Brithdate.String() == "0001-01-01 00:00:00 +0000 UTC" {
+		newpatient.Brithdate = oldpatient.Brithdate
+	}
+
+	// if new have patienttype id
+	if newpatient.PatientTypeID != nil {
+		if tx := entity.DB().Where("id = ?", newpatient.PatientTypeID).First(&patienttype); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "not found patient_type"})
+			return
+		}
+		fmt.Print("NOT NULL")
+		newpatient.PatientType = patienttype
+	} else {
+		if tx := entity.DB().Where("id = ?", oldpatient.PatientTypeID).First(&patienttype); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "not found patient_type"})
+			return
+		}
+		fmt.Print("NULL")
+		newpatient.PatientType = patienttype
+	}
+
+	// if new have patientright id
+	if newpatient.PatientRightID != nil {
+		if tx := entity.DB().Where("id = ?", newpatient.PatientRightID).First(&patientright); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "not found patient_right"})
+			return
+		}
+		newpatient.PatientRight = patientright
+	} else {
+		if tx := entity.DB().Where("id = ?", oldpatient.PatientRightID).First(&patientright); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "not found patient_right"})
+			return
+		}
+		newpatient.PatientRight = patientright
+	}
+
+	//if new have gender id
+	if newpatient.GenderID != nil {
+		if tx := entity.DB().Where("id = ?", newpatient.GenderID).First(&gender); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "not found gender"})
+			return
+		}
+		newpatient.Gender = gender
+	} else {
+		if tx := entity.DB().Where("id = ?", oldpatient.Gender).First(&gender); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "not found gender"})
+			return
+		}
+		newpatient.Gender = gender
+	}
+
+	// Update patient in database
+	if err := entity.DB().Save(&newpatient).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.Abort()
 		return
 	}
+	//ข้อมูลชื่อพยาบาลที่ login
+	newpatient.Employee = employee
 
-	if tx := entity.DB().Where("id = ?", patient.ID).First(&patient); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "patient not found"})
-		return
-	}
-
-	if err := entity.DB().Save(&patient).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"data": patient})
+	c.JSON(http.StatusOK, gin.H{
+		"status": "Update Success",
+		"data":   newpatient,
+	})
 }
