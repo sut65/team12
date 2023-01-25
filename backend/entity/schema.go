@@ -299,6 +299,16 @@ type SurgeryState struct {
 	//*
 	ORrecord []ORrecord `gorm:"foreignKey:SurgeryStateID"`
 }
+type OperatingRoom struct {
+	gorm.Model
+	ORname string
+	//FK
+	ORtypeID *uint
+	//JOIN
+	ORtype SurgeryType `gorm:"references:id"`
+	//
+	ORrecord []ORrecord `gorm:"foreignKey:OperatingRoomID"`
+}
 type ORrecord struct {
 	gorm.Model
 	//FK
