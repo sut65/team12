@@ -286,6 +286,13 @@ type Specialist struct {
 	//
 	ORrecord []ORrecord `gorm:"foreignKey:SpecialistID"`
 }
+type SurgeryType struct {
+	gorm.Model
+	TypeName string
+	//
+	OperatingRoom []OperatingRoom `gorm:"foreignKey:ORtypeID"`
+	ORrecord      []ORrecord      `gorm:"foreignKey:SurgeryTypeID"`
+}
 type SurgeryState struct {
 	gorm.Model
 	StateName string
