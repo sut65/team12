@@ -278,3 +278,33 @@ type Room struct {
 	//JOIN
 	ToE ToE `gorm:"references:id"`
 }
+
+/***************** OperatingRoom ***********************/
+type ORrecord struct {
+	gorm.Model
+	//FK
+	UserID          *uint
+	OperatingRoomID *uint
+	PatientID       *uint
+	DoctorID        *uint
+	SpecialistID    *uint
+	SurgeryTypeID   *uint
+	SurgeryStateID  *uint
+	StaffRecivingID *uint
+	StaffReturingID *uint
+
+	SurgeryStart    time.Time
+	SurgeryEnd      time.Time
+	OperatingResult string
+	Note            string
+	//JOIN
+	User          Employee      `gorm:"references:id"`
+	OperatingRoom OperatingRoom `gorm:"references:id"`
+	Patient       Patient       `gorm:"references:id"`
+	Doctor        Employee      `gorm:"references:id"`
+	Specialist    Specialist    `gorm:"references:id"`
+	SurgeryType   SurgeryType   `gorm:"references:id"`
+	SurgeryState  SurgeryState  `gorm:"references:id"`
+	StaffReciving Employee      `gorm:"references:id"`
+	StaffReturing Employee      `gorm:"references:id"`
+}
