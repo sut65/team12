@@ -32,8 +32,11 @@ type Employee struct {
 	LabXrays          []LabXray      `gorm:"foreignKey:DoctorID"`
 	Prescription      []Prescription `gorm:"foreignKey:EmployeeID"`
 	PrescriptionOrder []Prescription `gorm:"foreignKey:OrderID"`
-
-	ManageBeds []ManageBed `gorm:"foreignKey:EmployeeID"`
+	userORrecord      []ORrecord     `gorm:"foreignKey:UserID"`
+	drORrecord        []ORrecord     `gorm:"foreignKey:DoctorID"`
+	rcORrecord        []ORrecord     `gorm:"foreignKey:StaffRecivingID"`
+	rtORrecord        []ORrecord     `gorm:"foreignKey:StaffReturingID"`
+	ManageBeds        []ManageBed    `gorm:"foreignKey:EmployeeID"`
 }
 type Role struct {
 	gorm.Model
