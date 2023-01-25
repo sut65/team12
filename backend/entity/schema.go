@@ -280,6 +280,12 @@ type Room struct {
 }
 
 /***************** OperatingRoom ***********************/
+type Specialist struct {
+	gorm.Model
+	SpclistName string
+	//
+	ORrecord []ORrecord `gorm:"foreignKey:SpecialistID"`
+}
 type ORrecord struct {
 	gorm.Model
 	//FK
