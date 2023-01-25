@@ -17,7 +17,7 @@ async function ListEmployees() {
         }
     };
 
-    let res = await fetch(`${apiUrl}/employees`, reqOpt)
+    let res = await fetch(`${apiUrl}/employees/list`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){
@@ -158,7 +158,7 @@ async function ListRoles() {
             "Content-Type": "application/json",
         }
     }
-    let res = await fetch(`${apiUrl}/roles`, reqOpt)
+    let res = await fetch(`${apiUrl}/roles/list`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){
@@ -181,7 +181,7 @@ async function ListGenders() {
             "Content-Type": "application/json",
         }
     }
-    let res = await fetch(`${apiUrl}/genders`, reqOpt)
+    let res = await fetch(`${apiUrl}/genders/list`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){
@@ -202,7 +202,7 @@ async function ListDepartments() {
             "Content-Type": "application/json",
         }
     }
-    let res = await fetch(`${apiUrl}/departments`, reqOpt)
+    let res = await fetch(`${apiUrl}/departments/list`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){
@@ -224,7 +224,7 @@ async function GetDepartment(ID: string | undefined) {
         }
     }
 
-    let res = await fetch(`${apiUrl}/department/${ID}`, reqOpt)
+    let res = await fetch(`${apiUrl}/department/get/${ID}`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){
@@ -246,7 +246,7 @@ async function GetDepartmentByRole(ID: string | undefined) {
         }
     }
 
-    let res = await fetch(`${apiUrl}/departmentbyrole/${ID}`, reqOpt)
+    let res = await fetch(`${apiUrl}/departmentbyrole/get/${ID}`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){
@@ -268,7 +268,7 @@ async function GetGender(ID: string | undefined) {
         }
     }
 
-    let res = await fetch(`${apiUrl}/gender/${ID}`, reqOpt)
+    let res = await fetch(`${apiUrl}/gender/get/${ID}`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){
@@ -292,7 +292,7 @@ async function GetRole(ID: string | undefined) {
         }
     }
 
-    let res = await fetch(`${apiUrl}/role/${ID}`, reqOpt)
+    let res = await fetch(`${apiUrl}/role/get/${ID}`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){
