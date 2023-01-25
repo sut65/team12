@@ -1,7 +1,8 @@
 import { BedInterface } from "./IBed";
 import { BedStatusInterface } from "./IBedStatus";
-// import { EmployeeInterface } from "./IEmployee";
-// import { PatientInterface } from "./IPatient";
+
+import { EmployeeInterface } from "../employee/IEmployee";
+import { PatientInterface } from "../patient/IPatient";
 
 export interface ManageBedInterface {
     ID?: number;
@@ -10,9 +11,9 @@ export interface ManageBedInterface {
     ManageDate: Date | null;
 
     PatientID?: number;
-    Patient?: null;//PatientInterface;
+    Patient?: PatientInterface;
     EmployeeID?:      number,
-	Employee?:        null;//EmployeeInterface,
+	Employee?:        EmployeeInterface,
     BedID?: number;
     Bed?: BedInterface;
     BedStatusID?: number;

@@ -66,6 +66,13 @@ func main() {
 	// DELETE
 	r.DELETE("/labxrays/delete/:id", controller.DeleteLabXray)
 
+
+	// ----------------- Patient -----------------------------
+
+	// Patient Routes
+	r.GET("/patients/list", controller.ListPatient)
+
+
 	// ----------------- ManageBed ----------------------------
 	// Bed Routes
 	r.GET("/beds", controller.ListBed)
@@ -81,6 +88,7 @@ func main() {
 	r.POST("/managebeds", controller.CreateManageBed)
 	r.PATCH("/managebeds", controller.UpdateManageBed)
 	r.DELETE("/managebeds/:id", controller.DeleteManageBed)
+	
 
 	// 	}
 	// }
