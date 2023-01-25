@@ -1,3 +1,6 @@
+import { RoleInterface } from "./IRole";
+import { GenderInterface } from "./IGender";
+import { DepartmentInterface } from "./IDepartment";
 export interface EmployeeInterface {
 
     ID?: number;
@@ -11,4 +14,9 @@ export interface EmployeeInterface {
     RoleID?: number;
     GenderID?: number;
     DepartmentID?: number;
+
+    Role?: RoleInterface;
+    Gender?: GenderInterface;
+    Department?: DepartmentInterface;
+
 }
