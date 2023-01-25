@@ -76,11 +76,29 @@ function ManageBed() {
                   localStorage.setItem("aid", row.ID);
                     handleDialogDeleteOpen(row.ID)}}
                   sx={{borderRadius: 15.5,'&:hover': { backgroundColor: '#ff4081'}}}>ลบ
-                  </Button>
-                
-          ,
-      }    // sx={{borderRadius: 15.5,'&:hover': { backgroundColor: '#ff4081'}}}
-
+                  </Button>,
+      },
+      {
+        field: " ",
+        headerName: " ",
+        sortable: true,
+        width: 100,
+        align:"center",
+        headerAlign: "center",
+        renderCell: ({ row }: Partial<GridRowParams>) =>
+            <Button component={RouterLink}
+                to="/managebed/update"
+                size="small"
+                variant="outlined"
+                color="primary"
+                onClick={() => {
+                    localStorage.setItem("aid", row.ID);
+                }}
+                sx={{borderRadius: 2,'&:hover': {color: '#fffdeb', backgroundColor: '#598e89'}}}
+            >
+                แก้ไข
+            </Button>,
+    },
   ];
 
   return (
@@ -113,17 +131,6 @@ function ManageBed() {
               sx = {{borderRadius: 3,'&:hover': {backgroundColor: '#70c4bc'}}}
             >
               + เพิ่มเตียงผู้ป่วยใน
-            </Button>
-          </Box>
-          <Box style={{ height: 10, width: "15%", marginTop: "10px" }}>
-            <Button
-              component={RouterLink}
-              to="/managebed/update"
-              variant="outlined"
-              color="primary"
-              sx = {{borderRadius: 3,'&:hover': {backgroundColor: '#c1e5e2'}}}
-            >
-              แก้ไขเตียงผู้ป่วย
             </Button>
           </Box>
         </Box>

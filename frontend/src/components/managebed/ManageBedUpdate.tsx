@@ -12,6 +12,8 @@ import Snackbar from "@mui/material/Snackbar";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import TextField from "@mui/material/TextField";
+import { useNavigate, useParams} from 'react-router-dom'
+
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -27,9 +29,10 @@ import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
 import { ListPatient } from "../../services/patient/HttpClineServincePatient";
 import { ListEmployees } from "../../services/EmployeeSystem/employeeServices";
 import { 
+    GetManageBedID,
     GetBed,
     GetBedStatus,
-    CreateManageBed } from "../../services/HttpClientServince";
+    UpdateManageBed } from "../../services/HttpClientServince";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -38,17 +41,62 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-function ManageBedCreate() {
+function ManageBedUpdate() {
+    let {id} = useParams();
+    const navigator = useNavigate()
+
+
   const [employee, setEmployee] = useState<EmployeeInterface>();
+
+  const getEmployee = async () => {
+    let res = await ListEmployees();
+    console.log(res);
+    if (res) {
+      setEmployee(res);
+    }
+  };
+
   const [patient, setPatient] = useState<PatientInterface[]>([]);
+
+  const getPatient = async () => {
+    let res = await ListPatient();
+    if (res) {
+      setPatient(res);
+    }
+  };
+
   const [beds, setBeds] = useState<BedInterface[]>([]);
   const [bedstatuses, setBedstatuses] = useState<BedStatusInterface[]>([]);
+
+  const getBed = async () => {
+    let res = await GetBed();
+    if (res) {
+      setBeds(res);
+    }
+  };
+
+  const getBedStatus = async () => {
+    let res = await GetBedStatus();
+    managebed.BedStatusID = res.ID;
+    if (res) {
+      setBedstatuses(res);
+    }
+  };
+
 
   const [managebed, setManageBed] = useState<ManageBedInterface>({
     Hn: 0,
     Note: "",
     ManageDate: new Date(), 
   });
+
+  const getManageBedByID = async () => {
+    let res = await GetManageBedID()
+    if(res){
+        setEmployee(res)
+    }
+  }
+
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
@@ -75,57 +123,29 @@ function ManageBedCreate() {
   const handleInputChange = (
     event: React.ChangeEvent<{ id?: string; value: any }>
   ) => {
-    const id = event.target.id as keyof typeof ManageBedCreate;
+    const id = event.target.id as keyof typeof ManageBedUpdate;
     const { value } = event.target;
     setManageBed({ ...managebed, [id]: value });
 
   }
 
-  const getEmployee = async () => {
-    let res = await ListEmployees();
-    console.log(res);
-    if (res) {
-      setEmployee(res);
-    }
-  };
+  const handleChangeTextField = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const name = event.target.name as keyof typeof managebed;
+    setManageBed({
+        ...managebed,
+        [name]: event.target.value,
+    });
 
-  const getPatient = async () => {
-    let res = await ListPatient();
-    if (res) {
-      setPatient(res);
-    }
-  };
-
-  const getBed = async () => {
-    let res = await GetBed();
-    if (res) {
-      setBeds(res);
-    }
-  };
-
-  const getBedStatus = async () => {
-    let res = await GetBedStatus();
-    managebed.BedStatusID = res.ID;
-    if (res) {
-      setBedstatuses(res);
-    }
-  };
-
-  useEffect(() => {
-    getEmployee();
-    getPatient();
-    getBed();
-    getBedStatus();
-
-  }, []);
+};
   
   const convertType = (data: string | number | undefined) => {
     let val = typeof data === "string" ? parseInt(data) : data;
     return val;
   };
-
+  
   async function submit() {
     let data = {
+      ID: convertType(managebed.ID),
       PatientID: convertType(managebed.PatientID),
       EmployeeID: convertType(localStorage.getItem("id") as string),
       BedID: convertType(managebed.BedID),
@@ -135,13 +155,22 @@ function ManageBedCreate() {
       ManageDate: managebed.ManageDate,
 
     };
-    let res = await CreateManageBed(data);
+    let res = await UpdateManageBed(data);
     if (res) {
       setSuccess(true);
     } else {
       setError(true);
     }
   }
+
+  useEffect(() => {
+    getEmployee();
+    getManageBedByID();
+    getPatient();
+    getBed();
+    getBedStatus();
+
+  }, []);
 
   return (
     <Container maxWidth="md" >
@@ -152,7 +181,7 @@ function ManageBedCreate() {
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert onClose={handleClose} severity="success">
-          บันทึกสำเร็จ
+          แก้ไขข้อมูลสำเร็จ
         </Alert>
       </Snackbar>
       <Snackbar
@@ -162,7 +191,7 @@ function ManageBedCreate() {
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert onClose={handleClose} severity="error">
-          บันทึกผิดพลาด
+          แก้ไขข้อมูลผิดพลาด
         </Alert>
       </Snackbar>
       <Paper>
@@ -179,7 +208,7 @@ function ManageBedCreate() {
               color="primary"
               gutterBottom
             >
-              ระบบจัดการเตียงผู้ป่วยใน
+              ระบบจัดการเตียงผู้ป่วยใน Update Mode {managebed?.ID}
             </Typography>
           </Box>
         </Box>
@@ -252,24 +281,32 @@ function ManageBedCreate() {
             </FormControl>
           </Grid>
           <Grid item xs={6}>
-            <p>หมายเหตุ*</p>
-            <TextField
-              fullWidth
-              id="Note"
-              type="string"
-              variant="outlined"
-              onChange={handleInputChange}
-            />
+          <p>หมายเหตุ *</p>
+            <TextField className='StyledTextField'
+                autoComplete="off"
+                id="Name"
+                variant="outlined"
+                size="small"
+                color="primary"
+                fullWidth
+                onChange={handleChangeTextField}
+                inputProps={{name: "Note",}}
+                value={managebed.Note}
+                />
           </Grid>
           <Grid item xs={6}>
-            <p>HN</p>
-            <TextField
-              fullWidth
-              id="Hn"
-              type="string"
-              variant="outlined"
-              onChange={handleInputChange}
-            />
+          <p>Hn</p>
+            <TextField className='StyledTextField'
+                autoComplete="off"
+                id="Name"
+                variant="outlined"
+                size="small"
+                color="primary"
+                fullWidth
+                onChange={handleChangeTextField}
+                inputProps={{name: "Hn",}}
+                value={managebed.Hn}
+                />
           </Grid>
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
@@ -307,7 +344,7 @@ function ManageBedCreate() {
               sx = {{borderRadius: 3,'&:hover': {backgroundColor: '#80cbc4'}}}
 
             >
-              Save
+              Update
             </Button>
           </Grid>
         </Grid>
@@ -316,4 +353,4 @@ function ManageBedCreate() {
   );
 }
 
-export default ManageBedCreate;
+export default ManageBedUpdate;
