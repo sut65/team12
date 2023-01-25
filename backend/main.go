@@ -26,15 +26,15 @@ func main() {
 	//router.POST("/createbills", controller.UpdatePatient)
 
 	// Get by id
-	r.GET("/employee/:id", controller.GetEmployee)
+	r.GET("/employee/get/:id", controller.GetEmployee)
 	// List
 	r.GET("/employees", controller.ListEmployee)
 	// Create
-	r.POST("/employee", controller.CreateEmployee)
+	r.POST("/employee/create", controller.CreateEmployee)
 	// UPDATE
-	r.PATCH("/employee", controller.UpdateEmployee)
+	r.PATCH("/employee/update", controller.UpdateEmployee)
 	// DELETE
-	r.DELETE("/employee/:id", controller.DeleteEmployee)
+	r.DELETE("/employees/delete/:id", controller.DeleteEmployee)
 	// ----------------- Employee ----------------------------
 	// Role Routes
 	r.GET("/roles", controller.ListRole)
@@ -64,7 +64,7 @@ func main() {
 	// UPDATE
 	r.PATCH("/labxray", controller.UpdateLabXray)
 	// DELETE
-	r.DELETE("/labxray/:id", controller.DeleteLabXray)
+	r.DELETE("/labxrays/:id", controller.DeleteLabXray)
 
 	// ----------------- ManageBed ----------------------------
 	// Bed Routes
