@@ -145,7 +145,7 @@ async function ListMedicine() {
             "Content-Type": "application/json",
         }
     }
-    let res = await fetch(`${apiUrl}/medicine`, reqOpt)
+    let res = await fetch(`${apiUrl}/medicine/list`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){

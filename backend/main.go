@@ -28,7 +28,7 @@ func main() {
 	// Get by id
 	r.GET("/employee/get/:id", controller.GetEmployee)
 	// List
-	r.GET("/employees", controller.ListEmployee)
+	r.GET("/employees/list", controller.ListEmployee)
 	// Create
 	r.POST("/employee/create", controller.CreateEmployee)
 	// UPDATE
@@ -37,34 +37,34 @@ func main() {
 	r.DELETE("/employees/delete/:id", controller.DeleteEmployee)
 	// ----------------- Employee ----------------------------
 	// Role Routes
-	r.GET("/roles", controller.ListRole)
-	r.GET("/role/:id", controller.GetRole)
+	r.GET("/roles/list", controller.ListRole)
+	r.GET("/role/get/:id", controller.GetRole)
 	// router.POST("/roles", controller.CreateRole)
 	// router.PATCH("/roles", controller.UpdateRole)
 	// router.DELETE("/roles/:id", controller.DeleteRole)
 	// Gender
-	r.GET("/genders", controller.ListGender)
-	r.GET("/gender/:id", controller.GetGender)
+	r.GET("/genders/list", controller.ListGender)
+	r.GET("/gender/get/:id", controller.GetGender)
 	// Department
-	r.GET("/departments", controller.ListDepartment)
-	r.GET("/department/:id", controller.GetDepartment)
-	r.GET("/departmentbyrole/:id", controller.ListDepartmentByRole)
+	r.GET("/departments/list", controller.ListDepartment)
+	r.GET("/department/get/:id", controller.GetDepartment)
+	r.GET("/departmentbyrole/get/:id", controller.ListDepartmentByRole)
 
 	// ------------------ Lab X ray ------------------------------
 	// labtype Routes
-	r.GET("/labtypes", controller.ListLabType)
-	r.GET("/labtype/:id", controller.GetLabType)
+	r.GET("/labtypes/list", controller.ListLabType)
+	r.GET("/labtype/get/:id", controller.GetLabType)
 	// labxray Routes
 	// Get by id
-	r.GET("/labxray/:id", controller.GetLabXray)
+	r.GET("/labxray/get/:id", controller.GetLabXray)
 	// List
-	r.GET("/labxrays", controller.ListLabXray)
+	r.GET("/labxrays/list", controller.ListLabXray)
 	// Create
-	r.POST("/labxray", controller.CreateLabXray)
+	r.POST("/labxray/create", controller.CreateLabXray)
 	// UPDATE
-	r.PATCH("/labxray", controller.UpdateLabXray)
+	r.PATCH("/labxray/update", controller.UpdateLabXray)
 	// DELETE
-	r.DELETE("/labxrays/:id", controller.DeleteLabXray)
+	r.DELETE("/labxrays/delete/:id", controller.DeleteLabXray)
 
 	// ----------------- ManageBed ----------------------------
 	// Bed Routes
