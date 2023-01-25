@@ -42,6 +42,10 @@ func SetupDatabase() {
 		&Bed{},
 		&BedStatus{},
 		&ManageBed{},
+
+		// VitalsignsRecord
+		&VitalSignsRecord{},
+		&Status{},
 	)
 
 	db = database
@@ -534,4 +538,43 @@ func SetupDatabase() {
 	}
 	db.Model(&PrincipalDiagnosis{}).Create(&pd2)
 	//==========================================================================================//
+	//=============================================================Vital Signs==========================================
+	//Status Data
+	status1 := Status{
+		Status: "Stable",
+	}
+	db.Model(&Status{}).Create(&status1)
+	status2 := Status{
+		Status: "Unstable",
+	}
+	db.Model(&Status{}).Create(&status2)
+
+	//Vital signs 1
+	vsr1 := VitalSignsRecord{
+		BloodPressureHigh: 120,
+		BloodPressureLow:  80,
+		PulseRate:         70,
+		RespirationRate:   20,
+		BodyTemperature:   36.55,
+		Status:            status1,
+		Employee:          emp3,
+		Patient:           patient1,
+		CheckDate:         time.Date(2023, 1, 23, 0, 0, 0, 0, time.UTC),
+	}
+	db.Model(&VitalSignsRecord{}).Create(&vsr1)
+
+	//Vital signs 2
+	vsr2 := VitalSignsRecord{
+		BloodPressureHigh: 100,
+		BloodPressureLow:  70,
+		PulseRate:         80,
+		RespirationRate:   22,
+		BodyTemperature:   36.25,
+		Status:            status1,
+		Employee:          emp3,
+		Patient:           patient1,
+		CheckDate:         time.Date(2023, 1, 20, 0, 0, 0, 0, time.UTC),
+	}
+	db.Model(&VitalSignsRecord{}).Create(&vsr2)
+
 }
