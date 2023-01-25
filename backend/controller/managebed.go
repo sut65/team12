@@ -132,7 +132,7 @@ func UpdateManageBed(c *gin.Context) {
 	}
 
 	if managebed.Hn == 0 {
-		managebed.Hn = managebed.Hn
+		managebed.Hn = oldmanagebed.Hn
 	}
 
 	if managebed.ManageDate.String() == "0001-01-01 00:00:00 +0000 UTC" {
