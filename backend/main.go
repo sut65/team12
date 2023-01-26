@@ -88,7 +88,14 @@ func main() {
 	r.POST("/managebeds", controller.CreateManageBed)
 	r.PATCH("/managebeds", controller.UpdateManageBed)
 	r.DELETE("/managebeds/:id", controller.DeleteManageBed)
-	
+
+	// ----------------- MedicalSlip ----------------------------
+    // MedicalSlip Routes
+	r.GET("/medicalslips", controller.ListMedicalSlip)
+	r.GET("/medicalslip/:id", controller.GetMedicalSlip)
+	r.POST("/medicalslips", controller.CreateMedicalSlip)
+	r.PATCH("/medicalslips", controller.UpdateMedicalSlip)
+	r.DELETE("/medicalslips/:id", controller.DeleteMedicalSlip)
 
 	// 	}
 	// }

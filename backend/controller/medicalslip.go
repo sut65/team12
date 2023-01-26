@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// POST /medicalslip
+// POST /medicalslips
 func CreateMedicalSlip(c *gin.Context) {
 
 	var medicalslip entity.MedicalSlip

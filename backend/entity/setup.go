@@ -500,6 +500,20 @@ func SetupDatabase() {
 	}
 	db.Model(&ManageBed{}).Create(&managebed2)
 
+	//=========================================MedicalSlip=================================
+	// medicalslip1 := MedicalSlip{
+	// 	Total:      100000.00,
+	// 	Note:       "**",
+	// 	MedicalDate: time.Date(2002, 12, 14, 0, 0, 0, 0, time.UTC),
+	// 	LabXray:        LabX1,
+	// 	ORrecord:  null,
+	// 	Prescription:  prescription1,
+
+	// 	Employee:   emp5,
+	// 	Patient:    patient2,
+	// }
+	// db.Model(&MedicalSlip{}).Create(&medicalslip1)
+
 	//=====================================================================================
 
 	//Principle data
