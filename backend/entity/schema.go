@@ -38,7 +38,7 @@ type Employee struct {
 	rtORrecord        []ORrecord        `gorm:"foreignKey:StaffReturingID"`
 	ManageBeds        []ManageBed       `gorm:"foreignKey:EmployeeID"`
 	SpecifyFoodTypes  []SpecifyFoodType `gorm:"foreignKey:DoctorID"`
-	MadicalSlips      []MadicalSlip     `gorm:"foreignKey:EmployeeID"`
+	MedicalSlips      []MedicalSlip     `gorm:"foreignKey:EmployeeID"`
 }
 type Role struct {
 	gorm.Model
@@ -81,7 +81,7 @@ type LabXray struct {
 	//to easier for adding FK
 	Patient Patient `gorm:"references:id"`
 
-	MadicalSlips []MadicalSlip `gorm:"foreignKey:LabXrayID"`
+	MedicalSlips []MedicalSlip `gorm:"foreignKey:LabXrayID"`
 }
 
 type LabType struct {
@@ -133,7 +133,7 @@ type Patient struct {
 	SpecifyFoodTypes []SpecifyFoodType `gorm:"foreignKey:PatientID"`
 	ManageBeds       []ManageBed       `gorm:"foreignKey:PatientID"`
 
-	MadicalSlips []MadicalSlip `gorm:"foreignKey:PatientID"`
+	MedicalSlips []MedicalSlip `gorm:"foreignKey:PatientID"`
 }
 
 // =========================================================================================================================================================
@@ -161,7 +161,7 @@ type Prescription struct {
 	Employee Employee `gorm:"references:id"`
 	Order    Employee `gorm:"references:id"`
 
-	MadicalSlips []MadicalSlip `gorm:"foreignKey:PrescriptionID"`
+	MedicalSlips []MedicalSlip `gorm:"foreignKey:PrescriptionID"`
 }
 
 // =========================================================================================================================================================
@@ -378,12 +378,12 @@ type ORrecord struct {
 	StaffReciving Employee      `gorm:"references:id"`
 	StaffReturing Employee      `gorm:"references:id"`
 
-	MadicalSlips []MadicalSlip `gorm:"foreignKey:ORrecordID"`
+	MedicalSlips []MedicalSlip `gorm:"foreignKey:ORrecordID"`
 }
 
 //======================================MadicalSlip==================================
 
-type MadicalSlip struct {
+type MedicalSlip struct {
 	gorm.Model
 	Total      float32
 	Note       string
