@@ -40,7 +40,7 @@ func SetupDatabase() {
 
 		//sft
 		&SpecifyFoodType{},
-		//&FoodType{},
+		&FoodType{},
 
 		// ManageBed
 		&Bed{},
@@ -733,7 +733,7 @@ func SetupDatabase() {
 
 		//==================================================== xxxSpecifyFoodType ==========================================================================================//
 
-		/*foodtype1 := FoodType{
+		foodtype1 := FoodType{
 			FoodType:      "อาหารธรรมดา",
 		}
 		db.Model(&FoodType{}).Create(&foodtype1)
@@ -755,7 +755,7 @@ func SetupDatabase() {
 		foodtype5 := FoodType{
 			FoodType:      "อาหารอื่นๆตามเเพทย์สั่ง",
 		}
-		db.Model(&FoodType{}).Create(&foodtype5)*/
+		db.Model(&FoodType{}).Create(&foodtype5)
 
 		sft1 := SpecifyFoodType{
 			Patient:     patient1,

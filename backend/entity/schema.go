@@ -386,7 +386,7 @@ type SpecifyFoodType struct {
 	PrincipalDiagnosis       PrincipalDiagnosis `gorm:"references:id"`
 
 	FoodTypeID *uint
-	//FoodType   FoodType `gorm:"references:id"`
+	FoodType   FoodType `gorm:"references:id"`
 
 	DoctorID  *uint
 	Doctor    Employee `gorm:"references:id"`
@@ -395,10 +395,10 @@ type SpecifyFoodType struct {
 
 }
 
-/*type FoodType struct {
+type FoodType struct {
 	gorm.Model
 	FoodType       string
 	SpecifyFoodTypes []SpecifyFoodType `gorm:"foreignKey:FoodTypeID"`
-}*/
+}
 
 //==================================================== xxSpecifyFoodType ==========================================================================================//
