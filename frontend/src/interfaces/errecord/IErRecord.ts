@@ -1,6 +1,6 @@
 import { EmployeeInterface } from "../employee/IEmployee";
 import { PatientInterface } from "../patient/IPatient";
-import { ToEInterface } from "./IToe";
+import { ToEInterface } from "./IToE";
 import { RoomInterface } from "./IRoom";
 
 export interface ErRecordInterface {
