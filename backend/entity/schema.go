@@ -37,7 +37,11 @@ type Employee struct {
 	rcORrecord        []ORrecord     `gorm:"foreignKey:StaffRecivingID"`
 	rtORrecord        []ORrecord     `gorm:"foreignKey:StaffReturingID"`
 	ManageBeds        []ManageBed    `gorm:"foreignKey:EmployeeID"`
+<<<<<<< HEAD
 	SpecifyFoodTypes  []SpecifyFoodType `gorm:"foreignKey:DoctorID"`
+=======
+	MadicalSlips      []MadicalSlip  `gorm:"foreignKey:EmployeeID"`
+>>>>>>> c4f1262 (add entity MadicalSlip - close #113)
 }
 type Role struct {
 	gorm.Model
@@ -79,6 +83,8 @@ type LabXray struct {
 	PatientID *uint
 	//to easier for adding FK
 	Patient Patient `gorm:"references:id"`
+
+	MadicalSlips []MadicalSlip `gorm:"foreignKey:LabXrayID"`
 }
 
 type LabType struct {
@@ -127,8 +133,15 @@ type Patient struct {
 
 	LabXrays     []LabXray      `gorm:"foreignKey:PatientID"`
 	Prescription []Prescription `gorm:"foreignKey:PatientID"`
+<<<<<<< HEAD
 	SpecifyFoodTypes []SpecifyFoodType `gorm:"foreignKey:PatientID"`
 	ManageBeds []ManageBed `gorm:"foreignKey:PatientID"`
+=======
+
+	ManageBeds   []ManageBed `gorm:"foreignKey:PatientID"`
+	MadicalSlips []MadicalSlip `gorm:"foreignKey:PatientID"`
+
+>>>>>>> c4f1262 (add entity MadicalSlip - close #113)
 }
 
 // =========================================================================================================================================================
@@ -155,6 +168,8 @@ type Prescription struct {
 	Medicine Medicine `gorm:"references:id"`
 	Employee Employee `gorm:"references:id"`
 	Order    Employee `gorm:"references:id"`
+
+	MadicalSlips []MadicalSlip `gorm:"foreignKey:PrescriptionID"`
 }
 
 // =========================================================================================================================================================
@@ -342,6 +357,7 @@ type OperatingRoom struct {
 	ORtype SurgeryType `gorm:"references:id"`
 	//
 	ORrecord []ORrecord `gorm:"foreignKey:OperatingRoomID"`
+
 }
 type ORrecord struct {
 	gorm.Model
@@ -370,6 +386,35 @@ type ORrecord struct {
 	SurgeryState  SurgeryState  `gorm:"references:id"`
 	StaffReciving Employee      `gorm:"references:id"`
 	StaffReturing Employee      `gorm:"references:id"`
+
+	MadicalSlips []MadicalSlip `gorm:"foreignKey:ORrecordID"`
+
+}
+
+//======================================MadicalSlip==================================
+
+type MadicalSlip struct {
+	gorm.Model
+	Total      float32
+	Note       string
+	ManageDate time.Time
+
+	//FK
+	PatientID *uint
+	Patient   Patient
+
+	EmployeeID *uint
+	Employee   Employee
+
+	LabXrayID *uint
+	LabXray   LabXray
+
+	ORrecordID *uint
+	ORrecord   ORrecord
+
+	PrescriptionID *uint
+	Prescription   Prescription
+
 }
 
 //==================================================== xxxSpecifyFoodType ==========================================================================================//
