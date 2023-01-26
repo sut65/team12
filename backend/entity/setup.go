@@ -60,6 +60,11 @@ func SetupDatabase() {
 		&SurgeryState{},
 		&OperatingRoom{},
 		&ORrecord{},
+		// sprint 1 Kool Problem Report
+		&ClassProb{},
+		&Problem{},
+		&NumPlace{},
+		&ProblemReport{},
 	)
 
 	db = database
@@ -909,5 +914,157 @@ func SetupDatabase() {
 		Note:            "ต้องคอยดูอาการข้างเคียงอย่างใกล้ชิด",
 	}
 	db.Model(&ORrecord{}).Create(&rec2)
+
+	/********************************* KOOL แจ้งซ่อม *********************************/
+	// Dummy ข้อมูล classprob
+	classprob1 := ClassProb{ClassProbType: "ห้องพิเศษ"}
+	db.Model(&ClassProb{}).Create(&classprob1)
+	classprob2 := ClassProb{ClassProbType: "อุปกรณ์การแพทย์"}
+	db.Model(&ClassProb{}).Create(&classprob2)
+	classprob3 := ClassProb{ClassProbType: "เตียงผู้ป่วย"}
+	db.Model(&ClassProb{}).Create(&classprob3)
+	classprob4 := ClassProb{ClassProbType: "ห้องผ่าตัด"}
+	db.Model(&ClassProb{}).Create(&classprob4)
+	classprob5 := ClassProb{ClassProbType: "อื่นๆ"}
+	db.Model(&ClassProb{}).Create(&classprob5)
+
+	// Dummy ข้อมูล problem
+	problem1 := Problem{ProblemName: "ชำรุด"}
+	db.Model(&Problem{}).Create(&problem1)
+	problem2 := Problem{ProblemName: "ไม่เพียงพอ"}
+	db.Model(&Problem{}).Create(&problem2)
+	problem3 := Problem{ProblemName: "หมดอายุใช้งาน"}
+	db.Model(&Problem{}).Create(&problem3)
+	problem4 := Problem{ProblemName: "อื่นๆ"}
+	db.Model(&Problem{}).Create(&problem4)
+
+	// Dummy ข้อมูล numplace
+	numplace1 := NumPlace{Name: "R001", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace1)
+	numplace2 := NumPlace{Name: "R002", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace2)
+	numplace3 := NumPlace{Name: "R003", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace3)
+	numplace4 := NumPlace{Name: "R004", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace4)
+	numplace5 := NumPlace{Name: "R005", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace5)
+	numplace6 := NumPlace{Name: "R006", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace6)
+	numplace7 := NumPlace{Name: "R007", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace7)
+	numplace8 := NumPlace{Name: "R008", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace8)
+	numplace9 := NumPlace{Name: "R009", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace9)
+	numplace10 := NumPlace{Name: "R010", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace10)
+	numplace11 := NumPlace{Name: "R011", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace11)
+	numplace12 := NumPlace{Name: "R012", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace12)
+	numplace13 := NumPlace{Name: "R013", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace13)
+	numplace14 := NumPlace{Name: "R014", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace14)
+	numplace15 := NumPlace{Name: "R015", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace15)
+	numplace16 := NumPlace{Name: "R016", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace16)
+	numplace17 := NumPlace{Name: "R017", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace17)
+	numplace18 := NumPlace{Name: "R018", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace18)
+	numplace19 := NumPlace{Name: "R019", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace19)
+	numplace20 := NumPlace{Name: "R020", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace20)
+	numplace21 := NumPlace{Name: "R021", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace21)
+	numplace22 := NumPlace{Name: "R022", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace22)
+	numplace23 := NumPlace{Name: "R023", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace23)
+	numplace24 := NumPlace{Name: "R024", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace24)
+	numplace25 := NumPlace{Name: "R025", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace25)
+	numplace26 := NumPlace{Name: "ชุดตรวจหู ตา รุ่น ALPK2", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace26)
+	numplace27 := NumPlace{Name: "ชุดตรวจหู ตา รุ่น KAWE", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace27)
+	numplace28 := NumPlace{Name: "ชุดตรวจหู ตา รุ่น SADDEN", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace28)
+	numplace29 := NumPlace{Name: "ปรอทวัดไข้", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace29)
+	numplace30 := NumPlace{Name: "ชุดให้ออกซิเจน รุ่น OXI-CARE", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace30)
+	numplace31 := NumPlace{Name: "ชุดให้ออกซิเจน รุ่น GENERIGO", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace31)
+	numplace32 := NumPlace{Name: "ชุดให้ออกซิเจน รุ่น CROWE", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace32)
+	numplace33 := NumPlace{Name: "เครื่องพ่นยา", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace33)
+	numplace34 := NumPlace{Name: "เครื่องวัดความดันดิจิตอล รุ่น KP-6120", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace34)
+	numplace35 := NumPlace{Name: "เครื่องวัดความดันดิจิตอล รุ่น KP-1820", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace35)
+	numplace36 := NumPlace{Name: "เครื่องวัดความดันดิจิตอล รุ่น KP-7520", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace36)
+	numplace37 := NumPlace{Name: "เครื่องวัดความดันปรอท", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace37)
+	numplace38 := NumPlace{Name: "เครื่องวัดออกซิเจนในเลือด", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace38)
+	numplace39 := NumPlace{Name: "เครื่องวัดคลื่นหัวใจ ECG", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace39)
+	numplace40 := NumPlace{Name: "โคมไฟผ่าตัด", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace40)
+	numplace41 := NumPlace{Name: "เครื่องช่างน้ำหนักผู้ป่วย", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace41)
+	numplace42 := NumPlace{Name: "เครื่อง Fetal Monitor", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace42)
+	numplace43 := NumPlace{Name: "เครื่อง Vital Signs Monitor", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace43)
+	numplace44 := NumPlace{Name: "เครื่อง Ultrasound", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace44)
+	numplace45 := NumPlace{Name: "เครื่อง Defibrilator", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace45)
+	numplace46 := NumPlace{Name: "A-001", ClassProb: classprob3}
+	db.Model(&NumPlace{}).Create(&numplace46)
+	numplace47 := NumPlace{Name: "A-002", ClassProb: classprob3}
+	db.Model(&NumPlace{}).Create(&numplace47)
+	numplace48 := NumPlace{Name: "B-001", ClassProb: classprob3}
+	db.Model(&NumPlace{}).Create(&numplace48)
+	numplace49 := NumPlace{Name: "C-002", ClassProb: classprob3}
+	db.Model(&NumPlace{}).Create(&numplace49)
+	numplace50 := NumPlace{Name: "ห้อง OR-1", ClassProb: classprob4}
+	db.Model(&NumPlace{}).Create(&numplace50)
+	numplace51 := NumPlace{Name: "ห้อง OR-2", ClassProb: classprob4}
+	db.Model(&NumPlace{}).Create(&numplace51)
+	numplace52 := NumPlace{Name: "ห้อง OR-3", ClassProb: classprob4}
+	db.Model(&NumPlace{}).Create(&numplace52)
+	numplace53 := NumPlace{Name: "ห้อง OR-4", ClassProb: classprob4}
+	db.Model(&NumPlace{}).Create(&numplace53)
+	numplace54 := NumPlace{Name: "ห้อง OR-5", ClassProb: classprob4}
+	db.Model(&NumPlace{}).Create(&numplace54)
+
+	report1 := ProblemReport{
+		User:      emp3,
+		ClassProb: classprob2,
+		NumPlace:  numplace40,
+		Problem:   problem2,
+		Date:      time.Date(2023, 1, 25, 0, 0, 0, 0, time.UTC),
+		Comment:   "ขาดแคลนที่แผนกแผนกโสตศอนาสิก",
+	}
+	db.Model(&ProblemReport{}).Create(&report1)
+	report2 := ProblemReport{
+		User:      emp3,
+		ClassProb: classprob3,
+		NumPlace:  numplace46,
+		Problem:   problem1,
+		Date:      time.Date(2023, 1, 25, 0, 0, 0, 0, time.UTC),
+		Comment:   "ล้อเตียงชำรุด",
+	}
+	db.Model(&ProblemReport{}).Create(&report2)
 
 }
