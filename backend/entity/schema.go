@@ -27,21 +27,18 @@ type Employee struct {
 	//save Department ID in FK
 	DepartmentID *uint
 	//to easier for adding FK
-	Department        Department     `gorm:"references:id"`
-	Patient           []Patient      `gorm:"foreignKey:EmployeeID"`
-	LabXrays          []LabXray      `gorm:"foreignKey:DoctorID"`
-	Prescription      []Prescription `gorm:"foreignKey:EmployeeID"`
-	PrescriptionOrder []Prescription `gorm:"foreignKey:OrderID"`
-	userORrecord      []ORrecord     `gorm:"foreignKey:UserID"`
-	drORrecord        []ORrecord     `gorm:"foreignKey:DoctorID"`
-	rcORrecord        []ORrecord     `gorm:"foreignKey:StaffRecivingID"`
-	rtORrecord        []ORrecord     `gorm:"foreignKey:StaffReturingID"`
-	ManageBeds        []ManageBed    `gorm:"foreignKey:EmployeeID"`
-<<<<<<< HEAD
+	Department        Department        `gorm:"references:id"`
+	Patient           []Patient         `gorm:"foreignKey:EmployeeID"`
+	LabXrays          []LabXray         `gorm:"foreignKey:DoctorID"`
+	Prescription      []Prescription    `gorm:"foreignKey:EmployeeID"`
+	PrescriptionOrder []Prescription    `gorm:"foreignKey:OrderID"`
+	userORrecord      []ORrecord        `gorm:"foreignKey:UserID"`
+	drORrecord        []ORrecord        `gorm:"foreignKey:DoctorID"`
+	rcORrecord        []ORrecord        `gorm:"foreignKey:StaffRecivingID"`
+	rtORrecord        []ORrecord        `gorm:"foreignKey:StaffReturingID"`
+	ManageBeds        []ManageBed       `gorm:"foreignKey:EmployeeID"`
 	SpecifyFoodTypes  []SpecifyFoodType `gorm:"foreignKey:DoctorID"`
-=======
-	MadicalSlips      []MadicalSlip  `gorm:"foreignKey:EmployeeID"`
->>>>>>> c4f1262 (add entity MadicalSlip - close #113)
+	MadicalSlips      []MadicalSlip     `gorm:"foreignKey:EmployeeID"`
 }
 type Role struct {
 	gorm.Model
@@ -131,17 +128,12 @@ type Patient struct {
 	PatientRight PatientRight `gorm:"references:id"`
 	Gender       Gender       `gorm:"references:id"`
 
-	LabXrays     []LabXray      `gorm:"foreignKey:PatientID"`
-	Prescription []Prescription `gorm:"foreignKey:PatientID"`
-<<<<<<< HEAD
+	LabXrays         []LabXray         `gorm:"foreignKey:PatientID"`
+	Prescription     []Prescription    `gorm:"foreignKey:PatientID"`
 	SpecifyFoodTypes []SpecifyFoodType `gorm:"foreignKey:PatientID"`
-	ManageBeds []ManageBed `gorm:"foreignKey:PatientID"`
-=======
+	ManageBeds       []ManageBed       `gorm:"foreignKey:PatientID"`
 
-	ManageBeds   []ManageBed `gorm:"foreignKey:PatientID"`
 	MadicalSlips []MadicalSlip `gorm:"foreignKey:PatientID"`
-
->>>>>>> c4f1262 (add entity MadicalSlip - close #113)
 }
 
 // =========================================================================================================================================================
@@ -287,7 +279,7 @@ type LoD struct {
 	gorm.Model
 	Disease            string
 	PrincipalDiagnosis []PrincipalDiagnosis `gorm:"foreignKey:LoDID"`
-	SpecifyFoodTypes  []SpecifyFoodType `gorm:"foreignKey:PrincipalDiagnosisID"`
+	SpecifyFoodTypes   []SpecifyFoodType    `gorm:"foreignKey:PrincipalDiagnosisID"`
 }
 
 //======================================ExclusiveRoom==================================
@@ -357,7 +349,6 @@ type OperatingRoom struct {
 	ORtype SurgeryType `gorm:"references:id"`
 	//
 	ORrecord []ORrecord `gorm:"foreignKey:OperatingRoomID"`
-
 }
 type ORrecord struct {
 	gorm.Model
@@ -388,7 +379,6 @@ type ORrecord struct {
 	StaffReturing Employee      `gorm:"references:id"`
 
 	MadicalSlips []MadicalSlip `gorm:"foreignKey:ORrecordID"`
-
 }
 
 //======================================MadicalSlip==================================
@@ -414,35 +404,32 @@ type MadicalSlip struct {
 
 	PrescriptionID *uint
 	Prescription   Prescription
-
 }
 
 //==================================================== xxxSpecifyFoodType ==========================================================================================//
 
 type SpecifyFoodType struct {
 	gorm.Model
-	
 
 	//FK
-	PatientID  *uint
-	Patient    Patient `gorm:"references:id"`
+	PatientID *uint
+	Patient   Patient `gorm:"references:id"`
 
-	PrincipalDiagnosisID  	   *uint
-	PrincipalDiagnosis       PrincipalDiagnosis `gorm:"references:id"`
+	PrincipalDiagnosisID *uint
+	PrincipalDiagnosis   PrincipalDiagnosis `gorm:"references:id"`
 
 	FoodTypeID *uint
 	FoodType   FoodType `gorm:"references:id"`
 
-	DoctorID  *uint
-	Doctor    Employee `gorm:"references:id"`
+	DoctorID *uint
+	Doctor   Employee `gorm:"references:id"`
 
-	DateTime  time.Time 
-
+	DateTime time.Time
 }
 
 type FoodType struct {
 	gorm.Model
-	FoodType       string
+	FoodType         string
 	SpecifyFoodTypes []SpecifyFoodType `gorm:"foreignKey:FoodTypeID"`
 }
 
