@@ -103,7 +103,7 @@ const themeshow = createTheme({
  return (
 <ThemeProvider theme={themeshow}>
   <div>
-  <Container maxWidth="lg">
+  <Container maxWidth="xl">
   <Box
         display="flex"
         sx={{
@@ -117,30 +117,30 @@ const themeshow = createTheme({
             color="primary"
             gutterBottom
           >
-            Employee data table
+            Employee
           </Typography>
         </Box>
 
         <Box>
           <Button 
             component={RouterLink}
-            to="/Man"
+            to="/employee/create"
             variant="contained"
-            color="primary"
+            color="success"
           >
             <Typography
               color="secondary"
               component="div"
               sx={{ flexGrow: 1 }}
             >
-              Record Employee Information
+              Create Employee
 
             </Typography>
           </Button>
         </Box>
       </Box>
         <div>
-          <Container maxWidth="lg">
+          <Container maxWidth="xl">
             <div style={{ height: 500, width: "120%", marginTop: "50px" }}>
               <TableContainer >
                 <Table aria-label="simple table">

@@ -54,6 +54,17 @@ func SetupDatabase() {
 		&Equipment{},
 		&DepartmentForEquipment{},
 		&RequisitionRecord{},
+		// sprint 1 Kool Operating
+		&Specialist{},
+		&SurgeryType{},
+		&SurgeryState{},
+		&OperatingRoom{},
+		&ORrecord{},
+		// sprint 1 Kool Problem Report
+		&ClassProb{},
+		&Problem{},
+		&NumPlace{},
+		&ProblemReport{},
 	)
 
 	db = database
@@ -745,51 +756,315 @@ func SetupDatabase() {
 	}
 	db.Model(&RequisitionRecord{}).Create(&rr1)
 
-		//==================================================== xxxSpecifyFoodType ==========================================================================================//
+	//==================================================== xxxSpecifyFoodType ==========================================================================================//
 
-		foodtype1 := FoodType{
-			FoodType:      "อาหารธรรมดา",
-		}
-		db.Model(&FoodType{}).Create(&foodtype1)
-	
-		foodtype2 := FoodType{
-			FoodType:      "อาหารอ่อน",
-		}
-		db.Model(&FoodType{}).Create(&foodtype2)
+	foodtype1 := FoodType{
+		FoodType: "อาหารธรรมดา",
+	}
+	db.Model(&FoodType{}).Create(&foodtype1)
 
-		foodtype3 := FoodType{
-			FoodType:      "อาหารเหลว",
-		}
-		db.Model(&FoodType{}).Create(&foodtype3)
-		foodtype4 := FoodType{
-			FoodType:      "อาหารเฉพาะโรค",
-		}
-		db.Model(&FoodType{}).Create(&foodtype4)
-		
-		foodtype5 := FoodType{
-			FoodType:      "อาหารอื่นๆตามเเพทย์สั่ง",
-		}
-		db.Model(&FoodType{}).Create(&foodtype5)
+	foodtype2 := FoodType{
+		FoodType: "อาหารอ่อน",
+	}
+	db.Model(&FoodType{}).Create(&foodtype2)
 
-		sft1 := SpecifyFoodType{
-			Patient:     patient1,
-			PrincipalDiagnosis:      pd1,
-			//FoodType:    foodtype1,
-			Doctor:      emp1,
-			DateTime: 	 time.Now(),
-		}
-		db.Model(&SpecifyFoodType{}).Create(&sft1)
+	foodtype3 := FoodType{
+		FoodType: "อาหารเหลว",
+	}
+	db.Model(&FoodType{}).Create(&foodtype3)
+	foodtype4 := FoodType{
+		FoodType: "อาหารเฉพาะโรค",
+	}
+	db.Model(&FoodType{}).Create(&foodtype4)
 
-		sft2 := SpecifyFoodType{
-			Patient:     patient2,
-			PrincipalDiagnosis:      pd2,
-			//FoodType:    foodtype2,
-			Doctor:      emp1,
-			DateTime: 	 time.Now(),
-		}
-		db.Model(&SpecifyFoodType{}).Create(&sft2)
-		
-	
-		//===================================================== xxSpecifyFoodType ==========================================================================================//
+	foodtype5 := FoodType{
+		FoodType: "อาหารอื่นๆตามเเพทย์สั่ง",
+	}
+	db.Model(&FoodType{}).Create(&foodtype5)
+
+	sft1 := SpecifyFoodType{
+		Patient:            patient1,
+		PrincipalDiagnosis: pd1,
+		//FoodType:    foodtype1,
+		Doctor:   emp1,
+		DateTime: time.Now(),
+	}
+	db.Model(&SpecifyFoodType{}).Create(&sft1)
+
+	sft2 := SpecifyFoodType{
+		Patient:            patient2,
+		PrincipalDiagnosis: pd2,
+		//FoodType:    foodtype2,
+		Doctor:   emp1,
+		DateTime: time.Now(),
+	}
+	db.Model(&SpecifyFoodType{}).Create(&sft2)
+
+	//===================================================== xxSpecifyFoodType ==========================================================================================//
+
+	/********************************* KOOL ผ่าตัด *********************************/
+	// Dummy ข้อมูล specialist
+	specialist1 := Specialist{
+		SpclistName: "General (ทั่วไป)",
+	}
+	db.Model(&Specialist{}).Create(&specialist1)
+	specialist2 := Specialist{
+		SpclistName: "Orthopedic (กระดูกและข้อ )",
+	}
+	db.Model(&Specialist{}).Create(&specialist2)
+	specialist3 := Specialist{
+		SpclistName: "Neuro (ประสาท)",
+	}
+	db.Model(&Specialist{}).Create(&specialist3)
+	specialist4 := Specialist{
+		SpclistName: "Spine (กระดูกสันหลัง)",
+	}
+	db.Model(&Specialist{}).Create(&specialist4)
+	specialist5 := Specialist{
+		SpclistName: "Urology (ระบบทางเดินปัสสาวะ)",
+	}
+	db.Model(&Specialist{}).Create(&specialist5)
+	specialist6 := Specialist{
+		SpclistName: "Cardiac/Thoracic (หัวใจ/ทรวงอก)",
+	}
+	db.Model(&Specialist{}).Create(&specialist6)
+	specialist7 := Specialist{
+		SpclistName: "Plastic (ตกแต่ง)",
+	}
+	db.Model(&Specialist{}).Create(&specialist7)
+	specialist8 := Specialist{
+		SpclistName: "Oculoplastic (ตา)",
+	}
+	db.Model(&Specialist{}).Create(&specialist8)
+	specialist9 := Specialist{
+		SpclistName: "Otolaryngology (โสตศอนาสิก)",
+	}
+	db.Model(&Specialist{}).Create(&specialist9)
+	specialist10 := Specialist{
+		SpclistName: "pediatric (เด็ก)",
+	}
+	db.Model(&Specialist{}).Create(&specialist10)
+	specialist11 := Specialist{
+		SpclistName: "childbirth (สูติกรรม)",
+	}
+	db.Model(&Specialist{}).Create(&specialist11)
+	specialist12 := Specialist{
+		SpclistName: "gynecology (นรีเวชกรรม)",
+	}
+	db.Model(&Specialist{}).Create(&specialist12)
+	specialist13 := Specialist{
+		SpclistName: "other (อื่นๆ)",
+	}
+	db.Model(&Specialist{}).Create(&specialist13)
+
+	// Dummy ข้อมูล surgery state
+	surgerystate1 := SurgeryState{StateName: "MAJOR"}
+	db.Model(&SurgeryState{}).Create(&surgerystate1)
+	surgerystate2 := SurgeryState{StateName: "MINOR"}
+	db.Model(&SurgeryState{}).Create(&surgerystate2)
+
+	// Dummy ข้อมูล surgery type
+	surgerytype1 := SurgeryType{TypeName: "EMERGENCY"}
+	db.Model(&SurgeryType{}).Create(&surgerytype1)
+	surgerytype2 := SurgeryType{TypeName: "ELECTIVE"}
+	db.Model(&SurgeryType{}).Create(&surgerytype2)
+
+	// Dummy ข้อมูล OperatingRoom
+	or1 := OperatingRoom{ORname: "ห้อง OR-1", ORtype: surgerytype1}
+	db.Model(&OperatingRoom{}).Create(&or1)
+	or2 := OperatingRoom{ORname: "ห้อง OR-2", ORtype: surgerytype1}
+	db.Model(&OperatingRoom{}).Create(&or2)
+	or3 := OperatingRoom{ORname: "ห้อง OR-3", ORtype: surgerytype1}
+	db.Model(&OperatingRoom{}).Create(&or3)
+	or4 := OperatingRoom{ORname: "ห้อง OR-4", ORtype: surgerytype2}
+	db.Model(&OperatingRoom{}).Create(&or4)
+	or5 := OperatingRoom{ORname: "ห้อง OR-5", ORtype: surgerytype2}
+	db.Model(&OperatingRoom{}).Create(&or5)
+
+	// Dummy ข้อมูล ORrecord
+	rec1 := ORrecord{
+		User:            emp3,
+		OperatingRoom:   or2,
+		Patient:         patient1,
+		Doctor:          emp1,
+		Specialist:      specialist9,
+		SurgeryStart:    time.Date(2023, 1, 24, 4, 12, 0, 0, time.UTC),
+		SurgeryEnd:      time.Date(2023, 1, 24, 8, 41, 0, 0, time.UTC),
+		SurgeryType:     surgerytype1,
+		SurgeryState:    surgerystate2,
+		StaffReciving:   emp3,
+		StaffReturing:   emp3,
+		OperatingResult: "การผ่้าตัดยังต้องคอยดูอาการผู้ป่อน มีโอกาสผ่าตัดซ้ำ",
+		Note:            "หากมีอาการไอต้องทำการผ่าตัด อีกรอบ",
+	}
+	db.Model(&ORrecord{}).Create(&rec1)
+	rec2 := ORrecord{
+		User:            emp3,
+		OperatingRoom:   or3,
+		Patient:         patient2,
+		Doctor:          emp1,
+		Specialist:      specialist9,
+		SurgeryStart:    time.Date(2023, 1, 25, 19, 0, 0, 0, time.UTC),
+		SurgeryEnd:      time.Date(2023, 1, 25, 22, 6, 0, 0, time.UTC),
+		SurgeryType:     surgerytype1,
+		SurgeryState:    surgerystate1,
+		StaffReciving:   emp3,
+		StaffReturing:   emp3,
+		OperatingResult: "การผ่้าตัดเรียบร้อย",
+		Note:            "ต้องคอยดูอาการข้างเคียงอย่างใกล้ชิด",
+	}
+	db.Model(&ORrecord{}).Create(&rec2)
+
+	/********************************* KOOL แจ้งซ่อม *********************************/
+	// Dummy ข้อมูล classprob
+	classprob1 := ClassProb{ClassProbType: "ห้องพิเศษ"}
+	db.Model(&ClassProb{}).Create(&classprob1)
+	classprob2 := ClassProb{ClassProbType: "อุปกรณ์การแพทย์"}
+	db.Model(&ClassProb{}).Create(&classprob2)
+	classprob3 := ClassProb{ClassProbType: "เตียงผู้ป่วย"}
+	db.Model(&ClassProb{}).Create(&classprob3)
+	classprob4 := ClassProb{ClassProbType: "ห้องผ่าตัด"}
+	db.Model(&ClassProb{}).Create(&classprob4)
+	classprob5 := ClassProb{ClassProbType: "อื่นๆ"}
+	db.Model(&ClassProb{}).Create(&classprob5)
+
+	// Dummy ข้อมูล problem
+	problem1 := Problem{ProblemName: "ชำรุด"}
+	db.Model(&Problem{}).Create(&problem1)
+	problem2 := Problem{ProblemName: "ไม่เพียงพอ"}
+	db.Model(&Problem{}).Create(&problem2)
+	problem3 := Problem{ProblemName: "หมดอายุใช้งาน"}
+	db.Model(&Problem{}).Create(&problem3)
+	problem4 := Problem{ProblemName: "อื่นๆ"}
+	db.Model(&Problem{}).Create(&problem4)
+
+	// Dummy ข้อมูล numplace
+	numplace1 := NumPlace{Name: "R001", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace1)
+	numplace2 := NumPlace{Name: "R002", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace2)
+	numplace3 := NumPlace{Name: "R003", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace3)
+	numplace4 := NumPlace{Name: "R004", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace4)
+	numplace5 := NumPlace{Name: "R005", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace5)
+	numplace6 := NumPlace{Name: "R006", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace6)
+	numplace7 := NumPlace{Name: "R007", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace7)
+	numplace8 := NumPlace{Name: "R008", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace8)
+	numplace9 := NumPlace{Name: "R009", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace9)
+	numplace10 := NumPlace{Name: "R010", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace10)
+	numplace11 := NumPlace{Name: "R011", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace11)
+	numplace12 := NumPlace{Name: "R012", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace12)
+	numplace13 := NumPlace{Name: "R013", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace13)
+	numplace14 := NumPlace{Name: "R014", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace14)
+	numplace15 := NumPlace{Name: "R015", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace15)
+	numplace16 := NumPlace{Name: "R016", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace16)
+	numplace17 := NumPlace{Name: "R017", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace17)
+	numplace18 := NumPlace{Name: "R018", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace18)
+	numplace19 := NumPlace{Name: "R019", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace19)
+	numplace20 := NumPlace{Name: "R020", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace20)
+	numplace21 := NumPlace{Name: "R021", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace21)
+	numplace22 := NumPlace{Name: "R022", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace22)
+	numplace23 := NumPlace{Name: "R023", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace23)
+	numplace24 := NumPlace{Name: "R024", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace24)
+	numplace25 := NumPlace{Name: "R025", ClassProb: classprob1}
+	db.Model(&NumPlace{}).Create(&numplace25)
+	numplace26 := NumPlace{Name: "ชุดตรวจหู ตา รุ่น ALPK2", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace26)
+	numplace27 := NumPlace{Name: "ชุดตรวจหู ตา รุ่น KAWE", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace27)
+	numplace28 := NumPlace{Name: "ชุดตรวจหู ตา รุ่น SADDEN", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace28)
+	numplace29 := NumPlace{Name: "ปรอทวัดไข้", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace29)
+	numplace30 := NumPlace{Name: "ชุดให้ออกซิเจน รุ่น OXI-CARE", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace30)
+	numplace31 := NumPlace{Name: "ชุดให้ออกซิเจน รุ่น GENERIGO", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace31)
+	numplace32 := NumPlace{Name: "ชุดให้ออกซิเจน รุ่น CROWE", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace32)
+	numplace33 := NumPlace{Name: "เครื่องพ่นยา", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace33)
+	numplace34 := NumPlace{Name: "เครื่องวัดความดันดิจิตอล รุ่น KP-6120", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace34)
+	numplace35 := NumPlace{Name: "เครื่องวัดความดันดิจิตอล รุ่น KP-1820", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace35)
+	numplace36 := NumPlace{Name: "เครื่องวัดความดันดิจิตอล รุ่น KP-7520", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace36)
+	numplace37 := NumPlace{Name: "เครื่องวัดความดันปรอท", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace37)
+	numplace38 := NumPlace{Name: "เครื่องวัดออกซิเจนในเลือด", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace38)
+	numplace39 := NumPlace{Name: "เครื่องวัดคลื่นหัวใจ ECG", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace39)
+	numplace40 := NumPlace{Name: "โคมไฟผ่าตัด", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace40)
+	numplace41 := NumPlace{Name: "เครื่องช่างน้ำหนักผู้ป่วย", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace41)
+	numplace42 := NumPlace{Name: "เครื่อง Fetal Monitor", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace42)
+	numplace43 := NumPlace{Name: "เครื่อง Vital Signs Monitor", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace43)
+	numplace44 := NumPlace{Name: "เครื่อง Ultrasound", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace44)
+	numplace45 := NumPlace{Name: "เครื่อง Defibrilator", ClassProb: classprob2}
+	db.Model(&NumPlace{}).Create(&numplace45)
+	numplace46 := NumPlace{Name: "A-001", ClassProb: classprob3}
+	db.Model(&NumPlace{}).Create(&numplace46)
+	numplace47 := NumPlace{Name: "A-002", ClassProb: classprob3}
+	db.Model(&NumPlace{}).Create(&numplace47)
+	numplace48 := NumPlace{Name: "B-001", ClassProb: classprob3}
+	db.Model(&NumPlace{}).Create(&numplace48)
+	numplace49 := NumPlace{Name: "C-002", ClassProb: classprob3}
+	db.Model(&NumPlace{}).Create(&numplace49)
+	numplace50 := NumPlace{Name: "ห้อง OR-1", ClassProb: classprob4}
+	db.Model(&NumPlace{}).Create(&numplace50)
+	numplace51 := NumPlace{Name: "ห้อง OR-2", ClassProb: classprob4}
+	db.Model(&NumPlace{}).Create(&numplace51)
+	numplace52 := NumPlace{Name: "ห้อง OR-3", ClassProb: classprob4}
+	db.Model(&NumPlace{}).Create(&numplace52)
+	numplace53 := NumPlace{Name: "ห้อง OR-4", ClassProb: classprob4}
+	db.Model(&NumPlace{}).Create(&numplace53)
+	numplace54 := NumPlace{Name: "ห้อง OR-5", ClassProb: classprob4}
+	db.Model(&NumPlace{}).Create(&numplace54)
+
+	report1 := ProblemReport{
+		User:      emp3,
+		ClassProb: classprob2,
+		NumPlace:  numplace40,
+		Problem:   problem2,
+		Date:      time.Date(2023, 1, 25, 0, 0, 0, 0, time.UTC),
+		Comment:   "ขาดแคลนที่แผนกแผนกโสตศอนาสิก",
+	}
+	db.Model(&ProblemReport{}).Create(&report1)
+	report2 := ProblemReport{
+		User:      emp3,
+		ClassProb: classprob3,
+		NumPlace:  numplace46,
+		Problem:   problem1,
+		Date:      time.Date(2023, 1, 25, 0, 0, 0, 0, time.UTC),
+		Comment:   "ล้อเตียงชำรุด",
+	}
+	db.Model(&ProblemReport{}).Create(&report2)
 
 }

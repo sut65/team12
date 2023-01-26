@@ -32,6 +32,9 @@ func ListDepartment(c *gin.Context) {
 func ListDepartmentByRole(c *gin.Context) {
 	var departments []entity.Department
 	id := c.Param("id")
+	if(id == "1"){
+		id = "2"
+	}
 	if err := entity.DB().Preload("Role").Raw("SELECT * FROM departments where role_id = ?", id).Scan(&departments).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return

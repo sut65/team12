@@ -29,6 +29,7 @@ import ManageBed from './components/managebed/ManageBed';
 import ManageBedCreate from './components/managebed/ManageBedCreate';
 import ManageBedUpdate from './components/managebed/ManageBedUpdate';
 import  Employee from './components/employee/Employee';
+import EmployeeCreateNew from './components/employee/EmployeeCreateNew';
 
 
 const drawerWidth = 240;
@@ -99,7 +100,8 @@ const mdTheme = createTheme({
 const menu = [
   { name: " : หน้าหลัก", icon: <HomeIcon color="primary" />, path: "/home" , role: "Nurse"},
   { name: " : จัดการเตียงคนไข้", icon: <BedroomChildIcon color="primary" />, path: "/managebed/create" ,role: "Nurse"},
-  { name: " : พนักงาน", icon: <BadgeOutlinedIcon color="primary"/>, path: "/employee" ,role: "HumanResourse"}
+  { name: " : พนักงาน", icon: <BadgeOutlinedIcon color="primary"/>, path: "/employee" ,role: "HumanResourse"},
+  //{ name: " : พนักงาน", icon: <BadgeOutlinedIcon color="primary"/>, path: "/employee/create" ,role: "HumanResourse"}
   //{ name: "ลงทะเบียนหนังสือ", icon: <MenuBookRoundedIcon />, path: "/books",role: "admin"},
   //{ name: "ลงทะเบียนสมาชิก", icon: <PeopleIcon />, path: "/users",role: "admin"},
   //{ name: "จองห้องค้นคว้า", icon: <MeetingRoomIcon />, path: "/researchroomreservationrecords" ,role: "user"},
@@ -230,6 +232,7 @@ function App() {
                 <Route  path="/managebed/create" element={<ManageBedCreate />} />
                 <Route  path="/managebed/update" element={<ManageBedUpdate />} />
                 <Route  path="/employee" element={<Employee />} />
+                <Route  path="/employee/create" element={<EmployeeCreateNew />} />
 
               </Routes>
             </Container>

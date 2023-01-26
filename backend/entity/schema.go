@@ -381,12 +381,50 @@ type ORrecord struct {
 	MedicalSlips []MedicalSlip `gorm:"foreignKey:ORrecordID"`
 }
 
+/***************** Problem Report ***********************/
+type ClassProb struct {
+	gorm.Model
+	ClassProbType string
+	//
+	ProblemReport []ProblemReport `gorm:"foreignKey:ClassProbID"`
+}
+type Problem struct {
+	gorm.Model
+	ProblemName string
+	//
+	ProblemReport []ProblemReport `gorm:"foreignKey:ClassProbID"`
+}
+type NumPlace struct {
+	gorm.Model
+	Name string
+	//FK
+	ClassProbID *uint
+	ClassProb   ClassProb `gorm:"references:id"`
+	//
+	ProblemReport []ProblemReport `gorm:"foreignKey:NumPlaceID"`
+}
+type ProblemReport struct {
+	gorm.Model
+	//FK
+	UserID      *uint
+	ClassProbID *uint
+	NumPlaceID  *uint
+	ProblemID   *uint
+	Date        time.Time
+	Comment     string
+	//JOIN
+	User      Employee  `gorm:"references:id"`
+	ClassProb ClassProb `gorm:"references:id"`
+	NumPlace  NumPlace  `gorm:"references:id"`
+	Problem   Problem   `gorm:"references:id"`
+}
+
 //======================================MadicalSlip==================================
 
 type MedicalSlip struct {
 	gorm.Model
-	Total      float32
-	Note       string
+	Total       float32
+	Note        string
 	MedicalDate time.Time
 
 	//FK

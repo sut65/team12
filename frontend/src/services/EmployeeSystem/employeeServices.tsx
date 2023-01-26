@@ -54,7 +54,7 @@ async function GetEmployee(ID: string | undefined) {
 }
 
 // Create Employee
-async function PostEmployee(emp:Partial<EmployeeInterface>) {
+async function CreateEmployee(emp:Partial<EmployeeInterface>) {
     let data = {
         FirstName: emp.FirstName,
         LastName: emp.LastName,
@@ -237,7 +237,7 @@ async function GetDepartment(ID: string | undefined) {
     return res
 }
 // GET By ID DepartmentByRole
-async function GetDepartmentByRole(ID: string | undefined) {
+async function GetDepartmentByRole(ID: number | undefined) {
     const reqOpt = {
         method: "GET",
         headers: {
@@ -311,7 +311,7 @@ export {
     ListEmployees, 
     ListRoles, 
     DeleteEmployee, 
-    PostEmployee, 
+    CreateEmployee, 
     UpdateEmployee, 
     GetEmployee, 
     ListDepartments, 
