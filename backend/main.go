@@ -115,6 +115,23 @@ func main() {
 	r.PATCH("/UpdateORrecord/update", controller.UpdateORrecord)
 	r.DELETE("/DeleteORrecord/delete/:id", controller.DeleteORrecord)
 
+	// ----------------- Kool แจ้งบำรุง ----------------------------
+	// Routes ClassProb
+	r.GET("/ListClassProb", controller.ListClassProb)
+	r.GET("/GetClassProb/:id", controller.GetClassProb)
+	// Routes NumPlace
+	r.GET("/ListNumPlace", controller.ListNumPlace)
+	r.GET("/GetNumPlace/:id", controller.GetNumPlace)
+	// Routes Problem
+	r.GET("/ListProblem", controller.ListProblem)
+	r.GET("/GetProblem/:id", controller.GetProblem)
+	// Routes ProblemReport
+	r.GET("/ListProblemReport", controller.ListProblemReport)
+	r.GET("/GetProblemReport/:id", controller.GetProblemReport)
+	r.POST("/CreateProblemReport/create", controller.CreateProblemReport)
+	r.PATCH("/UpdateProblemReport/update", controller.UpdateProblemReport)
+	r.DELETE("/DeleteProblemReport/delete/:id", controller.DeleteProblemReport)
+
 	// 	}
 	// }
 	// // Signup User Route
