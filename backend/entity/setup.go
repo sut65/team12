@@ -46,6 +46,10 @@ func SetupDatabase() {
 		// VitalsignsRecord
 		&VitalSignsRecord{},
 		&Status{},
+		//Requisition
+		&Equipment{},
+		&DepartmentForEquipment{},
+		&RequisitionRecord{},
 	)
 
 	db = database
@@ -576,5 +580,151 @@ func SetupDatabase() {
 		CheckDate:         time.Date(2023, 1, 20, 0, 0, 0, 0, time.UTC),
 	}
 	db.Model(&VitalSignsRecord{}).Create(&vsr2)
+
+	//=============================================================Requisition=================================
+	Equipment1 := Equipment{
+		Name: "ชุดตรวจหู ตา รุ่น ALPK2",
+	}
+	db.Model(&Equipment{}).Create(&Equipment1)
+	Equipment2 := Equipment{
+		Name: "ชุดตรวจหู ตา รุ่น KAWE",
+	}
+	db.Model(&Equipment{}).Create(&Equipment2)
+	Equipment3 := Equipment{
+		Name: "ชุดตรวจหู ตา รุ่น SADDEN",
+	}
+	db.Model(&Equipment{}).Create(&Equipment3)
+	Equipment4 := Equipment{
+		Name: "ปรอทวัดไข้",
+	}
+	db.Model(&Equipment{}).Create(&Equipment4)
+	Equipment5 := Equipment{
+		Name: "ชุดให้ออกซิเจน รุ่น OXI-CARE",
+	}
+	db.Model(&Equipment{}).Create(&Equipment5)
+	Equipment6 := Equipment{
+		Name: "ชุดให้ออกซิเจน รุ่น GENERIGO",
+	}
+	db.Model(&Equipment{}).Create(&Equipment6)
+	Equipment7 := Equipment{
+		Name: "ชุดให้ออกซิเจน รุ่น CROWE",
+	}
+	db.Model(&Equipment{}).Create(&Equipment7)
+	Equipment8 := Equipment{
+		Name: "เครื่องพ่นยา",
+	}
+	db.Model(&Equipment{}).Create(&Equipment8)
+	Equipment9 := Equipment{
+		Name: "เครื่องวัดความดันดิจิตอล รุ่น KP-6120",
+	}
+	db.Model(&Equipment{}).Create(&Equipment9)
+	Equipment10 := Equipment{
+		Name: "เครื่องวัดความดันดิจิตอล รุ่น KP-1820",
+	}
+	db.Model(&Equipment{}).Create(&Equipment10)
+	Equipment11 := Equipment{
+		Name: "เครื่องวัดความดันดิจิตอล รุ่น KP-7520",
+	}
+	db.Model(&Equipment{}).Create(&Equipment11)
+	Equipment12 := Equipment{
+		Name: "เครื่องวัดความดันปรอท",
+	}
+	db.Model(&Equipment{}).Create(&Equipment12)
+	Equipment13 := Equipment{
+		Name: "เครื่องวัดออกซิเจนในเลือด",
+	}
+	db.Model(&Equipment{}).Create(&Equipment13)
+	Equipment14 := Equipment{
+		Name: "เครื่องวัดคลื่นหัวใจ ECG",
+	}
+	db.Model(&Equipment{}).Create(&Equipment14)
+	Equipment15 := Equipment{
+		Name: "โคมไฟผ่าตัด",
+	}
+	db.Model(&Equipment{}).Create(&Equipment15)
+	Equipment16 := Equipment{
+		Name: "เครื่องชั่งน้ำหนักผู้ป่วย",
+	}
+	db.Model(&Equipment{}).Create(&Equipment16)
+	Equipment17 := Equipment{
+		Name: "เครื่อง Fetal Monitor",
+	}
+	db.Model(&Equipment{}).Create(&Equipment17)
+	Equipment18 := Equipment{
+		Name: "เครื่อง Vital Signs Monitor",
+	}
+	db.Model(&Equipment{}).Create(&Equipment18)
+	Equipment19 := Equipment{
+		Name: "เครื่อง Ultrasound",
+	}
+	db.Model(&Equipment{}).Create(&Equipment19)
+	Equipment20 := Equipment{
+		Name: "เครื่อง Defibrilator",
+	}
+	db.Model(&Equipment{}).Create(&Equipment20)
+	Equipment21 := Equipment{
+		Name: "Stethoscope",
+	}
+	db.Model(&Equipment{}).Create(&Equipment21)
+
+	//Department For Equipment
+	DepartmentForEquipment1 := DepartmentForEquipment{
+		Type: "Emergency Room (แผนกฉุกเฉินและอุบัติเหตุ)",
+	}
+	db.Model(&DepartmentForEquipment{}).Create(&DepartmentForEquipment1)
+	DepartmentForEquipment2 := DepartmentForEquipment{
+		Type: "Radiology Department (แผนกรังสีกรรม)",
+	}
+	db.Model(&DepartmentForEquipment{}).Create(&DepartmentForEquipment2)
+	DepartmentForEquipment3 := DepartmentForEquipment{
+		Type: "Surgical Department (แผนกศัลยกรรม)",
+	}
+	db.Model(&DepartmentForEquipment{}).Create(&DepartmentForEquipment3)
+	DepartmentForEquipment4 := DepartmentForEquipment{
+		Type: "Department of Anaesthesia (แผนกวิสัญญี)",
+	}
+	db.Model(&DepartmentForEquipment{}).Create(&DepartmentForEquipment4)
+	DepartmentForEquipment5 := DepartmentForEquipment{
+		Type: "Pediatrics Department (แผนกกุมารเวชกรรม)",
+	}
+	db.Model(&DepartmentForEquipment{}).Create(&DepartmentForEquipment5)
+	DepartmentForEquipment6 := DepartmentForEquipment{
+		Type: "Obstretic (แผนกสูตินรีเวชกรรม)",
+	}
+	db.Model(&DepartmentForEquipment{}).Create(&DepartmentForEquipment6)
+	DepartmentForEquipment7 := DepartmentForEquipment{
+		Type: "Physical Therapy Department (แผนกเวชศาสตร์ฟื้นฟู)",
+	}
+	db.Model(&DepartmentForEquipment{}).Create(&DepartmentForEquipment7)
+	DepartmentForEquipment8 := DepartmentForEquipment{
+		Type: "Medicine Department (แผนกอายุรกรรม)",
+	}
+	db.Model(&DepartmentForEquipment{}).Create(&DepartmentForEquipment8)
+	DepartmentForEquipment9 := DepartmentForEquipment{
+		Type: "Ophthalmology Department (แผนกจักษุ)",
+	}
+	db.Model(&DepartmentForEquipment{}).Create(&DepartmentForEquipment9)
+	DepartmentForEquipment10 := DepartmentForEquipment{
+		Type: "Ear nose and throat Department (แผนกหู คอ จมูก)",
+	}
+	db.Model(&DepartmentForEquipment{}).Create(&DepartmentForEquipment10)
+	DepartmentForEquipment11 := DepartmentForEquipment{
+		Type: "Phamarceutical Department (แผนกเภสัชกรรม)",
+	}
+	db.Model(&DepartmentForEquipment{}).Create(&DepartmentForEquipment11)
+	DepartmentForEquipment12 := DepartmentForEquipment{
+		Type: "Psychology Department (แผนกจิตเวช)",
+	}
+	db.Model(&DepartmentForEquipment{}).Create(&DepartmentForEquipment12)
+
+	//Requisition Record 1
+	rr1 := RequisitionRecord{
+		Quantity:               100,
+		Employee:               emp3,
+		Equipment:              Equipment1,
+		DepartmentForEquipment: DepartmentForEquipment10,
+		RequisitionDate:        time.Date(2023, 1, 23, 0, 0, 0, 0, time.UTC),
+	}
+	db.Model(&RequisitionRecord{}).Create(&rr1)
 
 }
