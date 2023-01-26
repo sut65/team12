@@ -54,6 +54,12 @@ func SetupDatabase() {
 		&Equipment{},
 		&DepartmentForEquipment{},
 		&RequisitionRecord{},
+		// sprint 1 Kool Operating
+		&Specialist{},
+		&SurgeryType{},
+		&SurgeryState{},
+		&OperatingRoom{},
+		&ORrecord{},
 	)
 
 	db = database
