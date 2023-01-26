@@ -387,7 +387,7 @@ type MedicalSlip struct {
 	gorm.Model
 	Total      float32
 	Note       string
-	ManageDate time.Time
+	MedicalDate time.Time
 
 	//FK
 	PatientID *uint
