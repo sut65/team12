@@ -66,12 +66,10 @@ func main() {
 	// DELETE
 	r.DELETE("/labxrays/delete/:id", controller.DeleteLabXray)
 
-
 	// ----------------- Patient -----------------------------
 
 	// Patient Routes
 	r.GET("/patients/list", controller.ListPatient)
-
 
 	// ----------------- ManageBed ----------------------------
 	// Bed Routes
@@ -90,12 +88,32 @@ func main() {
 	r.DELETE("/managebeds/:id", controller.DeleteManageBed)
 
 	// ----------------- MedicalSlip ----------------------------
-    // MedicalSlip Routes
+	// MedicalSlip Routes
 	r.GET("/medicalslips", controller.ListMedicalSlip)
 	r.GET("/medicalslip/:id", controller.GetMedicalSlip)
 	r.POST("/medicalslips", controller.CreateMedicalSlip)
 	r.PATCH("/medicalslips", controller.UpdateMedicalSlip)
 	r.DELETE("/medicalslips/:id", controller.DeleteMedicalSlip)
+
+	// ----------------- Kool ผ่าตัด ----------------------------
+	// Routes OperatingRoom
+	r.GET("/ListOperatingRoom", controller.ListOperatingRoom)
+	r.GET("/GetOperatingRoom/:id", controller.GetOperatingRoom)
+	// Routes Specialist
+	r.GET("/ListSpecialist", controller.ListSpecialist)
+	r.GET("/GetSpecialist/:id", controller.GetSpecialist)
+	// Routes SurgeryState
+	r.GET("/ListSurgeryState", controller.ListSurgeryState)
+	r.GET("/GetSurgeryState/:id", controller.GetSurgeryState)
+	// Routes SurgeryType
+	r.GET("/ListSurgeryType", controller.ListSurgeryType)
+	r.GET("/GetSurgeryType/:id", controller.GetSurgeryType)
+	// Routes ORrecord
+	r.GET("/GetORrecord/get/:id", controller.GetORrecord)
+	r.GET("/ListORrecord/list", controller.ListORrecord)
+	r.POST("/CreateORrecord/create", controller.CreateORrecord)
+	r.PATCH("/UpdateORrecord/update", controller.UpdateORrecord)
+	r.DELETE("/DeleteORrecord/delete/:id", controller.DeleteORrecord)
 
 	// 	}
 	// }
