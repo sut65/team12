@@ -227,6 +227,12 @@ type Equipment struct {
 	Name string
 }
 
+// DepartmentForEquipment
+type DepartmentForEquipment struct {
+	gorm.Model
+	Type string
+}
+
 // ============================PrincipalDiagnosis======================================
 
 type PrincipalDiagnosis struct {
