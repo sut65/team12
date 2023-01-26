@@ -38,6 +38,10 @@ func SetupDatabase() {
 		&Medicine{},
 		&Prescription{},
 
+		//sft
+		&SpecifyFoodType{},
+		&FoodType{},
+
 		// ManageBed
 		&Bed{},
 		&BedStatus{},
@@ -726,5 +730,52 @@ func SetupDatabase() {
 		RequisitionDate:        time.Date(2023, 1, 23, 0, 0, 0, 0, time.UTC),
 	}
 	db.Model(&RequisitionRecord{}).Create(&rr1)
+
+		//==================================================== xxxSpecifyFoodType ==========================================================================================//
+
+		foodtype1 := FoodType{
+			FoodType:      "อาหารธรรมดา",
+		}
+		db.Model(&FoodType{}).Create(&foodtype1)
+	
+		foodtype2 := FoodType{
+			FoodType:      "อาหารอ่อน",
+		}
+		db.Model(&FoodType{}).Create(&foodtype2)
+
+		foodtype3 := FoodType{
+			FoodType:      "อาหารเหลว",
+		}
+		db.Model(&FoodType{}).Create(&foodtype3)
+		foodtype4 := FoodType{
+			FoodType:      "อาหารเฉพาะโรค",
+		}
+		db.Model(&FoodType{}).Create(&foodtype4)
+		
+		foodtype5 := FoodType{
+			FoodType:      "อาหารอื่นๆตามเเพทย์สั่ง",
+		}
+		db.Model(&FoodType{}).Create(&foodtype5)
+
+		sft1 := SpecifyFoodType{
+			Patient:     patient1,
+			PrincipalDiagnosis:      pd1,
+			//FoodType:    foodtype1,
+			Doctor:      emp1,
+			DateTime: 	 time.Now(),
+		}
+		db.Model(&SpecifyFoodType{}).Create(&sft1)
+
+		sft2 := SpecifyFoodType{
+			Patient:     patient2,
+			PrincipalDiagnosis:      pd2,
+			//FoodType:    foodtype2,
+			Doctor:      emp1,
+			DateTime: 	 time.Now(),
+		}
+		db.Model(&SpecifyFoodType{}).Create(&sft2)
+		
+	
+		//===================================================== xxSpecifyFoodType ==========================================================================================//
 
 }
