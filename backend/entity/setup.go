@@ -197,7 +197,7 @@ func SetupDatabase() {
 		Phone:      "0811111111",
 		Email:      "preechapat@mail.com",
 		Password:   string(password1),
-		Address:    "45 บ้านฟ้าปิยรมณ์ ต.บึงคำพร้อย อ.ลำลูกกาจ.ปทุมธานี 11350",
+		Address:    "45 บ้านฟ้าปิยรมณ์,ต.บึงคำพร้อย,อ.ลำลูกกา,จ.ปทุมธานี 11350",
 		Role:       admin1,
 		Department: dep3,
 		Gender:     gender2,

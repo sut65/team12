@@ -137,7 +137,7 @@ async function DeleteEmployee(ID:number) {
         }
     };
     
-    let res = await fetch(`${apiUrl}/employee/delete/${ID}`, reqOpt)
+    let res = await fetch(`${apiUrl}/employees/delete/${ID}`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){
