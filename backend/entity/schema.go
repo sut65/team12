@@ -388,6 +388,12 @@ type ClassProb struct {
 	//
 	ProblemReport []ProblemReport `gorm:"foreignKey:ClassProbID"`
 }
+type Problem struct {
+	gorm.Model
+	ProblemName string
+	//
+	ProblemReport []ProblemReport `gorm:"foreignKey:ClassProbID"`
+}
 
 //======================================MadicalSlip==================================
 
