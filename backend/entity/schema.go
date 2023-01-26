@@ -37,6 +37,7 @@ type Employee struct {
 	rcORrecord        []ORrecord     `gorm:"foreignKey:StaffRecivingID"`
 	rtORrecord        []ORrecord     `gorm:"foreignKey:StaffReturingID"`
 	ManageBeds        []ManageBed    `gorm:"foreignKey:EmployeeID"`
+	SpecifyFoodTypes  []SpecifyFoodType `gorm:"foreignKey:DoctorID"`
 }
 type Role struct {
 	gorm.Model
@@ -126,7 +127,7 @@ type Patient struct {
 
 	LabXrays     []LabXray      `gorm:"foreignKey:PatientID"`
 	Prescription []Prescription `gorm:"foreignKey:PatientID"`
-
+	SpecifyFoodTypes []SpecifyFoodType `gorm:"foreignKey:PatientID"`
 	ManageBeds []ManageBed `gorm:"foreignKey:PatientID"`
 }
 
@@ -271,6 +272,7 @@ type LoD struct {
 	gorm.Model
 	Disease            string
 	PrincipalDiagnosis []PrincipalDiagnosis `gorm:"foreignKey:LoDID"`
+	SpecifyFoodTypes  []SpecifyFoodType `gorm:"foreignKey:PrincipalDiagnosisID"`
 }
 
 //======================================ExclusiveRoom==================================
@@ -369,3 +371,34 @@ type ORrecord struct {
 	StaffReciving Employee      `gorm:"references:id"`
 	StaffReturing Employee      `gorm:"references:id"`
 }
+
+//==================================================== xxxSpecifyFoodType ==========================================================================================//
+
+type SpecifyFoodType struct {
+	gorm.Model
+	
+
+	//FK
+	PatientID  *uint
+	Patient    Patient `gorm:"references:id"`
+
+	PrincipalDiagnosisID  	   *uint
+	PrincipalDiagnosis       PrincipalDiagnosis `gorm:"references:id"`
+
+	FoodTypeID *uint
+	//FoodType   FoodType `gorm:"references:id"`
+
+	DoctorID  *uint
+	Doctor    Employee `gorm:"references:id"`
+
+	DateTime  time.Time 
+
+}
+
+/*type FoodType struct {
+	gorm.Model
+	FoodType       string
+	SpecifyFoodTypes []SpecifyFoodType `gorm:"foreignKey:FoodTypeID"`
+}*/
+
+//==================================================== xxSpecifyFoodType ==========================================================================================//
