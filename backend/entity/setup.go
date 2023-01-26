@@ -745,51 +745,163 @@ func SetupDatabase() {
 	}
 	db.Model(&RequisitionRecord{}).Create(&rr1)
 
-		//==================================================== xxxSpecifyFoodType ==========================================================================================//
+	//==================================================== xxxSpecifyFoodType ==========================================================================================//
 
-		foodtype1 := FoodType{
-			FoodType:      "อาหารธรรมดา",
-		}
-		db.Model(&FoodType{}).Create(&foodtype1)
-	
-		foodtype2 := FoodType{
-			FoodType:      "อาหารอ่อน",
-		}
-		db.Model(&FoodType{}).Create(&foodtype2)
+	foodtype1 := FoodType{
+		FoodType: "อาหารธรรมดา",
+	}
+	db.Model(&FoodType{}).Create(&foodtype1)
 
-		foodtype3 := FoodType{
-			FoodType:      "อาหารเหลว",
-		}
-		db.Model(&FoodType{}).Create(&foodtype3)
-		foodtype4 := FoodType{
-			FoodType:      "อาหารเฉพาะโรค",
-		}
-		db.Model(&FoodType{}).Create(&foodtype4)
-		
-		foodtype5 := FoodType{
-			FoodType:      "อาหารอื่นๆตามเเพทย์สั่ง",
-		}
-		db.Model(&FoodType{}).Create(&foodtype5)
+	foodtype2 := FoodType{
+		FoodType: "อาหารอ่อน",
+	}
+	db.Model(&FoodType{}).Create(&foodtype2)
 
-		sft1 := SpecifyFoodType{
-			Patient:     patient1,
-			PrincipalDiagnosis:      pd1,
-			//FoodType:    foodtype1,
-			Doctor:      emp1,
-			DateTime: 	 time.Now(),
-		}
-		db.Model(&SpecifyFoodType{}).Create(&sft1)
+	foodtype3 := FoodType{
+		FoodType: "อาหารเหลว",
+	}
+	db.Model(&FoodType{}).Create(&foodtype3)
+	foodtype4 := FoodType{
+		FoodType: "อาหารเฉพาะโรค",
+	}
+	db.Model(&FoodType{}).Create(&foodtype4)
 
-		sft2 := SpecifyFoodType{
-			Patient:     patient2,
-			PrincipalDiagnosis:      pd2,
-			//FoodType:    foodtype2,
-			Doctor:      emp1,
-			DateTime: 	 time.Now(),
-		}
-		db.Model(&SpecifyFoodType{}).Create(&sft2)
-		
-	
-		//===================================================== xxSpecifyFoodType ==========================================================================================//
+	foodtype5 := FoodType{
+		FoodType: "อาหารอื่นๆตามเเพทย์สั่ง",
+	}
+	db.Model(&FoodType{}).Create(&foodtype5)
+
+	sft1 := SpecifyFoodType{
+		Patient:            patient1,
+		PrincipalDiagnosis: pd1,
+		//FoodType:    foodtype1,
+		Doctor:   emp1,
+		DateTime: time.Now(),
+	}
+	db.Model(&SpecifyFoodType{}).Create(&sft1)
+
+	sft2 := SpecifyFoodType{
+		Patient:            patient2,
+		PrincipalDiagnosis: pd2,
+		//FoodType:    foodtype2,
+		Doctor:   emp1,
+		DateTime: time.Now(),
+	}
+	db.Model(&SpecifyFoodType{}).Create(&sft2)
+
+	//===================================================== xxSpecifyFoodType ==========================================================================================//
+
+	/********************************* KOOL ผ่าตัด *********************************/
+	// Dummy ข้อมูล specialist
+	specialist1 := Specialist{
+		SpclistName: "General (ทั่วไป)",
+	}
+	db.Model(&Specialist{}).Create(&specialist1)
+	specialist2 := Specialist{
+		SpclistName: "Orthopedic (กระดูกและข้อ )",
+	}
+	db.Model(&Specialist{}).Create(&specialist2)
+	specialist3 := Specialist{
+		SpclistName: "Neuro (ประสาท)",
+	}
+	db.Model(&Specialist{}).Create(&specialist3)
+	specialist4 := Specialist{
+		SpclistName: "Spine (กระดูกสันหลัง)",
+	}
+	db.Model(&Specialist{}).Create(&specialist4)
+	specialist5 := Specialist{
+		SpclistName: "Urology (ระบบทางเดินปัสสาวะ)",
+	}
+	db.Model(&Specialist{}).Create(&specialist5)
+	specialist6 := Specialist{
+		SpclistName: "Cardiac/Thoracic (หัวใจ/ทรวงอก)",
+	}
+	db.Model(&Specialist{}).Create(&specialist6)
+	specialist7 := Specialist{
+		SpclistName: "Plastic (ตกแต่ง)",
+	}
+	db.Model(&Specialist{}).Create(&specialist7)
+	specialist8 := Specialist{
+		SpclistName: "Oculoplastic (ตา)",
+	}
+	db.Model(&Specialist{}).Create(&specialist8)
+	specialist9 := Specialist{
+		SpclistName: "Otolaryngology (โสตศอนาสิก)",
+	}
+	db.Model(&Specialist{}).Create(&specialist9)
+	specialist10 := Specialist{
+		SpclistName: "pediatric (เด็ก)",
+	}
+	db.Model(&Specialist{}).Create(&specialist10)
+	specialist11 := Specialist{
+		SpclistName: "childbirth (สูติกรรม)",
+	}
+	db.Model(&Specialist{}).Create(&specialist11)
+	specialist12 := Specialist{
+		SpclistName: "gynecology (นรีเวชกรรม)",
+	}
+	db.Model(&Specialist{}).Create(&specialist12)
+	specialist13 := Specialist{
+		SpclistName: "other (อื่นๆ)",
+	}
+	db.Model(&Specialist{}).Create(&specialist13)
+
+	// Dummy ข้อมูล surgery state
+	surgerystate1 := SurgeryState{StateName: "MAJOR"}
+	db.Model(&SurgeryState{}).Create(&surgerystate1)
+	surgerystate2 := SurgeryState{StateName: "MINOR"}
+	db.Model(&SurgeryState{}).Create(&surgerystate2)
+
+	// Dummy ข้อมูล surgery type
+	surgerytype1 := SurgeryType{TypeName: "EMERGENCY"}
+	db.Model(&SurgeryType{}).Create(&surgerytype1)
+	surgerytype2 := SurgeryType{TypeName: "ELECTIVE"}
+	db.Model(&SurgeryType{}).Create(&surgerytype2)
+
+	// Dummy ข้อมูล OperatingRoom
+	or1 := OperatingRoom{ORname: "ห้อง OR-1", ORtype: surgerytype1}
+	db.Model(&OperatingRoom{}).Create(&or1)
+	or2 := OperatingRoom{ORname: "ห้อง OR-2", ORtype: surgerytype1}
+	db.Model(&OperatingRoom{}).Create(&or2)
+	or3 := OperatingRoom{ORname: "ห้อง OR-3", ORtype: surgerytype1}
+	db.Model(&OperatingRoom{}).Create(&or3)
+	or4 := OperatingRoom{ORname: "ห้อง OR-4", ORtype: surgerytype2}
+	db.Model(&OperatingRoom{}).Create(&or4)
+	or5 := OperatingRoom{ORname: "ห้อง OR-5", ORtype: surgerytype2}
+	db.Model(&OperatingRoom{}).Create(&or5)
+
+	// Dummy ข้อมูล ORrecord
+	rec1 := ORrecord{
+		User:            emp3,
+		OperatingRoom:   or2,
+		Patient:         patient1,
+		Doctor:          emp1,
+		Specialist:      specialist9,
+		SurgeryStart:    time.Date(2023, 1, 24, 4, 12, 0, 0, time.UTC),
+		SurgeryEnd:      time.Date(2023, 1, 24, 8, 41, 0, 0, time.UTC),
+		SurgeryType:     surgerytype1,
+		SurgeryState:    surgerystate2,
+		StaffReciving:   emp3,
+		StaffReturing:   emp3,
+		OperatingResult: "การผ่้าตัดยังต้องคอยดูอาการผู้ป่อน มีโอกาสผ่าตัดซ้ำ",
+		Note:            "หากมีอาการไอต้องทำการผ่าตัด อีกรอบ",
+	}
+	db.Model(&ORrecord{}).Create(&rec1)
+	rec2 := ORrecord{
+		User:            emp3,
+		OperatingRoom:   or3,
+		Patient:         patient2,
+		Doctor:          emp1,
+		Specialist:      specialist9,
+		SurgeryStart:    time.Date(2023, 1, 25, 19, 0, 0, 0, time.UTC),
+		SurgeryEnd:      time.Date(2023, 1, 25, 22, 6, 0, 0, time.UTC),
+		SurgeryType:     surgerytype1,
+		SurgeryState:    surgerystate1,
+		StaffReciving:   emp3,
+		StaffReturing:   emp3,
+		OperatingResult: "การผ่้าตัดเรียบร้อย",
+		Note:            "ต้องคอยดูอาการข้างเคียงอย่างใกล้ชิด",
+	}
+	db.Model(&ORrecord{}).Create(&rec2)
 
 }
