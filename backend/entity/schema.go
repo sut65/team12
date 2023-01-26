@@ -403,6 +403,21 @@ type NumPlace struct {
 	//
 	ProblemReport []ProblemReport `gorm:"foreignKey:NumPlaceID"`
 }
+type ProblemReport struct {
+	gorm.Model
+	//FK
+	UserID      *uint
+	ClassProbID *uint
+	NumPlaceID  *uint
+	ProblemID   *uint
+	Date        time.Time
+	Comment     string
+	//JOIN
+	User      Employee  `gorm:"references:id"`
+	ClassProb ClassProb `gorm:"references:id"`
+	NumPlace  NumPlace  `gorm:"references:id"`
+	Problem   Problem   `gorm:"references:id"`
+}
 
 //======================================MadicalSlip==================================
 
