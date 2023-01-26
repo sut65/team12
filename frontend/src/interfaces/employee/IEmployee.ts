@@ -3,7 +3,7 @@ import { GenderInterface } from "./IGender";
 import { DepartmentInterface } from "./IDepartment";
 export interface EmployeeInterface {
 
-    ID?: number;
+    ID: number;
     FirstName?: string;
     LastName?: string;
     Civ?: string;
