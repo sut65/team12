@@ -233,6 +233,22 @@ type DepartmentForEquipment struct {
 	Type string
 }
 
+// RequisitionRecord ตารางหลัก
+type RequisitionRecord struct {
+	gorm.Model
+	RequisitionDate time.Time
+	Quantity        int
+
+	EmployeeID *uint    //FK
+	Employee   Employee `gorm:"references:id"` //JOIN
+
+	EquipmentID *uint     //FK
+	Equipment   Equipment `gorm:"references:id"`
+
+	DepartmentForEquipmentID *uint                  //FK
+	DepartmentForEquipment   DepartmentForEquipment `gorm:"references:id"`
+}
+
 // ============================PrincipalDiagnosis======================================
 
 type PrincipalDiagnosis struct {
