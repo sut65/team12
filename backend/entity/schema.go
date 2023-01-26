@@ -394,6 +394,15 @@ type Problem struct {
 	//
 	ProblemReport []ProblemReport `gorm:"foreignKey:ClassProbID"`
 }
+type NumPlace struct {
+	gorm.Model
+	Name string
+	//FK
+	ClassProbID *uint
+	ClassProb   ClassProb `gorm:"references:id"`
+	//
+	ProblemReport []ProblemReport `gorm:"foreignKey:NumPlaceID"`
+}
 
 //======================================MadicalSlip==================================
 
