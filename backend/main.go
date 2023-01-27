@@ -162,6 +162,18 @@ func main() {
 			router.PATCH("/UpdateProblemReport/update", controller.UpdateProblemReport)
 			router.DELETE("/DeleteProblemReport/delete/:id", controller.DeleteProblemReport)
 
+			//===================Vital Signs Record==================
+			//Status Routes
+			router.GET("/statuses/list", controller.ListStatus)
+			router.GET("/status/get/:id", controller.GetStatus)
+
+			//Vital Signs Routes
+			router.GET("/vitalsigns/list", controller.ListVitalSignsRecord)
+			router.GET("/vitalsign/get/:id", controller.GetVitalSignsRecord)
+			router.POST("/vitalsign/create", controller.CreateVitalSignsRecord)
+			router.PATCH("/vitalsign/update", controller.UpdateVitalSignsRecord)
+			router.DELETE("/vitalsigns/delete/:id", controller.DeleteVitalSignsRecord)
+
 		}
 	}
 	// // Signup User Route
