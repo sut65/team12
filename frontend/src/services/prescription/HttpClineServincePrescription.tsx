@@ -2,31 +2,32 @@ import { apiUrl, convertType } from "../patient/HttpClineServincePatient";
 import { PrescriptionInterface } from "../../interfaces/prescription/IPrescription";
 
 
-// List Patient
+// List Prescription
 async function ListPrescription() {
     const requestOptions = {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
-    };
-  
-    let res = await fetch(`${apiUrl}/prescriptions/list`, requestOptions)
-      .then((response) => response.json())
-      .then((res) => {
-        if (res.data) {
-          return res.data;
-        } else {
-          return false;
-        }
-      });
-  
-    return res;
-  }
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      };
+    
+      let res = await fetch(`${apiUrl}/prescriptions/list`, requestOptions)
+        .then((response) => response.json())
+        .then((res) => {
+          if (res.data) {
+            return res.data;
+          } else {
+            return false;
+          }
+        });
+    
+      return res;
+    }
 
-// GET By ID Patient
-async function GetPrescription(ID: string | undefined) {
+// GET By ID Prescription
+async function GetPrescription() {
+    let preid = localStorage.getItem("preid");
     const reqOpt = {
         method: "GET",
         headers: {
@@ -35,7 +36,7 @@ async function GetPrescription(ID: string | undefined) {
         }
     }
 
-    let res = await fetch(`${apiUrl}/prescription/get/${ID}`, reqOpt)
+    let res = await fetch(`${apiUrl}/prescription/get/${preid}`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){
@@ -49,38 +50,30 @@ async function GetPrescription(ID: string | undefined) {
 }
 
 
-// Create Patient
-async function CreatePrescription(pre:Partial<PrescriptionInterface>) {
-    let data = {
-        Annotation: pre.Annotation,
-        ScriptTime: new Date().toJSON().split("Z").at(0)+"+07:00",
-
-        PatientID: convertType(pre.PatientID),
-        MedicineID: convertType(pre.MedicineID),
-        EmployeeID: convertType(pre.EmployeeID),
-        OrderID: convertType(pre.OrderID),
-    }
-    
-    // return JSON.stringify(data)
-
-    const reqOpt = {
+// Create Prescription
+async function CreatePrescription(data: PrescriptionInterface) {
+    const requestOptions = {
         method: "POST",
         headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
-    }
-    
-
-    let res = await fetch(`${apiUrl}/prescription/create`, reqOpt)
+          },
+          body: JSON.stringify(data),
+    };
+  
+    let res = await fetch(`${apiUrl}/prescription/create`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
-        return res
-    })
-    return res
-
-}
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+  
+  return res;
+    
+  }
 
 // Update Patient
 async function UpdatePrescription(pre : Partial<PrescriptionInterface>){
