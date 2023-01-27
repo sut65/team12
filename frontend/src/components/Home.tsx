@@ -11,6 +11,9 @@ function Home() {
     <Typography variant="h1" gutterBottom>
         Welcome to The Impatienting we healing the World
       </Typography>
+      <Typography variant="h3" gutterBottom>
+        we healing the World
+      </Typography>
     </Container>
     
     </div>
