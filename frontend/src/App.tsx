@@ -37,6 +37,10 @@ import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import Patient from './components/Patient/PatientList';
 import PatientCreate from './components/Patient/PatientCreate';
 import PatientEdit from './components/Patient/PatientEdit';
+import Prescription from './components/Prescription/PrescriptionList';
+import PrescriptionDelete from './components/Prescription/PrescriptionDelete';
+import PrescriptionCreate from './components/Prescription/PrescriptionCreate';
+import PrescriptionEdit from './components/Prescription/PrescriptionEdit';
 
 const drawerWidth = 240;
 
@@ -109,6 +113,7 @@ const menu = [
   { name: "พนักงาน", icon: <BadgeOutlinedIcon color="primary"/>, path: "/employee" ,role: "HumanResourse"},
   { name: "แลปเอกซเรย์", icon: <BadgeOutlinedIcon color="primary"/>, path: "/labxray" ,role: "Doctor"},
   { name: "ลงทะเบียนผู้ป่วย", icon: <BoyIcon />, path: "/patients/list" ,role: "Nurse"},
+  { name: "ใบสั่งยา", icon: <ReceiptLongIcon/>, path: "/prescription/list",role: "Nurse"},
   
 
 ];
@@ -237,6 +242,10 @@ function App() {
                 <Route path="/patients/list" element={<Patient/>} />
                 <Route path="/patient/create" element={<PatientCreate/>} />
                 <Route path="/patient/edit" element={<PatientEdit/>} />
+                <Route path="/prescription/list" element={<Prescription/>} />
+                <Route path="/prescription/delete" element={<PrescriptionDelete/>} />
+                <Route path="/prescription/create" element={<PrescriptionCreate/>} />
+                <Route path="/prescription/edit" element={<PrescriptionEdit/>} />
                 
               </Routes>
             </Container>
