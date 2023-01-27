@@ -95,6 +95,18 @@ func main() {
 	r.PATCH("/medicalslips", controller.UpdateMedicalSlip)
 	r.DELETE("/medicalslips/:id", controller.DeleteMedicalSlip)
 
+	// ------------------ MST ------------------------------
+	// hospital Routes
+	r.GET("/hospitals/list", controller.ListHospital)
+	r.GET("/hospital/get/:id", controller.GetHospital)
+	// MST Routes
+	r.GET("/mst/get/:id", controller.GetMST)             // Get by id
+	r.GET("/msts/list", controller.ListMST)  			 // List
+	r.POST("/mst/create", controller.CreateMST) 		 // Create
+	r.PATCH("/mst/update", controller.UpdateMST)		 // UPDATE
+	r.DELETE("/msts/delete/:id", controller.DeleteMST) 	 // DELETE
+
+	
 	// ----------------- Kool ผ่าตัด ----------------------------
 	// Routes OperatingRoom
 	r.GET("/ListOperatingRoom", controller.ListOperatingRoom)
