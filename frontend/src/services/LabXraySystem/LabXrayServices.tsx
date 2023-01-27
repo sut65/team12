@@ -124,7 +124,7 @@ async function DeleteLabXray(ID:number) {
         }
     };
     
-    let res = await fetch(`${apiUrl}/labxray/delete/${ID}`, reqOpt)
+    let res = await fetch(`${apiUrl}/labxrays/delete/${ID}`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){
@@ -137,7 +137,7 @@ async function DeleteLabXray(ID:number) {
 }
 
 // List LabType
-async function ListTypes() {
+async function ListLabTypes() {
     const reqOpt = {
         method: "GET",
         headers:{
@@ -180,4 +180,13 @@ async function GetLabType(ID: string | undefined) {
 
     return res
 
+}
+export{
+    ListLabXrays,
+    GetLabType,
+    ListLabTypes,
+    DeleteLabXray,
+    UpdateEmployee,
+    PostLabXray,
+    GetLabXray,
 }

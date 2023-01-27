@@ -23,7 +23,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Container from "@mui/material/Container";
-
+import VideoLabelSharpIcon from '@mui/icons-material/VideoLabelSharp';
 import Home from './components/Home';
 import ManageBed from './components/managebed/ManageBed';
 import ManageBedCreate from './components/managebed/ManageBedCreate';
@@ -31,7 +31,7 @@ import ManageBedUpdate from './components/managebed/ManageBedUpdate';
 import  Employee from './components/employee/Employee';
 import EmployeeCreateNew from './components/employee/EmployeeCreateNew';
 import EmployeeEdit from './components/employee/EmployeeEdit';
-
+import LabXray from './components/labxray/LabXray';
 
 const drawerWidth = 240;
 
@@ -102,17 +102,8 @@ const menu = [
   { name: " : หน้าหลัก", icon: <HomeIcon color="primary" />, path: "/home" , role: "Nurse"},
   { name: " : จัดการเตียงคนไข้", icon: <BedroomChildIcon color="primary" />, path: "/managebed/create" ,role: "Nurse"},
   { name: "พนักงาน", icon: <BadgeOutlinedIcon color="primary"/>, path: "/employee" ,role: "HumanResourse"},
-  //{ name: " : พนักงาน", icon: <BadgeOutlinedIcon color="primary"/>, path: "/employee/create" ,role: "HumanResourse"}
-  //{ name: "ลงทะเบียนหนังสือ", icon: <MenuBookRoundedIcon />, path: "/books",role: "admin"},
-  //{ name: "ลงทะเบียนสมาชิก", icon: <PeopleIcon />, path: "/users",role: "admin"},
-  //{ name: "จองห้องค้นคว้า", icon: <MeetingRoomIcon />, path: "/researchroomreservationrecords" ,role: "user"},
-  //{ name: "จองเข้าใช้คอมพิวเตอร์", icon: <ComputerIcon />, path: "/computer_reservations" ,role: "user"},
-  //{ name: "ยืมหนังสือ", icon: <AddCircleIcon />, path: "/borrows",role: "admin" },
-  //{ name: "ระบบใบแจ้งค่าใช้จ่าย", icon: <StorefrontIcon />, path: "/bills" ,role : "admin"},
-  //{ name: "Problem Report", icon: <FlagIcon />, path: "/problemreports" ,role: "user"},
-  // { name: "หนังสือ", icon: <PeopleIcon />, path: "/books",role:"employee"},
-  // { name: "สมาชิก", icon: <PeopleIcon />, path: "/users",role:"student"},
-  //{ name: "การเข้าชมวีดีโอ", icon: <YouTubeIcon />, path: "/watch_videos" },
+  { name: "แลปเอกซเรย์", icon: <BadgeOutlinedIcon color="primary"/>, path: "/labxray" ,role: "Doctor"},
+
 ];
 function App() {
   const [token, setToken] = useState<String>("");
@@ -235,6 +226,8 @@ function App() {
                 <Route  path="/employee" element={<Employee />} />
                 <Route  path="/employee/create" element={<EmployeeCreateNew />} />
                 <Route  path="/employee/update/:id" element={<EmployeeEdit />} />
+                <Route  path="/labxray" element={<LabXray />} />
+                
               </Routes>
             </Container>
           </Box>

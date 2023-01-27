@@ -171,9 +171,9 @@ async function ListRoles() {
 }
 
 
-// GET ALL DATA FOR Select
+// List Department
 
-async function ListGenders() {
+async function ListDepartments() {
     const reqOpt = {
         method: "GET",
         header: {
@@ -181,7 +181,7 @@ async function ListGenders() {
             "Content-Type": "application/json",
         }
     }
-    let res = await fetch(`${apiUrl}/genders/list`, reqOpt)
+    let res = await fetch(`${apiUrl}/departments/list`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){
@@ -193,16 +193,15 @@ async function ListGenders() {
     return res
 }
 
-
-async function ListDepartments() {
+async function ListGenders() {
     const reqOpt = {
         method: "GET",
-        header: {
+        headers:{
             Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
         }
     }
-    let res = await fetch(`${apiUrl}/departments/list`, reqOpt)
+    let res = await fetch(`${apiUrl}/genders/list`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){
