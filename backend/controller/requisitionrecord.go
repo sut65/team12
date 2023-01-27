@@ -10,8 +10,9 @@ import (
 
 // POST /requisitionrecords
 func CreateRequisitionRecord(c *gin.Context) {
-
+	//main
 	var requisitionrecord entity.RequisitionRecord
+	//relation
 	var employee entity.Employee
 	var equipment entity.Equipment
 	var departmentforequipment entity.DepartmentForEquipment
@@ -20,6 +21,7 @@ func CreateRequisitionRecord(c *gin.Context) {
 	//รับค่ามาจาก body ก่อน
 	if err := c.ShouldBindJSON(&requisitionrecord); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.Abort()
 		return
 	}
 
@@ -53,10 +55,15 @@ func CreateRequisitionRecord(c *gin.Context) {
 
 	// บันทึกตารางหลัก(RequisitionRecord)
 	if err := entity.DB().Create(&RR).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": RR})
+	c.JSON(http.StatusOK, gin.H{
+		"status": "create Requisition Record Record Success",
+		"data":   RR,
+	})
 }
 
 // GET /requisitionrecord/:id
@@ -76,6 +83,7 @@ func ListRequisitionRecord(c *gin.Context) {
 	var requisitionrecords []entity.RequisitionRecord
 	if err := entity.DB().Preload("Employee").Preload("Equipment").Preload("DepartmentForEquipment").Raw("SELECT * FROM requisition_records").Find(&requisitionrecords).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.Abort()
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": requisitionrecords})
@@ -114,7 +122,7 @@ func UpdateRequisitionRecord(c *gin.Context) {
 
 	// Check requisitionrecord is haved ?
 	if tx := entity.DB().Where("id = ?", requisitionrecord.ID).First(&oldrequisitionrecord); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("requisitionrecord id = %d not found", requisitionrecord.ID)})
+		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("RequisitionRecord id = %d not found", requisitionrecord.ID)})
 		c.Abort()
 		return
 	}
