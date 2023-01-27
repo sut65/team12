@@ -32,6 +32,11 @@ import  Employee from './components/employee/Employee';
 import EmployeeCreateNew from './components/employee/EmployeeCreateNew';
 import EmployeeEdit from './components/employee/EmployeeEdit';
 import LabXray from './components/labxray/LabXray';
+import BoyIcon from '@mui/icons-material/Boy';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import Patient from './components/Patient/PatientList';
+import PatientCreate from './components/Patient/PatientCreate';
+import PatientEdit from './components/Patient/PatientEdit';
 
 const drawerWidth = 240;
 
@@ -103,6 +108,8 @@ const menu = [
   { name: " : จัดการเตียงคนไข้", icon: <BedroomChildIcon color="primary" />, path: "/managebed" ,role: "Nurse"},
   { name: "พนักงาน", icon: <BadgeOutlinedIcon color="primary"/>, path: "/employee" ,role: "HumanResourse"},
   { name: "แลปเอกซเรย์", icon: <BadgeOutlinedIcon color="primary"/>, path: "/labxray" ,role: "Doctor"},
+  { name: "ลงทะเบียนผู้ป่วย", icon: <BoyIcon />, path: "/patients/list" ,role: "Nurse"},
+  
 
 ];
 function App() {
@@ -227,6 +234,9 @@ function App() {
                 <Route  path="/employee/create" element={<EmployeeCreateNew />} />
                 <Route  path="/employee/update/:id" element={<EmployeeEdit />} />
                 <Route  path="/labxray" element={<LabXray />} />
+                <Route path="/patients/list" element={<Patient/>} />
+                <Route path="/patient/create" element={<PatientCreate/>} />
+                <Route path="/patient/edit" element={<PatientEdit/>} />
                 
               </Routes>
             </Container>
