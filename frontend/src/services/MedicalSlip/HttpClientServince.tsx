@@ -30,7 +30,7 @@ async function GetMedicalSlipID() {
     return res;
 
 }
-async function GetManageBed() {
+async function ListMedicalSlip() {
   const requestOptions = {
     method: "GET",
     headers: {
@@ -52,7 +52,7 @@ async function GetManageBed() {
   return res;
 }
 
-async function CreateManageBed(data: MedicalSlipInterface) {
+async function CreateMedicalSlip(data: MedicalSlipInterface) {
   const requestOptions = {
     method: "POST",
     headers: {
@@ -122,10 +122,10 @@ async function DeleteMedicalSlip(ID:number) {
 
 export {
   
-    GetManageBed,
+    ListMedicalSlip,
     GetMedicalSlipID,
 
-    CreateManageBed,
+    CreateMedicalSlip,
     UpdateMedicalSlip,
     DeleteMedicalSlip,
 
