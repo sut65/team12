@@ -14,6 +14,7 @@ func CreatePrescription(c *gin.Context) {
 	var employee entity.Employee
 	var patient entity.Patient
 	var prescription entity.Prescription
+	var order entity.Employee
 
 	// ขั้นตอนที่ 8 ถูก build เข้า Patient
 	if err := c.ShouldBindJSON(&prescription); err != nil {
@@ -34,7 +35,7 @@ func CreatePrescription(c *gin.Context) {
 	}
 
 	// ขั้นตอนที่ 11 ค้นหา order_by ด้วย id // First หาเจออันแรกแล้วก็หยุดหาต่อเลย
-	if tx := entity.DB().Where("id = ?", prescription.OrderID).First(&employee); tx.RowsAffected == 0 {
+	if tx := entity.DB().Where("id = ?", prescription.OrderID).First(&order); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "order_by not found"})
 		return
 	}
@@ -47,10 +48,10 @@ func CreatePrescription(c *gin.Context) {
 
 	// ขั้นตอนที่ 12 สร้าง entity patient
 	s1 := entity.Prescription{
-		Patient:    prescription.Patient,
-		Medicine:   prescription.Medicine,
-		Employee:   prescription.Employee,
-		Order:      prescription.Order,
+		Patient:    patient,
+		Medicine:   medicine,
+		Employee:   employee,
+		Order:      order,
 		Annotation: prescription.Annotation,
 		ScriptTime: prescription.ScriptTime,
 	}
@@ -60,7 +61,6 @@ func CreatePrescription(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": s1})
 
 	c.JSON(http.StatusOK, gin.H{
 		"status": "create Prescription Success",
@@ -82,7 +82,7 @@ func GetPrescription(c *gin.Context) {
 
 // List Patient
 func ListPrescription(c *gin.Context) {
-	var prescription []entity.Patient
+	var prescription []entity.Prescription
 	if err := entity.DB().Preload("Patient").Preload("Medicine").Preload("Employee").Preload("Order").Raw("SELECT * FROM prescriptions").Find(&prescription).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
