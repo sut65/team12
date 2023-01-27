@@ -12,18 +12,16 @@ import moment from "moment";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ListEmployees,DeleteEmployee, } from "../../services/EmployeeSystem/employeeServices";
 function Manage_Show() {
-const themeshow = createTheme({
-  palette: {
-    primary: {
-      // Purple and green play nicely together.
-      main: grey[800],
+  let theme = createTheme({ // ิbutton theme
+    palette: {
+      primary: {
+        main: '#648c8a', //เขียว
+      },
+      secondary: {
+        main: '#edf2ff', //ขาว
+      },
     },
-    secondary: {
-      // This is green.A700 as hex.
-      main: "#e8f5e9",
-    },
-  }
-});
+  });
 
    //Employee State
    const [employee, setEmployee] = React.useState<EmployeeInterface[]>([])
@@ -101,7 +99,7 @@ const themeshow = createTheme({
  }, []);
 
  return (
-<ThemeProvider theme={themeshow}>
+<ThemeProvider theme={theme}>
   <div>
   <Container maxWidth="xl">
   <Box
@@ -126,7 +124,7 @@ const themeshow = createTheme({
             component={RouterLink}
             to="/employee/create"
             variant="contained"
-            color="success"
+            color="primary"
           >
             <Typography
               color="secondary"
