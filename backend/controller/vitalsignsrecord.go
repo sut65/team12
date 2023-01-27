@@ -8,107 +8,47 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// POST /vitalsignsrecords
-func CreateVitalSignsRecord(c *gin.Context) {
+// ---------------- Employee ---------------
 
-	var vitalsignsrecord entity.VitalSignsRecord
-	var status entity.Status
-	var employee entity.Employee
-	var patient entity.Patient
-
-	//bind เข้าตัวแปร vitalsignsrecord
-	//รับค่ามาจาก body ก่อน
-	if err := c.ShouldBindJSON(&vitalsignsrecord); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	//ค้นหา status ด้วย id
-	//if กำหนดค่าตัวแปร tx ก่อนจะทำการเช็คเงื่อนไขที่ tx.RowsAffected												// returns found records count, equals `len(users)`
-	if tx := entity.DB().Where("id = ?", vitalsignsrecord.StatusID).First(&status); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "status not found"})
-		return
-	}
-
-	//ค้นหา employee ด้วย id
-	if tx := entity.DB().Where("id = ?", vitalsignsrecord.EmployeeID).First(&employee); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "employee not found"})
-		return
-	}
-
-	//ค้นหา patient ด้วย id
-	if tx := entity.DB().Where("id = ?", vitalsignsrecord.PatientID).First(&patient); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "patient not found"})
-		return
-	}
-
-	//สร้าง vitalsignsrecord
-	VSR := entity.VitalSignsRecord{
-		Status:            status,                             // โยงความสัมพันธ์กับ Entity Status
-		Employee:          employee,                           // โยงความสัมพันธ์กับ Entity Employee
-		Patient:           patient,                            // โยงความสัมพันธ์กับ Entity Patient
-		CheckDate:         vitalsignsrecord.CheckDate,         // ตั้งค่าฟิลด์ vitalsignsrecord.CheckDate
-		BloodPressureHigh: vitalsignsrecord.BloodPressureHigh, // ตั้งค่าฟิลด์ BloodPressureHigh
-		BloodPressureLow:  vitalsignsrecord.BloodPressureLow,  // ตั้งค่าฟิลด์ BloodPressureLow
-		PulseRate:         vitalsignsrecord.PulseRate,         // ตั้งค่าฟิลด์ PulseRate
-		RespirationRate:   vitalsignsrecord.RespirationRate,   // ตั้งค่าฟิลด์ RespirationRate
-		BodyTemperature:   vitalsignsrecord.BodyTemperature,   // ตั้งค่าฟิลด์ BodyTemperature
-	}
-
-	//บันทึกตารางหลัก(vitalsignsrecord)
-	if err := entity.DB().Create(&VSR).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"data": VSR})
-}
-
-// GET /vitalsignsrecord/:id
-func GetVitalSignsRecord(c *gin.Context) {
-	var vitalsignsrecord entity.VitalSignsRecord
-	id := c.Param("id")
-	if tx := entity.DB().Where("id = ?", id).First(&vitalsignsrecord); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "vitalsignsrecord not found"})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"data": vitalsignsrecord})
-}
-
-// .Find Get all records
-// GET /vitalsignsrecords
+// List all Vital sign
+// GET /vitalsigns
 func ListVitalSignsRecord(c *gin.Context) {
-	var vitalsignsrecords []entity.VitalSignsRecord
-	if err := entity.DB().Preload("Status").Preload("Employee").Preload("Patient").Raw("SELECT * FROM vital_signs_records").Find(&vitalsignsrecords).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	var vitalsigns []entity.VitalSignsRecord
+	if err := entity.DB().Preload("Employee").Preload("Patient").Preload("Status").Raw("SELECT * FROM vital_signs_records").Find(&vitalsigns).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		c.Abort()
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": vitalsignsrecords})
+	c.JSON(http.StatusOK, gin.H{
+		"data": vitalsigns,
+	})
 }
 
-// DELETE /vitalsignsrecords/:id
-func DeleteVitalSignsRecord(c *gin.Context) {
+// Get Once Vital sign
+// GET /vitalsign/:id
+func GetVitalSignsRecord(c *gin.Context) {
+	var vitalsign entity.VitalSignsRecord
 	id := c.Param("id")
-	if tx := entity.DB().Exec("DELETE FROM vital_signs_records WHERE id = ?", id); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "vitalsignsrecord not found"})
+	if tx := entity.DB().Where("id = ?", id).First(&vitalsign); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "vitalsign not found"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": id})
+	c.JSON(http.StatusOK, gin.H{"data": vitalsign})
 }
 
-// PATCH /vitalsignsrecords
-func UpdateVitalSignsRecord(c *gin.Context) {
-
+// Create Vital sign
+// POST /vitalsign
+func CreateVitalSignsRecord(c *gin.Context) {
 	//main
-	var vitalsignsrecord entity.VitalSignsRecord
-	var oldvitalsignsrecord entity.VitalSignsRecord
-
+	var vitalsign entity.VitalSignsRecord
 	//relation
 	var status entity.Status
 	var employee entity.Employee
 	var patient entity.Patient
 
-	// Bind Json to var vitalsignsrecord
-	if err := c.ShouldBindJSON(&vitalsignsrecord); err != nil {
+	if err := c.ShouldBindJSON(&vitalsign); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
@@ -116,92 +56,180 @@ func UpdateVitalSignsRecord(c *gin.Context) {
 		return
 	}
 
-	// Check vitalsignsrecord is haved ?
-	if tx := entity.DB().Where("id = ?", vitalsignsrecord.ID).First(&oldvitalsignsrecord); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("Managebed id = %d not found", vitalsignsrecord.ID)})
+	// get status from database
+	if tx := entity.DB().Where("id = ?", vitalsign.StatusID).First(&status); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "status for patient is not found",
+		})
+		return
+	}
+
+	// get employee from database
+	if tx := entity.DB().Where("id = ?", vitalsign.EmployeeID).First(&employee); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "employee is not found",
+		})
+		return
+	}
+
+	// get patient from database
+	if tx := entity.DB().Where("id = ?", vitalsign.PatientID).First(&patient); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "patient is not found",
+		})
+		return
+	}
+
+	vtr := entity.VitalSignsRecord{
+		Status:            status,                      // โยงความสัมพันธ์กับ Entity Status
+		Employee:          employee,                    // โยงความสัมพันธ์กับ Entity Employee
+		Patient:           patient,                     // โยงความสัมพันธ์กับ Entity Patient
+		CheckDate:         vitalsign.CheckDate,         // ตั้งค่าฟิลด์ vitalsignsrecord.CheckDate
+		BloodPressureHigh: vitalsign.BloodPressureHigh, // ตั้งค่าฟิลด์ BloodPressureHigh
+		BloodPressureLow:  vitalsign.BloodPressureLow,  // ตั้งค่าฟิลด์ BloodPressureLow
+		PulseRate:         vitalsign.PulseRate,         // ตั้งค่าฟิลด์ PulseRate
+		RespirationRate:   vitalsign.RespirationRate,   // ตั้งค่าฟิลด์ RespirationRate
+		BodyTemperature:   vitalsign.BodyTemperature,   // ตั้งค่าฟิลด์ BodyTemperature
+		// FirstName:  employee.FirstName,
+		// LastName:   employee.LastName,
+		// Civ:        employee.Civ,
+		// Phone:      employee.Phone,
+		// Email:      employee.Email,
+		// Password:   employee.Password,
+		// Address:    employee.Address,
+		// Role:       role,
+		// Department: department,
+		// Gender:     gender,
+	}
+
+	if err := entity.DB().Create(&vtr).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"status": "create Vital sign Record Success",
+		"data":   vtr,
+	})
+}
+
+// Update Vital Sign
+// PATCH /vitalsign
+func UpdateVitalSignsRecord(c *gin.Context) {
+
+	//main
+	var vitalsign entity.VitalSignsRecord
+	var oldvitalsign entity.VitalSignsRecord
+	//relation
+	var status entity.Status
+	var employee entity.Employee
+	var patient entity.Patient
+
+	// Bind Json to var vtr
+	if err := c.ShouldBindJSON(&vitalsign); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
 		c.Abort()
 		return
 	}
 
-	if vitalsignsrecord.BloodPressureHigh == 0 {
-		vitalsignsrecord.BloodPressureHigh = oldvitalsignsrecord.BloodPressureHigh
+	// Check vtr is haved ?
+	if tx := entity.DB().Where("id = ?", vitalsign.ID).First(&oldvitalsign); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("VitalSignsRecord id = %d not found", vitalsign.ID)})
+		c.Abort()
+		return
 	}
-	if vitalsignsrecord.BloodPressureLow == 0 {
-		vitalsignsrecord.BloodPressureLow = oldvitalsignsrecord.BloodPressureLow
+
+	if vitalsign.BloodPressureHigh == 0 {
+		vitalsign.BloodPressureHigh = oldvitalsign.BloodPressureHigh
 	}
-	if vitalsignsrecord.PulseRate == 0 {
-		vitalsignsrecord.PulseRate = oldvitalsignsrecord.PulseRate
+	if vitalsign.BloodPressureLow == 0 {
+		vitalsign.BloodPressureLow = oldvitalsign.BloodPressureLow
 	}
-	if vitalsignsrecord.RespirationRate == 0 {
-		vitalsignsrecord.RespirationRate = oldvitalsignsrecord.RespirationRate
+	if vitalsign.PulseRate == 0 {
+		vitalsign.PulseRate = oldvitalsign.PulseRate
 	}
-	if vitalsignsrecord.BodyTemperature == 0 {
-		vitalsignsrecord.BodyTemperature = oldvitalsignsrecord.BodyTemperature
+	if vitalsign.RespirationRate == 0 {
+		vitalsign.RespirationRate = oldvitalsign.RespirationRate
 	}
-	if vitalsignsrecord.CheckDate.String() == "0001-01-01 00:00:00 +0000 UTC" {
-		vitalsignsrecord.CheckDate = oldvitalsignsrecord.CheckDate
+	if vitalsign.BodyTemperature == 0 {
+		vitalsign.BodyTemperature = oldvitalsign.BodyTemperature
+	}
+	if vitalsign.CheckDate.String() == "0001-01-01 00:00:00 +0000 UTC" {
+		vitalsign.CheckDate = oldvitalsign.CheckDate
 	}
 
 	// if new have status id
-	if vitalsignsrecord.StatusID != nil {
-		if tx := entity.DB().Where("id = ?", vitalsignsrecord.StatusID).First(&status); tx.RowsAffected == 0 {
+	if vitalsign.StatusID != nil {
+		if tx := entity.DB().Where("id = ?", vitalsign.StatusID).First(&status); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "not found status"})
 			return
 		}
 		fmt.Print("NOT NULL")
-		vitalsignsrecord.Status = status
+		vitalsign.Status = status
 	} else {
-		if tx := entity.DB().Where("id = ?", oldvitalsignsrecord.StatusID).First(&status); tx.RowsAffected == 0 {
+		if tx := entity.DB().Where("id = ?", oldvitalsign.StatusID).First(&status); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "not found status"})
 			return
 		}
 		fmt.Print("NULL")
-		vitalsignsrecord.Status = status
+		vitalsign.Status = status
 	}
 
-	// if new have employee id
-	if vitalsignsrecord.EmployeeID != nil {
-		if tx := entity.DB().Where("id = ?", vitalsignsrecord.EmployeeID).First(&employee); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found employee"})
-			return
-		}
-		fmt.Print("NOT NULL")
-		vitalsignsrecord.Employee = employee
-	} else {
-		if tx := entity.DB().Where("id = ?", oldvitalsignsrecord.EmployeeID).First(&employee); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found employee"})
-			return
-		}
-		fmt.Print("NULL")
-		vitalsignsrecord.Employee = employee
-	}
-
-	// if new have patient id
-	if vitalsignsrecord.PatientID != nil {
-		if tx := entity.DB().Where("id = ?", vitalsignsrecord.PatientID).First(&patient); tx.RowsAffected == 0 {
+	// if new have Patient id
+	if vitalsign.PatientID != nil {
+		if tx := entity.DB().Where("id = ?", vitalsign.PatientID).First(&patient); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "not found patient"})
 			return
 		}
-		fmt.Print("NOT NULL")
-		vitalsignsrecord.Patient = patient
+		vitalsign.Patient = patient
 	} else {
-		if tx := entity.DB().Where("id = ?", oldvitalsignsrecord.PatientID).First(&patient); tx.RowsAffected == 0 {
+		if tx := entity.DB().Where("id = ?", oldvitalsign.PatientID).First(&patient); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "not found patient"})
 			return
 		}
-		fmt.Print("NULL")
-		vitalsignsrecord.Patient = patient
+		vitalsign.Patient = patient
 	}
 
-	// Update vitalsignsrecord in database
-	if err := entity.DB().Save(&vitalsignsrecord).Error; err != nil {
+	//if new have Employee id
+	if vitalsign.EmployeeID != nil {
+		if tx := entity.DB().Where("id = ?", vitalsign.EmployeeID).First(&employee); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "not found employee"})
+			return
+		}
+		vitalsign.Employee = employee
+	} else {
+		if tx := entity.DB().Where("id = ?", oldvitalsign.EmployeeID).First(&employee); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "not found employee"})
+			return
+		}
+		vitalsign.Employee = employee
+	}
+
+	// Update vtr in database
+	if err := entity.DB().Save(&vitalsign).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		c.Abort()
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"status": "Update Success",
-		"data":   vitalsignsrecord,
+		"data":   vitalsign,
 	})
+
+}
+
+// Delete Vital Sign
+// DELETE /vitalsign/:id
+func DeleteVitalSignsRecord(c *gin.Context) {
+	id := c.Param("id")
+
+	if tx := entity.DB().Exec("DELETE FROM vital_signs_records WHERE id = ?", id); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "vitalsignsrecord is not found"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": id})
 
 }
