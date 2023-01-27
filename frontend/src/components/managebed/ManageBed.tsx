@@ -64,23 +64,20 @@ function ManageBed() {
     { field: "ManageDate", headerName: "วันที่และเวลา", width: 200 },
     {
       field: "",
-      headerName: "",
+      headerName: "Delete",
       sortable: true,
       width: 80,
       align:"center",
       headerAlign: "center",
-      renderCell: ({ row }: Partial<GridRowParams>) =>
-
-            
+      renderCell: ({ row }: Partial<GridRowParams>) =>           
                   <Button variant='contained' size="small" color='error' onClick={() => { 
-                  localStorage.setItem("aid", row.ID);
                     handleDialogDeleteOpen(row.ID)}}
                   sx={{borderRadius: 15.5,'&:hover': { backgroundColor: '#ff4081'}}}>ลบ
                   </Button>,
       },
       {
         field: " ",
-        headerName: " ",
+        headerName: "Update",
         sortable: true,
         width: 100,
         align:"center",
@@ -154,7 +151,7 @@ function ManageBed() {
             
             <DialogActions>
                 
-                <Button variant='contained'color='error' onClick={handleDelete}autoFocus>
+                <Button variant='contained'color='error' onClick={handleDelete}>
                     ยืนยัน
                 </Button>
                 <Button variant='outlined' onClick={handleDialogDeleteclose}>

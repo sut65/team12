@@ -185,7 +185,7 @@ function ManageBedCreate() {
         </Box>
         <Divider />
         <Grid container spacing={2} sx={{ padding: 2 }}>
-          <Grid item xs={8}>
+          <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>รายชื่อผู้ป่วย</p>
               <Select
@@ -207,7 +207,7 @@ function ManageBedCreate() {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>หมายเลขเตียงผู้ป่วย</p>
               <Select
@@ -229,7 +229,7 @@ function ManageBedCreate() {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>สภาพการใช้งานเตียงผู้ป่วย</p>
               <Select

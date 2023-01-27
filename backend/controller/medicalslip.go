@@ -82,10 +82,12 @@ func CreateMedicalSlip(c *gin.Context) {
 func GetMedicalSlip(c *gin.Context) {
 	var medicalslip entity.MedicalSlip
 	id := c.Param("id")
-	if tx := entity.DB().Where("id = ?", id).First(&medicalslip); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "medicalslips not found"})
+	if err := entity.DB().Raw("SELECT * FROM medical_slips WHERE id = ?", id).Scan(&medicalslip).Error; err != nil {
+
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
 	c.JSON(http.StatusOK, gin.H{"data": medicalslip})
 }
 
