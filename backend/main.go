@@ -79,6 +79,17 @@ func main() {
 			router.GET("/patient/right/:id", controller.GetPatientRight)
 			router.GET("/patient/rights/list", controller.ListPatientRight)
 
+			// ----------------- Prescription -----------------------------
+			//ข้อมูล path ใบสั่งยา//
+			router.GET("/prescription/get/:id", controller.GetPrescription)
+			router.GET("/prescriptions/list", controller.ListPrescription)
+			router.POST("/prescription/create", controller.CreatePrescription)
+			router.PATCH("/prescription/edit", controller.UpdatePrescription)
+			router.DELETE("/prescription/delet/:id", controller.DeletePrescription)
+			//ข้อมูล path ข้อมูลยา//
+			router.GET("/medicine/:id", controller.GetMedicine)
+			router.GET("/medicine/list", controller.ListMedicine)
+
 			// ----------------- ManageBed ----------------------------
 			// Bed Routes
 			router.GET("/beds", controller.ListBed)
