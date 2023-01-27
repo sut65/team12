@@ -55,8 +55,8 @@ func CreateProblemReport(c *gin.Context) {
 func GetProblemReport(c *gin.Context) {
 	var ProblemReport entity.ProblemReport
 	id := c.Param("id")
-	if tx := entity.DB().Where("id = ?", id).First(&ProblemReport); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "ProblemReport not found"})
+	if err := entity.DB().Raw("SELECT * FROM problem_reports WHERE id = ?", id).Scan(&ProblemReport).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": ProblemReport})
