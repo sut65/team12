@@ -74,8 +74,8 @@ func CreateORrecord(c *gin.Context) {
 func GetORrecord(c *gin.Context) {
 	var ORrecord entity.ORrecord
 	id := c.Param("id")
-	if tx := entity.DB().Where("id = ?", id).First(&ORrecord); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "ORrecord not found"})
+	if err := entity.DB().Raw("SELECT * FROM o_rrecords WHERE id = ?", id).Scan(&ORrecord).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": ORrecord})
