@@ -70,7 +70,7 @@ func CreateManageBed(c *gin.Context) {
 func GetManageBed(c *gin.Context) {
 	var managebed entity.ManageBed
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM medical_slips WHERE id = ?", id).Scan(&managebed).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM manage_beds WHERE id = ?", id).Scan(&managebed).Error; err != nil {
 
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return

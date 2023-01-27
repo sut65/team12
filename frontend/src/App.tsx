@@ -100,7 +100,7 @@ const mdTheme = createTheme({
 
 const menu = [
   { name: " : หน้าหลัก", icon: <HomeIcon color="primary" />, path: "/home" , role: "Nurse"},
-  { name: " : จัดการเตียงคนไข้", icon: <BedroomChildIcon color="primary" />, path: "/managebed/create" ,role: "Nurse"},
+  { name: " : จัดการเตียงคนไข้", icon: <BedroomChildIcon color="primary" />, path: "/managebed" ,role: "Nurse"},
   { name: "พนักงาน", icon: <BadgeOutlinedIcon color="primary"/>, path: "/employee" ,role: "HumanResourse"},
   { name: "แลปเอกซเรย์", icon: <BadgeOutlinedIcon color="primary"/>, path: "/labxray" ,role: "Doctor"},
 

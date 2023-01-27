@@ -8,7 +8,6 @@ import Dialog from "@mui/material/Dialog/Dialog";
 import DialogTitle from "@mui/material/DialogTitle/DialogTitle";
 import DialogActions from "@mui/material/DialogActions/DialogActions";
 import { DataGrid, GridColDef, GridRowParams } from "@mui/x-data-grid";
-import TableCell from "@mui/material/TableCell/TableCell";
 
 import { ManageBedInterface } from "../../interfaces/imanagebed/IManageBed";
 import { GetManageBed, DeleteManageBed } from "../../services/HttpClientServince";
