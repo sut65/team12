@@ -32,7 +32,8 @@ async function ListPatient() {
   }
 
 // GET By ID Patient
-async function GetPatient(ID: string | undefined) {
+async function GetPatient() {
+    let pid = localStorage.getItem("pid");
     const reqOpt = {
         method: "GET",
         headers: {
@@ -41,7 +42,7 @@ async function GetPatient(ID: string | undefined) {
         }
     }
 
-    let res = await fetch(`${apiUrl}/patient/get/${ID}`, reqOpt)
+    let res = await fetch(`${apiUrl}/patient/get/${pid}`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){
@@ -56,64 +57,34 @@ async function GetPatient(ID: string | undefined) {
 
 
 // Create Patient
-async function CreatePatient(par:Partial<PatientInterface>) {
-    let data = {
-        Civ: par.Civ,
-        FirstName: par.FirstName,
-        LastName: par.LastName,
-        Age: convertType(par.Age),
-        Weight: convertType(par.Weight),
-        Underlying: par.Underlying,
-        Brithdate: new Date().toJSON().split("Z").at(0)+"+07:00",
-        PatientTime: new Date().toJSON().split("Z").at(0)+"+07:00",
-
-        PatientTypeID: convertType(par.PatientTypeID),
-        EmployeeID: convertType(par.EmployeeID),
-        PatientRightID: convertType(par.PatientRightID),
-        GenderID: convertType(par.GenderID),
-    }
-    
-    // return JSON.stringify(data)
-
-    const reqOpt = {
+async function CreatePatient(data: PatientInterface) {
+    const requestOptions = {
         method: "POST",
         headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
-    }
-    
-
-    let res = await fetch(`${apiUrl}/patient/create`, reqOpt)
+          },
+          body: JSON.stringify(data),
+    };
+  
+    let res = await fetch(`${apiUrl}/patient/create`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
-        return res
-    })
-    return res
-
-}
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+  
+  return res;
+    
+  }
 
 // Update Patient
-async function UpdatePatient(par : Partial<PatientInterface>){
-    let data = {
-        ID: convertType(par.ID),
-        Civ: par.Civ,
-        FirstName: par.FirstName,
-        LastName: par.LastName,
-        Age: convertType(par.Age),
-        Weight: convertType(par.Weight),
-        Underlying: par.Underlying,
-        Brithdate: par.Brithdate,
-        PatientTime: par.PatientTime,
-
-        PatientTypeID: convertType(par.PatientTypeID),
-        EmployeeID: convertType(par.EmployeeID),
-        PatientRightID: convertType(par.PatientRightID),
-        GenderID: convertType(par.GenderID),
-    }
-
-    const reqOpt = {
+async function UpdatePatient(data: PatientInterface) {
+    
+    const requestOptions = {
         method: "PATCH",
         headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -122,13 +93,15 @@ async function UpdatePatient(par : Partial<PatientInterface>){
         body: JSON.stringify(data)
     }
 
-    let res = await fetch(`${apiUrl}/patient/edit`, reqOpt)
-    .then((response) => response.json())
-    .then((res) => {
-        if(res){
-            return res
-        }
-    })
+    let res = await fetch(`${apiUrl}/patient/edit`, requestOptions)
+        .then((response) => response.json())
+        .then((res) => {
+            if (res.data) {
+                return res.data
+            } else {
+                return false
+            }
+        })
     return res
 }
 
