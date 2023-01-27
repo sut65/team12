@@ -39,6 +39,9 @@ type Employee struct {
 	ManageBeds        []ManageBed       `gorm:"foreignKey:EmployeeID"`
 	SpecifyFoodTypes  []SpecifyFoodType `gorm:"foreignKey:DoctorID"`
 	MedicalSlips      []MedicalSlip     `gorm:"foreignKey:EmployeeID"`
+	MSTs 			  []MST 			`gorm:"foreignKey:NurseID"`
+	sMSTs 			  []MST 			`gorm:"foreignKey:DoctorID"`
+
 }
 type Role struct {
 	gorm.Model
@@ -132,6 +135,7 @@ type Patient struct {
 	Prescription     []Prescription    `gorm:"foreignKey:PatientID"`
 	SpecifyFoodTypes []SpecifyFoodType `gorm:"foreignKey:PatientID"`
 	ManageBeds       []ManageBed       `gorm:"foreignKey:PatientID"`
+	MSTs 			 []MST 		   `gorm:"foreignKey:PatientID"`
 
 	MedicalSlips []MedicalSlip `gorm:"foreignKey:PatientID"`
 }
@@ -472,3 +476,42 @@ type FoodType struct {
 }
 
 //==================================================== xxSpecifyFoodType ==========================================================================================//
+//==================================================== xxxMST ==========================================================================================//
+
+type MST struct {
+	gorm.Model
+
+	//FK
+	PatientID *uint 
+	Patient   Patient   `gorm:"references:id"`
+
+	RegDateTime time.Time
+	MSTDateTime time.Time
+
+	NurseID *uint
+	Nurse    Employee   `gorm:"references:id"`
+
+	DoctorID *uint
+	Doctor   Employee   `gorm:"references:id"`
+
+	HospitalID	*uint
+	Hospital	Hospital
+}
+
+type Hospital struct {
+	gorm.Model  
+	Pin         int
+	Name        string
+	Type		string
+	Address		string
+	Postcode	string
+	sdistrict	string
+	District    string
+	Province	string
+	Quantity	int
+
+	MSTs []MST `gorm:"foreignKey:HospitalID"`
+}
+
+//==================================================== xxMST ==========================================================================================//
+

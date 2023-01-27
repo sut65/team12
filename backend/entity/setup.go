@@ -38,6 +38,10 @@ func SetupDatabase() {
 		&Medicine{},
 		&Prescription{},
 
+		// MST
+		Hospital{},
+		MST{},
+
 		//sft
 		&SpecifyFoodType{},
 		&FoodType{},
@@ -801,6 +805,57 @@ func SetupDatabase() {
 	db.Model(&SpecifyFoodType{}).Create(&sft2)
 
 	//===================================================== xxSpecifyFoodType ==========================================================================================//
+	//==================================================== xxxMST ==========================================================================================//
+
+	hp1 := Hospital{
+		Pin:        23208,
+		Name:       "รพ.หาญอินเตอร์เนชั่นแนล",
+		Type:		"โรงพยาบาลเอกชน",
+		Address:	"29 ถ.มงคลบูรพา ต.ในเมือง อ.เมือง จ.ยโสธร",
+		Postcode:	"35000",
+		sdistrict:	"ในเมือง",
+		District:   "เมืองยโสธร",
+		Province:	"ยโสธร",
+		Quantity:	60,
+	}
+	db.Model(&Hospital{}).Create(&hp1)
+
+	hp2 := Hospital{
+		Pin:        21984,
+		Name:       "รพ.๕๐ พรรษา มหาวชิราลงกรณ",
+		Type:		"โรงพยาบาลชุมชน",
+		Address:	"300 ม.3 ถนนอุบล-ตระการ ต.ไร่น้อย อ.เมือง จ.อุบลราช",
+		Postcode:	"34000",
+		sdistrict:	"ไร่น้อย",
+		District:   "เมืองอุบลราชธานี",
+		Province:	"อุบลราชธานี",
+		Quantity:	80,
+	}
+	db.Model(&Hospital{}).Create(&hp2)
+
+	mst1 := MST{
+		Patient:        patient1,
+		RegDateTime: 	time.Now(),
+		MSTDateTime:	time.Now(),
+		Nurse:    		emp3,
+		Doctor:   		emp1,
+		Hospital: 		hp2,
+	}
+	db.Model(&MST{}).Create(&mst1)
+
+	mst2 := MST{
+		Patient:         patient2,
+		RegDateTime: 	 time.Now(),
+		MSTDateTime: 	 time.Now(),
+		Nurse:   		 emp3,
+		Doctor:  		 emp1,
+		Hospital:		 hp2,
+	}
+	db.Model(&MST{}).Create(&mst2)
+
+	
+
+	//===================================================== xxMST ==========================================================================================//
 
 	/********************************* KOOL ผ่าตัด *********************************/
 	// Dummy ข้อมูล specialist
@@ -1066,5 +1121,7 @@ func SetupDatabase() {
 		Comment:   "ล้อเตียงชำรุด",
 	}
 	db.Model(&ProblemReport{}).Create(&report2)
+
+
 
 }
