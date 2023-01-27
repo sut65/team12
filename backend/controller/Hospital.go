@@ -6,7 +6,7 @@ import (
 	"github.com/aamjazrk/team12/entity"
 	"github.com/gin-gonic/gin"
 )
-
+//
 // GET /hospital/:id
 func GetHospital(c *gin.Context) {
 	var hospital entity.Hospital
