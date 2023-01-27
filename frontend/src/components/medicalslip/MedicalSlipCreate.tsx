@@ -16,19 +16,19 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
-import { ManageBedInterface } from "../../interfaces/imanagebed/IManageBed";
-import { BedInterface } from "../../interfaces/imanagebed/IBed";
-import { BedStatusInterface } from "../../interfaces/imanagebed/IBedStatus";
+import { MedicalSlipInterface } from "../../interfaces/imedicalslip/IMedicalSlip";
+import { LabXrayInterface } from "../../interfaces/LabXray/ILabXray";
 
 import { PatientInterface } from "../../interfaces/patient/IPatient";
 import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
 
 import { ListPatient } from "../../services/patient/HttpClineServincePatient";
 import { ListEmployees } from "../../services/EmployeeSystem/employeeServices";
-import { 
-    GetBed,
-    GetBedStatus,
-    CreateManageBed } from "../../services/HttpClientServince";
+
+import { ListPrescription } from "../../services/prescription/HttpClineServincePrescription";
+import { ListLabXrays } from "../../services/LabXraySystem/LabXrayServices";
+import { PrescriptionInterface } from "../../interfaces/prescription/IPrescription";
+import { CreateMedicalSlip } from "../../services/MedicalSlip/HttpClientServince";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -37,16 +37,18 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-function ManageBedCreate() {
+function MedicalSlipCreate() {
   const [employee, setEmployee] = useState<EmployeeInterface>();
   const [patient, setPatient] = useState<PatientInterface[]>([]);
-  const [beds, setBeds] = useState<BedInterface[]>([]);
-  const [bedstatuses, setBedstatuses] = useState<BedStatusInterface[]>([]);
+  const [labxrays, setLabXrays] = useState<LabXrayInterface[]>([]);
+  //const [orecords, setOrecords] = useState<OrecordInterface[]>([]);
 
-  const [managebed, setManageBed] = useState<ManageBedInterface>({
-    Hn: 0,
+  const [prescriptions, setPrescription] = useState<PrescriptionInterface[]>([]);
+
+  const [medicalslip, setMedicalSlip] = useState<MedicalSlipInterface>({
+    Total: 0.0,
     Note: "",
-    ManageDate: new Date(), 
+    MedicalDate: new Date(), 
   });
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
@@ -63,20 +65,20 @@ function ManageBedCreate() {
   };
 
   const handleChange = (event: SelectChangeEvent) => {
-    const name = event.target.name as keyof typeof managebed;
-    setManageBed({
-      ...managebed,
+    const name = event.target.name as keyof typeof medicalslip;
+    setMedicalSlip({
+      ...medicalslip,
       [name]: event.target.value,
     });
-    console.log(managebed)
+    console.log(medicalslip)
   };
 
   const handleInputChange = (
     event: React.ChangeEvent<{ id?: string; value: any }>
   ) => {
-    const id = event.target.id as keyof typeof ManageBedCreate;
+    const id = event.target.id as keyof typeof MedicalSlipCreate;
     const { value } = event.target;
-    setManageBed({ ...managebed, [id]: value });
+    setMedicalSlip({ ...medicalslip, [id]: value });
 
   }
 
@@ -95,26 +97,25 @@ function ManageBedCreate() {
     }
   };
 
-  const getBed = async () => {
-    let res = await GetBed();
+  const getLabXaray = async () => {
+    let res = await ListLabXrays();
     if (res) {
-      setBeds(res);
+      setLabXrays(res);
     }
   };
 
-  const getBedStatus = async () => {
-    let res = await GetBedStatus();
-    managebed.BedStatusID = res.ID;
+  const getPrescription = async () => {
+    let res = await ListPrescription();
     if (res) {
-      setBedstatuses(res);
+      setPrescription(res);
     }
   };
 
   useEffect(() => {
     getEmployee();
     getPatient();
-    getBed();
-    getBedStatus();
+    getLabXaray();
+    getPrescription();
 
   }, []);
   
@@ -125,16 +126,17 @@ function ManageBedCreate() {
 
   async function submit() {
     let data = {
-      PatientID: convertType(managebed.PatientID),
+      PatientID: convertType(medicalslip.PatientID),
       EmployeeID: convertType(localStorage.getItem("id") as string),
-      BedID: convertType(managebed.BedID),
-      BedStatusID: convertType(managebed.BedStatusID),     
-      Hn: typeof managebed.Hn == "string" ? parseInt(managebed.Hn) : 0,
-      Note: managebed.Note,
-      ManageDate: managebed.ManageDate,
+      LabXrayID: convertType(medicalslip.LabXrayID),
+      ORecordID: medicalslip.ORecordID,
+      PrescriptionID: convertType(medicalslip.PrescriptionID),     
+      Total: typeof medicalslip.Total == "string" ? parseFloat(medicalslip.Total) : 0.0,
+      Note: medicalslip.Note,
+      MedicalDate: medicalslip.MedicalDate,
 
     };
-    let res = await CreateManageBed(data);
+    let res = await CreateMedicalSlip(data);
     if (res) {
       setSuccess(true);
     } else {
@@ -184,12 +186,12 @@ function ManageBedCreate() {
         </Box>
         <Divider />
         <Grid container spacing={2} sx={{ padding: 2 }}>
-          <Grid item xs={6}>
+          <Grid item xs={5}>
             <FormControl fullWidth variant="outlined">
               <p>รายชื่อผู้ป่วย</p>
               <Select
                 native
-                value={managebed.PatientID + ""}
+                value={medicalslip.PatientID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "PatientID",
@@ -206,45 +208,67 @@ function ManageBedCreate() {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={5}>
             <FormControl fullWidth variant="outlined">
-              <p>หมายเลขเตียงผู้ป่วย</p>
+              <p>หมายเลขห้อง Lab-Xray</p>
               <Select
                 native
-                value={managebed.BedID + ""}
+                value={medicalslip.LabXrayID + ""}
                 onChange={handleChange}
                 inputProps={{
-                  name: "BedID",
+                  name: "LabXrayID",
                 }}
               >
                 <option aria-label="None" value="">
-                  กรุณาเลือกหมายเลขเตียงผู้ป่วย
+                  กรุณาเลือกหมายเลขห้อง Lab-Xray
                 </option>
-                {beds.map((item: BedInterface) => (
+                {labxrays.map((item: LabXrayInterface) => (
                   <option value={item.ID} key={item.ID}>
-                    {item.Number}
+                    {item.ID}
                   </option>
                 ))}
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={5}>
             <FormControl fullWidth variant="outlined">
-              <p>สภาพการใช้งานเตียงผู้ป่วย</p>
+              <p>หมายเลขห้องผ่าตัด</p>
               <Select
                 native
-                value={managebed.BedStatusID + ""}
+                value={medicalslip.ORecordID + ""}
                 onChange={handleChange}
                 inputProps={{
-                  name: "BedStatusID",
+                  name: "ORecordID",
                 }}
               >
                 <option aria-label="None" value="">
-                  กรุณาเลือกสถานะเตียงผู้ป่วย
+                  กรุณาเลือกหมายเลขห้องผ่าตัด
                 </option>
-                {bedstatuses.map((item: BedStatusInterface) => (
+                {labxrays.map((item: LabXrayInterface) => (
                   <option value={item.ID} key={item.ID}>
-                    {item.Name}
+                    {item.ID}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={5}>
+            <FormControl fullWidth variant="outlined">
+              <p>หมายเลขใบสั่งยา</p>
+              <Select
+                native
+                value={medicalslip.PrescriptionID + ""}
+                onChange={handleChange}
+                inputProps={{
+                  name: "PrescriptionID",
+                }}
+              >
+                <option aria-label="None" value="">
+                  กรุณาเลือกหมายเลขใบสั่งยา
+                </option>
+                {prescriptions.map((item: PrescriptionInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.ID}
                   </option>
                 ))}
               </Select>
@@ -261,10 +285,10 @@ function ManageBedCreate() {
             />
           </Grid>
           <Grid item xs={6}>
-            <p>HN</p>
+            <p>จำนวนค่ารักษา</p>
             <TextField
               fullWidth
-              id="Hn"
+              id="Total"
               type="string"
               variant="outlined"
               onChange={handleInputChange}
@@ -275,11 +299,11 @@ function ManageBedCreate() {
               <p>วันที่และเวลา</p>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
-                  value={managebed.ManageDate}
+                  value={medicalslip.MedicalDate}
                   onChange={(newValue) => {
-                    setManageBed({
-                      ...managebed,
-                      ManageDate: newValue,
+                    setMedicalSlip({
+                      ...medicalslip,
+                      MedicalDate: newValue,
                     });
                   }}
                   renderInput={(params) => <TextField {...params} />}
@@ -290,7 +314,7 @@ function ManageBedCreate() {
           <Grid item xs={12}>
             <Button
               component={RouterLink}
-              to="/managebed"
+              to="/medicalslip"
               variant="outlined"
               color="primary"
               sx = {{borderRadius: 3,'&:hover': {backgroundColor: '#e0f2f1'}}}
@@ -315,4 +339,4 @@ function ManageBedCreate() {
   );
 }
 
-export default ManageBedCreate;
+export default MedicalSlipCreate;

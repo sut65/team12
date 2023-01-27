@@ -13,6 +13,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import BedroomChildIcon from '@mui/icons-material/BedroomChild';
 import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -28,6 +29,8 @@ import Home from './components/Home';
 import ManageBed from './components/managebed/ManageBed';
 import ManageBedCreate from './components/managebed/ManageBedCreate';
 import ManageBedUpdate from './components/managebed/ManageBedUpdate';
+import MedicalSlip from './components/medicalslip/MedicalSlip';
+import MedicalSlipCreate from './components/medicalslip/MedicalSlipCreate';
 import  Employee from './components/employee/Employee';
 import EmployeeCreateNew from './components/employee/EmployeeCreateNew';
 import EmployeeEdit from './components/employee/EmployeeEdit';
@@ -108,12 +111,14 @@ const mdTheme = createTheme({
 })
 
 const menu = [
-  { name: " : หน้าหลัก", icon: <HomeIcon color="primary" />, path: "/home" , role: "Nurse"},
-  { name: " : จัดการเตียงคนไข้", icon: <BedroomChildIcon color="primary" />, path: "/managebed" ,role: "Nurse"},
-  { name: "พนักงาน", icon: <BadgeOutlinedIcon color="primary"/>, path: "/employee" ,role: "HumanResourse"},
-  { name: "แลปเอกซเรย์", icon: <BadgeOutlinedIcon color="primary"/>, path: "/labxray" ,role: "Doctor"},
-  { name: "ลงทะเบียนผู้ป่วย", icon: <BoyIcon />, path: "/patients/list" ,role: "Nurse"},
-  { name: "ใบสั่งยา", icon: <ReceiptLongIcon/>, path: "/prescription/list",role: "Nurse"},
+  { name: "  หน้าหลัก", icon: <HomeIcon color="primary" />, path: "/home" , role: "Nurse"},
+  { name: "  จัดการเตียงคนไข้", icon: <BedroomChildIcon color="primary" />, path: "/managebed" ,role: "Nurse"},
+  { name: "  บันทึกค่ารักษา", icon: <LocalHospitalIcon color="primary"/>, path: "/medicalslip",role: "Nurse"},
+  { name: "  พนักงาน", icon: <BadgeOutlinedIcon color="primary"/>, path: "/employee" ,role: "HumanResourse"},
+  { name: "  แลปเอกซเรย์", icon: <BadgeOutlinedIcon color="primary"/>, path: "/labxray" ,role: "Doctor"},
+  { name: "  ลงทะเบียนผู้ป่วย", icon: <BoyIcon color="primary"/>, path: "/patients/list" ,role: "Nurse"},
+  { name: "  ใบสั่งยา", icon: <ReceiptLongIcon color="primary"/>, path: "/prescription/list",role: "Nurse"},
+
   
 
 ];
@@ -235,6 +240,9 @@ function App() {
                 <Route  path="/managebed" element={<ManageBed />} />
                 <Route  path="/managebed/create" element={<ManageBedCreate />} />
                 <Route  path="/managebed/update" element={<ManageBedUpdate />} />
+                <Route  path="/medicalslip" element={<MedicalSlip />} />
+                <Route  path="/medicalslip/create" element={<MedicalSlipCreate />} />
+                
                 <Route  path="/employee" element={<Employee />} />
                 <Route  path="/employee/create" element={<EmployeeCreateNew />} />
                 <Route  path="/employee/update/:id" element={<EmployeeEdit />} />

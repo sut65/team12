@@ -9,7 +9,7 @@ function Home() {
     <Container maxWidth="md">
 
     <Typography variant="h1" gutterBottom>
-        Welcome to The Impatienting we healing the World
+        Welcome to The Impatienting 
       </Typography>
       <Typography variant="h3" gutterBottom>
         we healing the World
