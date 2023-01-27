@@ -174,6 +174,22 @@ func main() {
 			router.PATCH("/vitalsign/update", controller.UpdateVitalSignsRecord)
 			router.DELETE("/vitalsigns/delete/:id", controller.DeleteVitalSignsRecord)
 
+			//====================Requisition Record=============
+			//Equipment
+			router.GET("/equipments/list", controller.ListEquipment)
+			router.GET("/equipment/get/:id", controller.GetEquipment)
+
+			//DepartmentForEquipment
+			router.GET("/departmentforequipments/list", controller.ListDepartmentForEquipment)
+			router.GET("/departmentforequipment/get/:id", controller.GetDepartmentForEquipment)
+
+			//RequisitionRecord
+			router.GET("/requisitionrecords/list", controller.ListRequisitionRecord)
+			router.GET("/requisitionrecord/get/:id", controller.GetRequisitionRecord)
+			router.POST("/requisitionrecord/create", controller.CreateRequisitionRecord)
+			router.PATCH("/requisitionrecord/update", controller.UpdateRequisitionRecord)
+			router.DELETE("/requisitionrecords/delete/:id", controller.DeleteRequisitionRecord)
+
 		}
 	}
 	// // Signup User Route
