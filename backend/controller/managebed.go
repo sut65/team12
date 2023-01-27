@@ -70,10 +70,12 @@ func CreateManageBed(c *gin.Context) {
 func GetManageBed(c *gin.Context) {
 	var managebed entity.ManageBed
 	id := c.Param("id")
-	if tx := entity.DB().Where("id = ?", id).First(&managebed); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "managebeds not found"})
+	if err := entity.DB().Raw("SELECT * FROM medical_slips WHERE id = ?", id).Scan(&managebed).Error; err != nil {
+
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
 	c.JSON(http.StatusOK, gin.H{"data": managebed})
 }
 

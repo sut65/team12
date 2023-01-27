@@ -42,7 +42,7 @@ async function GetManageBedID() {
     };
 
     let res = await fetch(
-        `${apiUrl}/managebeds/${aid}`,
+        `${apiUrl}/managebed/${aid}`,
         requestOptions
     )
         .then((response) => response.json())
@@ -178,7 +178,7 @@ async function DeleteManageBed(ID:number) {
       }
   };
   
-  let res = await fetch(`${apiUrl}/managebed/:id/${ID}`, requestOptions)
+  let res = await fetch(`${apiUrl}/managebeds/${ID}`, requestOptions)
   .then((response) => response.json())
   .then((res) => {
       if(res.data){

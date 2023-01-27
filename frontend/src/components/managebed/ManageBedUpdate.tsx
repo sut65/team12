@@ -93,7 +93,7 @@ function ManageBedUpdate() {
   const getManageBedByID = async () => {
     let res = await GetManageBedID()
     if(res){
-        setEmployee(res)
+      setManageBed(res)
     }
   }
 
@@ -214,7 +214,7 @@ function ManageBedUpdate() {
         </Box>
         <Divider />
         <Grid container spacing={2} sx={{ padding: 2 }}>
-          <Grid item xs={8}>
+          <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>รายชื่อผู้ป่วย</p>
               <Select
@@ -236,7 +236,7 @@ function ManageBedUpdate() {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>หมายเลขเตียงผู้ป่วย</p>
               <Select
@@ -258,7 +258,7 @@ function ManageBedUpdate() {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>สภาพการใช้งานเตียงผู้ป่วย</p>
               <Select
@@ -284,9 +284,8 @@ function ManageBedUpdate() {
           <p>หมายเหตุ *</p>
             <TextField className='StyledTextField'
                 autoComplete="off"
-                id="Name"
+                id="Note"
                 variant="outlined"
-                size="small"
                 color="primary"
                 fullWidth
                 onChange={handleChangeTextField}
@@ -297,10 +296,8 @@ function ManageBedUpdate() {
           <Grid item xs={6}>
           <p>Hn</p>
             <TextField className='StyledTextField'
-                autoComplete="off"
-                id="Name"
+                id="Hn"
                 variant="outlined"
-                size="small"
                 color="primary"
                 fullWidth
                 onChange={handleChangeTextField}
