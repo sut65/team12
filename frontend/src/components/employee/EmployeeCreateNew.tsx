@@ -37,6 +37,12 @@ import {
   });
 
   function Create_save(){
+    const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+      props,
+      ref
+    ) {
+      return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+    });
     const [employee, setEmployee] = React.useState<Partial<EmployeeInterface>>(
       {
         DepartmentID: 0,
@@ -99,6 +105,11 @@ import {
       console.log(employee)
 
       let res = await CreateEmployee(employee)
+      if (res) {
+        setSuccess(true);
+      } else {
+        setError(true);
+      }
       // console.log(res)
       if(res.data){
           setTimeout(() => {
@@ -129,7 +140,6 @@ import {
       }
   
       setSuccess(false);
-  
       setError(false);
     };
   
@@ -150,13 +160,13 @@ import {
         [name]: event.target.value,
       });
     };
-    let theme = createTheme({
+    let theme = createTheme({ // ิbutton theme
       palette: {
         primary: {
-          main: '#0052cc',
+          main: '#12a178', //เขียว
         },
         secondary: {
-          main: '#edf2ff',
+          main: '#edf2ff', //ขาว
         },
       },
     });
@@ -166,7 +176,7 @@ import {
         <Container maxWidth="lg" >
           <Snackbar
             open={success}
-            autoHideDuration={6000}
+            autoHideDuration={2000}
             onClose={handleClose}
             anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
           >
@@ -175,7 +185,7 @@ import {
             </Alert>
           </Snackbar>
     
-          <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
+          <Snackbar open={error} autoHideDuration={2000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="error">
               บันทึกข้อมูลไม่สำเร็จ
             </Alert>
