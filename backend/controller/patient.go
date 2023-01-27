@@ -51,10 +51,10 @@ func CreatePatient(c *gin.Context) {
 		Civ:          patient.Civ,
 		FirstName:    patient.FirstName,
 		LastName:     patient.LastName,
-		PatientType:  patient.PatientType,
-		PatientRight: patient.PatientRight,
-		Employee:     patient.Employee,
-		Gender:       patient.Gender,
+		PatientType:  patienttype,
+		PatientRight: patientright,
+		Employee:     employee,
+		Gender:       gender,
 		Age:          patient.Age,
 		Weight:       patient.Weight,
 		Underlying:   patient.Underlying,
@@ -67,7 +67,6 @@ func CreatePatient(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": p1})
 
 	c.JSON(http.StatusOK, gin.H{
 		"status": "create Patient Success",
