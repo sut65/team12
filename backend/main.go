@@ -66,9 +66,18 @@ func main() {
 			router.DELETE("/labxrays/delete/:id", controller.DeleteLabXray)
 
 			// ----------------- Patient -----------------------------
-
-			// Patient Routes
+			//ข้อมูล path ผู้ป่วย//
+			router.GET("/patient/get/:id", controller.GetPatient)
 			router.GET("/patients/list", controller.ListPatient)
+			router.POST("/patient/create", controller.CreatePatient)
+			router.PATCH("/patient/edit", controller.UpdatePatient)
+			router.DELETE("/patient/delet/:id", controller.DeletePatient)
+			//ข้อมูล path patient_type//
+			router.GET("/patient/type/:id", controller.GetPatientType)
+			router.GET("/patient/types/list", controller.ListPatientType)
+			//ข้อมูล path patient_right//
+			router.GET("/patient/right/:id", controller.GetPatientRight)
+			router.GET("/patient/rights/list", controller.ListPatientRight)
 
 			// ----------------- ManageBed ----------------------------
 			// Bed Routes
