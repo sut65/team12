@@ -6,6 +6,7 @@ import (
 
 	"github.com/aamjazrk/team12/entity"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 )
 
 // ---------------- Employee ---------------
@@ -80,6 +81,14 @@ func CreateEmployee(c *gin.Context) {
 		return
 	}
 
+	// เข้ารหัสลับรหัสผ่านที่ผู้ใช้กรอกก่อนบันทึกลงฐานข้อมูล
+	hashPassword, err := bcrypt.GenerateFromPassword([]byte(employee.Password), 14)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "error hashing password"})
+		return
+	}
+
+	employee.Password = string(hashPassword)
 	emp := entity.Employee{
 		FirstName:  employee.FirstName,
 		LastName:   employee.LastName,
