@@ -20,7 +20,7 @@ import Button from "@mui/material/Button";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { PrescriptionInterface } from "../../interfaces/prescription/IPrescription";
 import { MedicineInterface } from "../../interfaces/prescription/IMedicine";
-import { CreatePrescription, ListMedicine } from "../../services/prescription/HttpClineServincePrescription";
+import { CreatePrescription, ListDoctor, ListMedicine } from "../../services/prescription/HttpClineServincePrescription";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -104,7 +104,7 @@ function PrescriptionCreate(){
       };
 
       const listOrder = async () => {
-        let res = await ListEmployees();
+        let res = await ListDoctor();
         if(res){
             setOrder(res);
         }
