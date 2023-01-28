@@ -13,6 +13,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import BedroomChildIcon from '@mui/icons-material/BedroomChild';
 import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
+import MedicationLiquidIcon from '@mui/icons-material/MedicationLiquid';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
@@ -52,6 +53,12 @@ import MSTEdit from './components/mst/MSTEdit';
 import SFT from './components/sft/SFT';
 import SFTCreateNew from './components/sft/SFTCreateNew';
 import SFTEdit from './components/sft/SFTEdit';
+import VitalSignsCreate from './components/vitalsigns/VitalSignsCreate';
+import VitalSignsList from './components/vitalsigns/VitalSignsList';
+import RequisitionList from './components/requisition/RequisitionList';
+import RequisitionCreate from './components/requisition/RequisitionCreate';
+import VitalSignsEdit from './components/vitalsigns/VitalSignsEdit';
+import RequisitionEdit from './components/requisition/RequisitionEdit';
 
 const drawerWidth = 240;
 
@@ -128,7 +135,7 @@ const menu = [
   { name: "  ใบสั่งยา", icon: <ReceiptLongIcon color="primary"/>, path: "/prescription/list",role: "Nurse"},
   { name: "  คำร้องขอย้ายรพ.", icon: <BadgeOutlinedIcon color="primary"/>, path: "/mst" ,role: "Nurse"},
   { name: "  เเจ้งรายการอาหารผู้ป่วย", icon: <BadgeOutlinedIcon color="primary"/>, path: "/sft" ,role: "Doctor"},
-
+  { name: "อุปกรณ์ทางการเเพทย์", icon: <MedicationLiquidIcon color="primary" />, path: "/requisition", role: "Nurse"},
   
 
 ];
@@ -272,6 +279,9 @@ function App() {
                 <Route  path="/sft" element={<SFT />} />
                 <Route  path="/sft/create" element={<SFTCreateNew />} />
                 <Route  path="/sft/update/:id" element={<SFTEdit />} />
+                <Route path="/requisition" element={<RequisitionList />} />
+                <Route path="/requisition/create" element={<RequisitionCreate />} />
+                <Route path="/requisition/update/:id" element={<RequisitionEdit />} />
                 
               </Routes>
             </Container>
