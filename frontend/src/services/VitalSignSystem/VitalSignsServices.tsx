@@ -34,7 +34,7 @@ async function ListVitalsigns() {
 }
 
 // GET By ID Vitalsign
-async function GetVitalsign(ID: string | undefined) {
+async function GetVitalsign(ID: string | undefined | null) {
     const reqOpt = {
         method: "GET",
         headers: {
@@ -66,8 +66,8 @@ async function PostVitalSign(vtr:Partial<VitalSignsInterface>) {
         PulseRate: vtr.PulseRate,
         RespirationRate: vtr.RespirationRate,
         BodyTemperature: convertTypeToFloat(vtr.BodyTemperature),
-        CheckDate: vtr.CheckDate,
-        // CheckDate: new Date().toJSON().split("Z").at(0)+"+07:00",
+        // CheckDate: vtr.CheckDate,
+        CheckDate: new Date().toJSON().split("Z").at(0)+"+07:00",
         // EmployeeID:convertType(vtr.EmployeeID),
         EmployeeID:convertType(localStorage.getItem("id") as string),
         PatientID: convertType(vtr.PatientID),
@@ -97,13 +97,14 @@ async function PostVitalSign(vtr:Partial<VitalSignsInterface>) {
 // Update vitalSigns
 async function UpdateVitalsign(vtr : Partial<VitalSignsInterface>){
     let data = {
+        ID:convertType(vtr.ID),
         BloodPressureHigh: vtr.BloodPressureHigh,
         BloodPressureLow: vtr.BloodPressureLow,
         PulseRate: vtr.PulseRate,
         RespirationRate: vtr.RespirationRate,
         BodyTemperature: convertTypeToFloat(vtr.BodyTemperature),
-        CheckDate: vtr.CheckDate,
-        // CheckDate: new Date().toJSON().split("Z").at(0)+"+07:00",
+        // CheckDate: vtr.CheckDate,
+        CheckDate: new Date().toJSON().split("Z").at(0)+"+07:00",
         EmployeeID: convertType(vtr.EmployeeID),
         PatientID: convertType(vtr.PatientID),
         StatusID: convertType(vtr.StatusID),
