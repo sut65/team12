@@ -63,6 +63,9 @@ import RequisitionEdit from './components/requisition/RequisitionEdit';
 import PrincipalDiagnosisUpdate from './components/PrincipalDiagnosis/principalUpdate';
 import NongGeeCreate from './components/PrincipalDiagnosis/NongGeeCreate';
 import PrincipalDiagnosis from './components/PrincipalDiagnosis/principaldiagnosis';
+import Er_Record from './components/ErRecord/ErRecord';
+import ErRecordCreate from './components/ErRecord/ErRecordCreate';
+import ErRecordUpdate from './components/ErRecord/ErRecordUpdate';
 
 const drawerWidth = 240;
 
@@ -292,6 +295,9 @@ function App() {
                 <Route path="/principaldiagnosis" element={<PrincipalDiagnosis/>} />
                 <Route path="/principaldiagnosis/create" element={<NongGeeCreate/>} />
                 <Route path="/principaldiagnosis/update/:id" element={<PrincipalDiagnosisUpdate/>} />
+                <Route path="/errecord" element={<Er_Record/>} />
+                <Route path="/errecord/create" element={<ErRecordCreate/>} />
+                <Route path="/errecord/update/:id" element={<ErRecordUpdate/>} />
                 
               </Routes>
             </Container>
