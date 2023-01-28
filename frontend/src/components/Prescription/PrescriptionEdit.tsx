@@ -17,7 +17,7 @@ import { PatientRightInterface } from "../../interfaces/patient/IPatientRight";
 import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
 import { PrescriptionInterface } from "../../interfaces/prescription/IPrescription";
 import { MedicineInterface } from "../../interfaces/prescription/IMedicine";
-import { GetPrescription, ListMedicine, UpdatePrescription } from "../../services/prescription/HttpClineServincePrescription";
+import { GetPrescription, ListDoctor, ListMedicine, UpdatePrescription } from "../../services/prescription/HttpClineServincePrescription";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -118,7 +118,7 @@ function PrescriptionEdit(){
       };
 
       const listOrder = async () => {
-        let res = await ListEmployees();
+        let res = await ListDoctor();
         if(res){
             setOrder(res);
         }
@@ -317,7 +317,7 @@ function PrescriptionEdit(){
                                 <option aria-label="None" value="">
                                     กรุณาเลือกผู้สั่งยาจ่ายย
                                 </option>
-                                {employee.map((item: EmployeeInterface) => (
+                                {order.map((item: EmployeeInterface) => (
                                     <option value={item.ID} key={item.ID}>
                                         {item.FirstName + " " + item.LastName}
                                     </option>
