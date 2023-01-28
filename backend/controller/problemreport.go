@@ -16,6 +16,10 @@ func CreateProblemReport(c *gin.Context) {
 	var Problem entity.Problem
 	var ProblemReport entity.ProblemReport
 
+	if err := c.ShouldBindJSON(&ProblemReport); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 	if tx := entity.DB().Where("id = ?", ProblemReport.UserID).First(&Employee); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "employee not found"})
 		return
@@ -35,10 +39,10 @@ func CreateProblemReport(c *gin.Context) {
 
 	// ขั้นตอนที่ 12 สร้าง entity problemreport
 	p1 := entity.ProblemReport{
-		User:      ProblemReport.User,
-		ClassProb: ProblemReport.ClassProb,
-		NumPlace:  ProblemReport.NumPlace,
-		Problem:   ProblemReport.Problem,
+		User:      Employee,
+		ClassProb: ClassProb,
+		NumPlace:  NumPlace,
+		Problem:   Problem,
 		Date:      ProblemReport.Date,
 		Comment:   ProblemReport.Comment,
 	}
@@ -65,7 +69,7 @@ func GetProblemReport(c *gin.Context) {
 // List problemreport
 func ListProblemReport(c *gin.Context) {
 	var ProblemReports []entity.ProblemReport
-	if err := entity.DB().Preload("Employee").Preload("ClassProb").Preload("NumPlace").Preload("Problem").Raw("SELECT * FROM problemreports").Find(&ProblemReports).Error; err != nil {
+	if err := entity.DB().Preload("User").Preload("ClassProb").Preload("NumPlace").Preload("Problem").Raw("SELECT * FROM problem_reports").Find(&ProblemReports).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
