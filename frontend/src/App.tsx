@@ -46,6 +46,12 @@ import Prescription from './components/Prescription/PrescriptionList';
 import PrescriptionDelete from './components/Prescription/PrescriptionDelete';
 import PrescriptionCreate from './components/Prescription/PrescriptionCreate';
 import PrescriptionEdit from './components/Prescription/PrescriptionEdit';
+import MST from './components/mst/MST';
+import MSTCreateNew from './components/mst/MSTCreateNew';
+import MSTEdit from './components/mst/MSTEdit';
+import SFT from './components/sft/SFT';
+import SFTCreateNew from './components/sft/SFTCreateNew';
+import SFTEdit from './components/sft/SFTEdit';
 
 const drawerWidth = 240;
 
@@ -120,6 +126,8 @@ const menu = [
   { name: "  แลปเอกซเรย์", icon: <BadgeOutlinedIcon color="primary"/>, path: "/labxray" ,role: "Doctor"},
   { name: "  ลงทะเบียนผู้ป่วย", icon: <BoyIcon color="primary"/>, path: "/patients/list" ,role: "Nurse"},
   { name: "  ใบสั่งยา", icon: <ReceiptLongIcon color="primary"/>, path: "/prescription/list",role: "Nurse"},
+  { name: "  คำร้องขอย้ายรพ.", icon: <BadgeOutlinedIcon color="primary"/>, path: "/mst" ,role: "Nurse"},
+  { name: "  เเจ้งรายการอาหารผู้ป่วย", icon: <BadgeOutlinedIcon color="primary"/>, path: "/sft" ,role: "Doctor"},
 
   
 
@@ -258,6 +266,12 @@ function App() {
                 <Route path="/prescription/delete" element={<PrescriptionDelete/>} />
                 <Route path="/prescription/create" element={<PrescriptionCreate/>} />
                 <Route path="/prescription/edit" element={<PrescriptionEdit/>} />
+                <Route  path="/mst" element={<MST />} />
+                <Route  path="/mst/create" element={<MSTCreateNew />} />
+                <Route  path="/mst/update/:id" element={<MSTEdit />} />
+                <Route  path="/sft" element={<SFT />} />
+                <Route  path="/sft/create" element={<SFTCreateNew />} />
+                <Route  path="/sft/update/:id" element={<SFTEdit />} />
                 
               </Routes>
             </Container>
