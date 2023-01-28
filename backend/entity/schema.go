@@ -432,7 +432,7 @@ type ProblemReport struct {
 
 type MedicalSlip struct {
 	gorm.Model
-	Total       float32
+	Total       float64
 	Note        string
 	MedicalDate time.Time
 

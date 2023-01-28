@@ -117,7 +117,7 @@ function ORrecord() {
           <Box flexGrow={1}>
             <Typography
               component="h3"
-              variant="h4"
+              variant="h6"
               color="primary"
               gutterBottom
             >
