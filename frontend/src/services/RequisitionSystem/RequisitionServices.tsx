@@ -30,7 +30,7 @@ async function ListRequisitions() {
 }
 
 // GET By ID requisition
-async function GetRequisition(ID: string | undefined) {
+async function GetRequisition(ID: string | undefined | null) {
     const reqOpt = {
         method: "GET",
         headers: {
@@ -58,8 +58,8 @@ async function GetRequisition(ID: string | undefined) {
 async function PostRequisition(requisition:Partial<RequisitionRecordInterface>) {
     let data = {
         Quantity: requisition.Quantity,
-        RequisitionDate: requisition.RequisitionDate,
-        // RequisitionDate: new Date().toJSON().split("Z").at(0)+"+07:00",
+        // RequisitionDate: requisition.RequisitionDate,
+        RequisitionDate: new Date().toJSON().split("Z").at(0)+"+07:00",
         EmployeeID:convertType(localStorage.getItem("id") as string),
         EquipmentID: convertType(requisition.EquipmentID),
         DepartmentForEquipmentID: convertType(requisition.DepartmentForEquipmentID),
@@ -88,9 +88,10 @@ async function PostRequisition(requisition:Partial<RequisitionRecordInterface>) 
 // Update Requisition
 async function UpdateRequisition(requisition : Partial<RequisitionRecordInterface>){
     let data = {
+        ID:convertType(requisition.ID),
         Quantity: requisition.Quantity,
-        RequisitionDate: requisition.RequisitionDate,
-        // RequisitionDate: new Date().toJSON().split("Z").at(0)+"+07:00",
+        // RequisitionDate: requisition.RequisitionDate,
+        RequisitionDate: new Date().toJSON().split("Z").at(0)+"+07:00",
         EmployeeID: convertType(requisition.EmployeeID),
         EquipmentID: convertType(requisition.EquipmentID),
         DepartmentForEquipmentID: convertType(requisition.DepartmentForEquipmentID),
