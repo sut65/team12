@@ -66,10 +66,12 @@ import PrincipalDiagnosis from './components/PrincipalDiagnosis/principaldiagnos
 import Er_Record from './components/ErRecord/ErRecord';
 import ErRecordCreate from './components/ErRecord/ErRecordCreate';
 import ErRecordUpdate from './components/ErRecord/ErRecordUpdate';
-
 import ORrecord from './components/operatingrecord/ORrecord';
 import ORrecordCreate from './components/operatingrecord/ORrecordCreate';
 import ORrecordUpdate from './components/operatingrecord/ORrecordUpdate';
+import ProblemReport from './components/reportproblem/ProblemReport';
+import ProblemReportCreate from './components/reportproblem/ProblemReportCreate';
+import ProblemReportUpdate from './components/reportproblem/ProblemReportUpdate';
 
 const drawerWidth = 240;
 
@@ -149,6 +151,7 @@ const menu = [
   { name: "อุปกรณ์ทางการเเพทย์", icon: <MedicationLiquidIcon color="primary" />, path: "/requisition", role: "Nurse"},
   { name: "บันทึกสัญญาณชีพ", icon: <AssignmentSharpIcon color="primary" />, path: "/vitalsign", role: "Nurse"},
   { name: " : บันทึกเข้าใช้ห้องผ่าตัด", icon: <BadgeOutlinedIcon color="primary"/>, path: "/orrecord" ,role: "Nurse"},
+  { name: " : แจ้งซ่อมบำรุง", icon: <BadgeOutlinedIcon color="primary"/>, path: "/problemreport" ,role: "Nurse"},
 
 ];
 function App() {
@@ -306,7 +309,9 @@ function App() {
                 <Route  path="/orrecord" element={<ORrecord />} />   
                 <Route  path="/orrecord/create" element={<ORrecordCreate />} />
                 <Route  path="/orrecord/update" element={<ORrecordUpdate />} /> 
-                
+                <Route  path="/problemreport" element={<ProblemReport />} /> 
+                <Route  path="/problemreport/create" element={<ProblemReportCreate />} /> 
+                <Route  path="/problemreport/update" element={<ProblemReportUpdate />} /> 
               </Routes>
             </Container>
           </Box>
