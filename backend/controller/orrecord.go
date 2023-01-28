@@ -13,10 +13,10 @@ func CreateORrecord(c *gin.Context) {
 	var ORrecord entity.ORrecord
 	var Employee entity.Employee
 	var Patient entity.Patient
-	var Specialist entity.ORrecord
-	var SurgeryState entity.ORrecord
-	var SurgeryType entity.ORrecord
-	var OperatingRoom entity.ORrecord
+	var Specialist entity.Specialist
+	var SurgeryState entity.SurgeryState
+	var SurgeryType entity.SurgeryType
+	var OperatingRoom entity.OperatingRoom
 
 	if err := c.ShouldBindJSON(&ORrecord); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -34,7 +34,7 @@ func CreateORrecord(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Specialist not found"})
 		return
 	}
-	if tx := entity.DB().Where("id = ?", ORrecord.SurgeryState).First(&SurgeryState); tx.RowsAffected == 0 {
+	if tx := entity.DB().Where("id = ?", ORrecord.SurgeryStateID).First(&SurgeryState); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "SurgeryState not found"})
 		return
 	}
@@ -49,12 +49,16 @@ func CreateORrecord(c *gin.Context) {
 
 	// ขั้นตอนที่ สร้าง entity ORrecord
 	p1 := entity.ORrecord{
-		User:            ORrecord.User,
-		Patient:         ORrecord.Patient,
-		OperatingRoom:   ORrecord.OperatingRoom,
-		SurgeryTypeID:   ORrecord.SurgeryTypeID,
-		SurgeryState:    ORrecord.SurgeryState,
-		Specialist:      ORrecord.Specialist,
+		User:          Employee,
+		Doctor:        Employee,
+		StaffReciving: Employee,
+		StaffReturing: Employee,
+		Patient:       Patient,
+		OperatingRoom: OperatingRoom,
+		SurgeryType:   SurgeryType,
+		SurgeryState:  SurgeryState,
+		Specialist:    Specialist,
+
 		SurgeryStart:    ORrecord.SurgeryStart,
 		SurgeryEnd:      ORrecord.SurgeryEnd,
 		OperatingResult: ORrecord.OperatingResult,
@@ -75,6 +79,7 @@ func GetORrecord(c *gin.Context) {
 	var ORrecord entity.ORrecord
 	id := c.Param("id")
 	if err := entity.DB().Raw("SELECT * FROM o_rrecords WHERE id = ?", id).Scan(&ORrecord).Error; err != nil {
+
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -84,7 +89,7 @@ func GetORrecord(c *gin.Context) {
 // List ORrecord
 func ListORrecord(c *gin.Context) {
 	var ORrecords []entity.ORrecord
-	if err := entity.DB().Preload("Employee").Preload("OperatingRoom").Preload("Specialist").Preload("SurgeryState").Preload("SurgeryType").Preload("patient").Raw("SELECT * FROM o_rrecords").Find(&ORrecords).Error; err != nil {
+	if err := entity.DB().Preload("User").Preload("OperatingRoom").Preload("Patient").Preload("Doctor").Preload("Specialist").Preload("SurgeryType").Preload("SurgeryState").Preload("StaffReciving").Preload("StaffReturing").Raw("SELECT * FROM o_rrecords").Find(&ORrecords).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -178,7 +183,7 @@ func UpdateORrecord(c *gin.Context) {
 		}
 		ORrecord.Specialist = specialist
 	} else {
-		if tx := entity.DB().Where("id = ?", ORrecord.SpecialistID).First(&specialist); tx.RowsAffected == 0 {
+		if tx := entity.DB().Where("id = ?", oldORrecord.SpecialistID).First(&specialist); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "not found specialist"})
 			return
 		}
@@ -193,7 +198,7 @@ func UpdateORrecord(c *gin.Context) {
 		}
 		ORrecord.Doctor = doctor
 	} else {
-		if tx := entity.DB().Where("id = ?", ORrecord.DoctorID).First(&doctor); tx.RowsAffected == 0 {
+		if tx := entity.DB().Where("id = ?", oldORrecord.DoctorID).First(&doctor); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "not found employee"})
 			return
 		}
@@ -208,7 +213,7 @@ func UpdateORrecord(c *gin.Context) {
 		}
 		ORrecord.OperatingRoom = operatingroom
 	} else {
-		if tx := entity.DB().Where("id = ?", ORrecord.OperatingRoomID).First(&operatingroom); tx.RowsAffected == 0 {
+		if tx := entity.DB().Where("id = ?", oldORrecord.OperatingRoomID).First(&operatingroom); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "not found operatingroom"})
 			return
 		}
@@ -222,7 +227,7 @@ func UpdateORrecord(c *gin.Context) {
 		}
 		ORrecord.SurgeryType = surgerytype
 	} else {
-		if tx := entity.DB().Where("id = ?", ORrecord.SurgeryTypeID).First(&surgerytype); tx.RowsAffected == 0 {
+		if tx := entity.DB().Where("id = ?", oldORrecord.SurgeryTypeID).First(&surgerytype); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "not found type"})
 			return
 		}
@@ -236,7 +241,7 @@ func UpdateORrecord(c *gin.Context) {
 		}
 		ORrecord.SurgeryState = surgerystate
 	} else {
-		if tx := entity.DB().Where("id = ?", ORrecord.OperatingRoomID).First(&surgerystate); tx.RowsAffected == 0 {
+		if tx := entity.DB().Where("id = ?", oldORrecord.OperatingRoomID).First(&surgerystate); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "not found state"})
 			return
 		}
@@ -251,7 +256,7 @@ func UpdateORrecord(c *gin.Context) {
 		}
 		ORrecord.StaffReciving = staffreciving
 	} else {
-		if tx := entity.DB().Where("id = ?", ORrecord.StaffRecivingID).First(&staffreciving); tx.RowsAffected == 0 {
+		if tx := entity.DB().Where("id = ?", oldORrecord.StaffRecivingID).First(&staffreciving); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "not found employee"})
 			return
 		}
@@ -265,7 +270,7 @@ func UpdateORrecord(c *gin.Context) {
 		}
 		ORrecord.StaffReturing = staffreturing
 	} else {
-		if tx := entity.DB().Where("id = ?", ORrecord.StaffReturingID).First(&staffreturing); tx.RowsAffected == 0 {
+		if tx := entity.DB().Where("id = ?", oldORrecord.StaffReturingID).First(&staffreturing); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "not found employee"})
 			return
 		}
@@ -287,7 +292,7 @@ func UpdateORrecord(c *gin.Context) {
 // Delete ORrecord
 func DeleteORrecord(c *gin.Context) {
 	id := c.Param("id")
-	if tx := entity.DB().Exec("DELETE FROM ORrecords WHERE id = ?", id); tx.RowsAffected == 0 {
+	if tx := entity.DB().Exec("DELETE FROM o_rrecords WHERE id = ?", id); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "ORrecord not found"})
 		return
 	}
