@@ -27,21 +27,20 @@ type Employee struct {
 	//save Department ID in FK
 	DepartmentID *uint
 	//to easier for adding FK
-	Department        Department        `gorm:"references:id"`
-	Patient           []Patient         `gorm:"foreignKey:EmployeeID"`
-	LabXrays          []LabXray         `gorm:"foreignKey:DoctorID"`
-	Prescription      []Prescription    `gorm:"foreignKey:EmployeeID"`
-	PrescriptionOrder []Prescription    `gorm:"foreignKey:OrderID"`
-	userORrecord      []ORrecord        `gorm:"foreignKey:UserID"`
-	drORrecord        []ORrecord        `gorm:"foreignKey:DoctorID"`
-	rcORrecord        []ORrecord        `gorm:"foreignKey:StaffRecivingID"`
-	rtORrecord        []ORrecord        `gorm:"foreignKey:StaffReturingID"`
-	ManageBeds        []ManageBed       `gorm:"foreignKey:EmployeeID"`
-	SFTs  			  []SFT             `gorm:"foreignKey:DoctorID"`
-	MedicalSlips      []MedicalSlip     `gorm:"foreignKey:EmployeeID"`
-	MSTs 			  []MST 			`gorm:"foreignKey:NurseID"`
-	sMSTs 			  []MST 			`gorm:"foreignKey:DoctorID"`
-
+	Department        Department     `gorm:"references:id"`
+	Patient           []Patient      `gorm:"foreignKey:EmployeeID"`
+	LabXrays          []LabXray      `gorm:"foreignKey:DoctorID"`
+	Prescription      []Prescription `gorm:"foreignKey:EmployeeID"`
+	PrescriptionOrder []Prescription `gorm:"foreignKey:OrderID"`
+	userORrecord      []ORrecord     `gorm:"foreignKey:UserID"`
+	drORrecord        []ORrecord     `gorm:"foreignKey:DoctorID"`
+	rcORrecord        []ORrecord     `gorm:"foreignKey:StaffRecivingID"`
+	rtORrecord        []ORrecord     `gorm:"foreignKey:StaffReturingID"`
+	ManageBeds        []ManageBed    `gorm:"foreignKey:EmployeeID"`
+	SFTs              []SFT          `gorm:"foreignKey:DoctorID"`
+	MedicalSlips      []MedicalSlip  `gorm:"foreignKey:EmployeeID"`
+	MSTs              []MST          `gorm:"foreignKey:NurseID"`
+	sMSTs             []MST          `gorm:"foreignKey:DoctorID"`
 }
 type Role struct {
 	gorm.Model
@@ -131,11 +130,11 @@ type Patient struct {
 	PatientRight PatientRight `gorm:"references:id"`
 	Gender       Gender       `gorm:"references:id"`
 
-	LabXrays         []LabXray         `gorm:"foreignKey:PatientID"`
-	Prescription     []Prescription    `gorm:"foreignKey:PatientID"`
-	SFTs 			 []SFT 			   `gorm:"foreignKey:PatientID"`
-	ManageBeds       []ManageBed       `gorm:"foreignKey:PatientID"`
-	MSTs 			 []MST 		   	   `gorm:"foreignKey:PatientID"`
+	LabXrays     []LabXray      `gorm:"foreignKey:PatientID"`
+	Prescription []Prescription `gorm:"foreignKey:PatientID"`
+	SFTs         []SFT          `gorm:"foreignKey:PatientID"`
+	ManageBeds   []ManageBed    `gorm:"foreignKey:PatientID"`
+	MSTs         []MST          `gorm:"foreignKey:PatientID"`
 
 	MedicalSlips []MedicalSlip `gorm:"foreignKey:PatientID"`
 }
@@ -283,45 +282,51 @@ type LoD struct {
 	gorm.Model
 	Disease            string
 	PrincipalDiagnosis []PrincipalDiagnosis `gorm:"foreignKey:LoDID"`
-	SFTs   []SFT    `gorm:"foreignKey:PrincipalDiagnosisID"`
+	SFTs               []SFT                `gorm:"foreignKey:PrincipalDiagnosisID"`
 }
 
 //======================================ExclusiveRoom==================================
 
 type ErRecord struct {
 	gorm.Model
-	Price float32
-	Date  time.Time
+	// Price float32
+	Date time.Time
 
 	//save in FK
 	EmployeeID *uint
 	PatientID  *uint
 	ToEID      *uint
 	RoomID     *uint
+	// PriceID    *uint
 
 	//JOIN
 	Employee Employee `gorm:"references:id"`
 	Patient  Patient  `gorm:"references:id"`
 	ToE      ToE      `gorm:"references:id"`
 	Room     Room     `gorm:"references:id"`
+	// Price    Room     `gorm:"references:id"`
 }
 
 type ToE struct {
 	gorm.Model
 	Roomtype string
-	ErRecord []ErRecord `gorm:"foreginKey:ErRecordID`
+	ErRecord []ErRecord `gorm:"foreignKey:ToEID`
+	Room     []Room     `gorm:"foreignKey:ToEID`
 }
 
 type Room struct {
 	gorm.Model
 	Roomname string
-	Price    float32
+	// Price    float32
 
 	//save in FK
 	ToEID *uint
 
 	//JOIN
 	ToE ToE `gorm:"references:id"`
+
+	ErRecord []ErRecord `gorm:"foreignKey:RoomID`
+	// ErRecordprice []ErRecord `gorm:"foreignKey:PriceID`
 }
 
 /***************** OperatingRoom ***********************/
@@ -450,7 +455,6 @@ type MedicalSlip struct {
 
 //==================================================== xxxSpecifyFoodType ==========================================================================================//
 
-
 type SFT struct {
 	gorm.Model
 
@@ -472,8 +476,8 @@ type SFT struct {
 
 type FoodType struct {
 	gorm.Model
-	FoodType         string
-	SFTs []SFT `gorm:"foreignKey:FoodTypeID"`
+	FoodType string
+	SFTs     []SFT `gorm:"foreignKey:FoodTypeID"`
 }
 
 //==================================================== xxSpecifyFoodType ==========================================================================================//
@@ -483,36 +487,35 @@ type MST struct {
 	gorm.Model
 
 	//FK
-	PatientID *uint 
-	Patient   Patient   `gorm:"references:id"`
+	PatientID *uint
+	Patient   Patient `gorm:"references:id"`
 
 	RegDateTime time.Time
 	MSTDateTime time.Time
 
 	NurseID *uint
-	Nurse    Employee   `gorm:"references:id"`
+	Nurse   Employee `gorm:"references:id"`
 
 	DoctorID *uint
-	Doctor   Employee   `gorm:"references:id"`
+	Doctor   Employee `gorm:"references:id"`
 
-	HospitalID	*uint
-	Hospital	Hospital
+	HospitalID *uint
+	Hospital   Hospital
 }
 
 type Hospital struct {
-	gorm.Model  
-	Pin         int
-	Name        string
-	Type		string
-	Address		string
-	Postcode	string
-	sdistrict	string
-	District    string
-	Province	string
-	Quantity	int
+	gorm.Model
+	Pin       int
+	Name      string
+	Type      string
+	Address   string
+	Postcode  string
+	sdistrict string
+	District  string
+	Province  string
+	Quantity  int
 
 	MSTs []MST `gorm:"foreignKey:HospitalID"`
 }
 
 //==================================================== xxMST ==========================================================================================//
-
