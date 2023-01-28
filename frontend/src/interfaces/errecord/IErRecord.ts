@@ -5,7 +5,7 @@ import { RoomInterface } from "./IRoom";
 
 export interface ErRecordInterface {
     ID: number;
-    Price: number;
+    // Price: number;
     EmployeeID?: number;
     PatientID?: number;
     ToEID?: number;
@@ -15,6 +15,7 @@ export interface ErRecordInterface {
     Employee?: EmployeeInterface;
     Patient?: PatientInterface;
     ToE?: ToEInterface;
-    Room?: RoomInterface
+    Room?: RoomInterface;
+    // Price: string;
 
 }
