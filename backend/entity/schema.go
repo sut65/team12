@@ -37,7 +37,7 @@ type Employee struct {
 	rcORrecord        []ORrecord        `gorm:"foreignKey:StaffRecivingID"`
 	rtORrecord        []ORrecord        `gorm:"foreignKey:StaffReturingID"`
 	ManageBeds        []ManageBed       `gorm:"foreignKey:EmployeeID"`
-	SpecifyFoodTypes  []SpecifyFoodType `gorm:"foreignKey:DoctorID"`
+	SFTs  			  []SFT             `gorm:"foreignKey:DoctorID"`
 	MedicalSlips      []MedicalSlip     `gorm:"foreignKey:EmployeeID"`
 	MSTs 			  []MST 			`gorm:"foreignKey:NurseID"`
 	sMSTs 			  []MST 			`gorm:"foreignKey:DoctorID"`
@@ -133,9 +133,9 @@ type Patient struct {
 
 	LabXrays         []LabXray         `gorm:"foreignKey:PatientID"`
 	Prescription     []Prescription    `gorm:"foreignKey:PatientID"`
-	SpecifyFoodTypes []SpecifyFoodType `gorm:"foreignKey:PatientID"`
+	SFTs 			 []SFT 			   `gorm:"foreignKey:PatientID"`
 	ManageBeds       []ManageBed       `gorm:"foreignKey:PatientID"`
-	MSTs 			 []MST 		   `gorm:"foreignKey:PatientID"`
+	MSTs 			 []MST 		   	   `gorm:"foreignKey:PatientID"`
 
 	MedicalSlips []MedicalSlip `gorm:"foreignKey:PatientID"`
 }
@@ -283,7 +283,7 @@ type LoD struct {
 	gorm.Model
 	Disease            string
 	PrincipalDiagnosis []PrincipalDiagnosis `gorm:"foreignKey:LoDID"`
-	SpecifyFoodTypes   []SpecifyFoodType    `gorm:"foreignKey:PrincipalDiagnosisID"`
+	SFTs   []SFT    `gorm:"foreignKey:PrincipalDiagnosisID"`
 }
 
 //======================================ExclusiveRoom==================================
@@ -450,7 +450,8 @@ type MedicalSlip struct {
 
 //==================================================== xxxSpecifyFoodType ==========================================================================================//
 
-type SpecifyFoodType struct {
+
+type SFT struct {
 	gorm.Model
 
 	//FK
@@ -466,13 +467,13 @@ type SpecifyFoodType struct {
 	DoctorID *uint
 	Doctor   Employee `gorm:"references:id"`
 
-	DateTime time.Time
+	Date time.Time
 }
 
 type FoodType struct {
 	gorm.Model
 	FoodType         string
-	SpecifyFoodTypes []SpecifyFoodType `gorm:"foreignKey:FoodTypeID"`
+	SFTs []SFT `gorm:"foreignKey:FoodTypeID"`
 }
 
 //==================================================== xxSpecifyFoodType ==========================================================================================//

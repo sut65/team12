@@ -124,6 +124,17 @@ func main() {
 			router.POST("/mst/create", controller.CreateMST)        // Create
 			router.PATCH("/mst/update", controller.UpdateMST)       // UPDATE
 			router.DELETE("/msts/delete/:id", controller.DeleteMST) // DELETE
+			// ------------------ SFT ------------------------------
+			// foodtype Routes
+			router.GET("/foodtypes/list", controller.ListFoodType)
+			router.GET("/foodtype/get/:id", controller.GetFoodType)
+			// SFT Routes
+			router.GET("/sft/get/:id", controller.GetSFT)           // Get by id
+			router.GET("/sfts/list", controller.ListSFT)            // List
+			router.POST("/sft/create", controller.CreateSFT)        // Create
+			router.PATCH("/sft/update", controller.UpdateSFT)       // UPDATE
+			router.DELETE("/sfts/delete/:id", controller.DeleteSFT) // DELETE
+
 
 			// ----------------- Kool ผ่าตัด ----------------------------
 			// Routes OperatingRoom
