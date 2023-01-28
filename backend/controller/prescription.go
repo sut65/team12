@@ -91,6 +91,17 @@ func ListPrescription(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": prescription})
 }
 
+// List Employee
+func ListEmployeeDoctor(c *gin.Context) {
+	var doctor []entity.Employee
+	if err := entity.DB().Preload("Gender").Preload("Role").Preload("Department").Raw("SELECT * FROM employees WHERE role_id = 1").Find(&doctor).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": doctor})
+}
+
 // Delete Patient
 func DeletePrescription(c *gin.Context) {
 	id := c.Param("id")

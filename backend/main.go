@@ -72,6 +72,7 @@ func main() {
 			router.POST("/patient/create", controller.CreatePatient)
 			router.PATCH("/patient/edit", controller.UpdatePatient)
 			router.DELETE("/patient/delet/:id", controller.DeletePatient)
+			router.GET("/employee/doctor/list", controller.ListEmployeeDoctor)
 			//ข้อมูล path patient_type//
 			router.GET("/patient/type/:id", controller.GetPatientType)
 			router.GET("/patient/types/list", controller.ListPatientType)
@@ -134,7 +135,6 @@ func main() {
 			router.POST("/sft/create", controller.CreateSFT)        // Create
 			router.PATCH("/sft/update", controller.UpdateSFT)       // UPDATE
 			router.DELETE("/sfts/delete/:id", controller.DeleteSFT) // DELETE
-
 
 			// ----------------- Kool ผ่าตัด ----------------------------
 			// Routes OperatingRoom
