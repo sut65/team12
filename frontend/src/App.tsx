@@ -15,6 +15,7 @@ import BedroomChildIcon from '@mui/icons-material/BedroomChild';
 import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
 import MedicationLiquidIcon from '@mui/icons-material/MedicationLiquid';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import AssignmentSharpIcon from '@mui/icons-material/AssignmentSharp';
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -136,7 +137,7 @@ const menu = [
   { name: "  คำร้องขอย้ายรพ.", icon: <BadgeOutlinedIcon color="primary"/>, path: "/mst" ,role: "Nurse"},
   { name: "  เเจ้งรายการอาหารผู้ป่วย", icon: <BadgeOutlinedIcon color="primary"/>, path: "/sft" ,role: "Doctor"},
   { name: "อุปกรณ์ทางการเเพทย์", icon: <MedicationLiquidIcon color="primary" />, path: "/requisition", role: "Nurse"},
-  
+  { name: "บันทึกสัญญาณชีพ", icon: <AssignmentSharpIcon color="primary" />, path: "/vitalsign", role: "Nurse"},
 
 ];
 function App() {
@@ -282,6 +283,9 @@ function App() {
                 <Route path="/requisition" element={<RequisitionList />} />
                 <Route path="/requisition/create" element={<RequisitionCreate />} />
                 <Route path="/requisition/update/:id" element={<RequisitionEdit />} />
+                <Route path="/vitalsign" element={<VitalSignsList />} />
+                <Route path="/vitalsign/create" element={<VitalSignsCreate />} />
+                <Route path="/vitalsign/update/:id" element={<VitalSignsEdit />} />
                 
               </Routes>
             </Container>
