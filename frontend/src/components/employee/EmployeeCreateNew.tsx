@@ -29,13 +29,7 @@ import {
   import { GenderInterface } from "../../interfaces/employee/IGender";
   import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
   import { ListGenders, ListDepartments, ListRoles, CreateEmployee, GetDepartmentByRole } from "../../services/EmployeeSystem/employeeServices";
-  const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
-    props,
-    ref
-  ) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  });
-
+  
   function Create_save(){
     const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
       props,
@@ -61,6 +55,7 @@ import {
     const [gender, setGender] = React.useState<GenderInterface[]>([]);
     const [role, setRole] = React.useState<RoleInterface[]>([])
     const [success, setSuccess] = React.useState(false);
+    //check max min lenght
     const [error, setError] = React.useState(false);
     // service
     // get Gender
@@ -160,14 +155,18 @@ import {
         [name]: event.target.value,
       });
     };
-    let theme = createTheme({ // ิbutton theme
+    let theme = createTheme({ // button theme
       palette: {
         primary: {
-          main: '#12a178', //เขียว
+          main: "#009688",
         },
         secondary: {
-          main: '#edf2ff', //ขาว
+          main: "#009688"
         },
+        text: {
+          primary: "#008573",
+          secondary: "#000000"
+        }
       },
     });
     
@@ -205,7 +204,7 @@ import {
                   color="primary"
                   gutterBottom
                 >
-                  Record Employee Information
+                  Create Record Employee Information
                 </Typography>
               </Box>
             </Box>
@@ -215,7 +214,7 @@ import {
             <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
               <Grid item xs={5}>
                 <FormControl fullWidth variant="outlined">
-                  <FormLabel>First Name</FormLabel>
+                  <p>First Name</p>
 
                   <TextField
                     id="FirstName"
@@ -224,13 +223,18 @@ import {
                     size="medium"
                     value={employee.FirstName || ""}
                     onChange={handleInputChange}
+                    onKeyPress={(e) => {
+                      if (/[0-9]/.test(e.key)){
+                        e.preventDefault()
+                      }
+                    }}
                   />
                 </FormControl>
               </Grid>
 
               <Grid item xs={5}>
                 <FormControl fullWidth variant="outlined">
-                  <FormLabel>Last Name</FormLabel>
+                  <p>Last Name</p>
                   <TextField
                     id="LastName"
                     variant="outlined"
@@ -238,6 +242,11 @@ import {
                     size="medium"
                     value={employee.LastName || ""}
                     onChange={handleInputChange}
+                    onKeyPress={(e) => {
+                      if (/[0-9]/.test(e.key)){
+                        e.preventDefault()
+                      }
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -245,7 +254,7 @@ import {
             <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
               <Grid item xs={5}>
                 <FormControl fullWidth variant="outlined">
-                  <FormLabel>Identification Number</FormLabel>
+                  <p>Identification Number</p>
 
                   <TextField
                     id="Civ"
@@ -254,13 +263,14 @@ import {
                     size="medium"
                     value={employee.Civ || ""}
                     onChange={handleInputChange}
+                    inputProps={{minLength:13,maxLength :13}}
                   />
                 </FormControl>
               </Grid>
 
               <Grid item xs={5}>
                 <FormControl fullWidth variant="outlined">
-                  <FormLabel>Phone</FormLabel>
+                  <p>Phone</p>
                   <TextField
                     id="Phone"
                     variant="outlined"
@@ -268,6 +278,12 @@ import {
                     size="medium"
                     value={employee.Phone || ""}
                     onChange={handleInputChange}
+                    onKeyPress={(e) => {
+                      if (!/[0-9]/.test(e.key)){
+                        e.preventDefault()
+                      }
+                    }}
+                    inputProps={{minLength:10,maxLength :10}}
                   />
                 </FormControl>
               </Grid>
@@ -275,7 +291,7 @@ import {
             <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
               <Grid item xs={5}>
                 <FormControl fullWidth variant="outlined">
-                  <FormLabel>Email</FormLabel>
+                  <p>Email</p>
 
                   <TextField
                     id="Email"
@@ -290,7 +306,7 @@ import {
 
               <Grid item xs={5}>
                 <FormControl fullWidth variant="outlined">
-                  <FormLabel>Password</FormLabel>
+                  <p>Password</p>
                   <TextField
                     id="Password"
                     variant="outlined"
@@ -298,6 +314,7 @@ import {
                     size="medium"
                     value={employee.Password || ""}
                     onChange={handleInputChange}
+                    inputProps={{minLength:8}}
                   />
                 </FormControl>
               </Grid>
@@ -305,7 +322,7 @@ import {
             <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
               <Grid item xs={10}>
                 <FormControl fullWidth variant="outlined">
-                  <FormLabel>Address</FormLabel>
+                  <p>Address</p>
 
                   <TextField
                     id="Address"
@@ -321,7 +338,7 @@ import {
 
             <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
               <Grid item xs={5}>
-              <FormLabel>Role</FormLabel>
+              <p>Role</p>
                 <FormControl fullWidth variant="outlined">
                   <Select
                     value={employee.RoleID}
@@ -340,7 +357,7 @@ import {
                 </FormControl>
               </Grid>
               <Grid item xs={5}>
-              <FormLabel>Gender</FormLabel>
+              <p>Gender</p>
                 <FormControl fullWidth variant="outlined">
                   <Select
                     value={employee.GenderID}
@@ -362,7 +379,7 @@ import {
 
             <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
               <Grid item xs={10}>
-              <FormLabel>Department</FormLabel>
+              <p>Department</p>
                 <FormControl fullWidth variant="outlined">
                   <Select
                     value={employee.DepartmentID}

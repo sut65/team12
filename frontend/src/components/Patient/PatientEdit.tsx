@@ -259,6 +259,11 @@ function PatientEdit(){
                                 inputProps={{
                                     name: "FirstName",
                                 }}
+                                onKeyPress={(e) => {
+                                    if (!/[0-9]/.test(e.key)){
+                                      e.preventDefault()
+                                    }
+                                  }}
                                 value={patient.FirstName}
                             />
                     </Grid>
@@ -276,6 +281,11 @@ function PatientEdit(){
                                 inputProps={{
                                     name: "LastName",
                                 }}
+                                onKeyPress={(e) => {
+                                    if (!/[0-9]/.test(e.key)){
+                                      e.preventDefault()
+                                    }
+                                  }}
                                 value={patient.LastName}
                             />
                     </Grid>

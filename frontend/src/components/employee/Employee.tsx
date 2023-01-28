@@ -15,11 +15,15 @@ function Manage_Show() {
   let theme = createTheme({ // ิbutton theme
     palette: {
       primary: {
-        main: '#648c8a', //เขียว
+        main: "#009688",
       },
       secondary: {
-        main: '#edf2ff', //ขาว
+        main: "#009688"
       },
+      text: {
+        primary: "#008573",
+        secondary: "#000000"
+      }
     },
   });
 
@@ -127,7 +131,7 @@ function Manage_Show() {
             color="primary"
           >
             <Typography
-              color="secondary"
+              color="text"
               component="div"
               sx={{ flexGrow: 1 }}
             >
@@ -139,24 +143,24 @@ function Manage_Show() {
       </Box>
         <div>
           <Container maxWidth="xl">
-            <div style={{ height: 500, width: "120%", marginTop: "50px" }}>
+            <div style={{ height: 500, width: "200%", marginTop: "50px" }}>
               <TableContainer >
                 <Table aria-label="simple table">
                   <TableHead>
                     {/* หัวข้อตาราง */}
                     <TableRow>
-                      <TableCell align="center" width="20%"> ID </TableCell>
-                      <TableCell align="center" width="20%"> First Name </TableCell>
-                      <TableCell align="center" width="20%"> Last Name </TableCell>
-                      <TableCell align="center" width="20%"> Civ </TableCell>
-                      <TableCell align="center" width="20%"> Phone </TableCell>
-                      <TableCell align="center" width="20%"> Email </TableCell>
-                      <TableCell align="center" width="100%"> Address </TableCell>
-                      <TableCell align="center" width="20%"> Role </TableCell>
-                      <TableCell align="center" width="20%"> Department </TableCell>
-                      <TableCell align="center" width="20%"> Gender </TableCell>
-                      <TableCell align="center" width="20%"> Edit </TableCell>
-                      <TableCell align="center" width="20%"> Delete </TableCell>
+                      <TableCell align="center" width="1%"> ID </TableCell>
+                      <TableCell align="center" width="5%"> First Name </TableCell>
+                      <TableCell align="center" width="5%"> Last Name </TableCell>
+                      <TableCell align="center" width="10%"> Civ </TableCell>
+                      <TableCell align="center" width="10%"> Phone </TableCell>
+                      <TableCell align="center" width="10%"> Email </TableCell>
+                      <TableCell align="center" width="25%"> Address </TableCell>
+                      <TableCell align="center" width="15%"> Role </TableCell>
+                      <TableCell align="center" width="10%"> Department </TableCell>
+                      <TableCell align="center" width="10%"> Gender </TableCell>
+                      <TableCell align="center" width="10%"> Edit </TableCell>
+                      <TableCell align="center" width="10%"> Delete </TableCell>
 
                     </TableRow>
                   </TableHead>

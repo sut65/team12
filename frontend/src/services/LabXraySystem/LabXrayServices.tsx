@@ -55,7 +55,34 @@ async function GetLabXray(ID: string | undefined) {
 
 
 // Create LabXray
-async function PostLabXray(lab:Partial<LabXrayInterface>) {
+// async function CreateLabXray(lab:Partial<LabXrayInterface>) {
+//     let data = {
+//         Description: lab.Description,
+//         Pic: lab.Pic,
+//         Date: new Date().toJSON().split("Z").at(0)+"+07:00",
+//         LabTypeID:convertType(lab.LabTypeID),
+//         DoctorID: convertType(lab.DortorID),
+//         PatientID: convertType(lab.PatientID),
+//     }
+//     const reqOpt = {
+//         method: "POST",
+//         headers: {
+//             Authorization: `Bearer ${localStorage.getItem("token")}`,
+//             "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify(data)
+//     }
+    
+
+//     let res = await fetch(`${apiUrl}/labxray/create`, reqOpt)
+//     .then((response) => response.json())
+//     .then((res) => {
+//         return res
+//     })
+//     return res
+
+// }
+async function CreateLabXray(lab:Partial<LabXrayInterface>) {
     let data = {
         Description: lab.Description,
         Pic: lab.Pic,
@@ -64,7 +91,6 @@ async function PostLabXray(lab:Partial<LabXrayInterface>) {
         DoctorID: convertType(lab.DortorID),
         PatientID: convertType(lab.PatientID),
     }
-
     const reqOpt = {
         method: "POST",
         headers: {
@@ -86,7 +112,7 @@ async function PostLabXray(lab:Partial<LabXrayInterface>) {
 
 
 // Update LabXray
-async function UpdateEmployee(lab : Partial<LabXrayInterface>){
+async function UpdateLabXray(lab : Partial<LabXrayInterface>){
     let data = {
         Description: lab.Description,
         Pic: lab.Pic,
@@ -186,7 +212,7 @@ export{
     GetLabType,
     ListLabTypes,
     DeleteLabXray,
-    UpdateEmployee,
-    PostLabXray,
+    CreateLabXray,
     GetLabXray,
+    UpdateLabXray,
 }

@@ -164,7 +164,8 @@ export default function EmployeeUpdate() {
         };
       
       return (
-        <Container maxWidth="lg">
+<ThemeProvider theme={theme}>
+    <Container maxWidth="xl">
 
         <Snackbar
             open={success}
@@ -183,23 +184,28 @@ export default function EmployeeUpdate() {
             </Alert>
         </Snackbar>
 
-             <Paper sx={{ p: 4, pb: 10 }}>
-                <Box display="flex">
-                    <Box flexGrow={1}>
-                        <Typography
-                            component="h2"
-                            variant="h6"
-                            gutterBottom
-                            color="black"
-                        >
-                            แก้ไขข้อมูลพนักงาน
-                        </Typography>
-                    </Box>
-                </Box>
-                <hr />
+        <Paper >
+             <Box
+              display="flex"
+              sx={{
+                marginTop: 2,
+              }}
+            >
+              <Box sx={{ paddingX: 2, paddingY: 1 }}>
+                <Typography
+                  component="h2"
+                  variant="h6"
+                  color="primary"
+                  gutterBottom
+                >
+                  Update Record Employee Information
+                </Typography>
+              </Box>
+            </Box>
+        </Paper>
 
-                <Grid container spacing={3}>
-                    <Grid item xs={12}>
+                <Grid container spacing={1} sx={{ padding: 2 }} style={{ marginLeft: "8%"}}>
+                    <Grid item xs={9}>
                         <FormControl fullWidth variant='outlined'>
                             <p>Employee</p>
                             <Select
@@ -221,22 +227,27 @@ export default function EmployeeUpdate() {
                     </Grid>
                 </Grid>
 
-                <Grid container spacing={3}>
-                    <Grid item xs={4}>
-                    <FormControl fullWidth variant="outlined">
-                    <p>First Name</p>
+                <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
+                    <Grid item xs={3}>
+                        <FormControl fullWidth variant="outlined">
+                        <p>First Name</p>
 
-                    <TextField
-                        id="FirstName"
-                        variant="outlined"
-                        type="string"
-                        size="medium"
-                        value={employee.FirstName || ""}
-                        onChange={handleInputChange}
-                    />
-                    </FormControl>
+                        <TextField
+                            id="FirstName"
+                            variant="outlined"
+                            type="string"
+                            size="medium"
+                            value={employee.FirstName || ""}
+                            onChange={handleInputChange}
+                            onKeyPress={(e) => {
+                                if (/[0-9]/.test(e.key)){
+                                  e.preventDefault()
+                                }
+                              }}
+                        />
+                        </FormControl>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={3}>
                         <FormControl fullWidth variant="outlined">
                         <p>Last Name</p>
 
@@ -247,10 +258,15 @@ export default function EmployeeUpdate() {
                             size="medium"
                             value={employee.LastName || ""}
                             onChange={handleInputChange}
+                            onKeyPress={(e) => {
+                                if (/[0-9]/.test(e.key)){
+                                  e.preventDefault()
+                                }
+                              }}
                         />
                         </FormControl>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={3}>
                         <FormControl fullWidth variant='outlined'>
                             <p>Gender</p>
                             <Select
@@ -276,39 +292,37 @@ export default function EmployeeUpdate() {
                         </FormControl>
                     </Grid>
                 </Grid>
-                <Grid container spacing={3}>
-                    <Grid item xs={4}>
-                    <FormControl fullWidth variant="outlined">
-                    <p>Identification Number</p>
-
-                    <TextField
-                        id="Civ"
-                        variant="outlined"
-                        type="string"
-                        size="medium"
-                        value={employee.Civ || ""}
-                        onChange={handleInputChange}
-                    />
-                    </FormControl>
-                </Grid>
-                    <Grid item xs={4}>
+                <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
+                    <Grid item xs={3}>
                         <FormControl fullWidth variant="outlined">
-                        <p>Password</p>
-                        {/* <TextField
-                            id="Password"
+                        <p>Identification Number</p>
+
+                        <TextField
+                            id="Civ"
                             variant="outlined"
                             type="string"
                             size="medium"
-                            value={employee.Password || ""}
-                            onChange={handleChange}
-                        /> */}
-                        {/* <InputLabel htmlFor="outlined-adornment-password"></InputLabel> */}
+                            value={employee.Civ || ""}
+                            onChange={handleInputChange}
+                            onKeyPress={(e) => {
+                                if (!/[0-9]/.test(e.key)){
+                                  e.preventDefault()
+                                }
+                              }}
+                            inputProps={{minLength:13,maxLength :13}}
+                        />
+                        </FormControl>
+                        </Grid>
+                    <Grid item xs={3}>
+                        <FormControl fullWidth variant="outlined">
+                        <p>Password</p>
                         <OutlinedInput
                             id="Password"
                             type={showPassword ? 'text' : 'password'}
                             size="medium"
                             value={employee.Password || ""}
                             onChange={handleInputChange}
+                            inputProps={{minLength:8}}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -320,11 +334,11 @@ export default function EmployeeUpdate() {
                                 {showPassword ? <VisibilityOff /> : <Visibility />}
                                 </IconButton>
                             </InputAdornment>
-                        }
+                            }
                         />
                         </FormControl>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={3}>
                         <FormControl fullWidth variant="outlined">
                         <p>Email</p>
 
@@ -336,12 +350,12 @@ export default function EmployeeUpdate() {
                             value={employee.Email || ""}
                             onChange={handleInputChange}
                         />
-                </FormControl>
-              </Grid>
+                        </FormControl>
+                    </Grid>
 
-            </Grid>
-            <Grid container spacing={3}>
-                <Grid item xs={4}>
+                </Grid>
+            <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "7%"}}>
+                <Grid item xs={3}>
                     <FormControl fullWidth variant="outlined">
                     <p>Phone</p>
                     <TextField
@@ -351,12 +365,18 @@ export default function EmployeeUpdate() {
                         size="medium"
                         value={employee.Phone || ""}
                         onChange={handleInputChange}
+                        onKeyPress={(e) => {
+                            if (!/[0-9]/.test(e.key)){
+                              e.preventDefault()
+                            }
+                          }}
+                        inputProps={{minLength:10,maxLength :10}}
                     />
                     </FormControl>
                 </Grid>
 
-                <Grid item xs={4}>
-                <p>Role</p>
+                <Grid item xs={3}>
+                    <p>Role</p>
                     <FormControl fullWidth variant="outlined">
                     <Select
                             native
@@ -380,8 +400,8 @@ export default function EmployeeUpdate() {
                     </Select>
                     </FormControl>
                 </Grid>
-                <Grid item xs={4}>
-                <p>Department</p>
+                <Grid item xs={3}>
+                    <p>Department</p>
                     <FormControl fullWidth variant="outlined">
                     <Select
                             native
@@ -406,7 +426,8 @@ export default function EmployeeUpdate() {
                     </FormControl>
                 </Grid>
             </Grid>
-            <Grid item xs={12}>
+            <Grid container spacing={1} sx={{ padding: 2 }} style={{ marginLeft: "8%"}}>
+                <Grid item xs={9}>
                     <FormControl fullWidth variant="outlined">
                     <p>Address</p>
                     <TextField
@@ -419,20 +440,26 @@ export default function EmployeeUpdate() {
                     />
                     </FormControl>
                 </Grid>
-                <Grid item xs={12} >
-                        <Button component={RouterLink} to="/employee" variant='contained'>
-                            ย้อนกลับ
-                        </Button>
-                        <Button
-                            style={{ float: "right" }}
-                            variant="contained"
-                            onClick={submit}
-                        >
-                            บันทึกข้อมูล
-                        </Button>
-                </Grid>
-                
-            </Paper>
-        </Container>
-    )
+            </Grid>
+            <Grid container spacing={2} sx={{ padding: 2 }} style={{ marginLeft: "7%"}} >
+              <Grid item xs={4}>
+                  <Button component={RouterLink} to="/employee" variant="contained">
+                    Back
+                  </Button>
+              </Grid>
+              <Grid item xs={5}>
+                  <Button
+                    style={{ float: "right" }}
+                    onClick={submit}
+                    variant="contained"
+                    color="primary"
+                  >
+                    Submit
+                  </Button>
+              </Grid>
+            </Grid>
+        
+    </Container>
+</ThemeProvider>
+);
 }
