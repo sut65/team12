@@ -67,6 +67,10 @@ import Er_Record from './components/ErRecord/ErRecord';
 import ErRecordCreate from './components/ErRecord/ErRecordCreate';
 import ErRecordUpdate from './components/ErRecord/ErRecordUpdate';
 
+import ORrecord from './components/operatingrecord/ORrecord';
+import ORrecordCreate from './components/operatingrecord/ORrecordCreate';
+import ORrecordUpdate from './components/operatingrecord/ORrecordUpdate';
+
 const drawerWidth = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -144,6 +148,7 @@ const menu = [
   { name: "  เเจ้งรายการอาหารผู้ป่วย", icon: <BadgeOutlinedIcon color="primary"/>, path: "/sft" ,role: "Doctor"},
   { name: "อุปกรณ์ทางการเเพทย์", icon: <MedicationLiquidIcon color="primary" />, path: "/requisition", role: "Nurse"},
   { name: "บันทึกสัญญาณชีพ", icon: <AssignmentSharpIcon color="primary" />, path: "/vitalsign", role: "Nurse"},
+  { name: " : บันทึกเข้าใช้ห้องผ่าตัด", icon: <BadgeOutlinedIcon color="primary"/>, path: "/orrecord" ,role: "Nurse"},
 
 ];
 function App() {
@@ -298,6 +303,9 @@ function App() {
                 <Route path="/errecord" element={<Er_Record/>} />
                 <Route path="/errecord/create" element={<ErRecordCreate/>} />
                 <Route path="/errecord/update/:id" element={<ErRecordUpdate/>} />
+                <Route  path="/orrecord" element={<ORrecord />} />   
+                <Route  path="/orrecord/create" element={<ORrecordCreate />} />
+                <Route  path="/orrecord/update" element={<ORrecordUpdate />} /> 
                 
               </Routes>
             </Container>
