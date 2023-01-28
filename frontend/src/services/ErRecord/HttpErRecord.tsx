@@ -56,8 +56,8 @@ async function GetErRecord(ID: string | undefined) {
 async function CreateErRecord(errec:Partial<ErRecordInterface>) {
     let data = {
 
-        Price: errec.Price,
-        Employee:convertType(errec.EmployeeID),
+        // Price: errec.Price,
+        EmployeeID:convertType(errec.EmployeeID),
         PatientID: convertType(errec.PatientID),
         ToEID:convertType(errec.ToEID),
         RoomID: convertType(errec.RoomID),
@@ -92,8 +92,8 @@ async function CreateErRecord(errec:Partial<ErRecordInterface>) {
 async function UpdateErRecord(errec : Partial<ErRecordInterface>){
     let data = {
         ID:convertType(errec.ID),
-        Price: errec.Price,
-        Employee:convertType(errec.EmployeeID),
+        // Price: errec.Price,
+        EmployeeID:convertType(errec.EmployeeID),
         PatientID: convertType(errec.PatientID),
         ToEID:convertType(errec.ToEID),
         RoomID: convertType(errec.RoomID),
@@ -316,8 +316,31 @@ async function GetRoom(ID: string | undefined) {
     })
 
     return res
-
 }
+    // GET By ID RoomByToE
+async function GetRoomByToE(ID: number | undefined) {
+    const reqOpt = {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        }
+    }
+
+    let res = await fetch(`${apiUrl}/roombytoe/get/${ID}`, reqOpt)
+    .then((response) => response.json())
+    .then((res) => {
+        if(res.data){
+            return res.data
+        }else{
+            return false
+        }
+    })
+
+    return res
+}
+
+
 
 export {
     ListErRecord,
@@ -332,5 +355,8 @@ export {
     ListToE,
     GetToE,
     ListRoom,
+    GetRoomByToE,
     GetRoom,
+    
+    
 }
