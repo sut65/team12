@@ -1,34 +1,23 @@
 import {Container,Box,Snackbar,TextField,Paper,Card,CardActionArea,CardContent,CardMedia,Fab} from "@mui/material";
 import {Button,Dialog,DialogTitle,DialogContent,DialogContentText, DialogActions,Grid,Alert,createTheme, ThemeProvider,Autocomplete,FormControl,Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography  } from "@mui/material";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import Moment from 'moment';
-import AddIcon from '@mui/icons-material/Add';
 import React, { useEffect, useState } from "react";
-import { LabTypeInterface } from "../../interfaces/LabXray/ILabType";
 import { LabXrayInterface } from "../../interfaces/LabXray/ILabXray";
-import { PatientInterface } from "../../interfaces/patient/IPatient";
-import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
 import { Link as RouterLink } from "react-router-dom";
-import { 
-    ListLabTypes, 
-    ListLabXrays,
-    GetLabType,
-    DeleteLabXray,
-    UpdateEmployee,
-    PostLabXray,
-    GetLabXray,  } from "../../services/LabXraySystem/LabXrayServices";
+import { ListLabXrays,DeleteLabXray } from "../../services/LabXraySystem/LabXrayServices";
 export default function LabXrayShow() {
     let theme = createTheme({ // ิbutton theme
-        palette: {
-            primary: {
-              main: '#648c8a', //เขียว
-            },
-            secondary: {
-              main: '#edf2ff', //ขาว
-            },
+      palette: {
+        primary: {
+          main: "#009688",
         },
+        secondary: {
+          main: "#009688"
+        },
+        text: {
+          primary: "#008573",
+          secondary: "#000000"
+        }
+      },
     });
 
     //Employee State
@@ -123,7 +112,7 @@ export default function LabXrayShow() {
                 color="primary"
               >
                 <Typography
-                  color="secondary"
+                  color="text"
                   component="div"
                   sx={{ flexGrow: 1 }}
                 >
@@ -142,11 +131,11 @@ export default function LabXrayShow() {
                         {/* หัวข้อตาราง */}
                         <TableRow>
                           <TableCell align="center" width="1%"> ID </TableCell>
-                          <TableCell align="center" width="15%"> Doctor </TableCell>
-                          <TableCell align="center" width="15%"> Patient </TableCell>
+                          <TableCell align="center" width="10%"> Doctor </TableCell>
+                          <TableCell align="center" width="10%"> Patient </TableCell>
                           <TableCell align="center" width="5%"> LabType </TableCell>
                           <TableCell align="center" width="15%"> Description </TableCell>
-                          <TableCell align="center" width="20%"> Date </TableCell>
+                          <TableCell align="center" width="10%"> Date </TableCell>
                           <TableCell align="center" width="20%"> Picture </TableCell>
                           <TableCell align="center" width="5%"> Update </TableCell>
                           <TableCell align="center" width="5%"> Delete </TableCell>
@@ -166,8 +155,8 @@ export default function LabXrayShow() {
                         <TableCell align="center">{item.Description}</TableCell>
                         <TableCell align="center">{convertDateFormat(item.Date)}</TableCell>
                         <TableCell align="center">{
-                            <img src={`data:image/jpeg;base64,${item.Pic}`} width="200" height="200"/>
-                            //<input type="file" onChange={handleImageChange} />
+                            <img src={`${item.Pic}`} width="200" height="200"/>
+                            //<input type="file" onChange={handleImageChange} data:image/jpeg;base64,/>
                         
                         }</TableCell>
                         <TableCell>
@@ -176,7 +165,7 @@ export default function LabXrayShow() {
                                                         variant='outlined'
                                                         color='warning'
                                                         component={RouterLink}
-                                                        to={"/employee/update/" + item.ID}
+                                                        to={"/labxray/update/" + item.ID}
                                                     >
                                                         Update
                                                     </Button>

@@ -218,6 +218,11 @@ function PatientCreate(){
                 placeholder="กรุณากรอกชื่อ"
                 value={patient.FirstName || ""}
                 onChange={handleInputChange}
+                onKeyPress={(e) => {
+                  if (/[0-9]/.test(e.key)){
+                    e.preventDefault()
+                  }
+                }}
               />
             </FormControl>
           </Grid>
@@ -233,6 +238,11 @@ function PatientCreate(){
                 placeholder="กรุณากรอกนามสกุล"
                 value={patient.LastName || ""}
                 onChange={handleInputChange}
+                onKeyPress={(e) => {
+                  if (/[0-9]/.test(e.key)){
+                    e.preventDefault()
+                  }
+                }}
               />
             </FormControl>
           </Grid>

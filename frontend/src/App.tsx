@@ -35,6 +35,8 @@ import  Employee from './components/employee/Employee';
 import EmployeeCreateNew from './components/employee/EmployeeCreateNew';
 import EmployeeEdit from './components/employee/EmployeeEdit';
 import LabXray from './components/labxray/LabXray';
+import LabXrayCreate from './components/labxray/LabXrayCreate';
+import LabXrayUpdate from './components/labxray/LabXrayUpdate';
 import BoyIcon from '@mui/icons-material/Boy';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import Patient from './components/Patient/PatientList';
@@ -247,6 +249,8 @@ function App() {
                 <Route  path="/employee/create" element={<EmployeeCreateNew />} />
                 <Route  path="/employee/update/:id" element={<EmployeeEdit />} />
                 <Route  path="/labxray" element={<LabXray />} />
+                <Route  path="/labxray/create" element={<LabXrayCreate />} />
+                <Route  path="/labxray/update/:id" element={<LabXrayUpdate />} />
                 <Route path="/patients/list" element={<Patient/>} />
                 <Route path="/patient/create" element={<PatientCreate/>} />
                 <Route path="/patient/edit" element={<PatientEdit/>} />
