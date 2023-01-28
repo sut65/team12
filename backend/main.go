@@ -24,6 +24,19 @@ func main() {
 			//router.GET("/bill/:id", controller.GetPatient)
 			//router.POST("/createbills", controller.UpdatePatient)
 
+			// -----------------  Exclusive Room ----------------------------
+
+			// Get by id อิหยังวะ น่าจะ errecord
+			router.GET("/errecord/get/:id", controller.GetErRecord)
+			// List
+			router.GET("/errecords/list", controller.ListErRecord)
+			// Create
+			router.POST("/errecord/create", controller.CreateErRecord)
+			// UPDATE
+			router.PATCH("/errecord/update", controller.UpdateErRecord)
+			// DELETE
+			router.DELETE("/errecord/delete/:id", controller.DeleteErRecord)
+
 			// Get by id
 			router.GET("/employee/get/:id", controller.GetEmployee)
 			// List
@@ -34,6 +47,15 @@ func main() {
 			router.PATCH("/employee/update", controller.UpdateEmployee)
 			// DELETE
 			router.DELETE("/employees/delete/:id", controller.DeleteEmployee)
+
+			// ToE
+			router.GET("/toes/list", controller.ListToE)
+			router.GET("/toe/get/:id", controller.GetToE)
+
+			// Room
+			router.GET("/rooms/list", controller.ListRoom)
+			router.GET("/room/get/:id", controller.GetRoom)
+			router.GET("/roombytoe/get/:id", controller.ListRoomByToE)
 			// ----------------- Employee ----------------------------
 			// Role Routes
 			router.GET("/roles/list", controller.ListRole)
