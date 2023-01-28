@@ -50,6 +50,8 @@ func SetupDatabase() {
 		&Bed{},
 		&BedStatus{},
 		&ManageBed{},
+		// ManageBed
+		&MedicalSlip{},
 
 		// VitalsignsRecord
 		&VitalSignsRecord{},
@@ -518,22 +520,6 @@ func SetupDatabase() {
 		Patient:    patient2,
 	}
 	db.Model(&ManageBed{}).Create(&managebed2)
-
-	//=========================================MedicalSlip=================================
-	// medicalslip1 := MedicalSlip{
-	// 	Total:      100000.00,
-	// 	Note:       "**",
-	// 	MedicalDate: time.Date(2002, 12, 14, 0, 0, 0, 0, time.UTC),
-	// 	LabXray:        LabX1,
-	// 	ORrecord:  null,
-	// 	Prescription:  prescription1,
-
-	// 	Employee:   emp5,
-	// 	Patient:    patient2,
-	// }
-	// db.Model(&MedicalSlip{}).Create(&medicalslip1)
-
-	//=====================================================================================
 
 	//Principle data
 	lod1 := LoD{
@@ -1346,5 +1332,34 @@ func SetupDatabase() {
 		Date: time.Now(),
 	}
 	db.Model(&ErRecord{}).Create(&errec2)
+
+	//=========================================MedicalSlip=================================
+	medicalslip1 := MedicalSlip{
+		Total:        100000.00,
+		Note:         "**",
+		MedicalDate:  time.Date(2002, 12, 14, 0, 0, 0, 0, time.UTC),
+		LabXray:      LabX1,
+		ORrecord:     rec1,
+		Prescription: prescription1,
+
+		Employee: emp5,
+		Patient:  patient2,
+	}
+	db.Model(&MedicalSlip{}).Create(&medicalslip1)
+
+	medicalslip2 := MedicalSlip{
+		Total:        205000.00,
+		Note:         "**",
+		MedicalDate:  time.Date(2002, 12, 14, 0, 0, 0, 0, time.UTC),
+		LabXray:      LabX2,
+		ORrecord:     rec2,
+		Prescription: prescription2,
+
+		Employee: emp5,
+		Patient:  patient2,
+	}
+	db.Model(&MedicalSlip{}).Create(&medicalslip2)
+
+	//=====================================================================================
 	// /////////////////////////////////////////////
 }

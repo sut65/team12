@@ -8,7 +8,6 @@ import Dialog from "@mui/material/Dialog/Dialog";
 import DialogTitle from "@mui/material/DialogTitle/DialogTitle";
 import DialogActions from "@mui/material/DialogActions/DialogActions";
 import { DataGrid, GridColDef, GridRowParams } from "@mui/x-data-grid";
-import TableCell from "@mui/material/TableCell/TableCell";
 
 import { MedicalSlipInterface } from "../../interfaces/imedicalslip/IMedicalSlip";
 import { ListMedicalSlip , DeleteMedicalSlip } from "../../services/MedicalSlip/HttpClientServince";
@@ -56,12 +55,12 @@ function MedicalSlip() {
 
   const columns: GridColDef[] = [
     { field: "ID", headerName: "ลำดับ", width: 60 },
-    { field: "LabXray",headerName: "หมายเลข Lab-Xray ",width: 150, valueFormatter: (params) => params.value.Number,},
-    { field: "ORecord",headerName: "หมายเลขห้องผ่าตัด",width: 150,valueFormatter: (params) => params.value.Name,},
-    { field: "Prescription",headerName: "หมายเลขใบสั่งยา",width: 130,valueFormatter: (params) => params.value.ID,},
-    { field: "Total", headerName: "จำนวนค่ารักษา", width: 110 ,},
-    { field: "Note", headerName: "หมายเหตุ*", width: 120 ,},
-    { field: "MedicalDate", headerName: "วันที่ออกบิล", width: 100 },
+    { field: "LabXray",headerName: "Lab-Xray ",width: 100, valueFormatter: (params) => params.value.ID,},
+    { field: "ORrecord",headerName: "ห้องผ่าตัด",width: 100,valueFormatter: (params) => params.value.ID,},
+    { field: "Prescription",headerName: "หมายเลขใบสั่งยา",width: 120,valueFormatter: (params) => params.value.ID,},
+    { field: "Total", headerName: "จำนวนค่ารักษา", width: 130 ,},
+    { field: "Note", headerName: "หมายเหตุ*", width: 150 ,},
+    { field: "MedicalDate", headerName: "วันที่ออกบิล", width: 230 },
     {
       field: "",
       headerName: "",
@@ -70,7 +69,6 @@ function MedicalSlip() {
       align:"center",
       headerAlign: "center",
       renderCell: ({ row }: Partial<GridRowParams>) =>
-
             
                   <Button variant='contained' size="small" color='error' onClick={() => { 
                   localStorage.setItem("aid", row.ID);
@@ -78,27 +76,7 @@ function MedicalSlip() {
                   sx={{borderRadius: 15.5,'&:hover': { backgroundColor: '#ff4081'}}}>ลบ
                   </Button>,
       },
-      {
-        field: " ",
-        headerName: " ",
-        sortable: true,
-        width: 100,
-        align:"center",
-        headerAlign: "center",
-        renderCell: ({ row }: Partial<GridRowParams>) =>
-            <Button component={RouterLink}
-                to="/medicalslip/update"
-                size="small"
-                variant="outlined"
-                color="primary"
-                onClick={() => {
-                    localStorage.setItem("aid", row.ID);
-                }}
-                sx={{borderRadius: 2,'&:hover': {color: '#fffdeb', backgroundColor: '#598e89'}}}
-            >
-                แก้ไข
-            </Button>,
-    },
+      
   ];
 
   return (

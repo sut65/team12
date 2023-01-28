@@ -18,7 +18,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import { MedicalSlipInterface } from "../../interfaces/imedicalslip/IMedicalSlip";
 import { LabXrayInterface } from "../../interfaces/LabXray/ILabXray";
-
+import { ORrecordInterface } from "../../interfaces/OperatingRecord/Iorrecord";
 import { PatientInterface } from "../../interfaces/patient/IPatient";
 import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
 
@@ -29,7 +29,7 @@ import { ListPrescription } from "../../services/prescription/HttpClineServinceP
 import { ListLabXrays } from "../../services/LabXraySystem/LabXrayServices";
 import { PrescriptionInterface } from "../../interfaces/prescription/IPrescription";
 import { CreateMedicalSlip } from "../../services/MedicalSlip/HttpClientServince";
-
+import { GetORrecord } from "../../services/ORrecordSystem/HttpClientServinceOR";
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
   ref
@@ -41,7 +41,7 @@ function MedicalSlipCreate() {
   const [employee, setEmployee] = useState<EmployeeInterface>();
   const [patient, setPatient] = useState<PatientInterface[]>([]);
   const [labxrays, setLabXrays] = useState<LabXrayInterface[]>([]);
-  //const [orecords, setOrecords] = useState<OrecordInterface[]>([]);
+  const [orecords, setOrecords] = useState<ORrecordInterface[]>([]);
 
   const [prescriptions, setPrescription] = useState<PrescriptionInterface[]>([]);
 
@@ -103,6 +103,12 @@ function MedicalSlipCreate() {
       setLabXrays(res);
     }
   };
+  const getORrecord = async () => {
+    let res = await GetORrecord();
+    if (res) {
+      setOrecords(res);
+    }
+  };
 
   const getPrescription = async () => {
     let res = await ListPrescription();
@@ -112,6 +118,7 @@ function MedicalSlipCreate() {
   };
 
   useEffect(() => {
+    getORrecord();
     getEmployee();
     getPatient();
     getLabXaray();
@@ -129,9 +136,9 @@ function MedicalSlipCreate() {
       PatientID: convertType(medicalslip.PatientID),
       EmployeeID: convertType(localStorage.getItem("id") as string),
       LabXrayID: convertType(medicalslip.LabXrayID),
-      ORecordID: medicalslip.ORecordID,
-      PrescriptionID: convertType(medicalslip.PrescriptionID),     
-      Total: typeof medicalslip.Total == "string" ? parseFloat(medicalslip.Total) : 0.0,
+      ORrecordID: convertType(medicalslip.ORrecordID),
+      PrescriptionID: convertType(medicalslip.PrescriptionID),   
+      Total: typeof medicalslip.Total == "string" ? parseFloat(medicalslip.Total) : 0.0 , 
       Note: medicalslip.Note,
       MedicalDate: medicalslip.MedicalDate,
 
@@ -235,16 +242,16 @@ function MedicalSlipCreate() {
               <p>หมายเลขห้องผ่าตัด</p>
               <Select
                 native
-                value={medicalslip.ORecordID + ""}
+                value={medicalslip.ORrecordID + ""}
                 onChange={handleChange}
                 inputProps={{
-                  name: "ORecordID",
+                  name: "ORrecordID",
                 }}
               >
                 <option aria-label="None" value="">
                   กรุณาเลือกหมายเลขห้องผ่าตัด
                 </option>
-                {labxrays.map((item: LabXrayInterface) => (
+                {orecords.map((item: ORrecordInterface) => (
                   <option value={item.ID} key={item.ID}>
                     {item.ID}
                   </option>

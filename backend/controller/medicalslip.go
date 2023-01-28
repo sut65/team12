@@ -13,7 +13,7 @@ func CreateMedicalSlip(c *gin.Context) {
 
 	var medicalslip entity.MedicalSlip
 	var lab entity.LabXray
-	var orecord entity.ORrecord
+	var orrecord entity.ORrecord
 	var prescription entity.Prescription
 	var employee entity.Employee
 	var patient entity.Patient
@@ -43,9 +43,9 @@ func CreateMedicalSlip(c *gin.Context) {
 		return
 	}
 
-	// 12: ค้นหา orecord ด้วย id
-	if tx := entity.DB().Where("id = ?", medicalslip.ORrecordID).First(&orecord); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "orecord not found"})
+	// 12: ค้นหา orrecord ด้วย id
+	if tx := entity.DB().Where("id = ?", medicalslip.ORrecordID).First(&orrecord); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "orrecord not found"})
 		return
 	}
 
@@ -61,7 +61,7 @@ func CreateMedicalSlip(c *gin.Context) {
 		Employee:     employee,     // โยงความสัมพันธ์กับ Entity Employee
 		Patient:      patient,      // โยงความสัมพันธ์กับ Entity Patient
 		LabXray:      lab,          // โยงความสัมพันธ์กับ Entity LabCray
-		ORrecord:     orecord,      // โยงความสัมพันธ์กับ Entity ORecord
+		ORrecord:     orrecord,     // โยงความสัมพันธ์กับ Entity ORecord
 		Prescription: prescription, // โยงความสัมพันธ์กับ Entity Prescription
 
 		Total:       medicalslip.Total,       // ตั้งค่าฟิลด์ Total
@@ -179,7 +179,7 @@ func UpdateMedicalSlip(c *gin.Context) {
 		}
 		medicalslip.ORrecord = orecord
 	} else {
-		if tx := entity.DB().Where("id = ?", oldmedicalslip.ORrecord).First(&orecord); tx.RowsAffected == 0 {
+		if tx := entity.DB().Where("id = ?", oldmedicalslip.ORrecordID).First(&orecord); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "not found orecord"})
 			return
 		}
@@ -194,7 +194,7 @@ func UpdateMedicalSlip(c *gin.Context) {
 		}
 		medicalslip.Prescription = prescription
 	} else {
-		if tx := entity.DB().Where("id = ?", oldmedicalslip.ORrecord).First(&prescription); tx.RowsAffected == 0 {
+		if tx := entity.DB().Where("id = ?", oldmedicalslip.ORrecordID).First(&prescription); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "not found prescription"})
 			return
 		}

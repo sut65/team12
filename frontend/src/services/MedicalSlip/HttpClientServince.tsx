@@ -107,7 +107,7 @@ async function DeleteMedicalSlip(ID:number) {
       }
   };
   
-  let res = await fetch(`${apiUrl}/managebeds/${ID}`, requestOptions)
+  let res = await fetch(`${apiUrl}/medicalslips/${ID}`, requestOptions)
   .then((response) => response.json())
   .then((res) => {
       if(res.data){

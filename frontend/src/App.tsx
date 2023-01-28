@@ -72,6 +72,10 @@ import ORrecordUpdate from './components/operatingrecord/ORrecordUpdate';
 import ProblemReport from './components/reportproblem/ProblemReport';
 import ProblemReportCreate from './components/reportproblem/ProblemReportCreate';
 import ProblemReportUpdate from './components/reportproblem/ProblemReportUpdate';
+import BuildCircleIcon from '@mui/icons-material/BuildCircle';
+import MonitorHeartIcon from '@mui/icons-material/MonitorHeart';
+import TrendingFlatIcon from '@mui/icons-material/TrendingFlat';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
 
 const drawerWidth = 240;
 
@@ -146,12 +150,12 @@ const menu = [
   { name: "  แลปเอกซเรย์", icon: <BadgeOutlinedIcon color="primary"/>, path: "/labxray" ,role: "Doctor"},
   { name: "  ลงทะเบียนผู้ป่วย", icon: <BoyIcon color="primary"/>, path: "/patients/list" ,role: "Nurse"},
   { name: "  ใบสั่งยา", icon: <ReceiptLongIcon color="primary"/>, path: "/prescription/list",role: "Nurse"},
-  { name: "  คำร้องขอย้ายรพ.", icon: <BadgeOutlinedIcon color="primary"/>, path: "/mst" ,role: "Nurse"},
-  { name: "  เเจ้งรายการอาหารผู้ป่วย", icon: <BadgeOutlinedIcon color="primary"/>, path: "/sft" ,role: "Doctor"},
+  { name: "  คำร้องขอย้ายรพ.", icon: <TrendingFlatIcon color="primary"/>, path: "/mst" ,role: "Nurse"},
+  { name: "  เเจ้งรายการอาหารผู้ป่วย", icon: <RestaurantIcon color="primary"/>, path: "/sft" ,role: "Doctor"},
   { name: "อุปกรณ์ทางการเเพทย์", icon: <MedicationLiquidIcon color="primary" />, path: "/requisition", role: "Nurse"},
   { name: "บันทึกสัญญาณชีพ", icon: <AssignmentSharpIcon color="primary" />, path: "/vitalsign", role: "Nurse"},
-  { name: " : บันทึกเข้าใช้ห้องผ่าตัด", icon: <BadgeOutlinedIcon color="primary"/>, path: "/orrecord" ,role: "Nurse"},
-  { name: " : แจ้งซ่อมบำรุง", icon: <BadgeOutlinedIcon color="primary"/>, path: "/problemreport" ,role: "Nurse"},
+  { name: "  บันทึกเข้าใช้ห้องผ่าตัด", icon: <MonitorHeartIcon color="primary"/>, path: "/orrecord" ,role: "Nurse"},
+  { name: "  แจ้งซ่อมบำรุง", icon: <BuildCircleIcon color="primary"/>, path: "/problemreport" ,role: "Nurse"},
 
 ];
 function App() {
