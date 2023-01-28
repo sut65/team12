@@ -69,6 +69,10 @@ func SetupDatabase() {
 		&Problem{},
 		&NumPlace{},
 		&ProblemReport{},
+		//ErRecord
+		&ErRecord{},
+		&ToE{},
+		&Room{},
 	)
 
 	db = database
@@ -789,18 +793,18 @@ func SetupDatabase() {
 	sft1 := SFT{
 		Patient:            patient1,
 		PrincipalDiagnosis: pd1,
-		FoodType:    		foodtype1,
-		Doctor:  			emp1,
-		Date: 				theTime,
+		FoodType:           foodtype1,
+		Doctor:             emp1,
+		Date:               theTime,
 	}
 	db.Model(&SFT{}).Create(&sft1)
 
 	sft2 := SFT{
 		Patient:            patient2,
 		PrincipalDiagnosis: pd2,
-		FoodType:   		foodtype2,
-		Doctor:   			emp1,
-		Date: 				theTime2,
+		FoodType:           foodtype2,
+		Doctor:             emp1,
+		Date:               theTime2,
 	}
 	db.Model(&SFT{}).Create(&sft2)
 
@@ -808,52 +812,50 @@ func SetupDatabase() {
 	//==================================================== xxxMST ==========================================================================================//
 
 	hp1 := Hospital{
-		Pin:        23208,
-		Name:       "รพ.หาญอินเตอร์เนชั่นแนล",
-		Type:		"โรงพยาบาลเอกชน",
-		Address:	"29 ถ.มงคลบูรพา ต.ในเมือง อ.เมือง จ.ยโสธร",
-		Postcode:	"35000",
-		sdistrict:	"ในเมือง",
-		District:   "เมืองยโสธร",
-		Province:	"ยโสธร",
-		Quantity:	60,
+		Pin:       23208,
+		Name:      "รพ.หาญอินเตอร์เนชั่นแนล",
+		Type:      "โรงพยาบาลเอกชน",
+		Address:   "29 ถ.มงคลบูรพา ต.ในเมือง อ.เมือง จ.ยโสธร",
+		Postcode:  "35000",
+		sdistrict: "ในเมือง",
+		District:  "เมืองยโสธร",
+		Province:  "ยโสธร",
+		Quantity:  60,
 	}
 	db.Model(&Hospital{}).Create(&hp1)
 
 	hp2 := Hospital{
-		Pin:        21984,
-		Name:       "รพ.๕๐ พรรษา มหาวชิราลงกรณ",
-		Type:		"โรงพยาบาลชุมชน",
-		Address:	"300 ม.3 ถนนอุบล-ตระการ ต.ไร่น้อย อ.เมือง จ.อุบลราช",
-		Postcode:	"34000",
-		sdistrict:	"ไร่น้อย",
-		District:   "เมืองอุบลราชธานี",
-		Province:	"อุบลราชธานี",
-		Quantity:	80,
+		Pin:       21984,
+		Name:      "รพ.๕๐ พรรษา มหาวชิราลงกรณ",
+		Type:      "โรงพยาบาลชุมชน",
+		Address:   "300 ม.3 ถนนอุบล-ตระการ ต.ไร่น้อย อ.เมือง จ.อุบลราช",
+		Postcode:  "34000",
+		sdistrict: "ไร่น้อย",
+		District:  "เมืองอุบลราชธานี",
+		Province:  "อุบลราชธานี",
+		Quantity:  80,
 	}
 	db.Model(&Hospital{}).Create(&hp2)
 
 	mst1 := MST{
-		Patient:        patient1,
-		RegDateTime: 	theTime,
-		MSTDateTime:	theTime2,
-		Nurse:    		emp3,
-		Doctor:   		emp1,
-		Hospital: 		hp2,
+		Patient:     patient1,
+		RegDateTime: theTime,
+		MSTDateTime: theTime2,
+		Nurse:       emp3,
+		Doctor:      emp1,
+		Hospital:    hp2,
 	}
 	db.Model(&MST{}).Create(&mst1)
 
 	mst2 := MST{
-		Patient:         patient2,
-		RegDateTime: 	 theTime,
-		MSTDateTime: 	 theTime2,
-		Nurse:   		 emp3,
-		Doctor:  		 emp1,
-		Hospital:		 hp2,
+		Patient:     patient2,
+		RegDateTime: theTime,
+		MSTDateTime: theTime2,
+		Nurse:       emp3,
+		Doctor:      emp1,
+		Hospital:    hp2,
 	}
 	db.Model(&MST{}).Create(&mst2)
-
-	
 
 	//===================================================== xxMST ==========================================================================================//
 
@@ -1122,6 +1124,227 @@ func SetupDatabase() {
 	}
 	db.Model(&ProblemReport{}).Create(&report2)
 
+	//================================= ErRecord======================================//
 
+	// ErRecord
+	toe1 := ToE{
+		Roomtype: "พิเศษรวม 5 เตียง (ญาติเฝ้าไม่ได้)",
+	}
+	db.Model(&ToE{}).Create(&toe1)
+
+	toe2 := ToE{
+		Roomtype: "พิเศษเดี่ยว (Deluxe)",
+	}
+	db.Model(&ToE{}).Create(&toe2)
+
+	toe3 := ToE{
+		Roomtype: "พิเศษเดี่ยว (Deluxe City View)",
+	}
+	db.Model(&ToE{}).Create(&toe3)
+
+	toe4 := ToE{
+		Roomtype: "พิเศษเดี่ยว (Deluxe VIP)",
+	}
+	db.Model(&ToE{}).Create(&toe4)
+
+	toe5 := ToE{
+		Roomtype: "พิเศษเดี่ยว (Executive)",
+	}
+	db.Model(&ToE{}).Create(&toe5)
+
+	room1 := Room{
+		Roomname: "R001",
+		// Price:    600,
+		ToE: toe1,
+	}
+	db.Model(&Room{}).Create(&room1)
+
+	room2 := Room{
+		Roomname: "R002",
+		// Price:    600,
+		ToE: toe1,
+	}
+	db.Model(&Room{}).Create(&room2)
+
+	room3 := Room{
+		Roomname: "R003",
+		// Price:    600,
+		ToE: toe1,
+	}
+	db.Model(&Room{}).Create(&room3)
+
+	room4 := Room{
+		Roomname: "R004",
+		// Price:    600,
+		ToE: toe1,
+	}
+	db.Model(&Room{}).Create(&room4)
+
+	room5 := Room{
+		Roomname: "R005",
+		// Price:    600,
+		ToE: toe1,
+	}
+	db.Model(&Room{}).Create(&room5)
+
+	room6 := Room{
+		Roomname: "R006",
+		// Price:    4300,
+		ToE: toe2,
+	}
+	db.Model(&Room{}).Create(&room6)
+
+	room7 := Room{
+		Roomname: "R007",
+		// Price:    4300,
+		ToE: toe2,
+	}
+	db.Model(&Room{}).Create(&room7)
+
+	room8 := Room{
+		Roomname: "R008",
+		// Price:    4300,
+		ToE: toe2,
+	}
+	db.Model(&Room{}).Create(&room8)
+
+	room9 := Room{
+		Roomname: "R009",
+		// Price:    4300,
+		ToE: toe2,
+	}
+	db.Model(&Room{}).Create(&room9)
+
+	room10 := Room{
+		Roomname: "R010",
+		// Price:    4300,
+		ToE: toe2,
+	}
+	db.Model(&Room{}).Create(&room10)
+
+	room11 := Room{
+		Roomname: "R011",
+		// Price:    5300,
+		ToE: toe3,
+	}
+	db.Model(&Room{}).Create(&room11)
+
+	room12 := Room{
+		Roomname: "R012",
+		// Price:    5300,
+		ToE: toe3,
+	}
+	db.Model(&Room{}).Create(&room12)
+
+	room13 := Room{
+		Roomname: "R013",
+		// Price:    5300,
+		ToE: toe3,
+	}
+	db.Model(&Room{}).Create(&room13)
+
+	room14 := Room{
+		Roomname: "R014",
+		// Price:    5300,
+		ToE: toe3,
+	}
+	db.Model(&Room{}).Create(&room14)
+
+	room15 := Room{
+		Roomname: "R015",
+		// Price:    5300,
+		ToE: toe3,
+	}
+	db.Model(&Room{}).Create(&room15)
+
+	room16 := Room{
+		Roomname: "R016",
+		// Price:    5800,
+		ToE: toe4,
+	}
+	db.Model(&Room{}).Create(&room16)
+
+	room17 := Room{
+		Roomname: "R017",
+		// Price:    5800,
+		ToE: toe4,
+	}
+	db.Model(&Room{}).Create(&room17)
+
+	room18 := Room{
+		Roomname: "R018",
+		// Price:    5800,
+		ToE: toe4,
+	}
+	db.Model(&Room{}).Create(&room18)
+
+	room19 := Room{
+		Roomname: "R019",
+		// Price:    5800,
+		ToE: toe4,
+	}
+	db.Model(&Room{}).Create(&room19)
+
+	room20 := Room{
+		Roomname: "R020",
+		// Price:    5800,
+		ToE: toe4,
+	}
+	db.Model(&Room{}).Create(&room20)
+
+	room21 := Room{
+		Roomname: "R021",
+		// Price:    9300,
+		ToE: toe5,
+	}
+	db.Model(&Room{}).Create(&room21)
+
+	room22 := Room{
+		Roomname: "R022",
+		// Price:    9300,
+		ToE: toe5,
+	}
+	db.Model(&Room{}).Create(&room22)
+
+	room23 := Room{
+		Roomname: "R023",
+		// Price:    9300,
+		ToE: toe5,
+	}
+	db.Model(&Room{}).Create(&room23)
+
+	room24 := Room{
+		Roomname: "R024",
+		// Price:    9300,
+		ToE: toe5,
+	}
+	db.Model(&Room{}).Create(&room24)
+
+	room25 := Room{
+		Roomname: "R025",
+		// Price:    9300,
+		ToE: toe5,
+	}
+	db.Model(&Room{}).Create(&room25)
+
+	errec1 := ErRecord{
+		Employee: emp3,
+		Patient:  patient1,
+		ToE:      toe1,
+		Room:     room1,
+		// Price:    room1.Price,
+		Date: time.Now(),
+	}
+	db.Model(&ErRecord{}).Create(&errec1)
+
+	errec2 := ErRecord{
+		Employee: emp3,
+		Patient:  patient2,
+		ToE:      toe2,
+		Room:     room6,
+		// Price:    room6.Price,
+		Date: time.Now(),
+	}
+	db.Model(&ErRecord{}).Create(&errec2)
 
 }
