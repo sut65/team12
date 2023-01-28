@@ -17,7 +17,7 @@ async function ListPrincipalDiagnosis() {
         }
     };
 
-    let res = await fetch(`${apiUrl}/principaldiagnosiss`, reqOpt)
+    let res = await fetch(`${apiUrl}/principaldiagnosiss/list`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){
@@ -54,11 +54,12 @@ async function GetPrincipalDiagnosis(ID: string | undefined) {
 }
 
 // Create PrincipalDiagnosis
-async function PostPrincipalDiagnosis(pd:Partial<PrincipalDiagnosisInterface>) {
+async function CreatePrincipalDiagnosis(pd:Partial<PrincipalDiagnosisInterface>) {
     let data = {
         
         Note: pd.Note,
         Date: new Date().toJSON().split("Z").at(0)+"+07:00",
+        // Date: pd.Date,
         EmployeeID:convertType(pd.EmployeeID),
         PatientID: convertType(pd.PatientID),
         LoDID: convertType(pd.LoDID)
@@ -92,7 +93,7 @@ async function UpdatePrincipalDiagnosis(pd : Partial<PrincipalDiagnosisInterface
     let data = {
         ID:convertType(pd.ID),
         Note: pd.Note,
-        Date: new Date().toJSON().split("Z").at(0)+"+07:00",
+        Date: pd.Date,
         EmployeeID:convertType(pd.EmployeeID),
         PatientID: convertType(pd.PatientID),
         LoDID: convertType(pd.LoDID)
@@ -149,7 +150,7 @@ async function ListEmployee() {
             "Content-Type": "application/json",
         }
     }
-    let res = await fetch(`${apiUrl}/employees`, reqOpt)
+    let res = await fetch(`${apiUrl}/employees/list`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){
@@ -281,7 +282,7 @@ async function GetLoD(ID: string | undefined) {
 export {
     ListPrincipalDiagnosis,
     GetPrincipalDiagnosis,
-    PostPrincipalDiagnosis,
+    CreatePrincipalDiagnosis,
     UpdatePrincipalDiagnosis,
     DeletePrincipalDiagnosis,
     ListEmployee,
