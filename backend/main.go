@@ -37,6 +37,31 @@ func main() {
 			// DELETE
 			router.DELETE("/errecord/delete/:id", controller.DeleteErRecord)
 
+			// ToE
+			router.GET("/toes/list", controller.ListToE)
+			router.GET("/toe/get/:id", controller.GetToE)
+
+			// Room
+			router.GET("/rooms/list", controller.ListRoom)
+			router.GET("/room/get/:id", controller.GetRoom)
+			router.GET("/roombytoe/get/:id", controller.ListRoomByToE)
+			//===========================================================================
+			// -----------------  PrincipalDiagnosis ----------------------------
+			// Get by id อิหยังวะ น่าจะ principaldiagnosis
+			router.GET("/principaldiagnosis/get/:id", controller.GetPrincipalDiagnosis)
+			// List
+			router.GET("/principaldiagnosiss/list", controller.ListPrincipalDiagnosis)
+			// Create
+			router.POST("/principaldiagnosis/create", controller.CreatePrincipalDiagnosis)
+			// UPDATE
+			router.PATCH("/principaldiagnosis/update", controller.UpdatePrincipalDiagnosis)
+			// DELETE
+			router.DELETE("/principaldiagnosis/delete/:id", controller.DeletePrincipalDiagnosis)
+
+			// LoD
+			router.GET("/lods", controller.ListLoD)
+			router.GET("/lod/:id", controller.GetLoD)
+			//=================================================================================
 			// Get by id
 			router.GET("/employee/get/:id", controller.GetEmployee)
 			// List
@@ -48,14 +73,6 @@ func main() {
 			// DELETE
 			router.DELETE("/employees/delete/:id", controller.DeleteEmployee)
 
-			// ToE
-			router.GET("/toes/list", controller.ListToE)
-			router.GET("/toe/get/:id", controller.GetToE)
-
-			// Room
-			router.GET("/rooms/list", controller.ListRoom)
-			router.GET("/room/get/:id", controller.GetRoom)
-			router.GET("/roombytoe/get/:id", controller.ListRoomByToE)
 			// ----------------- Employee ----------------------------
 			// Role Routes
 			router.GET("/roles/list", controller.ListRole)
