@@ -60,6 +60,9 @@ import RequisitionList from './components/requisition/RequisitionList';
 import RequisitionCreate from './components/requisition/RequisitionCreate';
 import VitalSignsEdit from './components/vitalsigns/VitalSignsEdit';
 import RequisitionEdit from './components/requisition/RequisitionEdit';
+import PrincipalDiagnosisUpdate from './components/PrincipalDiagnosis/principalUpdate';
+import NongGeeCreate from './components/PrincipalDiagnosis/NongGeeCreate';
+import PrincipalDiagnosis from './components/PrincipalDiagnosis/principaldiagnosis';
 
 const drawerWidth = 240;
 
@@ -286,6 +289,9 @@ function App() {
                 <Route path="/vitalsign" element={<VitalSignsList />} />
                 <Route path="/vitalsign/create" element={<VitalSignsCreate />} />
                 <Route path="/vitalsign/update/:id" element={<VitalSignsEdit />} />
+                <Route path="/principaldiagnosis" element={<PrincipalDiagnosis/>} />
+                <Route path="/principaldiagnosis/create" element={<NongGeeCreate/>} />
+                <Route path="/principaldiagnosis/update/:id" element={<PrincipalDiagnosisUpdate/>} />
                 
               </Routes>
             </Container>
