@@ -75,15 +75,15 @@ function PrescriptionEdit(){
       const handleInputChangenumber = (
         event: React.ChangeEvent<{ id?: string; value: any }>
       ) => {
-        const id = event.target.id as keyof typeof patient;
+        const id = event.target.id as keyof typeof prescription;
         const { value } = event.target;
-        setPatient({ ...patient, [id]: value === "" ? "" : Number(value) });
+        setPrescription({ ...prescription, [id]: value === "" ? "" : Number(value) });
       };
 
       const handleChangeTextField = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const name = event.target.name as keyof typeof patient;
-        setPatient({
-            ...patient,
+        const name = event.target.name as keyof typeof prescription;
+        setPrescription({
+            ...prescription,
             [name]: event.target.value,
         });
 
