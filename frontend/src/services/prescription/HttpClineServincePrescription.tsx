@@ -25,6 +25,28 @@ async function ListPrescription() {
       return res;
     }
 
+// list doctor
+    async function ListDoctor() {
+        const requestOptions = {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        };
+        
+        let res = await fetch(`${apiUrl}/employee/doctor/list`, requestOptions)
+          .then((response) => response.json())
+          .then((res) => {
+            if (res.data) {
+              return res.data;
+            } else {
+              return false;
+            }
+          });
+        
+        return res;
+        }
 // GET By ID Prescription
 async function GetPrescription() {
     let preid = localStorage.getItem("preid");
@@ -157,4 +179,5 @@ export {
     UpdatePrescription,
     DeletePrescriptiont,
     ListMedicine,
+    ListDoctor,
 }
