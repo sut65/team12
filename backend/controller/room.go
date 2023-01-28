@@ -29,3 +29,20 @@ func ListRoom(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"data": rooms})
 }
+
+func ListRoomByToE(c *gin.Context) {
+	var rooms []entity.Room
+	id := c.Param("id")
+	if id == "1" {
+		id = "1"
+	}
+	if id == "2" {
+		id = "2"
+	}
+	if err := entity.DB().Preload("ToE").Raw("SELECT * FROM rooms where to_e_id = ?", id).Scan(&rooms).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": rooms})
+}
