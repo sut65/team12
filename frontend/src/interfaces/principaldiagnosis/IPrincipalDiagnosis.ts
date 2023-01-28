@@ -4,7 +4,7 @@ import { PatientInterface } from "../patient/IPatient";
 
 
 export interface PrincipalDiagnosisInterface {
-    ID?: number;
+    ID: number;
     EmployeeID?: number;
     PatientID?: number;
     LoDID?: number;
