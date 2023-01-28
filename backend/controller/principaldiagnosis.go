@@ -57,6 +57,7 @@ func CreatePrincipalDiagnosis(c *gin.Context) {
 		Employee: employee,
 		Patient:  patient,
 		LoD:      lod,
+		Note:     principaldiagnosis.Note,
 		// Price:     price,
 		Date: principaldiagnosis.Date,
 	}
@@ -129,6 +130,14 @@ func UpdatePrincipalDiagnosis(c *gin.Context) {
 		return
 	}
 
+	if principaldiagnosis.Note == "" {
+		principaldiagnosis.Note = oldprincipaldiagnosis.Note
+	}
+
+	if principaldiagnosis.Date.String() == "0001-01-01 00:00:00 +0000 UTC" {
+		principaldiagnosis.Date = oldprincipaldiagnosis.Date
+	}
+
 	// if new have employee id
 	if principaldiagnosis.EmployeeID != nil {
 		if tx := entity.DB().Where("id = ?", principaldiagnosis.EmployeeID).First(&employee); tx.RowsAffected == 0 {
@@ -194,7 +203,7 @@ func UpdatePrincipalDiagnosis(c *gin.Context) {
 func DeletePrincipalDiagnosis(c *gin.Context) {
 	id := c.Param("id")
 
-	if tx := entity.DB().Exec("DELETE FROM principal_diagnosiss WHERE id = ?", id); tx.RowsAffected == 0 {
+	if tx := entity.DB().Exec("DELETE FROM principal_diagnoses WHERE id = ?", id); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "principaldiagnosis is not found"})
 		return
 	}
