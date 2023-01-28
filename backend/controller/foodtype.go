@@ -7,14 +7,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-
-
-// GET /bed/:id
+// GET /foodtype/:id
 func GetFoodType(c *gin.Context) {
 	var foodtype entity.FoodType
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM food_types WHERE id = ?", id).Scan(&foodtype).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	if tx := entity.DB().Where("id = ?", id).First(&foodtype); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "foodtype not found"})
 		return
 	}
 

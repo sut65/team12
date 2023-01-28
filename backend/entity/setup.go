@@ -43,7 +43,7 @@ func SetupDatabase() {
 		MST{},
 
 		//sft
-		&SpecifyFoodType{},
+		&SFT{},
 		&FoodType{},
 
 		// ManageBed
@@ -786,23 +786,23 @@ func SetupDatabase() {
 	}
 	db.Model(&FoodType{}).Create(&foodtype5)
 
-	sft1 := SpecifyFoodType{
+	sft1 := SFT{
 		Patient:            patient1,
 		PrincipalDiagnosis: pd1,
-		//FoodType:    foodtype1,
-		Doctor:   emp1,
-		DateTime: time.Now(),
+		FoodType:    		foodtype1,
+		Doctor:  			emp1,
+		Date: 				theTime,
 	}
-	db.Model(&SpecifyFoodType{}).Create(&sft1)
+	db.Model(&SFT{}).Create(&sft1)
 
-	sft2 := SpecifyFoodType{
+	sft2 := SFT{
 		Patient:            patient2,
 		PrincipalDiagnosis: pd2,
-		//FoodType:    foodtype2,
-		Doctor:   emp1,
-		DateTime: time.Now(),
+		FoodType:   		foodtype2,
+		Doctor:   			emp1,
+		Date: 				theTime2,
 	}
-	db.Model(&SpecifyFoodType{}).Create(&sft2)
+	db.Model(&SFT{}).Create(&sft2)
 
 	//===================================================== xxSpecifyFoodType ==========================================================================================//
 	//==================================================== xxxMST ==========================================================================================//
@@ -835,8 +835,8 @@ func SetupDatabase() {
 
 	mst1 := MST{
 		Patient:        patient1,
-		RegDateTime: 	time.Now(),
-		MSTDateTime:	time.Now(),
+		RegDateTime: 	theTime,
+		MSTDateTime:	theTime2,
 		Nurse:    		emp3,
 		Doctor:   		emp1,
 		Hospital: 		hp2,
@@ -845,8 +845,8 @@ func SetupDatabase() {
 
 	mst2 := MST{
 		Patient:         patient2,
-		RegDateTime: 	 time.Now(),
-		MSTDateTime: 	 time.Now(),
+		RegDateTime: 	 theTime,
+		MSTDateTime: 	 theTime2,
 		Nurse:   		 emp3,
 		Doctor:  		 emp1,
 		Hospital:		 hp2,

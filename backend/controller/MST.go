@@ -87,11 +87,12 @@ func CreateMST(c *gin.Context) {
 		})
 		return
 	}
-
+	timelocal := mst.RegDateTime.Local()
+	timelocal2 := mst.MSTDateTime.Local()
 	hp := entity.MST{
 		Patient:    	patient,
-		RegDateTime: 	mst.RegDateTime,
-		MSTDateTime: 	mst.MSTDateTime,
+		RegDateTime: 	timelocal,
+		MSTDateTime: 	timelocal2,
 		Nurse:      	nurse,
 		Doctor:     	doctor,
 		Hospital:   	hospital,
