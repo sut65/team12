@@ -156,6 +156,8 @@ const menu = [
   { name: "บันทึกสัญญาณชีพ", icon: <AssignmentSharpIcon color="primary" />, path: "/vitalsign", role: "Nurse"},
   { name: "  บันทึกเข้าใช้ห้องผ่าตัด", icon: <MonitorHeartIcon color="primary"/>, path: "/orrecord" ,role: "Nurse"},
   { name: "  แจ้งซ่อมบำรุง", icon: <BuildCircleIcon color="primary"/>, path: "/problemreport" ,role: "Nurse"},
+  { name: " : การจองห้องพิเศษ", icon: <BadgeOutlinedIcon color="primary"/>, path: "/errecord" ,role: "Nurse"},
+  
 
 ];
 function App() {
