@@ -157,6 +157,7 @@ const menu = [
   { name: "  บันทึกเข้าใช้ห้องผ่าตัด", icon: <MonitorHeartIcon color="primary"/>, path: "/orrecord" ,role: "Nurse"},
   { name: "  แจ้งซ่อมบำรุง", icon: <BuildCircleIcon color="primary"/>, path: "/problemreport" ,role: "Nurse"},
   { name: " : การจองห้องพิเศษ", icon: <BadgeOutlinedIcon color="primary"/>, path: "/errecord" ,role: "Nurse"},
+  { name: " : บันทึกผลการวินิจฉัย", icon: <BadgeOutlinedIcon color="primary"/>, path: "/principaldiagnosis" ,role: "Doctor"},
   
 
 ];
