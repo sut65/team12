@@ -158,11 +158,15 @@ function Create_save() {
   let theme = createTheme({ // ิbutton theme
     palette: {
       primary: {
-        main: '#12a178', //เขียว
+        main: "#009688",
       },
       secondary: {
-        main: '#edf2ff', //ขาว
+        main: "#009688"
       },
+      text: {
+        primary: "#008573",
+        secondary: "#000000"
+      }
     },
   });
 

@@ -167,11 +167,15 @@ function Create_save() {
   let theme = createTheme({ // ิbutton theme
     palette: {
       primary: {
-        main: '#12a178', //เขียว
+        main: "#009688",
       },
       secondary: {
-        main: '#edf2ff', //ขาว
+        main: "#009688"
       },
+      text: {
+        primary: "#008573",
+        secondary: "#000000"
+      }
     },
   });
 
@@ -206,7 +210,7 @@ function Create_save() {
               <Typography
                 component="h2"
                 variant="h6"
-                color="primary"
+                color="text"
                 gutterBottom
               >
                 Record SFT Information
@@ -302,7 +306,7 @@ function Create_save() {
             <Grid item xs={10}>
               <FormLabel>DateTime</FormLabel>
               <FormControl fullWidth variant="outlined">
-                <p>วันที่และเวลา</p>
+                <p>วันที่ลงทะเบียน</p>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     value={mst.RegDateTime}
@@ -319,7 +323,7 @@ function Create_save() {
             </Grid>
             <Grid item xs={5}>
               <FormControl fullWidth variant="outlined">
-                <p>วันที่</p>
+                <p>วันที่ย้ายโรงพยาบาล</p>
                 {/* input from roomid andthen search booking where roomid and get start\stop day in recorded   */}
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker

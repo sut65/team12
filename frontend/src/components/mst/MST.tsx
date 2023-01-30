@@ -19,11 +19,15 @@ function Manage_Show() {
   let theme = createTheme({ // button theme
     palette: {
       primary: {
-        main: '#648c8a', //เขียว
+        main: "#009688",
       },
       secondary: {
-        main: '#edf2ff', //ขาว
+        main: "#009688"
       },
+      text: {
+        primary: "#008573",
+        secondary: "#000000"
+      }
     },
   });
 
@@ -126,7 +130,7 @@ function Manage_Show() {
             color="primary"
           >
             <Typography
-              color="secondary"
+              color="text"
               component="div"
               sx={{ flexGrow: 1 }}
             >

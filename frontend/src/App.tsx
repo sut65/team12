@@ -76,7 +76,7 @@ import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import MonitorHeartIcon from '@mui/icons-material/MonitorHeart';
 import TrendingFlatIcon from '@mui/icons-material/TrendingFlat';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
-
+import VideoLabelIcon from '@mui/icons-material/VideoLabel';
 const drawerWidth = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -147,7 +147,7 @@ const menu = [
   { name: "  จัดการเตียงคนไข้", icon: <BedroomChildIcon color="primary" />, path: "/managebed" ,role: "Nurse"},
   { name: "  บันทึกค่ารักษา", icon: <LocalHospitalIcon color="primary"/>, path: "/medicalslip",role: "Nurse"},
   { name: "  พนักงาน", icon: <BadgeOutlinedIcon color="primary"/>, path: "/employee" ,role: "HumanResourse"},
-  { name: "  แลปเอกซเรย์", icon: <BadgeOutlinedIcon color="primary"/>, path: "/labxray" ,role: "Doctor"},
+  { name: "  แลปเอกซเรย์", icon: <VideoLabelIcon color="primary"/>, path: "/labxray" ,role: "Doctor"},
   { name: "  ลงทะเบียนผู้ป่วย", icon: <BoyIcon color="primary"/>, path: "/patients/list" ,role: "Nurse"},
   { name: "  ใบสั่งยา", icon: <ReceiptLongIcon color="primary"/>, path: "/prescription/list",role: "Nurse"},
   { name: "  คำร้องขอย้ายรพ.", icon: <TrendingFlatIcon color="primary"/>, path: "/mst" ,role: "Nurse"},
@@ -156,8 +156,8 @@ const menu = [
   { name: "บันทึกสัญญาณชีพ", icon: <AssignmentSharpIcon color="primary" />, path: "/vitalsign", role: "Nurse"},
   { name: "  บันทึกเข้าใช้ห้องผ่าตัด", icon: <MonitorHeartIcon color="primary"/>, path: "/orrecord" ,role: "Nurse"},
   { name: "  แจ้งซ่อมบำรุง", icon: <BuildCircleIcon color="primary"/>, path: "/problemreport" ,role: "Nurse"},
-  { name: " : การจองห้องพิเศษ", icon: <BadgeOutlinedIcon color="primary"/>, path: "/errecord" ,role: "Nurse"},
-  { name: " : บันทึกผลการวินิจฉัย", icon: <BadgeOutlinedIcon color="primary"/>, path: "/principaldiagnosis" ,role: "Doctor"},
+  { name: " การจองห้องพิเศษ", icon: <BadgeOutlinedIcon color="primary"/>, path: "/errecord" ,role: "Nurse"},
+  { name: " บันทึกผลการวินิจฉัย", icon: <BadgeOutlinedIcon color="primary"/>, path: "/principaldiagnosis" ,role: "Doctor"},
   
 
 ];
