@@ -19,7 +19,8 @@ import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
 import { PatientInterface } from "../../interfaces/patient/IPatient";
 import { ToEInterface } from '../../interfaces/errecord/IToE'
 import { RoomInterface } from '../../interfaces/errecord/IRoom'
-import { ListEmployee, ListPatient, ListToEs, ListRooms, CreateErRecord, GetErRecord, UpdateErRecord, GetRoomByToE } from "../../services/ErRecord/HttpErRecord";
+import { ListEmployee, ListToEs, ListRooms, CreateErRecord, GetErRecord, UpdateErRecord, GetRoomByToE } from "../../services/ErRecord/HttpErRecord";
+import { ListPatient } from '../../services/patient/HttpClineServincePatient'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers'
