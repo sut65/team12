@@ -136,7 +136,9 @@ type Patient struct {
 	ManageBeds   []ManageBed    `gorm:"foreignKey:PatientID"`
 	MSTs         []MST          `gorm:"foreignKey:PatientID"`
 
-	MedicalSlips []MedicalSlip `gorm:"foreignKey:PatientID"`
+	MedicalSlips       []MedicalSlip        `gorm:"foreignKey:PatientID"`
+	PrincipalDiagnosis []PrincipalDiagnosis `gorm:"foreignKey:PatientID"`
+	ErRecord           []ErRecord           `gorm:"foreignKey:PatientID`
 }
 
 // =========================================================================================================================================================
