@@ -195,7 +195,7 @@ async function ListPatient() {
             "Content-Type": "application/json",
         }
     }
-    let res = await fetch(`${apiUrl}/patients`, reqOpt)
+    let res = await fetch(`${apiUrl}/patients/list`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){
@@ -262,7 +262,7 @@ async function GetLoD(ID: string | undefined) {
         }
     }
 
-    let res = await fetch(`${apiUrl}/lod/get/${ID}`, reqOpt)
+    let res = await fetch(`${apiUrl}/lod/${ID}`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){
