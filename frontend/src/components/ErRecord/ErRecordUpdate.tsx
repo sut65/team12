@@ -19,7 +19,7 @@ import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
 import { PatientInterface } from "../../interfaces/patient/IPatient";
 import { ToEInterface } from '../../interfaces/errecord/IToE'
 import { RoomInterface } from '../../interfaces/errecord/IRoom'
-import { ListEmployee, ListPatient, ListToE, ListRoom, CreateErRecord, GetErRecord, UpdateErRecord, GetRoomByToE } from "../../services/ErRecord/HttpErRecord";
+import { ListEmployee, ListPatient, ListToEs, ListRooms, CreateErRecord, GetErRecord, UpdateErRecord, GetRoomByToE } from "../../services/ErRecord/HttpErRecord";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers'
@@ -55,7 +55,7 @@ export default function ErRecordUpdate() {
     // get ToE
     const getToE = async () => {
         //let id =0;
-        let res = await ListToE();
+        let res = await ListToEs();
         console.log(res);
         if (res) {
           setToE(res);
@@ -76,7 +76,7 @@ export default function ErRecordUpdate() {
      // get ToE
      const getRoom = async () => {
          //let id =0;
-         let res = await ListToE();
+         let res = await ListToEs();
          console.log(res);
          if (res) {
            setToE(res);

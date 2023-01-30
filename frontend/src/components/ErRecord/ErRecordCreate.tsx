@@ -30,7 +30,8 @@ import {
   import { ToEInterface } from "../../interfaces/errecord/IToE";
   import { RoomInterface } from "../../interfaces/errecord/IRoom";
 //   import { ListEmployee, ListDepartments, ListRoles, CreateEmployee, GetDepartmentByRole } from "../../services/EmployeeSystem/employeeServices";
-  import { ListEmployee, ListPatient, ListToE, ListRoom, CreateErRecord, GetRoomByToE } from "../../services/ErRecord/HttpErRecord";
+  import { ListPatient } from "../../services/patient/HttpClineServincePatient";
+import { ListEmployee,  ListToEs, ListRooms, CreateErRecord, GetRoomByToE } from "../../services/ErRecord/HttpErRecord";
   const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
     ref
@@ -45,7 +46,7 @@ import {
       {
         EmployeeID: 0,
         PatientID: 0,
-        ToEID: 0,
+        //ToEID: 0,
         RoomID: 0,
         // Note: "",
       }
@@ -79,7 +80,7 @@ import {
     // get ToE
     const getToE = async () => {
       //let id =0;
-      let res = await ListToE();
+      let res = await ListToEs();
       console.log(res);
       if (res) {
         setToE(res);
@@ -89,7 +90,7 @@ import {
     // get Room
     const getRoom = async () => {
         //let id =0;
-        let res = await ListRoom();
+        let res = await ListRooms();
         console.log(res);
         if (res) {
           setRoom(res);
@@ -130,7 +131,7 @@ import {
       getEmployee();
       getPatient();
       getToE();
-      getRoom();
+      //getRoom();
       getRoomByToE();
     }, []);
 
@@ -280,7 +281,9 @@ import {
                       ประเภทของห้องพิเศษ
                     </MenuItem>
                     {toe.map((item: ToEInterface) => (
-                      <MenuItem value={item.ID}>{item.Roomtype}</MenuItem>
+                      <MenuItem value={item.ID}>
+                        {item.Roomtype}
+                        </MenuItem>
                     ))}
                   </Select>
                 </FormControl>

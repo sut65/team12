@@ -251,6 +251,28 @@ async function ListToE() {
     return res
 }
 
+// List ToEs
+async function ListToEs() {
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    };
+  
+    let res = await fetch(`${apiUrl}/toes/list`, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.data) {
+          return res.data;
+        } else {
+          return false;
+        }
+      });
+  
+    return res;
+  }
 // GET By ID ToE
 async function GetToE(ID: string | undefined) {
     const reqOpt = {
@@ -294,7 +316,27 @@ async function ListRoom() {
     })
     return res
 }
+// List Employee
+async function ListRooms() {
+    const reqOpt = {
+        method: "GET",
+        headers:{
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        }
+    };
 
+    let res = await fetch(`${apiUrl}/rooms/list`, reqOpt)
+    .then((response) => response.json())
+    .then((res) => {
+        if(res.data){
+            return res.data
+        } else{
+            return false
+        }
+    })
+    return res
+}
 // GET By ID Room
 async function GetRoom(ID: string | undefined) {
     const reqOpt = {
@@ -352,9 +394,9 @@ export {
     GetEmployee,
     ListPatient,
     GetPatient,
-    ListToE,
+    ListToEs,
     GetToE,
-    ListRoom,
+    ListRooms,
     GetRoomByToE,
     GetRoom,
     

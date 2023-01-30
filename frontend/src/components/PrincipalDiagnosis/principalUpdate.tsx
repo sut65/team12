@@ -18,7 +18,8 @@ import { PrincipalDiagnosisInterface } from "../../interfaces/principaldiagnosis
 import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
 import { PatientInterface } from "../../interfaces/patient/IPatient";
 import { LoDInterface } from "../../interfaces/principaldiagnosis/ILoD";
-import { ListEmployee, ListPatient, ListLoD, CreatePrincipalDiagnosis, GetPrincipalDiagnosis, UpdatePrincipalDiagnosis } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosis";
+import { ListEmployee, ListLoDs, CreatePrincipalDiagnosis, GetPrincipalDiagnosis, UpdatePrincipalDiagnosis } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosis";
+import { ListPatient } from '../../services/patient/HttpClineServincePatient'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers'
@@ -53,7 +54,7 @@ export default function PrincipalDiagnosisUpdate() {
     // get LoD
     const getLoD = async () => {
         //let id =0;
-        let res = await ListLoD();
+        let res = await ListLoDs();
         console.log(res);
         if (res) {
           setLoD(res);

@@ -28,8 +28,10 @@ import {
   import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
   import { PatientInterface } from "../../interfaces/patient/IPatient";
   import { LoDInterface } from "../../interfaces/principaldiagnosis/ILoD";
+  import { ListPatient } from "../../services/patient/HttpClineServincePatient";
 //   import { ListEmployee, ListDepartments, ListRoles, CreateEmployee, GetDepartmentByRole } from "../../services/EmployeeSystem/employeeServices";
-  import { ListPrincipalDiagnosis, ListEmployee, ListPatient, ListLoD, CreatePrincipalDiagnosis } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosis";
+import { ListLoDs } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosis";
+import { ListPrincipalDiagnosis, ListEmployee,  ListLoD, CreatePrincipalDiagnosis } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosis";
   const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
     ref
@@ -76,7 +78,7 @@ import {
     // get LoD
     const getLoD = async () => {
       //let id =0;
-      let res = await ListLoD();
+      let res = await ListLoDs();
       console.log(res);
       if (res) {
         setLoD(res);

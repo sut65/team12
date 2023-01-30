@@ -11,7 +11,8 @@ import { PrincipalDiagnosisInterface } from "../../interfaces/principaldiagnosis
 import moment from "moment";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid, GridColDef, GridRowParams } from "@mui/x-data-grid";
-import { ListPrincipalDiagnosis, DeletePrincipalDiagnosis } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosis";
+import { ListLoDs } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosis";
+import { ListPrincipalDiagnosis,DeletePrincipalDiagnosis, ListEmployee,  ListLoD, CreatePrincipalDiagnosis } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosis";
 
 function Manage_Show() {
   
