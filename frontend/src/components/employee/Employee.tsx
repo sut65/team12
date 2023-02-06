@@ -119,11 +119,11 @@ function Manage_Show() {
             color="primary"
             gutterBottom
           >
-            Employee
+            Record Employee Information
           </Typography>
         </Box>
 
-        <Box>
+        {/* <Box>
           <Button 
             component={RouterLink}
             to="/employee/create"
@@ -139,11 +139,11 @@ function Manage_Show() {
 
             </Typography>
           </Button>
-        </Box>
+        </Box> */}
       </Box>
         <div>
-          <Container maxWidth="xl">
-            <div style={{ height: 500, width: "200%", marginTop: "50px" }}>
+          <Container maxWidth="lg">
+            <div style={{ height: 800, width: "205%", marginTop: "10px" }}>
               <TableContainer >
                 <Table aria-label="simple table">
                   <TableHead>
@@ -205,6 +205,26 @@ function Manage_Show() {
                   </TableBody>
                 </Table>
               </TableContainer>
+              <Box>
+          <Grid container spacing={3} sx={{ padding: 2 }} >
+          <Grid item xs={10}>
+          <Button 
+            component={RouterLink}
+            to="/employee/create"
+            variant="contained"
+            color="primary"
+          >
+            <Typography
+              color="text"
+              component="div"
+              sx={{ flexGrow: 1}}
+            >
+              Create Employee
+            </Typography>
+          </Button>
+          </Grid>
+          </Grid>
+        </Box>
               <Dialog
                 open={openDelete}
                 onClose={handleDialogDeleteclose}

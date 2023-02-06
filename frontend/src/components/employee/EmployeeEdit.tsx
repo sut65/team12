@@ -1,12 +1,8 @@
-import { Alert, Box, Button, DialogTitle, FormControl, Paper, Select, Snackbar, TextField, Typography,createTheme,
-    FormControlLabel,
-    FormLabel,
+import { Alert, Box, Button, FormControl, Paper, Select, Snackbar, TextField, Typography,createTheme,
+    Divider,
     IconButton,
     InputAdornment,
     OutlinedInput,
-    InputLabel,
-    RadioGroup,
-    SelectChangeEvent,
     ThemeProvider, } from '@mui/material'
 import Container from '@mui/material/Container'
 import Dialog from '@mui/material/Dialog'
@@ -91,24 +87,25 @@ export default function EmployeeUpdate() {
     // submit
     const [success, setSuccess] = React.useState(false);
     const [error, setError] = React.useState(false);
-
+    const [message, setAlertMessage] = React.useState("");
     const submit = async () => {
         console.log(employee)
   
         let res = await UpdateEmployee(employee)
-        if (res) {
+        if (res.status) {
+          setAlertMessage("บันทึกข้อมูลสำเร็จ");
           setSuccess(true);
         } else {
+          setAlertMessage(res.message);
           setError(true);
         }
         // console.log(res)
-        if(res.data){
+        if(res.status){
             setTimeout(() => {
                 navigator("/employee")
             }, 3000)
         }
     }
-
     // handle
     const handleInputChange = (
         event: React.ChangeEvent<{ id?: string; value: any }>
@@ -133,11 +130,15 @@ export default function EmployeeUpdate() {
       let theme = createTheme({ // button theme
         palette: {
           primary: {
-            main: '#12a178', //เขียว
+            main: "#009688",
           },
           secondary: {
-            main: '#edf2ff', //ขาว
+            main: "#009688"
           },
+          text: {
+            primary: "#008573",
+            secondary: "#000000"
+          }
         },
       });
 
@@ -166,25 +167,31 @@ export default function EmployeeUpdate() {
       return (
 <ThemeProvider theme={theme}>
     <Container maxWidth="xl">
+    <Snackbar
+        id="success"        
+        open={success}
+        autoHideDuration={8000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert onClose={handleClose} severity="success">
+          แก้ไขข้อมูลสำเร็จ
+        </Alert>
+      </Snackbar>
 
-        <Snackbar
-            open={success}
-            autoHideDuration={3000}
-            onClose={handleClose}
-            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          >
-            <Alert onClose={handleClose} severity="success">
-              แก้ไขข้อมูลสำเร็จ
-            </Alert>
-        </Snackbar>
-    
-        <Snackbar open={error} autoHideDuration={3000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity="error">
-            แก้ไขข้อมูลไม่สำเร็จ
-            </Alert>
-        </Snackbar>
+      <Snackbar 
+        id="error"
+        open={error} 
+        autoHideDuration={8000} 
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        >
+        <Alert onClose={handleClose} severity="error">
+          {message}
+        </Alert>
+      </Snackbar>
 
-        <Paper >
+        <Paper>
              <Box
               display="flex"
               sx={{
@@ -202,8 +209,8 @@ export default function EmployeeUpdate() {
                 </Typography>
               </Box>
             </Box>
-        </Paper>
-
+        
+            <Divider />
                 <Grid container spacing={1} sx={{ padding: 2 }} style={{ marginLeft: "8%"}}>
                     <Grid item xs={9}>
                         <FormControl fullWidth variant='outlined'>
@@ -309,7 +316,7 @@ export default function EmployeeUpdate() {
                                   e.preventDefault()
                                 }
                               }}
-                            inputProps={{minLength:13,maxLength :13}}
+                              InputProps={{inputProps:{minLength: 13, maxLength : 13}}}
                         />
                         </FormControl>
                         </Grid>
@@ -370,7 +377,7 @@ export default function EmployeeUpdate() {
                               e.preventDefault()
                             }
                           }}
-                        inputProps={{minLength:10,maxLength :10}}
+                          InputProps={{inputProps:{minLength: 10, maxLength : 10}}}
                     />
                     </FormControl>
                 </Grid>
@@ -458,7 +465,7 @@ export default function EmployeeUpdate() {
                   </Button>
               </Grid>
             </Grid>
-        
+            </Paper>
     </Container>
 </ThemeProvider>
 );

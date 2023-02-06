@@ -9,13 +9,13 @@ import (
 // ====================================================Employee part=============================================================
 type Employee struct {
 	gorm.Model
-	FirstName string
-	LastName  string
-	Civ       string `gorm:"uniqueIndex"`
-	Phone     string
-	Email     string `gorm:"uniqueIndex"`
-	Password  string
-	Address   string
+	FirstName string `valid:"required~FirstName cannot be blank,alpha~FirstName must have only character"`
+	LastName  string `valid:"required~LastName cannot be blank,alpha~LastName must have only character"`
+	Civ       string `gorm:"uniqueIndex" valid:"matches(^([0-9]{13})$)~Identification Number must have only number and lenght is 13,required~Identification Number cannot be blank"`
+	Phone     string `gorm:"uniqueIndex" valid:"matches(^(0)([0-9]{9})$)~Phone must have only number And Start with 0 and lenght is 10,required~Phone cannot be blank"`
+	Email     string `gorm:"uniqueIndex" valid:"email~Email is not valid,required~Email cannot be blank"`
+	Password  string `valid:"minstringlength(8)~Password length have to be at least 8,required~Password cannot be blank"`
+	Address   string `valid:"required~Address cannot be blank"`
 	//save Role ID in FK
 	RoleID *uint
 	//to easier for adding FK

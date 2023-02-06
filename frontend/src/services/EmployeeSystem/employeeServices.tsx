@@ -83,9 +83,14 @@ async function CreateEmployee(emp:Partial<EmployeeInterface>) {
     let res = await fetch(`${apiUrl}/employee/create`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
-        return res
-    })
-    return res
+      if (res.data) {
+        return { status: true, message: res.emp };
+      } else {
+        return { status: false, message: res.error };
+      }
+    });
+
+  return res;
 
 }
 
@@ -119,11 +124,13 @@ async function UpdateEmployee(emp : Partial<EmployeeInterface>){
     let res = await fetch(`${apiUrl}/employee/update`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
-        if(res){
-            return res
-        }
-    })
-    return res
+        if (res.data) {
+            return { status: true, message: res.emp };
+          } else {
+            return { status: false, message: res.error };
+          }
+    });
+    return res;
 }
 
 
