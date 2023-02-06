@@ -144,6 +144,10 @@ const mdTheme = createTheme({
 
 const menu = [
   { name: "  หน้าหลัก", icon: <HomeIcon color="primary" />, path: "/home" , role: "Nurse"},
+  { name: "  หน้าหลัก", icon: <HomeIcon color="primary" />, path: "/home" , role: "HumanResourse"},
+  { name: "  หน้าหลัก", icon: <HomeIcon color="primary" />, path: "/home" , role: "Doctor"},
+  { name: "  หน้าหลัก", icon: <HomeIcon color="primary" />, path: "/home" , role: "Accounting"},
+  { name: "  หน้าหลัก", icon: <HomeIcon color="primary" />, path: "/home" , role: "Pharmacist"},
   { name: "  จัดการเตียงคนไข้", icon: <BedroomChildIcon color="primary" />, path: "/managebed" ,role: "Nurse"},
   { name: "  บันทึกค่ารักษา", icon: <LocalHospitalIcon color="primary"/>, path: "/medicalslip",role: "Nurse"},
   { name: "  พนักงาน", icon: <BadgeOutlinedIcon color="primary"/>, path: "/employee" ,role: "HumanResourse"},
@@ -275,7 +279,7 @@ function App() {
             <Toolbar />
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
               <Routes>
-                <Route path="/" element={<Home/>} />
+                <Route path="/home" element={<Home/>} />
                 <Route  path="/managebed" element={<ManageBed />} />
                 <Route  path="/managebed/create" element={<ManageBedCreate />} />
                 <Route  path="/managebed/update" element={<ManageBedUpdate />} />
