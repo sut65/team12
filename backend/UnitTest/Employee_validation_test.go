@@ -247,4 +247,44 @@ func TestEmployeeValidate(t *testing.T) {
 
 		g.Expect(err.Error()).To(gomega.Equal("Email cannot be blank"))
 	})
+
+
+	t.Run("Password length have to be at least 8", func(t *testing.T) {
+		e := Employee{
+			FirstName: "Sirinya",
+			LastName:  "Kotpanya",
+			Civ:       "1236479869768",
+			Phone:     "0623456789",
+			Email:     "si@gmail.com",
+			Password:  "zxo",
+			Address:   "fgfhh",
+		}
+
+		ok, err := govalidator.ValidateStruct(e)
+
+		g.Expect(ok).NotTo(gomega.BeTrue())
+
+		g.Expect(err).ToNot(gomega.BeNil())
+
+		g.Expect(err.Error()).To(gomega.Equal("Password length have to be at least 8"))
+	})
+	t.Run("Password cannot be blank", func(t *testing.T) {
+		e := Employee{
+			FirstName: "Sirinya",
+			LastName:  "Kotpanya",
+			Civ:       "1236479869768",
+			Phone:     "0623456789",
+			Email:     "si@gmail.com",
+			Password:  "",
+			Address:   "fgfhh",
+		}
+
+		ok, err := govalidator.ValidateStruct(e)
+
+		g.Expect(ok).NotTo(gomega.BeTrue())
+
+		g.Expect(err).ToNot(gomega.BeNil())
+
+		g.Expect(err.Error()).To(gomega.Equal("Password cannot be blank"))
+	})
 }
