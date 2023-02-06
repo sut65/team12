@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/aamjazrk/team12/entity"
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -54,6 +55,12 @@ func CreateEmployee(c *gin.Context) {
 			"error": err.Error(),
 		})
 		c.Abort()
+		return
+	}
+	if _,err := govalidator.ValidateStruct(employee);err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
 		return
 	}
 
@@ -210,6 +217,12 @@ func UpdateEmployee(c *gin.Context) {
 			return
 		}
 		employee.Gender = gender
+	}
+	if _,err := govalidator.ValidateStruct(employee);err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
 	}
 
 	// Update emp in database

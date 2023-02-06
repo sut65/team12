@@ -7,19 +7,10 @@ import Button from "@mui/material/Button";
 import {FormControl, Container,Paper,Grid,Box,Typography,Divider,Snackbar} from "@mui/material";
 
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import {
     createTheme,
-    FormControlLabel,
-    FormLabel,
     MenuItem,
-    Radio,
-    RadioGroup,
     Select,
     SelectChangeEvent,
     ThemeProvider,
@@ -44,6 +35,7 @@ import {
         GenderID: 0
       }
     );
+    const [message, setAlertMessage] = React.useState("");
     const [firstName, setFirstName] = React.useState<string>("");
     const [lastName, setLastName] = React.useState<string>("");
     const [civ, setCiv] = React.useState<string>("");
@@ -100,13 +92,15 @@ import {
       console.log(employee)
 
       let res = await CreateEmployee(employee)
-      if (res) {
+      if (res.status) {
+        setAlertMessage("บันทึกข้อมูลสำเร็จ");
         setSuccess(true);
       } else {
+        setAlertMessage(res.message);
         setError(true);
       }
       // console.log(res)
-      if(res.data){
+      if(res.status){
           setTimeout(() => {
               navigator("/employee")
           }, 3000)
@@ -173,22 +167,30 @@ import {
     return (
       <ThemeProvider theme={theme}>
         <Container maxWidth="lg" >
-          <Snackbar
-            open={success}
-            autoHideDuration={2000}
-            onClose={handleClose}
-            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          >
-            <Alert onClose={handleClose} severity="success">
-              บันทึกข้อมูลสำเร็จ
-            </Alert>
-          </Snackbar>
-    
-          <Snackbar open={error} autoHideDuration={2000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity="error">
-              บันทึกข้อมูลไม่สำเร็จ
-            </Alert>
-          </Snackbar>
+        <Snackbar
+        id="success"        
+        open={success}
+        autoHideDuration={8000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert onClose={handleClose} severity="success">
+          บันทึกข้อมูลสำเร็จ
+        </Alert>
+      </Snackbar>
+
+      <Snackbar 
+        id="error"
+        open={error} 
+        autoHideDuration={8000} 
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        >
+        <Alert onClose={handleClose} severity="error">
+          {/* บันทึกข้อมูลไม่สำเร็จ */}
+          {message}
+        </Alert>
+      </Snackbar>
     
           <Paper>
             <Box
@@ -209,7 +211,7 @@ import {
               </Box>
             </Box>
     
-            <Divider />
+          <Divider />
 
             <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
               <Grid item xs={5}>
@@ -263,7 +265,13 @@ import {
                     size="medium"
                     value={employee.Civ || ""}
                     onChange={handleInputChange}
-                    inputProps={{minLength:13,maxLength :13}}
+                    onKeyPress={(e) => {
+                      if (!/[0-9]/.test(e.key)){
+                        e.preventDefault()
+                      }
+                    }}
+                    InputProps={{inputProps:{minLength: 13, maxLength : 13}}}
+                    //inputProps={{minLength:13,maxLength :13}}
                   />
                 </FormControl>
               </Grid>
@@ -283,7 +291,7 @@ import {
                         e.preventDefault()
                       }
                     }}
-                    inputProps={{minLength:10,maxLength :10}}
+                    InputProps={{inputProps:{minLength: 10, maxLength : 10}}}
                   />
                 </FormControl>
               </Grid>
