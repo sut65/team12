@@ -87,5 +87,61 @@ func TestEmployeeValidate(t *testing.T) {
 
 		g.Expect(err.Error()).To(gomega.Equal("LastName cannot be blank"))
 	})
-	
+	t.Run("Identification Number must have only number and lenght is 13", func(t *testing.T) {
+		e := Employee{
+			FirstName: "Sirinya",
+			LastName:  "Kotpanya",
+			Civ:       "12364798697", //lenght not equal 13
+			Phone:     "0624445678",
+			Email:     "si@gmail.com",
+			Password:  "zaq1wsXp",
+			Address:   "fgfhh",
+		}
+
+		ok, err := govalidator.ValidateStruct(e)
+
+		g.Expect(ok).NotTo(gomega.BeTrue())
+
+		g.Expect(err).ToNot(gomega.BeNil())
+
+		g.Expect(err.Error()).To(gomega.Equal("Identification Number must have only number and lenght is 13"))
+	})
+	t.Run("Identification Number must have only number and lenght is 13", func(t *testing.T) {
+		e := Employee{
+			FirstName: "Sirinya",
+			LastName:  "Kotpanya",
+			Civ:       "12364798697u", //have character
+			Phone:     "0624445678",
+			Email:     "si@gmail.com",
+			Password:  "zaq1wsXp",
+			Address:   "fgfhh",
+		}
+
+		ok, err := govalidator.ValidateStruct(e)
+
+		g.Expect(ok).NotTo(gomega.BeTrue())
+
+		g.Expect(err).ToNot(gomega.BeNil())
+
+		g.Expect(err.Error()).To(gomega.Equal("Identification Number must have only number and lenght is 13"))
+	})
+	t.Run("Identification Number cannot be blank", func(t *testing.T) {
+		e := Employee{
+			FirstName: "Sirinya",
+			LastName:  "Kotpanya",
+			Civ:       "", //have blank
+			Phone:     "0624445678",
+			Email:     "si@gmail.com",
+			Password:  "zaq1wsXp",
+			Address:   "fgfhh",
+		}
+
+		ok, err := govalidator.ValidateStruct(e)
+
+		g.Expect(ok).NotTo(gomega.BeTrue())
+
+		g.Expect(err).ToNot(gomega.BeNil())
+
+		g.Expect(err.Error()).To(gomega.Equal("Identification Number cannot be blank"))
+	})
 }
