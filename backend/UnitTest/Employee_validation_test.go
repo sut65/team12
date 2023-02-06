@@ -207,4 +207,44 @@ func TestEmployeeValidate(t *testing.T) {
 
 		g.Expect(err.Error()).To(gomega.Equal("Phone cannot be blank"))
 	})
+
+
+	t.Run("Email is not valid", func(t *testing.T) {
+		e := Employee{
+			FirstName: "Sirinya",
+			LastName:  "Kotpanya",
+			Civ:       "1236479869768",
+			Phone:     "0623456789",
+			Email:     "si@gamil",
+			Password:  "zaq1wsXp",
+			Address:   "fgfhh",
+		}
+
+		ok, err := govalidator.ValidateStruct(e)
+
+		g.Expect(ok).NotTo(gomega.BeTrue())
+
+		g.Expect(err).ToNot(gomega.BeNil())
+
+		g.Expect(err.Error()).To(gomega.Equal("Email is not valid"))
+	})
+	t.Run("Email cannot be blank", func(t *testing.T) {
+		e := Employee{
+			FirstName: "Sirinya",
+			LastName:  "Kotpanya",
+			Civ:       "1236479869768",
+			Phone:     "0623456789",
+			Email:     "",
+			Password:  "zaq1wsXp",
+			Address:   "fgfhh",
+		}
+
+		ok, err := govalidator.ValidateStruct(e)
+
+		g.Expect(ok).NotTo(gomega.BeTrue())
+
+		g.Expect(err).ToNot(gomega.BeNil())
+
+		g.Expect(err.Error()).To(gomega.Equal("Email cannot be blank"))
+	})
 }
