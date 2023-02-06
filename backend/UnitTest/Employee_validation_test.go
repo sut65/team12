@@ -49,6 +49,8 @@ func TestEmployeeValidate(t *testing.T) {
 
 		g.Expect(err.Error()).To(gomega.Equal("FirstName cannot be blank"))
 	})
+
+
 	t.Run("LastName must have only character", func(t *testing.T) {
 		e := Employee{
 			FirstName: "Sirinya",
@@ -87,6 +89,8 @@ func TestEmployeeValidate(t *testing.T) {
 
 		g.Expect(err.Error()).To(gomega.Equal("LastName cannot be blank"))
 	})
+
+
 	t.Run("Identification Number must have only number and lenght is 13", func(t *testing.T) {
 		e := Employee{
 			FirstName: "Sirinya",
@@ -143,5 +147,64 @@ func TestEmployeeValidate(t *testing.T) {
 		g.Expect(err).ToNot(gomega.BeNil())
 
 		g.Expect(err.Error()).To(gomega.Equal("Identification Number cannot be blank"))
+	})
+
+	
+	t.Run("Phone must have only number And Start with 0 and lenght is 10", func(t *testing.T) {
+		e := Employee{
+			FirstName: "Sirinya",
+			LastName:  "Kotpanya",
+			Civ:       "1236479869787",
+			Phone:     "062444567", // lenght not equal 10
+			Email:     "si@gmail.com",
+			Password:  "zaq1wsXp",
+			Address:   "fgfhh",
+		}
+
+		ok, err := govalidator.ValidateStruct(e)
+
+		g.Expect(ok).NotTo(gomega.BeTrue())
+
+		g.Expect(err).ToNot(gomega.BeNil())
+
+		g.Expect(err.Error()).To(gomega.Equal("Phone must have only number And Start with 0 and lenght is 10"))
+	})
+	t.Run("Phone must have only number And Start with 0 and lenght is 10", func(t *testing.T) {
+		e := Employee{
+			FirstName: "Sirinya",
+			LastName:  "Kotpanya",
+			Civ:       "1236479869787",
+			Phone:     "062444567h", // has character
+			Email:     "si@gmail.com",
+			Password:  "zaq1wsXp",
+			Address:   "fgfhh",
+		}
+
+		ok, err := govalidator.ValidateStruct(e)
+
+		g.Expect(ok).NotTo(gomega.BeTrue())
+
+		g.Expect(err).ToNot(gomega.BeNil())
+
+		g.Expect(err.Error()).To(gomega.Equal("Phone must have only number And Start with 0 and lenght is 10"))
+	})
+	t.Run("Phone cannot be blank", func(t *testing.T) {
+		e := Employee{
+			FirstName: "Sirinya",
+			LastName:  "Kotpanya",
+			Civ:       "1236479869768",
+			Phone:     "", //blank
+			Email:     "si@gmail.com",
+			Password:  "zaqkk1wsXph",
+			Address:   "fgfhh",
+		}
+
+		ok, err := govalidator.ValidateStruct(e)
+
+		g.Expect(ok).NotTo(gomega.BeTrue())
+
+		g.Expect(err).ToNot(gomega.BeNil())
+
+		g.Expect(err.Error()).To(gomega.Equal("Phone cannot be blank"))
 	})
 }
