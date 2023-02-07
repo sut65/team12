@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/aamjazrk/team12/entity"
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 )
 
@@ -53,6 +54,13 @@ func CreateLabXray(c *gin.Context) {
 			"error": err.Error(),
 		})
 		c.Abort()
+		return
+	}
+
+	if _, err := govalidator.ValidateStruct(labxray); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
 		return
 	}
 
@@ -185,6 +193,13 @@ func UpdateLabXray(c *gin.Context) {
 			return
 		}
 		labxray.LabType = labtype
+	}
+
+	if _, err := govalidator.ValidateStruct(labxray); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
 	}
 
 	// Update labxray in database

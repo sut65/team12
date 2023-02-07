@@ -15,11 +15,7 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import {
     createTheme,
-    FormControlLabel,
-    FormLabel,
     MenuItem,
-    Radio,
-    RadioGroup,
     Select,
     SelectChangeEvent,
     ThemeProvider,
@@ -89,6 +85,7 @@ import {
         let val = typeof data === "string" ? parseInt(data) : data;
         return val
     }
+    const [message, setAlertMessage] = React.useState("");
     //submit
     const submit = async () => {
       console.log(labxray)
@@ -112,20 +109,19 @@ import {
 
       let res = await fetch(`${apiUrl}/labxray/create`, reqOpt)
       .then((response) => response.json())
-      .then((res) => {
+      .then((res) => {       
+        console.log(res)
         if (res.data) {
           setSuccess(true);
         } else {
           setError(true);
-
+          setAlertMessage(res.error);
         }
-         // console.log(res)
         if(res.data){
           setTimeout(() => {
               navigator("/labxray")
-          }, 3000)
+          }, 2000)
         }
-
       });
     }
       
@@ -192,56 +188,33 @@ import {
           }
         },
       });
-
-      // Picture
-    //   constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //       base64Data: null
-    //     };
-    //   }
-
-    
-    // const ImageonChange = (
-    //     event: React.ChangeEvent<{ file?: string; value: any }>
-    // ) => {
-    //     //console.log("file uploaded: ", e.target.files[0]);
-    //     let file = ;
-    
-    //     if (file) {
-    //       const reader = new FileReader();
-    //       reader.onload = this._handleReaderLoaded.bind(this);
-    //       reader.readAsBinaryString(file);
-    //     }
-    //   };
-    
-    //   const handleReaderLoaded = e => {
-    //     console.log("file uploaded 2: ", e);
-    //     let binaryString = e.target.result;
-    //     this.setState({
-    //       base64Data: btoa(binaryString)
-    //     });
-    //   };
     
       return (
         <ThemeProvider theme={theme}>
           <Container maxWidth="lg" >
-            <Snackbar
-              open={success}
-              autoHideDuration={2000}
-              onClose={handleClose}
-              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-            >
-              <Alert onClose={handleClose} severity="success">
-                บันทึกข้อมูลสำเร็จ
-              </Alert>
-            </Snackbar>
-      
-            <Snackbar open={error} autoHideDuration={2000} onClose={handleClose}>
-              <Alert onClose={handleClose} severity="error">
-                บันทึกข้อมูลไม่สำเร็จ
-              </Alert>
-            </Snackbar>
+          <Snackbar
+            id="success"        
+            open={success}
+            autoHideDuration={3000}
+            onClose={handleClose}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          >
+            <Alert onClose={handleClose} severity="success">
+              บันทึกข้อมูลสำเร็จ
+            </Alert>
+          </Snackbar>
+
+          <Snackbar 
+            id="error"
+            open={error} 
+            autoHideDuration={3000} 
+            onClose={handleClose}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          >
+            <Alert onClose={handleClose} severity="error">
+              {message}
+            </Alert>
+          </Snackbar>
       
             <Paper>
               <Box
@@ -261,14 +234,14 @@ import {
                   </Typography>
                 </Box>
               </Box>
-              </Paper>
+              <Divider />
               <Grid container spacing={1} sx={{ padding: 1 }} style={{ marginLeft: "25%"}}>
               <Grid item xs={5}>
                 <FormControl fullWidth variant="outlined">
                   <p>Film X-Ray</p>
                   
                 <img src={`${imageString}`} width="500" height="500"/>
-                <input type="file" onChange={handleImageChange} />
+                <input type="file" accept=".jpg, .jpeg, .png" onChange={handleImageChange} />
                 </FormControl>
               </Grid>
               </Grid>
@@ -345,11 +318,8 @@ import {
                     Submit
                   </Button>
               </Grid>
-            </Grid>
-            
-                
-                
-            
+            </Grid>   
+          </Paper>
         </Container>
     </ThemeProvider>
 );

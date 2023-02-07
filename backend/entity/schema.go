@@ -67,21 +67,22 @@ type Department struct {
 // ============================================LabXray=========================================================
 type LabXray struct {
 	gorm.Model
-	Description string `valid:"required~Description cannot be blank,maxstringlength(300)~Description length is too long,alphanum~Description must have only character and number"`
-	Date        time.Time
-	Pic         string
+	Description string `valid:"required~Description cannot be blank,maxstringlength(300)~Description length is too long,matches([a-zA-Z0-9ก-๙]$)~Description must have only character and number"`
+	//Description string `valid:"required~Description cannot be blank"`
+	Date time.Time
+	Pic  string `valid:"required~Picture cannot be blank"`
 	//save LabType ID in FK
-	LabTypeID *uint
+	LabTypeID *uint `valid:"-"`
 	//to easier for adding FK
-	LabType LabType `gorm:"references:id"`
+	LabType LabType `gorm:"references:id" valid:"-"`
 	//save Doctor ID in FK
-	DoctorID *uint
+	DoctorID *uint `valid:"-"`
 	//to easier for adding FK
-	Doctor Employee `gorm:"references:id"`
+	Doctor Employee `gorm:"references:id" valid:"-"`
 	//save Patient ID in FK
-	PatientID *uint
+	PatientID *uint `valid:"-"`
 	//to easier for adding FK
-	Patient Patient `gorm:"references:id"`
+	Patient Patient `gorm:"references:id" valid:"-"`
 
 	MedicalSlips []MedicalSlip `gorm:"foreignKey:LabXrayID"`
 }

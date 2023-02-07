@@ -78,6 +78,7 @@ import {
         let val = typeof data === "string" ? parseInt(data) : data;
         return val
     }
+    const [message, setAlertMessage] = React.useState("");
     //submit
     const submit = async () => {
         console.log(labxray)
@@ -102,13 +103,14 @@ import {
   
         let res = await fetch(`${apiUrl}/labxray/update`, reqOpt)
         .then((response) => response.json())
-        .then((res) => {
-          if (res.data) {
-            setSuccess(true);
-          } else {
-            setError(true);
-  
-          }
+      .then((res) => {       
+        console.log(res)
+        if (res.data) {
+          setSuccess(true);
+        } else {
+          setError(true);
+          setAlertMessage(res.error);
+        }
            // console.log(res)
           if(res.data){
             setTimeout(() => {
@@ -184,22 +186,29 @@ import {
       return (
         <ThemeProvider theme={theme}>
           <Container maxWidth="lg" >
-            <Snackbar
-              open={success}
-              autoHideDuration={2000}
-              onClose={handleClose}
-              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-            >
-              <Alert onClose={handleClose} severity="success">
-                บันทึกข้อมูลสำเร็จ
-              </Alert>
-            </Snackbar>
-      
-            <Snackbar open={error} autoHideDuration={2000} onClose={handleClose}>
-              <Alert onClose={handleClose} severity="error">
-                บันทึกข้อมูลไม่สำเร็จ
-              </Alert>
-            </Snackbar>
+          <Snackbar
+            id="success"        
+            open={success}
+            autoHideDuration={3000}
+            onClose={handleClose}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          >
+            <Alert onClose={handleClose} severity="success">
+              บันทึกข้อมูลสำเร็จ
+            </Alert>
+          </Snackbar>
+
+          <Snackbar 
+            id="error"
+            open={error} 
+            autoHideDuration={3000} 
+            onClose={handleClose}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          >
+            <Alert onClose={handleClose} severity="error">
+              {message}
+            </Alert>
+          </Snackbar>
       
             <Paper>
               <Box
@@ -219,32 +228,9 @@ import {
                   </Typography>
                 </Box>
               </Box>
-              </Paper>
-              {/* <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                        <FormControl fullWidth variant='outlined'>
-                            <p>Lab X-Ray</p>
-                            <Select
-                                native
-                                value={labxray.ID}
-                                onChange={handleChange}
-                                size="medium"
-                                inputProps={{
-                                    name: "ID"
-                                }}
-                                disabled // lock text bok
-                            >
-                                <option aria-label="None" value="">
-                                    {labxray.ID}
-                                </option>
-                                
-                            </Select>
-                        </FormControl>
-                    </Grid>
-            </Grid> */}
-                
-              <Grid container spacing={3} >
-              <Grid item xs={12}>
+              <Divider />
+              <Grid container spacing={3} style={{ marginLeft: "5%"}}>
+              <Grid item xs={10}>
                         <FormControl fullWidth variant='outlined'>
                             <p>Lab X-Ray</p>
                             <Select
@@ -270,7 +256,7 @@ import {
                 <FormControl fullWidth variant="outlined">
                   <p>Film X-Ray</p>
                 <img src={`${imageString}`} width="500" height="500"/>
-                <input type="file" onChange={handleImageChange} />
+                <input type="file" accept=".jpg, .jpeg, .png" onChange={handleImageChange} />
                   
                 </FormControl>
               </Grid>
@@ -363,10 +349,8 @@ import {
                   </Button>
               </Grid>
             </Grid>
-            
-                
-                
-            
+
+          </Paper> 
         </Container>
     </ThemeProvider>
 );
