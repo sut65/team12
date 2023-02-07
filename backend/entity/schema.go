@@ -67,7 +67,7 @@ type Department struct {
 // ============================================LabXray=========================================================
 type LabXray struct {
 	gorm.Model
-	Description string
+	Description string `valid:"required~Description cannot be blank,maxstringlength(300)~Description length is too long,alphanum~Description must have only character and number"`
 	Date        time.Time
 	Pic         string
 	//save LabType ID in FK
