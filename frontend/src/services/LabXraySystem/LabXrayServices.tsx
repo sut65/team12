@@ -104,8 +104,12 @@ async function CreateLabXray(lab:Partial<LabXrayInterface>) {
     let res = await fetch(`${apiUrl}/labxray/create`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
-        return res
-    })
+        if (res.data) {
+            return { status: true, message: res.emp };
+          } else {
+            return { status: false, message: res.error };
+          }
+        });
     return res
 
 }
@@ -133,10 +137,12 @@ async function UpdateLabXray(lab : Partial<LabXrayInterface>){
     let res = await fetch(`${apiUrl}/labxray/update`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
-        if(res){
-            return res
+        if (res.data) {
+            return { status: true, message: res.emp };
+        } else {
+            return { status: false, message: res.error };
         }
-    })
+    });
     return res
 }
 

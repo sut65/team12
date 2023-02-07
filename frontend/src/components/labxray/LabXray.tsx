@@ -104,7 +104,7 @@ export default function LabXrayShow() {
               </Typography>
             </Box>
     
-            <Box>
+            {/* <Box>
               <Button 
                 component={RouterLink}
                 to="/labxray/create"
@@ -120,7 +120,7 @@ export default function LabXrayShow() {
     
                 </Typography>
               </Button>
-            </Box>
+            </Box> */}
           </Box>
             <div>
               <Container maxWidth="xl">
@@ -184,9 +184,27 @@ export default function LabXrayShow() {
                     
                     </Table>
                     </TableContainer>
-                    </div>
-            </Container>
-            </div>
+                    <Grid container spacing={3} sx={{ padding: 2 }} >
+          <Grid item xs={10}>
+            <Box>
+              <Button 
+                component={RouterLink}
+                to="/labxray/create"
+                variant="contained"
+                color="primary"
+              >
+                <Typography
+                  color="text"
+                  component="div"
+                  sx={{ flexGrow: 1 }}
+                >
+                  Create Lab X-Ray
+    
+                </Typography>
+              </Button>
+            </Box>
+          </Grid>
+          </Grid>
             <Dialog
                 open={openDelete}
                 onClose={handleDialogDeleteclose}
@@ -209,6 +227,9 @@ export default function LabXrayShow() {
                 </DialogActions>
 
             </Dialog>
+            </div>
+          </Container>
+        </div>
     </Container>
     </div>
     </ThemeProvider>
