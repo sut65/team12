@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/aamjazrk/team12/entity"
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 )
 
@@ -44,6 +45,13 @@ func CreateORrecord(c *gin.Context) {
 	}
 	if tx := entity.DB().Where("id = ?", ORrecord.OperatingRoomID).First(&OperatingRoom); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "OperatingRoom not found"})
+		return
+	}
+	// VALIDATE CHECKKKKKKK
+	if _, err := govalidator.ValidateStruct(ORrecord); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
 		return
 	}
 
@@ -275,6 +283,13 @@ func UpdateORrecord(c *gin.Context) {
 			return
 		}
 		ORrecord.StaffReturing = staffreturing
+	}
+	// VALIDATE CHECKKKKKKK
+	if _, err := govalidator.ValidateStruct(ORrecord); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
 	}
 
 	// Update emp in database
