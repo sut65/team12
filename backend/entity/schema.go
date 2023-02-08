@@ -377,18 +377,18 @@ type ORrecord struct {
 
 	SurgeryStart    time.Time
 	SurgeryEnd      time.Time
-	OperatingResult string
+	OperatingResult string `valid:"required~OperatingResult cannot be blank"`
 	Note            string
 	//JOIN
-	User          Employee      `gorm:"references:id"`
-	OperatingRoom OperatingRoom `gorm:"references:id"`
-	Patient       Patient       `gorm:"references:id"`
-	Doctor        Employee      `gorm:"references:id"`
-	Specialist    Specialist    `gorm:"references:id"`
-	SurgeryType   SurgeryType   `gorm:"references:id"`
-	SurgeryState  SurgeryState  `gorm:"references:id"`
-	StaffReciving Employee      `gorm:"references:id"`
-	StaffReturing Employee      `gorm:"references:id"`
+	User          Employee      `gorm:"references:id" valid:"-"`
+	OperatingRoom OperatingRoom `gorm:"references:id" valid:"-"`
+	Patient       Patient       `gorm:"references:id" valid:"-"`
+	Doctor        Employee      `gorm:"references:id" valid:"-"`
+	Specialist    Specialist    `gorm:"references:id" valid:"-"`
+	SurgeryType   SurgeryType   `gorm:"references:id" valid:"-"`
+	SurgeryState  SurgeryState  `gorm:"references:id" valid:"-"`
+	StaffReciving Employee      `gorm:"references:id" valid:"-"`
+	StaffReturing Employee      `gorm:"references:id" valid:"-"`
 
 	MedicalSlips []MedicalSlip `gorm:"foreignKey:ORrecordID"`
 }
