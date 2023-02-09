@@ -424,13 +424,13 @@ type ProblemReport struct {
 	ClassProbID *uint
 	NumPlaceID  *uint
 	ProblemID   *uint
-	Date        time.Time
+	Date        time.Time `valid:"past~Date cannot be Future"`
 	Comment     string
 	//JOIN
-	User      Employee  `gorm:"references:id"`
-	ClassProb ClassProb `gorm:"references:id"`
-	NumPlace  NumPlace  `gorm:"references:id"`
-	Problem   Problem   `gorm:"references:id"`
+	User      Employee  `gorm:"references:id" valid:"-"`
+	ClassProb ClassProb `gorm:"references:id" valid:"-"`
+	NumPlace  NumPlace  `gorm:"references:id" valid:"-"`
+	Problem   Problem   `gorm:"references:id" valid:"-"`
 }
 
 //======================================MadicalSlip==================================
@@ -543,4 +543,9 @@ func init() {
 		now := time.Now().Add(time.Minute * -10)
 		return t.Equal(now) || t.After(now)
 	})
+	govalidator.CustomTypeTagMap.Set("past", func(i interface{}, context interface{}) bool {
+		t := i.(time.Time)
+		return t.Before(time.Now())
+	})
+
 }
