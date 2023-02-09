@@ -73,24 +73,24 @@ func TestVitalSignsValidateNotBlank(t *testing.T) {
 		g.Expect(err.Error()).To(gomega.Equal("PulseRate not blank"))
 	})
 
-	// t.Run("check RespirationRate not blank", func(t *testing.T) {
-	// 	vitalsigns := VitalSignsRecord{
-	// 		CheckDate:         time.Now(),
-	// 		BloodPressureHigh: 140,
-	// 		BloodPressureLow:  70,
-	// 		PulseRate:         60,
-	// 		RespirationRate:   0,
-	// 		BodyTemperature:   37.50,
-	// 	}
+	t.Run("check RespirationRate not blank", func(t *testing.T) {
+		vitalsigns := VitalSignsRecord{
+			CheckDate:         time.Now(),
+			BloodPressureHigh: 140,
+			BloodPressureLow:  70,
+			PulseRate:         60,
+			RespirationRate:   0,
+			BodyTemperature:   37.50,
+		}
 
-	// 	ok, err := govalidator.ValidateStruct(vitalsigns)
+		ok, err := govalidator.ValidateStruct(vitalsigns)
 
-	// 	g.Expect(ok).NotTo(gomega.BeTrue())
+		g.Expect(ok).NotTo(gomega.BeTrue())
 
-	// 	g.Expect(err).ToNot(gomega.BeNil())
+		g.Expect(err).ToNot(gomega.BeNil())
 
-	// 	g.Expect(err.Error()).To(gomega.Equal("RespirationRate not blank"))
-	// })
+		g.Expect(err.Error()).To(gomega.Equal("RespirationRate not blank"))
+	})
 
 	// t.Run("check BodyTemperature not blank", func(t *testing.T) {
 	// 	vitalsigns := VitalSignsRecord{
