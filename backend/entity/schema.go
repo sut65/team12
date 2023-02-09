@@ -211,20 +211,20 @@ type ManageBed struct {
 type VitalSignsRecord struct {
 	gorm.Model
 	CheckDate         time.Time
-	BloodPressureHigh int
+	BloodPressureHigh int `valid:"range(140|179)~BloodPressureHigh must be between 140 - 179,required~BloodPressureHigh not blank,"`
 	BloodPressureLow  int
 	PulseRate         int
 	RespirationRate   int
 	BodyTemperature   float32
 
-	EmployeeID *uint    //FK
-	Employee   Employee `gorm:"references:id"` //JOIN
+	EmployeeID *uint    `valid:"-"`                      //FK
+	Employee   Employee `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 
-	PatientID *uint   //FK
-	Patient   Patient `gorm:"references:id"`
+	PatientID *uint   `valid:"-"`
+	Patient   Patient `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 
-	StatusID *uint  //FK
-	Status   Status `gorm:"references:id"`
+	StatusID *uint  `valid:"-"`
+	Status   Status `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 }
 
 // Status
