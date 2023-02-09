@@ -5,10 +5,9 @@ import (
 	"net/http"
 
 	"github.com/aamjazrk/team12/entity"
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 )
-
-// ---------------- Employee ---------------
 
 // List all Vital sign
 // GET /vitalsigns
@@ -56,10 +55,23 @@ func CreateVitalSignsRecord(c *gin.Context) {
 		return
 	}
 
+	if _, err := govalidator.ValidateStruct(vitalsign); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	// get patient from database
+	if tx := entity.DB().Where("id = ?", vitalsign.PatientID).First(&patient); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "patient is not found",
+		})
+		return
+	}
+
 	// get status from database
 	if tx := entity.DB().Where("id = ?", vitalsign.StatusID).First(&status); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "status for patient is not found",
+			"error": "status is not found",
 		})
 		return
 	}
@@ -68,14 +80,6 @@ func CreateVitalSignsRecord(c *gin.Context) {
 	if tx := entity.DB().Where("id = ?", vitalsign.EmployeeID).First(&employee); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "employee is not found",
-		})
-		return
-	}
-
-	// get patient from database
-	if tx := entity.DB().Where("id = ?", vitalsign.PatientID).First(&patient); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "patient is not found",
 		})
 		return
 	}
@@ -90,16 +94,6 @@ func CreateVitalSignsRecord(c *gin.Context) {
 		PulseRate:         vitalsign.PulseRate,         // ตั้งค่าฟิลด์ PulseRate
 		RespirationRate:   vitalsign.RespirationRate,   // ตั้งค่าฟิลด์ RespirationRate
 		BodyTemperature:   vitalsign.BodyTemperature,   // ตั้งค่าฟิลด์ BodyTemperature
-		// FirstName:  employee.FirstName,
-		// LastName:   employee.LastName,
-		// Civ:        employee.Civ,
-		// Phone:      employee.Phone,
-		// Email:      employee.Email,
-		// Password:   employee.Password,
-		// Address:    employee.Address,
-		// Role:       role,
-		// Department: department,
-		// Gender:     gender,
 	}
 
 	if err := entity.DB().Create(&vtr).Error; err != nil {
@@ -206,6 +200,13 @@ func UpdateVitalSignsRecord(c *gin.Context) {
 			return
 		}
 		vitalsign.Employee = employee
+	}
+
+	if _, err := govalidator.ValidateStruct(vitalsign); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
 	}
 
 	// Update vtr in database
