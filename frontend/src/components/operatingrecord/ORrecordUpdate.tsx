@@ -215,6 +215,7 @@ function ORrecordUpdate() {
   return (
     <Container maxWidth="md" >
       <Snackbar
+        id="success" 
         open={success}
         autoHideDuration={3000}
         onClose={handleClose}
@@ -225,6 +226,7 @@ function ORrecordUpdate() {
         </Alert>
       </Snackbar>
       <Snackbar
+        id="error"
         open={error}
         autoHideDuration={6000}
         onClose={handleClose}
