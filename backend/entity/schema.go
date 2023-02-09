@@ -252,16 +252,16 @@ type DepartmentForEquipment struct {
 type RequisitionRecord struct {
 	gorm.Model
 	RequisitionDate time.Time
-	Quantity        int
+	Quantity        int `valid:"range(0|10000)~Quantity must be between 1 - 10000,required~Quantity not blank,PositiveInt~Quantity must be positive number,"`
 
-	EmployeeID *uint    //FK
-	Employee   Employee `gorm:"references:id"` //JOIN
+	EmployeeID *uint    `valid:"-"`                      //FK
+	Employee   Employee `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 
-	EquipmentID *uint     //FK
-	Equipment   Equipment `gorm:"references:id"`
+	EquipmentID *uint     `valid:"-"`
+	Equipment   Equipment `gorm:"references:id" valid:"-"` //join
 
-	DepartmentForEquipmentID *uint                  //FK
-	DepartmentForEquipment   DepartmentForEquipment `gorm:"references:id"`
+	DepartmentForEquipmentID *uint                  `valid:"-"`
+	DepartmentForEquipment   DepartmentForEquipment `gorm:"references:id" valid:"-"`
 }
 
 // ============================PrincipalDiagnosis======================================
