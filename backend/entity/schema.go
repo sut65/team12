@@ -213,7 +213,7 @@ type VitalSignsRecord struct {
 	CheckDate         time.Time
 	BloodPressureHigh int `valid:"range(140|179)~BloodPressureHigh must be between 140 - 179,required~BloodPressureHigh not blank,"`
 	BloodPressureLow  int `valid:"range(0|90)~BloodPressureLow must be between 0 - 90,required~BloodPressureLow not blank,"`
-	PulseRate         int
+	PulseRate         int `valid:"required~PulseRate not blank"`
 	RespirationRate   int
 	BodyTemperature   float32
 
