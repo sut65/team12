@@ -1336,8 +1336,8 @@ func SetupDatabase() {
 	//=========================================MedicalSlip=================================
 	medicalslip1 := MedicalSlip{
 		Total:        100000.00,
-		Note:         "**",
-		MedicalDate:  time.Date(2002, 12, 14, 0, 0, 0, 0, time.UTC),
+		Note:         "Personal Payment",
+		MedicalDate:  time.Now(),
 		LabXray:      LabX1,
 		ORrecord:     rec1,
 		Prescription: prescription1,
@@ -1349,8 +1349,8 @@ func SetupDatabase() {
 
 	medicalslip2 := MedicalSlip{
 		Total:        205000.00,
-		Note:         "**",
-		MedicalDate:  time.Date(2002, 12, 14, 0, 0, 0, 0, time.UTC),
+		Note:         "Organization Payment",
+		MedicalDate:  time.Now(),
 		LabXray:      LabX2,
 		ORrecord:     rec2,
 		Prescription: prescription2,
