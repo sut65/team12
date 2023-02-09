@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/aamjazrk/team12/entity"
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 )
 
@@ -22,6 +23,11 @@ func CreateRequisitionRecord(c *gin.Context) {
 	if err := c.ShouldBindJSON(&requisitionrecord); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		c.Abort()
+		return
+	}
+
+	if _, err := govalidator.ValidateStruct(requisitionrecord); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -181,6 +187,13 @@ func UpdateRequisitionRecord(c *gin.Context) {
 			return
 		}
 		requisitionrecord.Employee = employee
+	}
+
+	if _, err := govalidator.ValidateStruct(requisitionrecord); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
 	}
 
 	// Update requisitionrecord in database
