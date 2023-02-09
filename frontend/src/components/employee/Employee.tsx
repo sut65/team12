@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from "react";
-
 import { Link as RouterLink } from "react-router-dom";
-import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
-
+import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,Divider } from '@mui/material';
 import Box from "@mui/material/Box";
-
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { grey } from "@mui/material/colors";
 import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
-import moment from "moment";
-import DeleteIcon from '@mui/icons-material/Delete';
 import { ListEmployees,DeleteEmployee, } from "../../services/EmployeeSystem/employeeServices";
 function Manage_Show() {
   let theme = createTheme({ // ิbutton theme
@@ -106,13 +100,23 @@ function Manage_Show() {
 <ThemeProvider theme={theme}>
   <div>
   <Container maxWidth="xl">
+  <Paper
+  sx = {{
+    maxWidth:"xl",
+    Width:3000,
+  }}
+  >
   <Box
         display="flex"
         sx={{
-          marginTop: 2,
+          marginTop: 5,
         }}
       >
-        <Box flexGrow={1}>
+        <Box flexGrow={1} 
+        sx={{
+          marginTop: 3,
+          marginLeft:3,
+        }}>
           <Typography
             component="h2"
             variant="h6"
@@ -123,7 +127,12 @@ function Manage_Show() {
           </Typography>
         </Box>
 
-        {/* <Box>
+        <Box
+        sx={{
+          marginTop: 3,
+          marginRight:3,
+          marginBottom:3,
+        }}>
           <Button 
             component={RouterLink}
             to="/employee/create"
@@ -139,11 +148,14 @@ function Manage_Show() {
 
             </Typography>
           </Button>
-        </Box> */}
+        </Box>
+        
       </Box>
+      <Divider/>
         <div>
+        
           <Container maxWidth="lg">
-            <div style={{ height: 800, width: "205%", marginTop: "10px" }}>
+            <div style={{ height: "100%", width: "100%", marginTop: "10px" }}>
               <TableContainer >
                 <Table aria-label="simple table">
                   <TableHead>
@@ -152,7 +164,7 @@ function Manage_Show() {
                       <TableCell align="center" width="1%"> ID </TableCell>
                       <TableCell align="center" width="5%"> First Name </TableCell>
                       <TableCell align="center" width="5%"> Last Name </TableCell>
-                      <TableCell align="center" width="10%"> Civ </TableCell>
+                      <TableCell align="center" width="10%"> Identification Number </TableCell>
                       <TableCell align="center" width="10%"> Phone </TableCell>
                       <TableCell align="center" width="10%"> Email </TableCell>
                       <TableCell align="center" width="25%"> Address </TableCell>
@@ -206,7 +218,7 @@ function Manage_Show() {
                 </Table>
               </TableContainer>
               <Box>
-          <Grid container spacing={3} sx={{ padding: 2 }} >
+          {/* <Grid container spacing={3} sx={{ padding: 2 }} >
           <Grid item xs={10}>
           <Button 
             component={RouterLink}
@@ -223,7 +235,7 @@ function Manage_Show() {
             </Typography>
           </Button>
           </Grid>
-          </Grid>
+          </Grid> */}
         </Box>
               <Dialog
                 open={openDelete}
@@ -250,6 +262,7 @@ function Manage_Show() {
             </div>
           </Container>
         </div>
+        </Paper>
   </Container>
  </div>
 </ThemeProvider>
