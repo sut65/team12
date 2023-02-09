@@ -9,6 +9,29 @@ import (
 	"github.com/onsi/gomega"
 )
 
+func TestVitalSignsPass(t *testing.T) {
+	g := gomega.NewGomegaWithT(t)
+
+	// ข้อมูลถูกต้องหมดทุก field
+	vitalsigns := VitalSignsRecord{
+		CheckDate:         time.Now(),
+		BloodPressureHigh: 145,
+		BloodPressureLow:  70,
+		PulseRate:         60,
+		RespirationRate:   60,
+		BodyTemperature:   37.50,
+	}
+
+	// ตรวจสอบด้วย govalidator
+	ok, err := govalidator.ValidateStruct(vitalsigns)
+
+	// ok ต้องเป็น true แปลว่าไม่มี error
+	g.Expect(ok).To(gomega.BeTrue())
+
+	// err ต้องเป็น nil แปลว่าไม่มี error
+	g.Expect(err).To(gomega.BeNil())
+}
+
 func TestVitalSignsValidateNotBlank(t *testing.T) {
 	g := gomega.NewGomegaWithT(t)
 
