@@ -500,9 +500,9 @@ func SetupDatabase() {
 	db.Model(&Bed{}).Create(&bed4)
 
 	managebed1 := ManageBed{
-		Note:       "*",
+		Note:       "AccidentCast",
 		Hn:         20020938,
-		ManageDate: time.Date(2002, 12, 12, 0, 0, 0, 0, time.UTC),
+		ManageDate: time.Now(),
 		Bed:        bed1,
 		BedStatus:  Status1,
 		Employee:   emp3,
@@ -511,9 +511,9 @@ func SetupDatabase() {
 	db.Model(&ManageBed{}).Create(&managebed1)
 
 	managebed2 := ManageBed{
-		Note:       "**",
+		Note:       "Getwellsoon",
 		Hn:         20020939,
-		ManageDate: time.Date(2002, 12, 14, 0, 0, 0, 0, time.UTC),
+		ManageDate: time.Now(),
 		Bed:        bed2,
 		BedStatus:  Status2,
 		Employee:   emp3,
