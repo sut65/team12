@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/aamjazrk/team12/entity"
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 )
 
@@ -34,6 +35,13 @@ func CreateProblemReport(c *gin.Context) {
 	}
 	if tx := entity.DB().Where("id = ?", ProblemReport.ProblemID).First(&Problem); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Problem not found"})
+		return
+	}
+	// VALIDATE CHECKKKKKKK
+	if _, err := govalidator.ValidateStruct(ProblemReport); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
 		return
 	}
 
@@ -175,6 +183,13 @@ func UpdateProblemReport(c *gin.Context) {
 		}
 		fmt.Print("NULL")
 		problemreport.Problem = problem
+	}
+	// VALIDATE CHECKKKKKKK
+	if _, err := govalidator.ValidateStruct(problemreport); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
 	}
 
 	// Update emp in database
