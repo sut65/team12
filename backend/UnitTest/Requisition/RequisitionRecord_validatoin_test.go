@@ -9,7 +9,26 @@ import (
 	"github.com/onsi/gomega"
 )
 
-func TestRequisitionQuantity(t *testing.T) {
+func TestRequisitionPass(t *testing.T) {
+	g := gomega.NewGomegaWithT(t)
+
+	// ข้อมูลถูกต้องหมดทุก field
+	requisition := RequisitionRecord{
+		RequisitionDate: time.Now(),
+		Quantity:        10,
+	}
+
+	// ตรวจสอบด้วย govalidator
+	ok, err := govalidator.ValidateStruct(requisition)
+
+	// ok ต้องเป็น true แปลว่าไม่มี error
+	g.Expect(ok).To(gomega.BeTrue())
+
+	// err ต้องเป็น nil แปลว่าไม่มี error
+	g.Expect(err).To(gomega.BeNil())
+}
+
+func TestRequisitionQuantityNotBlank(t *testing.T) {
 	g := gomega.NewGomegaWithT(t)
 
 	t.Run("check Quantity not blank", func(t *testing.T) {
