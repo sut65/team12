@@ -57,7 +57,7 @@ async function GetRequisition(ID: string | undefined | null) {
 // Create Requisition
 async function PostRequisition(requisition:Partial<RequisitionRecordInterface>) {
     let data = {
-        Quantity: requisition.Quantity,
+        Quantity: Number(requisition.Quantity),
         // RequisitionDate: requisition.RequisitionDate,
         RequisitionDate: new Date().toJSON().split("Z").at(0)+"+07:00",
         EmployeeID:convertType(localStorage.getItem("id") as string),
@@ -78,7 +78,11 @@ async function PostRequisition(requisition:Partial<RequisitionRecordInterface>) 
     let res = await fetch(`${apiUrl}/requisitionrecord/create`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
-        return res
+        if (res.data) {
+            return { status: true, message: res.data };
+          } else {
+            return { status: false, message: res.error };
+          }
     })
     return res
 
@@ -89,7 +93,7 @@ async function PostRequisition(requisition:Partial<RequisitionRecordInterface>) 
 async function UpdateRequisition(requisition : Partial<RequisitionRecordInterface>){
     let data = {
         ID:convertType(requisition.ID),
-        Quantity: requisition.Quantity,
+        Quantity: Number(requisition.Quantity),
         // RequisitionDate: requisition.RequisitionDate,
         RequisitionDate: new Date().toJSON().split("Z").at(0)+"+07:00",
         EmployeeID: convertType(requisition.EmployeeID),
@@ -108,9 +112,11 @@ async function UpdateRequisition(requisition : Partial<RequisitionRecordInterfac
     let res = await fetch(`${apiUrl}/requisitionrecord/update`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
-        if(res){
-            return res
-        }
+        if (res.data) {
+            return { status: true, message: res.data };
+          } else {
+            return { status: false, message: res.error };
+          }
     })
     return res
 }
