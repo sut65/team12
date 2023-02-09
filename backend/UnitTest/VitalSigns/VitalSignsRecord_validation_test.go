@@ -35,24 +35,24 @@ func TestVitalSignsValidateNotBlank(t *testing.T) {
 		g.Expect(err.Error()).To(gomega.Equal("BloodPressureHigh not blank"))
 	})
 
-	// t.Run("check BloodPressureLow not blank", func(t *testing.T) {
-	// 	vitalsigns := VitalSignsRecord{
-	// 		CheckDate:         time.Now(),
-	// 		BloodPressureHigh: 140,
-	// 		BloodPressureLow:  0,
-	// 		PulseRate:         60,
-	// 		RespirationRate:   60,
-	// 		BodyTemperature:   37.50,
-	// 	}
+	t.Run("check BloodPressureLow not blank", func(t *testing.T) {
+		vitalsigns := VitalSignsRecord{
+			CheckDate:         time.Now(),
+			BloodPressureHigh: 140,
+			BloodPressureLow:  0,
+			PulseRate:         60,
+			RespirationRate:   60,
+			BodyTemperature:   37.50,
+		}
 
-	// 	ok, err := govalidator.ValidateStruct(vitalsigns)
+		ok, err := govalidator.ValidateStruct(vitalsigns)
 
-	// 	g.Expect(ok).NotTo(gomega.BeTrue())
+		g.Expect(ok).NotTo(gomega.BeTrue())
 
-	// 	g.Expect(err).ToNot(gomega.BeNil())
+		g.Expect(err).ToNot(gomega.BeNil())
 
-	// 	g.Expect(err.Error()).To(gomega.Equal("BloodPressureLow not blank"))
-	// })
+		g.Expect(err.Error()).To(gomega.Equal("BloodPressureLow not blank"))
+	})
 
 	// t.Run("check PulseRate not blank", func(t *testing.T) {
 	// 	vitalsigns := VitalSignsRecord{
@@ -138,29 +138,29 @@ func TestVitalSignsMustBeInRange(t *testing.T) {
 		g.Expect(err.Error()).To(gomega.Equal("BloodPressureHigh must be between 140 - 179"))
 	})
 
-	// t.Run("check BloodPressureLow must be between 0 - 90", func(t *testing.T) {
-	// 	g := gomega.NewGomegaWithT(t)
+	t.Run("check BloodPressureLow must be between 0 - 90", func(t *testing.T) {
+		g := gomega.NewGomegaWithT(t)
 
-	// 	vitalsigns := VitalSignsRecord{
-	// 		CheckDate:         time.Now(),
-	// 		BloodPressureHigh: 150,
-	// 		BloodPressureLow:  100, //ผิด
-	// 		PulseRate:         60,
-	// 		RespirationRate:   60,
-	// 		BodyTemperature:   37.50,
-	// 	}
-	// 	// ตรวจสอบด้วย govalidator
-	// 	ok, err := govalidator.ValidateStruct(vitalsigns)
+		vitalsigns := VitalSignsRecord{
+			CheckDate:         time.Now(),
+			BloodPressureHigh: 150,
+			BloodPressureLow:  100, //ผิด
+			PulseRate:         60,
+			RespirationRate:   60,
+			BodyTemperature:   37.50,
+		}
+		// ตรวจสอบด้วย govalidator
+		ok, err := govalidator.ValidateStruct(vitalsigns)
 
-	// 	// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
-	// 	g.Expect(ok).ToNot(gomega.BeTrue())
+		// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
+		g.Expect(ok).ToNot(gomega.BeTrue())
 
-	// 	// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
-	// 	g.Expect(err).ToNot(gomega.BeNil())
+		// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
+		g.Expect(err).ToNot(gomega.BeNil())
 
-	// 	// err.Error ต้องมี error message แสดงออกมา
-	// 	g.Expect(err.Error()).To(gomega.Equal("BloodPressureLow must be between 0 - 90"))
-	// })
+		// err.Error ต้องมี error message แสดงออกมา
+		g.Expect(err.Error()).To(gomega.Equal("BloodPressureLow must be between 0 - 90"))
+	})
 }
 
 // func TestBodyTemperatureMustBePositive(t *testing.T) {
