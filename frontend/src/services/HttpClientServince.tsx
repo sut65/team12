@@ -141,6 +141,7 @@ async function CreateManageBed(data: ManageBedInterface) {
       } else {
         return false;
       }
+        
     });
 
   return res;

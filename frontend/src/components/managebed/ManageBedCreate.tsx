@@ -6,6 +6,8 @@ import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import Autocomplete from '@mui/material/Autocomplete';
+
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Snackbar from "@mui/material/Snackbar";
@@ -145,7 +147,7 @@ function ManageBedCreate() {
   return (
     <Container maxWidth="md" >
       <Snackbar
-        id="success"  
+        id="success"        
         open={success}
         autoHideDuration={3000}
         onClose={handleClose}
@@ -156,7 +158,7 @@ function ManageBedCreate() {
         </Alert>
       </Snackbar>
       <Snackbar
-        id="error"  
+        id = "error"
         open={error}
         autoHideDuration={6000}
         onClose={handleClose}
@@ -190,6 +192,7 @@ function ManageBedCreate() {
             <FormControl fullWidth variant="outlined">
               <p>รายชื่อผู้ป่วย</p>
               <Select
+      
                 native
                 value={managebed.PatientID + ""}
                 onChange={handleChange}

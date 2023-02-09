@@ -8,6 +8,7 @@ import Dialog from "@mui/material/Dialog/Dialog";
 import DialogTitle from "@mui/material/DialogTitle/DialogTitle";
 import DialogActions from "@mui/material/DialogActions/DialogActions";
 import { DataGrid, GridColDef, GridRowParams } from "@mui/x-data-grid";
+import moment from 'moment';
 
 import { MedicalSlipInterface } from "../../interfaces/imedicalslip/IMedicalSlip";
 import { ListMedicalSlip , DeleteMedicalSlip } from "../../services/MedicalSlip/HttpClientServince";
@@ -60,7 +61,7 @@ function MedicalSlip() {
     { field: "Prescription",headerName: "หมายเลขใบสั่งยา",width: 120,valueFormatter: (params) => params.value.ID,},
     { field: "Total", headerName: "จำนวนค่ารักษา", width: 130 ,},
     { field: "Note", headerName: "หมายเหตุ*", width: 150 ,},
-    { field: "MedicalDate", headerName: "วันที่ออกบิล", width: 230 },
+    { field: "MedicalDate", headerName: "วันที่ออกบิล", width: 230 ,valueFormatter: (params) => moment(params.value).format('DD-MM-yyyy เวลา hh:mm:ss')},
     {
       field: "",
       headerName: "",
