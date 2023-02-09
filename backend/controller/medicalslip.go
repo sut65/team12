@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/aamjazrk/team12/entity"
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 )
 
@@ -52,6 +53,13 @@ func CreateMedicalSlip(c *gin.Context) {
 	// 13: ค้นหา prescription ด้วย id
 	if tx := entity.DB().Where("id = ?", medicalslip.PrescriptionID).First(&prescription); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "prescription not found"})
+		return
+	}
+
+	if _, err := govalidator.ValidateStruct(medicalslip); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
 		return
 	}
 
@@ -229,6 +237,13 @@ func UpdateMedicalSlip(c *gin.Context) {
 			return
 		}
 		medicalslip.Employee = employee
+	}
+
+	if _, err := govalidator.ValidateStruct(medicalslip); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
 	}
 
 	// Update emp in database

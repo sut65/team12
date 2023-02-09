@@ -189,22 +189,22 @@ type Bed struct {
 
 type ManageBed struct {
 	gorm.Model
-	Note       string
-	Hn         int
-	ManageDate time.Time
+	Note       string    `valid:"required~Note not be blank, matches([a-zA-Z0-9ก-๙]$)~Note must have only character and number"`
+	Hn         int       `valid:"minstringlength(8)~Hn length have to be at least 8,required~Hn not be blank, PositiveInt~Hn must be positive number,"`
+	ManageDate time.Time `valid:"DateNotPast~ManageDateNotPast"`
 
 	//FK
-	PatientID *uint
-	Patient   Patient
+	PatientID *uint   `valid:"-"`
+	Patient   Patient `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 
-	EmployeeID *uint
-	Employee   Employee
+	EmployeeID *uint    `valid:"-"`
+	Employee   Employee `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 
-	BedID *uint
-	Bed   Bed
+	BedID *uint `valid:"-"`
+	Bed   Bed   `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 
-	BedStatusID *uint
-	BedStatus   BedStatus
+	BedStatusID *uint     `valid:"-"`
+	BedStatus   BedStatus `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 }
 
 // =====================================================Vital Signs====================================================
@@ -441,20 +441,20 @@ type MedicalSlip struct {
 	MedicalDate time.Time
 
 	//FK
-	PatientID *uint
-	Patient   Patient
+	PatientID *uint   `valid:"-"`
+	Patient   Patient `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 
-	EmployeeID *uint
-	Employee   Employee
+	EmployeeID *uint    `valid:"-"`
+	Employee   Employee `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 
-	LabXrayID *uint
-	LabXray   LabXray
+	LabXrayID *uint   `valid:"-"`
+	LabXray   LabXray `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 
-	ORrecordID *uint
-	ORrecord   ORrecord
+	ORrecordID *uint    `valid:"-"`
+	ORrecord   ORrecord `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 
-	PrescriptionID *uint
-	Prescription   Prescription
+	PrescriptionID *uint        `valid:"-"`
+	Prescription   Prescription `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 }
 
 //==================================================== xxxSpecifyFoodType ==========================================================================================//
@@ -531,5 +531,11 @@ func init() {
 
 	govalidator.CustomTypeTagMap.Set("PositiveInt", func(i interface{}, context interface{}) bool {
 		return i.(int) >= 0
+	})
+
+	govalidator.CustomTypeTagMap.Set("DateNotPast", func(i interface{}, context interface{}) bool {
+		t := i.(time.Time)
+		now := time.Now().Add(time.Minute * -10)
+		return t.Equal(now) || t.After(now)
 	})
 }
