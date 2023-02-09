@@ -92,24 +92,24 @@ func TestVitalSignsValidateNotBlank(t *testing.T) {
 		g.Expect(err.Error()).To(gomega.Equal("RespirationRate not blank"))
 	})
 
-	// t.Run("check BodyTemperature not blank", func(t *testing.T) {
-	// 	vitalsigns := VitalSignsRecord{
-	// 		CheckDate:         time.Now(),
-	// 		BloodPressureHigh: 140,
-	// 		BloodPressureLow:  70,
-	// 		PulseRate:         60,
-	// 		RespirationRate:   60,
-	// 		BodyTemperature:   0.0,
-	// 	}
+	t.Run("check BodyTemperature not blank", func(t *testing.T) {
+		vitalsigns := VitalSignsRecord{
+			CheckDate:         time.Now(),
+			BloodPressureHigh: 140,
+			BloodPressureLow:  70,
+			PulseRate:         60,
+			RespirationRate:   60,
+			BodyTemperature:   0.0,
+		}
 
-	// 	ok, err := govalidator.ValidateStruct(vitalsigns)
+		ok, err := govalidator.ValidateStruct(vitalsigns)
 
-	// 	g.Expect(ok).NotTo(gomega.BeTrue())
+		g.Expect(ok).NotTo(gomega.BeTrue())
 
-	// 	g.Expect(err).ToNot(gomega.BeNil())
+		g.Expect(err).ToNot(gomega.BeNil())
 
-	// 	g.Expect(err.Error()).To(gomega.Equal("BodyTemperature not blank"))
-	// })
+		g.Expect(err.Error()).To(gomega.Equal("BodyTemperature not blank"))
+	})
 
 }
 
@@ -163,35 +163,35 @@ func TestVitalSignsMustBeInRange(t *testing.T) {
 	})
 }
 
-// func TestBodyTemperatureMustBePositive(t *testing.T) {
-// 	g := gomega.NewGomegaWithT(t)
+func TestBodyTemperatureMustBePositive(t *testing.T) {
+	g := gomega.NewGomegaWithT(t)
 
-// 	fixtures := []float32{
-// 		-35,
-// 		-37.75,
-// 		-36.00,
-// 	}
+	fixtures := []float32{
+		-35,
+		-37.75,
+		-36.00,
+	}
 
-// 	// ข้อมูลถูกต้องบาง field
-// 	for _, fixture := range fixtures {
-// 		vitalsigns := VitalSignsRecord{
-// 			CheckDate:         time.Now(),
-// 			BloodPressureHigh: 150,
-// 			BloodPressureLow:  80,
-// 			PulseRate:         60,
-// 			RespirationRate:   60,
-// 			BodyTemperature:   fixture, // ผิด
-// 		}
-// 		// ตรวจสอบด้วย govalidator
-// 		ok, err := govalidator.ValidateStruct(vitalsigns)
+	// ข้อมูลถูกต้องบาง field
+	for _, fixture := range fixtures {
+		vitalsigns := VitalSignsRecord{
+			CheckDate:         time.Now(),
+			BloodPressureHigh: 150,
+			BloodPressureLow:  80,
+			PulseRate:         60,
+			RespirationRate:   60,
+			BodyTemperature:   fixture, // ผิด
+		}
+		// ตรวจสอบด้วย govalidator
+		ok, err := govalidator.ValidateStruct(vitalsigns)
 
-// 		// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
-// 		g.Expect(ok).ToNot(gomega.BeTrue())
+		// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
+		g.Expect(ok).ToNot(gomega.BeTrue())
 
-// 		// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
-// 		g.Expect(err).ToNot(gomega.BeNil())
+		// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
+		g.Expect(err).ToNot(gomega.BeNil())
 
-// 		// err.Error ต้องมี error message แสดงออกมา
-// 		g.Expect(err.Error()).To(gomega.Equal("BodyTemperature must be positive number"))
-// 	}
-// }
+		// err.Error ต้องมี error message แสดงออกมา
+		g.Expect(err.Error()).To(gomega.Equal("BodyTemperature must be positive number"))
+	}
+}

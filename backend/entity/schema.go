@@ -3,6 +3,7 @@ package entity
 import (
 	"time"
 
+	"github.com/asaskevich/govalidator"
 	"gorm.io/gorm"
 )
 
@@ -211,11 +212,11 @@ type ManageBed struct {
 type VitalSignsRecord struct {
 	gorm.Model
 	CheckDate         time.Time
-	BloodPressureHigh int `valid:"range(140|179)~BloodPressureHigh must be between 140 - 179,required~BloodPressureHigh not blank,"`
-	BloodPressureLow  int `valid:"range(0|90)~BloodPressureLow must be between 0 - 90,required~BloodPressureLow not blank,"`
-	PulseRate         int `valid:"required~PulseRate not blank"`
-	RespirationRate   int `valid:"required~RespirationRate not blank"`
-	BodyTemperature   float32
+	BloodPressureHigh int     `valid:"range(140|179)~BloodPressureHigh must be between 140 - 179,required~BloodPressureHigh not blank,"`
+	BloodPressureLow  int     `valid:"range(0|90)~BloodPressureLow must be between 0 - 90,required~BloodPressureLow not blank,"`
+	PulseRate         int     `valid:"required~PulseRate not blank"`
+	RespirationRate   int     `valid:"required~RespirationRate not blank"`
+	BodyTemperature   float32 `valid:"required~BodyTemperature not blank,PositiveFloat~BodyTemperature must be positive number,"`
 
 	EmployeeID *uint    `valid:"-"`                      //FK
 	Employee   Employee `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
@@ -522,3 +523,13 @@ type Hospital struct {
 }
 
 //==================================================== xxMST ==========================================================================================//
+
+func init() {
+	govalidator.CustomTypeTagMap.Set("PositiveFloat", func(i interface{}, context interface{}) bool {
+		return i.(float32) >= 0
+	})
+
+	govalidator.CustomTypeTagMap.Set("PositiveInt", func(i interface{}, context interface{}) bool {
+		return i.(int) >= 0
+	})
+}
