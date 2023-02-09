@@ -13,22 +13,23 @@ type Employee struct {
 	FirstName string `valid:"required~FirstName cannot be blank,alpha~FirstName must have only character"`
 	LastName  string `valid:"required~LastName cannot be blank,alpha~LastName must have only character"`
 	Civ       string `gorm:"uniqueIndex" valid:"matches(^([0-9]{13})$)~Identification Number must have only number and lenght is 13,required~Identification Number cannot be blank"`
-	Phone     string `gorm:"uniqueIndex" valid:"matches(^(0)([0-9]{9})$)~Phone must have only number And Start with 0 and lenght is 10,required~Phone cannot be blank"`
+	Phone     string `gorm:"uniqueIndex" valid:"matches(^(0)([0-9]{9})$)~Phone must have only number And Start with 0 and lenght is 10,,required~Phone cannot be blank"`
 	Email     string `gorm:"uniqueIndex" valid:"email~Email is not valid,required~Email cannot be blank"`
-	Password  string `valid:"minstringlength(8)~Password length have to be at least 8,required~Password cannot be blank"`
+	Password  string `valid:"minstringlength(8)~Password length have to be at least 8,required~Password cannot be blank,matches([A-Z])~Password need at least 1 uppercase,matches([0-9])~Password need at least 1 number"`
 	Address   string `valid:"required~Address cannot be blank"`
 	//save Role ID in FK
-	RoleID *uint
+	RoleID *uint `valid:"-"`
 	//to easier for adding FK
-	Role Role `gorm:"references:id"`
+	Role Role `gorm:"references:id" valid:"-"`
 	//save Gender ID in FK
-	GenderID *uint
+	GenderID *uint `valid:"-"`
 	//to easier for adding FK
-	Gender Gender `gorm:"references:id"`
+	Gender Gender `gorm:"references:id" valid:"-"`
 	//save Department ID in FK
-	DepartmentID *uint
+	DepartmentID *uint `valid:"-"`
 	//to easier for adding FK
-	Department        Department     `gorm:"references:id"`
+	Department        Department     `gorm:"references:id" valid:"-"`
+	
 	Patient           []Patient      `gorm:"foreignKey:EmployeeID"`
 	LabXrays          []LabXray      `gorm:"foreignKey:DoctorID"`
 	Prescription      []Prescription `gorm:"foreignKey:EmployeeID"`

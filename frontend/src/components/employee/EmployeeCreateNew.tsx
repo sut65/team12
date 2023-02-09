@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 
 import Button from "@mui/material/Button";
 
-import {FormControl, Container,Paper,Grid,Box,Typography,Divider,Snackbar} from "@mui/material";
+import {FormControl,InputAdornment,OutlinedInput,IconButton,Container,Paper,Grid,Box,Typography,Divider,Snackbar} from "@mui/material";
 
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
@@ -20,7 +20,8 @@ import {
   import { GenderInterface } from "../../interfaces/employee/IGender";
   import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
   import { ListGenders, ListDepartments, ListRoles, CreateEmployee, GetDepartmentByRole } from "../../services/EmployeeSystem/employeeServices";
-  
+  import Visibility from '@mui/icons-material/Visibility';
+  import VisibilityOff from '@mui/icons-material/VisibilityOff';
   function Create_save(){
     const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
       props,
@@ -163,14 +164,21 @@ import {
         }
       },
     });
-    
+    // handle Password visible, invisible
+    const [showPassword, setShowPassword] = React.useState(false);
+      
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+  
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+    };
     return (
       <ThemeProvider theme={theme}>
         <Container maxWidth="lg" >
         <Snackbar
         id="success"        
         open={success}
-        autoHideDuration={8000}
+        autoHideDuration={2000}
         onClose={handleClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
@@ -182,7 +190,7 @@ import {
       <Snackbar 
         id="error"
         open={error} 
-        autoHideDuration={8000} 
+        autoHideDuration={2000} 
         onClose={handleClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         >
@@ -265,12 +273,12 @@ import {
                     size="medium"
                     value={employee.Civ || ""}
                     onChange={handleInputChange}
-                    onKeyPress={(e) => {
-                      if (!/[0-9]/.test(e.key)){
-                        e.preventDefault()
-                      }
-                    }}
-                    InputProps={{inputProps:{minLength: 13, maxLength : 13}}}
+                    // onKeyPress={(e) => {
+                    //   if (!/[0-9]/.test(e.key)){
+                    //     e.preventDefault()
+                    //   }
+                    // }}
+                    inputProps={{maxLength:13}}
                     //inputProps={{minLength:13,maxLength :13}}
                   />
                 </FormControl>
@@ -286,12 +294,12 @@ import {
                     size="medium"
                     value={employee.Phone || ""}
                     onChange={handleInputChange}
-                    onKeyPress={(e) => {
-                      if (!/[0-9]/.test(e.key)){
-                        e.preventDefault()
-                      }
-                    }}
-                    InputProps={{inputProps:{minLength: 10, maxLength : 10}}}
+                    // onKeyPress={(e) => {
+                    //   if (!/[0-9]/.test(e.key)){
+                    //     e.preventDefault()
+                    //   }
+                    // }}
+                    inputProps={{maxLength:10}}
                   />
                 </FormControl>
               </Grid>
@@ -315,15 +323,26 @@ import {
               <Grid item xs={5}>
                 <FormControl fullWidth variant="outlined">
                   <p>Password</p>
-                  <TextField
-                    id="Password"
-                    variant="outlined"
-                    type="string"
-                    size="medium"
-                    value={employee.Password || ""}
-                    onChange={handleInputChange}
-                    inputProps={{minLength:8}}
-                  />
+                  <OutlinedInput
+                      id="Password"
+                      type={showPassword ? 'text' : 'password'}
+                      size="medium"
+                      value={employee.Password || ""}
+                      onChange={handleInputChange}
+                      inputProps={{minLength:8}}
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton
+                                //aria-label="toggle password visibility"
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                                edge="end"
+                                >
+                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                            }
+                    />
                 </FormControl>
               </Grid>
             </Grid>
@@ -349,17 +368,18 @@ import {
               <p>Role</p>
                 <FormControl fullWidth variant="outlined">
                   <Select
+                    native
                     value={employee.RoleID}
                     onChange={handleChange}
                     inputProps={{
                       name: "RoleID",
                     }}
                   >
-                    <MenuItem value={0} key={0}>
+                    <option value={0} key={0}>
                       เลือกสิทธิ์การเข้าถึง
-                    </MenuItem>
+                    </option>
                     {role.map((item: RoleInterface) => (
-                      <MenuItem value={item.ID}>{item.Name}</MenuItem>
+                      <option value={item.ID}>{item.Name}</option>
                     ))}
                   </Select>
                 </FormControl>
@@ -368,17 +388,18 @@ import {
               <p>Gender</p>
                 <FormControl fullWidth variant="outlined">
                   <Select
+                    native
                     value={employee.GenderID}
                     onChange={handleChange}
                     inputProps={{
                       name: "GenderID",
                     }}
                   >
-                    <MenuItem value={0} key={0}>
-                      เลือกเพศ
-                    </MenuItem>
+                    <option value={0} key={0}>
+                      ระบุเพศ
+                    </option>
                     {gender.map((item: GenderInterface) => (
-                      <MenuItem value={item.ID}>{item.Name}</MenuItem>
+                      <option value={item.ID}>{item.Name}</option>
                     ))}
                   </Select>
                 </FormControl>
@@ -390,17 +411,18 @@ import {
               <p>Department</p>
                 <FormControl fullWidth variant="outlined">
                   <Select
+                    native
                     value={employee.DepartmentID}
                     onChange={handleChange}
                     inputProps={{
                       name: "DepartmentID",
                     }}
                   >
-                    <MenuItem value={0} key={0}>
+                    <option value={0} key={0}>
                       เลือกแผนก
-                    </MenuItem>
+                    </option>
                     {department.map((item: DepartmentInterface) => (
-                      <MenuItem value={item.ID}>{item.Type}</MenuItem>
+                      <option value={item.ID}>{item.Type}</option>
                     ))}
                   </Select>
                 </FormControl>
