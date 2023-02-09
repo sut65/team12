@@ -436,25 +436,25 @@ type ProblemReport struct {
 
 type MedicalSlip struct {
 	gorm.Model
-	Total       float64
-	Note        string
-	MedicalDate time.Time
+	Total       float64   `valid:"required~Total not be blank,PositiveFloat64~Total must be positive number,"`
+	Note        string    `valid:"required~Notes not be blank, matches([a-zA-Z0-9ก-๙]$)~Notes must have only character and number"`
+	MedicalDate time.Time `valid:"DateNotPast~MedicalDateNotPast"`
 
 	//FK
 	PatientID *uint   `valid:"-"`
-	Patient   Patient `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
+	Patient   Patient `gorm:"references:id" valid:"-"`
 
 	EmployeeID *uint    `valid:"-"`
-	Employee   Employee `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
+	Employee   Employee `gorm:"references:id" valid:"-"`
 
 	LabXrayID *uint   `valid:"-"`
-	LabXray   LabXray `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
+	LabXray   LabXray `gorm:"references:id" valid:"-"`
 
 	ORrecordID *uint    `valid:"-"`
-	ORrecord   ORrecord `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
+	ORrecord   ORrecord `gorm:"references:id" valid:"-"`
 
 	PrescriptionID *uint        `valid:"-"`
-	Prescription   Prescription `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
+	Prescription   Prescription `gorm:"references:id" valid:"-"`
 }
 
 //==================================================== xxxSpecifyFoodType ==========================================================================================//
@@ -527,6 +527,10 @@ type Hospital struct {
 func init() {
 	govalidator.CustomTypeTagMap.Set("PositiveFloat", func(i interface{}, context interface{}) bool {
 		return i.(float32) >= 0
+	})
+
+	govalidator.CustomTypeTagMap.Set("PositiveFloat64", func(i interface{}, context interface{}) bool {
+		return i.(float64) >= 0
 	})
 
 	govalidator.CustomTypeTagMap.Set("PositiveInt", func(i interface{}, context interface{}) bool {
