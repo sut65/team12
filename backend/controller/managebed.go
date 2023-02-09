@@ -131,6 +131,13 @@ func UpdateManageBed(c *gin.Context) {
 		return
 	}
 
+	if _, err := govalidator.ValidateStruct(managebed); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
 	// Check managebed is haved ?
 	if tx := entity.DB().Where("id = ?", managebed.ID).First(&oldmanagebed); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("Managebed id = %d not found", managebed.ID)})
@@ -210,13 +217,6 @@ func UpdateManageBed(c *gin.Context) {
 			return
 		}
 		managebed.Employee = employee
-	}
-
-	if _, err := govalidator.ValidateStruct(managebed); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
-		})
-		return
 	}
 
 	// Update emp in database

@@ -128,3 +128,4 @@ func TestManageBedDateNotBePast(t *testing.T) {
 
 	g.Expect(err.Error()).To(Equal("ManageDateNotPast"))
 }
+
