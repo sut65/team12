@@ -27,4 +27,19 @@ func TestProblemReportValidate(t *testing.T) {
 
 		g.Expect(err.Error()).To(gomega.Equal("Date cannot be Future"))
 	})
+
+	t.Run("Comment cannot be blank", func(t *testing.T) {
+		e := ProblemReport{
+			Date:    time.Date(2023, 1, 24, 4, 0, 0, 0, time.UTC),
+			Comment: "",
+		}
+
+		ok, err := govalidator.ValidateStruct(e)
+
+		g.Expect(ok).NotTo(gomega.BeTrue())
+
+		g.Expect(err).ToNot(gomega.BeNil())
+
+		g.Expect(err.Error()).To(gomega.Equal("Comment cannot be blank"))
+	})
 }

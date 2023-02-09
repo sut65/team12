@@ -61,10 +61,10 @@ async function GetVitalsign(ID: string | undefined | null) {
 // Create vitalSigns
 async function PostVitalSign(vtr:Partial<VitalSignsInterface>) {
     let data = {
-        BloodPressureHigh: vtr.BloodPressureHigh,
-        BloodPressureLow: vtr.BloodPressureLow,
-        PulseRate: vtr.PulseRate,
-        RespirationRate: vtr.RespirationRate,
+        BloodPressureHigh: Number(vtr.BloodPressureHigh),
+        BloodPressureLow: Number(vtr.BloodPressureLow),
+        PulseRate: Number(vtr.PulseRate),
+        RespirationRate: Number(vtr.RespirationRate),
         BodyTemperature: convertTypeToFloat(vtr.BodyTemperature),
         // CheckDate: vtr.CheckDate,
         CheckDate: new Date().toJSON().split("Z").at(0)+"+07:00",
@@ -87,9 +87,13 @@ async function PostVitalSign(vtr:Partial<VitalSignsInterface>) {
     let res = await fetch(`${apiUrl}/vitalsign/create`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
-        return res
-    })
-    return res
+        if (res.data) {
+            return { status: true, message: res.data };
+          } else {
+            return { status: false, message: res.error };
+          }
+    });
+    return res;
 
 }
 
@@ -98,10 +102,10 @@ async function PostVitalSign(vtr:Partial<VitalSignsInterface>) {
 async function UpdateVitalsign(vtr : Partial<VitalSignsInterface>){
     let data = {
         ID:convertType(vtr.ID),
-        BloodPressureHigh: vtr.BloodPressureHigh,
-        BloodPressureLow: vtr.BloodPressureLow,
-        PulseRate: vtr.PulseRate,
-        RespirationRate: vtr.RespirationRate,
+        BloodPressureHigh: Number(vtr.BloodPressureHigh),
+        BloodPressureLow: Number(vtr.BloodPressureLow),
+        PulseRate: Number(vtr.PulseRate),
+        RespirationRate: Number(vtr.RespirationRate),
         BodyTemperature: convertTypeToFloat(vtr.BodyTemperature),
         // CheckDate: vtr.CheckDate,
         CheckDate: new Date().toJSON().split("Z").at(0)+"+07:00",
@@ -121,11 +125,13 @@ async function UpdateVitalsign(vtr : Partial<VitalSignsInterface>){
     let res = await fetch(`${apiUrl}/vitalsign/update`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
-        if(res){
-            return res
-        }
-    })
-    return res
+        if (res.data) {
+            return { status: true, message: res.emp };
+          } else {
+            return { status: false, message: res.error };
+          }
+    });
+    return res;
 }
 
 // Delete vitalSigns

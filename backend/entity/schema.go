@@ -28,8 +28,8 @@ type Employee struct {
 	//save Department ID in FK
 	DepartmentID *uint `valid:"-"`
 	//to easier for adding FK
-	Department        Department     `gorm:"references:id" valid:"-"`
-	
+	Department Department `gorm:"references:id" valid:"-"`
+
 	Patient           []Patient      `gorm:"foreignKey:EmployeeID"`
 	LabXrays          []LabXray      `gorm:"foreignKey:DoctorID"`
 	Prescription      []Prescription `gorm:"foreignKey:EmployeeID"`
@@ -425,7 +425,7 @@ type ProblemReport struct {
 	NumPlaceID  *uint
 	ProblemID   *uint
 	Date        time.Time `valid:"past~Date cannot be Future"`
-	Comment     string
+	Comment     string    `valid:"required~Comment cannot be blank"`
 	//JOIN
 	User      Employee  `gorm:"references:id" valid:"-"`
 	ClassProb ClassProb `gorm:"references:id" valid:"-"`
