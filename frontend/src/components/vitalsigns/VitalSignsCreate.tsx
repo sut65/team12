@@ -383,27 +383,6 @@ function VitalSignsCreate(){
           </Grid>
           
           <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
-              <Grid item xs={5}>
-                         {/* <FormControl fullWidth variant="outlined">
-                             <p>Select Date</p>
-                             
-                             <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                 <DatePicker
-                                     value={vitalsign.CheckDate}
-                                     onChange={(newValue) => {
-                                         setVitalsign({
-                                             ...vitalsign,
-                                             CheckDate: newValue,
-                                         });
-                                     }}
-                                     renderInput={(params) => <TextField {...params} />}
-                                 />
-                             </LocalizationProvider>
-                         </FormControl> */}
-              </Grid>
-            </Grid>
-          
-          <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
             <Grid item xs={4}>
                 <Button component={RouterLink} to="/vitalsign" variant="contained" color="secondary">
                   Back

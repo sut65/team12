@@ -100,26 +100,7 @@ return (
             </Typography>
           </Box>
 
-          <Box>
-            <Button 
-              component={RouterLink}
-              to="/vitalsign/create"
-              variant="contained"
-              color="primary"
-              sx={{
-                marginTop: 3,
-              }}        
-            >
-              <Typography
-                color="secondary"
-                component="div"
-                sx={{ flexGrow: 1 }}            
-                // sx = {{borderRadius: 3,'&:hover': {backgroundColor: '#70c4bc'}}}
-              >
-                Vital Signs Record
-              </Typography>
-            </Button>
-          </Box>
+          
       </Box>
           <div>
             <Container maxWidth="xl">
@@ -184,16 +165,38 @@ return (
                               <IconButton color='error' onClick={() => { handleDialogDeleteOpen(item.ID) }}>
                                   <DeleteIcon fontSize="inherit" />
                               </IconButton>
-                          }
-                                      
+                          }               
                       </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
-                  
-                  </Table>
-                  </TableContainer>
-                  </div>
+              </Table>
+            </TableContainer>
+          <Grid container spacing={3} sx={{ padding: 2 }} >
+            <Grid item xs={10}>
+            <Box>
+            <Button 
+              component={RouterLink}
+              to="/vitalsign/create"
+              variant="contained"
+              color="primary"
+              sx={{
+                marginTop: 3,
+              }}        
+            >
+              <Typography
+                color="secondary"
+                component="div"
+                sx={{ flexGrow: 1 }}            
+                // sx = {{borderRadius: 3,'&:hover': {backgroundColor: '#70c4bc'}}}
+              >
+                Vital Signs Record
+              </Typography>
+            </Button>
+            </Box>
+            </Grid>
+          </Grid>
+          </div>
           </Container>
           </div>
           <Dialog
@@ -228,12 +231,11 @@ return (
               </DialogActions>
 
           </Dialog>
-  </Container>
+    </Container>
   
   </div>
   </ThemeProvider>
-
-
-);
+  
+  );
 }
     
