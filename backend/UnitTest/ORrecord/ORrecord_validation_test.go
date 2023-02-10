@@ -46,4 +46,21 @@ func TestORrecordResultValidate(t *testing.T) {
 		g.Expect(err.Error()).To(gomega.Equal("OperatingResult must have only character and number"))
 	})
 
+	t.Run("SurgeryEnd cannot be Future", func(t *testing.T) {
+		e := ORrecord{
+			SurgeryStart:    time.Date(2023, 1, 24, 4, 12, 0, 0, time.UTC),
+			SurgeryEnd:      time.Date(3023, 1, 24, 8, 41, 0, 0, time.UTC), //ลองให้ SurgeryEND เป็นอนาคต
+			OperatingResult: "testing sugeryEND",
+			Note:            "ระวังผู้ป่วยเลือดออก",
+		}
+
+		ok, err := govalidator.ValidateStruct(e)
+
+		g.Expect(ok).NotTo(gomega.BeTrue())
+
+		g.Expect(err).ToNot(gomega.BeNil())
+
+		g.Expect(err.Error()).To(gomega.Equal("SurgeryEnd cannot be Future"))
+	})
+
 }
