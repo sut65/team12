@@ -304,8 +304,8 @@ function RequisitionCreate(){
                   variant="outlined"
                   type="string"
                   size="medium"
-                  value={requisition.Quantity || ""}
-                  onChange={handleInputChangenumber}
+                  value={requisition.Quantity}
+                  onChange={handleInputChange}
                 />
               </FormControl>
             </Grid>

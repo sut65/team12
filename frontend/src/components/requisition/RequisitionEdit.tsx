@@ -101,6 +101,17 @@ export default function RequisitionEdit() {
         }
     }
 
+    //text field
+    const handleInputChange = (
+        event: React.ChangeEvent<{ id?: string; value: any }>
+    ) => {
+        const id = event.target.id as keyof typeof RequisitionEdit;
+
+        const { value } = event.target;
+
+        setRequisition({ ...requisition, [id]: value });
+    };
+
     //handle text field number 
     const handleInputChangenumber = (
         event: React.ChangeEvent<{ id?: string; value: any }>
@@ -278,8 +289,8 @@ export default function RequisitionEdit() {
                             variant="outlined"
                             type="string"
                             size="medium"
-                            value={requisition.Quantity || ""}
-                            onChange={handleInputChangenumber}
+                            value={requisition.Quantity}
+                            onChange={handleInputChange}
                         />
                         </FormControl>
                     </Grid>
