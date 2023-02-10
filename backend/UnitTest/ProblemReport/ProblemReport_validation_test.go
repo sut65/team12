@@ -42,4 +42,18 @@ func TestProblemReportValidate(t *testing.T) {
 
 		g.Expect(err.Error()).To(gomega.Equal("Comment cannot be blank"))
 	})
+	t.Run("Comment must have only character and number", func(t *testing.T) {
+		e := ProblemReport{
+			Date:    time.Date(2023, 1, 24, 4, 0, 0, 0, time.UTC),
+			Comment: "!@#$%^&*()_+",
+		}
+
+		ok, err := govalidator.ValidateStruct(e)
+
+		g.Expect(ok).NotTo(gomega.BeTrue())
+
+		g.Expect(err).ToNot(gomega.BeNil())
+
+		g.Expect(err.Error()).To(gomega.Equal("Comment must have only character and number"))
+	})
 }
