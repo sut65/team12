@@ -29,7 +29,7 @@ func TestORrecordResultValidate(t *testing.T) {
 		g.Expect(err.Error()).To(gomega.Equal("OperatingResult cannot be blank"))
 	})
 
-	t.Run("OperatingResult cannot be Special Character(only simple character & number)", func(t *testing.T) {
+	t.Run("OperatingResult must have only character and number", func(t *testing.T) {
 		e := ORrecord{
 			SurgeryStart:    time.Date(2023, 1, 24, 4, 12, 0, 0, time.UTC),
 			SurgeryEnd:      time.Date(2023, 1, 24, 8, 41, 0, 0, time.UTC),
@@ -43,7 +43,7 @@ func TestORrecordResultValidate(t *testing.T) {
 
 		g.Expect(err).ToNot(gomega.BeNil())
 
-		g.Expect(err.Error()).To(gomega.Equal("OperatingResult cannot be Special Character(only simple character & number)"))
+		g.Expect(err.Error()).To(gomega.Equal("OperatingResult must have only character and number"))
 	})
 
 }
