@@ -425,7 +425,7 @@ type ProblemReport struct {
 	NumPlaceID  *uint
 	ProblemID   *uint
 	Date        time.Time `valid:"past~Date cannot be Future"`
-	Comment     string    `valid:"required~Comment cannot be blank"`
+	Comment     string    `valid:"required~Comment cannot be blank,matches([a-zA-Z0-9ก-๙]$)~Comment must have only character and number"`
 	//JOIN
 	User      Employee  `gorm:"references:id" valid:"-"`
 	ClassProb ClassProb `gorm:"references:id" valid:"-"`
