@@ -160,7 +160,7 @@ import { ListLoD } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosi
     let theme = createTheme({
       palette: {
         primary: {
-          main: '#0052cc',
+          main: '#3ba299',
         },
         secondary: {
           main: '#edf2ff',
