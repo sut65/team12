@@ -76,24 +76,25 @@ export default function VitalSignsEdit() {
         getPatient();
         getEmployee();
         getVitalsignById(id);
-        // getEmployeeByID(id);
       }, []);
 
     // submit
     const [success, setSuccess] = React.useState(false);
     const [error, setError] = React.useState(false);
-
+    const [message, setAlertMessage] = React.useState("");
     const submit = async () => {
         console.log(vitalsign)
   
         let res = await UpdateVitalsign(vitalsign)
-        if (res) {
-          setSuccess(true);
-        } else {
-          setError(true);
-        }
+        if (res.status) {
+            // setAlertMessage("บันทึกข้อมูลสำเร็จ");
+            setSuccess(true);
+          } else {
+            setAlertMessage(res.message);
+            setError(true);
+          }
         // console.log(res)
-        if(res.data){
+        if(res.status){
             setTimeout(() => {
                 navigator("/vitalsign")
             }, 3000)
@@ -158,6 +159,7 @@ export default function VitalSignsEdit() {
         <Container maxWidth="lg">
 
         <Snackbar
+            id="success"
             open={success}
             autoHideDuration={3000}
             onClose={handleClose}
@@ -168,14 +170,15 @@ export default function VitalSignsEdit() {
             </Alert>
         </Snackbar>
     
-        <Snackbar 
+        <Snackbar
+            id="error" 
             open={error} 
             autoHideDuration={3000} 
             onClose={handleClose} 
             anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         >
             <Alert onClose={handleClose} severity="error">
-                แก้ไขข้อมูลไม่สำเร็จ
+                {message}
             </Alert>
         </Snackbar>
 

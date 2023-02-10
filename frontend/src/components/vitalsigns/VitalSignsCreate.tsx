@@ -29,15 +29,6 @@ import Divider from "@mui/material/Divider";
 import FormControl from "@mui/material/FormControl";  //import มาหมดเเละเก็บไว้ในตัวแปร FormControl
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";  //import มาเฉพราะฟังก์ชัน LocalizationProvider
 
-//สี
-import { green } from "@mui/material/colors";
-
-//import dayjs, { Dayjs } from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-
 import { Schedule } from "@mui/icons-material";
 import { StatusesInterface } from "../../interfaces/vitalSign/IStatus";
 import { PatientInterface } from "../../interfaces/patient/IPatient";
@@ -102,6 +93,7 @@ function VitalSignsCreate(){
   const [employee, setEmployee] = React.useState<EmployeeInterface[]>([])
   const [success, setSuccess] = React.useState(false);
   const [error, setError] = React.useState(false);
+  const [message, setAlertMessage] = React.useState("");
 
   const [snackBar, setSnackBar] = React.useState({
     open: false,
@@ -144,13 +136,15 @@ function VitalSignsCreate(){
     console.log(vitalsign)
 
     let res = await PostVitalSign(vitalsign)
-    if (res) {
-      setSuccess(true);
-    } else {
-      setError(true);
-    }
+      if (res.status) {
+        // setAlertMessage("บันทึกข้อมูลสำเร็จ");
+        setSuccess(true);
+      } else {
+        setAlertMessage(res.message);
+        setError(true);
+      }
     // console.log(res)
-    if(res.data){
+    if(res.status){
         setTimeout(() => {
             navigator("/vitalsign")
         }, 3000)
@@ -161,7 +155,6 @@ function VitalSignsCreate(){
     getStatus();
     getPatient();
     getEmployee();
-    //getDepartmentByRole();
   }, []);
 
   const handleClose = (
@@ -209,8 +202,9 @@ function VitalSignsCreate(){
     <ThemeProvider theme={theme}>
       <Container maxWidth="lg" >
         <Snackbar
+              id="success"
               open={success}
-              autoHideDuration={2000}
+              autoHideDuration={3000}
               onClose={handleClose}
               anchorOrigin={{ vertical: "top", horizontal: "center" }}
         >
@@ -219,10 +213,15 @@ function VitalSignsCreate(){
           </Alert>
         </Snackbar>
       
-        <Snackbar open={error} autoHideDuration={2000} onClose={handleClose}
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}>
+        <Snackbar
+          id="error"
+          open={error}
+          autoHideDuration={3000} 
+          onClose={handleClose}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        >
           <Alert onClose={handleClose} severity="error">
-            บันทึกข้อมูลไม่สำเร็จ
+            {message}
           </Alert>
         </Snackbar>
   
