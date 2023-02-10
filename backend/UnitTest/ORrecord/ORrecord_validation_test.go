@@ -48,8 +48,8 @@ func TestORrecordResultValidate(t *testing.T) {
 
 	t.Run("SurgeryEnd cannot be Future", func(t *testing.T) {
 		e := ORrecord{
-			SurgeryStart:    time.Date(2023, 1, 24, 4, 12, 0, 0, time.UTC),
-			SurgeryEnd:      time.Date(3023, 1, 24, 8, 41, 0, 0, time.UTC), //ลองให้ SurgeryEND เป็นอนาคต
+			SurgeryStart:    time.Now().Add(time.Hour * -2),
+			SurgeryEnd:      time.Now().Add(time.Minute * +1), //ลองให้ SurgeryEND เป็นอนาคต
 			OperatingResult: "testing sugeryEND",
 			Note:            "ระวังผู้ป่วยเลือดออก",
 		}
@@ -65,8 +65,8 @@ func TestORrecordResultValidate(t *testing.T) {
 
 	t.Run("SurgeryStart cannot be Future", func(t *testing.T) {
 		e := ORrecord{
-			SurgeryStart:    time.Date(3023, 1, 24, 4, 12, 0, 0, time.UTC), //ลองให้ SurgerySTART เป็นอนาคต
-			SurgeryEnd:      time.Date(2023, 1, 24, 8, 41, 0, 0, time.UTC),
+			SurgeryStart:    time.Now().Add(time.Minute * +1), // ผิด //ลองให้ SurgerySTART เป็นอนาคต
+			SurgeryEnd:      time.Now().Add(time.Hour * -2),
 			OperatingResult: "testing sugerySTART",
 			Note:            "ระวังผู้ป่วยเลือดออก",
 		}

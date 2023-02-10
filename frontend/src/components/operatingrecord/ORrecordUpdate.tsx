@@ -12,9 +12,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import TextField from "@mui/material/TextField";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import { OperatingRoomInterface } from "../../interfaces/OperatingRecord/Ioperatingroom";
 import { SpecialistInterface } from "../../interfaces/OperatingRecord/Ispecialist";
@@ -33,6 +31,9 @@ import { UpdateORrecord,
         GetSurgeryState,
         GetSurgeryType } from "../../services/ORrecordSystem/HttpClientServinceOR";
 import ORrecord from "./ORrecord";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { Stack } from "@mui/material";
+import { DesktopDateTimePicker } from "@mui/x-date-pickers";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -495,38 +496,43 @@ function ORrecordUpdate() {
         
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>วันที่และเวลาเริ่มผ่าตัด</p>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DatePicker
-                  value={orrecord.SurgeryStart}
-                  onChange={(newValue) => {
-                    setORrecord({
-                      ...orrecord,
-                      SurgeryStart: newValue,
-                    });
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
+                <p>วันที่และเวลาเริ่มการผ่าตัด</p>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <Stack spacing={3}>
+                        <DesktopDateTimePicker
+                        
+                        value={orrecord.SurgeryStart}
+                        onChange={(newValue) => {
+                          setORrecord({
+                            ...orrecord,
+                            SurgeryStart: newValue,
+                          });
+                        }}
+                        renderInput={(params) => <TextField {...params} />}
+                        />
+                    </Stack>
+                </LocalizationProvider>
             </FormControl>
           </Grid>
-          
-        
+
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>วันที่และเวลาสิ้นสุดการผ่าตัด</p>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DatePicker
-                  value={orrecord.SurgeryEnd}
-                  onChange={(newValue) => {
-                    setORrecord({
-                      ...orrecord,
-                      SurgeryEnd: newValue,
-                    });
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
+                <p>วันที่และเวลาสิ้งสุดการผ่าตัด</p>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <Stack spacing={3}>
+                        <DesktopDateTimePicker
+                        
+                        value={orrecord.SurgeryEnd}
+                        onChange={(newValue) => {
+                          setORrecord({
+                            ...orrecord,
+                            SurgeryEnd: newValue,
+                          });
+                        }}
+                        renderInput={(params) => <TextField {...params} />}
+                        />
+                    </Stack>
+                </LocalizationProvider>
             </FormControl>
           </Grid>
 
