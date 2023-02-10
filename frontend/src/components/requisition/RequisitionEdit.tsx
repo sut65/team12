@@ -191,7 +191,7 @@ export default function RequisitionEdit() {
                             gutterBottom
                             color="black"
                         >
-                            แก้ไขข้อมูลสัญญาณชีพ
+                            แก้ไขข้อมูลเบิกอุปกรณ์ทางการเเพทย์
                         </Typography>
                     </Box>
                 </Box>
