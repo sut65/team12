@@ -61,6 +61,8 @@ function ORrecord() {
     { field: "Specialist",headerName: "สาขาเฉพาะทาง",width: 100, valueFormatter: (params) => params.value.SpclistName,},
     { field: "Doctor",headerName: "แพทย์ผ่าตัด",width: 100, valueFormatter: (params) => params.value.FirstName,},
     { field: "SurgeryState",headerName: "สถานะเข้าผ่าตัด",width: 100, valueFormatter: (params) => params.value.StateName, },
+    { field: "SurgeryStart",headerName: "เวลาเริ่มการผ่าตัด",width: 100, valueFormatter: (params) => params.value.SurgeryStart, },
+    { field: "SurgeryEnd",headerName: "เวลาสิ้นสุดการผ่าตัด",width: 100, valueFormatter: (params) => params.value.SurgeryEnd, },
     { field: "SurgeryType",headerName: "ประเภทการผ่าตัด",width: 100, valueFormatter: (params) => params.value.TypeName, },
     { field: "StaffReciving",headerName: "เจ้าหน้าที่รับผู้ป่วย",width: 100, valueFormatter: (params) => params.value.FirstName, },
     { field: "StaffReturing",headerName: "เจ้าหน้าที่ส่งผู้ป่วย",width: 100, valueFormatter: (params) => params.value.FirstName, },

@@ -20,7 +20,7 @@ function Er_Record() {
       palette: {
           primary: {
     // Purple and green play nicely together.
-              main: grey[800],
+              main: "#3ba299",
        },
       secondary: {
     // This is green.A700 as hex.
