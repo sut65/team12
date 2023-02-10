@@ -276,7 +276,7 @@ export default function RequisitionEdit() {
                         <TextField
                             id="Quantity"
                             variant="outlined"
-                            type="number"
+                            type="string"
                             size="medium"
                             value={requisition.Quantity || ""}
                             onChange={handleInputChangenumber}
@@ -284,49 +284,6 @@ export default function RequisitionEdit() {
                         </FormControl>
                     </Grid>
                 </Grid>
-
-                {/* <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
-                    <Grid item xs={5}>
-                        <FormControl fullWidth variant="outlined">
-                        <p>Body Temperature</p>
-
-                        <TextField
-                            id="BodyTemperature"
-                            variant="outlined"
-                            type="string"
-                            size="medium"
-                            value={vitalsign.BodyTemperature || ""}
-                            onChange={handleInputChange}
-                        />
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={4}>
-                    <p>Status</p>
-                    <FormControl fullWidth variant="outlined">
-                    <Select
-                            native
-                            value={vitalsign.StatusID}
-                            onChange={handleChange}
-                            size="medium"
-                            inputProps={{
-                                name: "StatusID"
-                            }}
-                        >
-                        <option aria-label="None" value="">
-                        เลือกสถานะ
-                        </option>
-                            {
-                                status.map((item: StatusesInterface) =>
-                                (<option value={item.ID} key={item.ID}>
-                                     {item.Status}
-                                </option>)
-                                )
-                            }
-                    </Select>
-                    </FormControl>
-                    </Grid>
-                </Grid> */}
-                                
            
                 <Grid item xs={12} >
                         <Button component={RouterLink} to="/requisition" variant='contained'>
