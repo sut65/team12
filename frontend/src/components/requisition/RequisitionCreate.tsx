@@ -17,13 +17,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Grid from '@mui/material/Grid';
 import Autocomplete from '@mui/material/Autocomplete'; //import มาหมดเเละเก็บไว้ในตัวแปร Autocomplete
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";  //import มาเฉพราะฟังก์ชัน LocalizationProvider
-//สี
-import { green } from "@mui/material/colors";
-//import dayjs, { Dayjs } from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+
 //import { ComboBoxComponent } from "@syncfusion/ej2-react-dropdowns";
 import { Schedule } from "@mui/icons-material";
 import { DepartmentForEquipmentsInterface } from "../../interfaces/requisitionRecord/IDepartmentForEquipment";
@@ -69,6 +63,7 @@ function RequisitionCreate(){
   const [employee, setEmployee] = React.useState<EmployeeInterface[]>([])
   const [success, setSuccess] = React.useState(false);
   const [error, setError] = React.useState(false);
+  const [message, setAlertMessage] = React.useState("");
   // service
   // get Equipment
   const getEquipment = async () => {
@@ -104,13 +99,15 @@ function RequisitionCreate(){
     console.log(requisition)
 
     let res = await PostRequisition(requisition)
-    if (res) {
+    if (res.status) {
+      // setAlertMessage("บันทึกข้อมูลสำเร็จ");
       setSuccess(true);
     } else {
+      setAlertMessage(res.message);
       setError(true);
     }
     // console.log(res)
-    if(res.data){
+    if(res.status){
         setTimeout(() => {
             navigator("/requisition")
         }, 3000)
@@ -178,6 +175,7 @@ function RequisitionCreate(){
   return (
       <Container maxWidth="lg" >
       <Snackbar
+        id="success"
         open={success}
         autoHideDuration={3000}
         onClose={handleClose}
@@ -188,13 +186,14 @@ function RequisitionCreate(){
         </Alert>
       </Snackbar>
       <Snackbar
+        id="error"
         open={error}
         autoHideDuration={3000}
         onClose={handleClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
         <Alert onClose={handleClose} severity="error">
-          เบิกอุปกรณ์ไม่สำเร็จ
+          {message}
         </Alert>
       </Snackbar>
   
@@ -271,7 +270,7 @@ function RequisitionCreate(){
                   id="Quantity"
                   variant="outlined"
                   type="number"
-                  InputProps={{inputProps:{min: 1, max : 1000}}}
+                  InputProps={{inputProps:{min: 1, max : 10000}}}
                   size="medium"
                   value={requisition.Quantity || ""}
                   onChange={handleInputChangenumber}
