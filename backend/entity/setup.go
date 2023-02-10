@@ -521,6 +521,8 @@ func SetupDatabase() {
 	}
 	db.Model(&ManageBed{}).Create(&managebed2)
 
+	//=====================================================================================
+
 	//Principle data
 	lod1 := LoD{
 		Disease: "Minor (เล็กน้อย)",
@@ -543,7 +545,7 @@ func SetupDatabase() {
 	db.Model(&LoD{}).Create(&lod4)
 
 	lod5 := LoD{
-		Disease: "Critical (วิกฤต, ไม่แน่ใจโอกาสรอดชีวิต",
+		Disease: "Critical (วิกฤต, ไม่แน่ใจโอกาสรอดชีวิต)",
 	}
 	db.Model(&LoD{}).Create(&lod5)
 
@@ -551,8 +553,8 @@ func SetupDatabase() {
 		Employee: emp1,
 		Patient:  patient1,
 		LoD:      lod3,
-		Note:     "-ความดันโลหิตสูงชนิิด Primary Hypertension, -ห้ามสูบบุหรี่",
-		Date:     time.Now(),
+		Note:     "-ความดันโลหิตสูงชนิด Primary Hypertension, -ห้ามสูบบุหรี่",
+		Date:     time.Date(2023, 1, 11, 0, 0, 0, 0, time.UTC),
 	}
 	db.Model(&PrincipalDiagnosis{}).Create(&pd1)
 
@@ -561,7 +563,7 @@ func SetupDatabase() {
 		Patient:  patient2,
 		LoD:      lod5,
 		Note:     "-ไอมีเลือดปน, -หายใจมีเสียงหวีด, -การตัดชิ้นเนื้อเพื่อวิเคราะห์ (biopsy)",
-		Date:     time.Now(),
+		Date:     time.Date(2023, 1, 16, 0, 0, 0, 0, time.UTC),
 	}
 	db.Model(&PrincipalDiagnosis{}).Create(&pd2)
 	//==========================================================================================//

@@ -30,7 +30,6 @@ import {
   import { LoDInterface } from "../../interfaces/principaldiagnosis/ILoD";
   import { ListPatient } from "../../services/patient/HttpClineServincePatient";
 //   import { ListEmployee, ListDepartments, ListRoles, CreateEmployee, GetDepartmentByRole } from "../../services/EmployeeSystem/employeeServices";
-import { ListLoDs } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosis";
 import { ListPrincipalDiagnosis, ListEmployee,  ListLoD, CreatePrincipalDiagnosis } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosis";
   const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -57,6 +56,7 @@ import { ListPrincipalDiagnosis, ListEmployee,  ListLoD, CreatePrincipalDiagnosi
     const [note, setNote] = React.useState<string>("");
     const [success, setSuccess] = React.useState(false);
     const [error, setError] = React.useState(false);
+    const [message, setAlertMessage] = React.useState("");
     // service
     // get Employee
     const getEmployee = async () => {
@@ -78,7 +78,7 @@ import { ListPrincipalDiagnosis, ListEmployee,  ListLoD, CreatePrincipalDiagnosi
     // get LoD
     const getLoD = async () => {
       //let id =0;
-      let res = await ListLoDs();
+      let res = await ListLoD();
       console.log(res);
       if (res) {
         setLoD(res);
@@ -92,17 +92,26 @@ import { ListPrincipalDiagnosis, ListEmployee,  ListLoD, CreatePrincipalDiagnosi
       console.log(principaldiagnosis)
 
       let res = await CreatePrincipalDiagnosis(principaldiagnosis)
-      if (res) {
+      
+      if (res.status) {
+        setAlertMessage("บันทึกข้อมูลสำเร็จ");
         setSuccess(true);
       } else {
         setError(true);
+        setAlertMessage(res.message);
       }
-      if(res.data){
+      if(res.status){
           setTimeout(() => {
               navigator("/principaldiagnosis")
           }, 3000)
       }
+
+      
     }
+
+    
+
+
 
     React.useEffect(() => {
       getEmployee();
@@ -162,6 +171,7 @@ import { ListPrincipalDiagnosis, ListEmployee,  ListLoD, CreatePrincipalDiagnosi
       <ThemeProvider theme={theme}>
         <Container maxWidth="lg" >
           <Snackbar
+            id="success"  
             open={success}
             autoHideDuration={6000}
             onClose={handleClose}
@@ -172,9 +182,13 @@ import { ListPrincipalDiagnosis, ListEmployee,  ListLoD, CreatePrincipalDiagnosi
             </Alert>
           </Snackbar>
     
-          <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
+          <Snackbar 
+            id="error"
+            open={error} 
+            autoHideDuration={8000} 
+            onClose={handleClose}>
             <Alert onClose={handleClose} severity="error">
-              บันทึกข้อมูลไม่สำเร็จ
+             {message}
             </Alert>
           </Snackbar>
     
@@ -203,7 +217,7 @@ import { ListPrincipalDiagnosis, ListEmployee,  ListLoD, CreatePrincipalDiagnosi
 
             <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
               <Grid item xs={5}>
-              <FormLabel>Doctor</FormLabel>
+              <FormLabel>พนักงาน</FormLabel>
                 <FormControl fullWidth variant="outlined">
                   <Select
                     value={principaldiagnosis.EmployeeID}
@@ -213,7 +227,7 @@ import { ListPrincipalDiagnosis, ListEmployee,  ListLoD, CreatePrincipalDiagnosi
                     }}
                   >
                     <MenuItem value={0} key={0}>
-                      เลือกแพทย์
+                      เลือกพนักงาน
                     </MenuItem>
                     {employee.map((item: EmployeeInterface) => (
                       <MenuItem value={item.ID}>{item.FirstName}</MenuItem>

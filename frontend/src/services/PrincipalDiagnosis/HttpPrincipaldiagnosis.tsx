@@ -80,8 +80,14 @@ async function CreatePrincipalDiagnosis(pd:Partial<PrincipalDiagnosisInterface>)
     let res = await fetch(`${apiUrl}/principaldiagnosis/create`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
-        return res
-    })
+        if (res.data){
+        return { status: true, message: res.pd };
+    }else{
+        return { status: false, message: res.error };
+    }
+
+       
+    });
     return res
 
 }
@@ -111,10 +117,14 @@ async function UpdatePrincipalDiagnosis(pd : Partial<PrincipalDiagnosisInterface
     let res = await fetch(`${apiUrl}/principaldiagnosis/update`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
-        if(res){
-            return res
-        }
-    })
+        if (res.data){
+        return { status: true, message: res.pd };
+    }else{
+        return { status: false, message: res.error };
+    }
+
+       
+    });
     return res
 }
 
@@ -195,7 +205,7 @@ async function ListPatient() {
             "Content-Type": "application/json",
         }
     }
-    let res = await fetch(`${apiUrl}/patients/list`, reqOpt)
+    let res = await fetch(`${apiUrl}/patients`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){
@@ -231,27 +241,6 @@ async function GetPatient(ID: string | undefined) {
 
 }
 
-// List Employee
-async function ListLoDs() {
-    const reqOpt = {
-        method: "GET",
-        headers:{
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-        }
-    };
-
-    let res = await fetch(`${apiUrl}/lods`, reqOpt)
-    .then((response) => response.json())
-    .then((res) => {
-        if(res.data){
-            return res.data
-        } else{
-            return false
-        }
-    })
-    return res
-}
 // List LoD
 async function ListLoD() {
     const reqOpt = {
@@ -283,7 +272,7 @@ async function GetLoD(ID: string | undefined) {
         }
     }
 
-    let res = await fetch(`${apiUrl}/lod/${ID}`, reqOpt)
+    let res = await fetch(`${apiUrl}/lod/get/${ID}`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){
@@ -312,5 +301,4 @@ export {
     GetPatient,
     ListLoD,
     GetLoD,
-    ListLoDs
 }

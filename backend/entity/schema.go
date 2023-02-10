@@ -269,18 +269,19 @@ type RequisitionRecord struct {
 
 type PrincipalDiagnosis struct {
 	gorm.Model
-	Note string
+	//Note string
+	Note string `valid:"required~Note not blank, maxstringlength(150)~Note must to be max 150 characters"`
 	Date time.Time
 
 	//save in FK
-	EmployeeID *uint
-	PatientID  *uint
-	LoDID      *uint
+	EmployeeID *uint `valid:"required~Please select Employee`
+	PatientID  *uint `valid:"required~Please select Patient"`
+	LoDID      *uint `valid:"required~Please select LoD"`
 
 	//JOIN
-	Employee Employee `gorm:"references:id"`
-	Patient  Patient  `gorm:"references:id"`
-	LoD      LoD      `gorm:"references:id"`
+	Employee Employee `valid:"-" gorm:"references:id"`
+	Patient  Patient  `valid:"-" gorm:"references:id"`
+	LoD      LoD      `valid:"-" gorm:"references:id"`
 }
 
 type LoD struct {

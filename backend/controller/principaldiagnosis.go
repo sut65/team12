@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/aamjazrk/team12/entity"
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 )
 
@@ -27,11 +28,17 @@ func CreatePrincipalDiagnosis(c *gin.Context) {
 		c.Abort()
 		return
 	}
+	///////////////////////////////////////////////////Validate/////////////////////////////
+	if _, err := govalidator.ValidateStruct(principaldiagnosis); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	//////////////////////////////////////////////////////////////////////////
 
 	// get employee from database
 	if tx := entity.DB().Where("id = ?", principaldiagnosis.EmployeeID).First(&employee); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "employee is not found",
+			"error": "Please select Employee",
 		})
 		return
 	}
@@ -122,6 +129,13 @@ func UpdatePrincipalDiagnosis(c *gin.Context) {
 		c.Abort()
 		return
 	}
+
+	///////////////////////////////////////////////////Validate/////////////////////////////
+	if _, err := govalidator.ValidateStruct(principaldiagnosis); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	//////////////////////////////////////////////////////////////////////////
 
 	// Check pd is haved ?
 	if tx := entity.DB().Where("id = ?", principaldiagnosis.ID).First(&oldprincipaldiagnosis); tx.RowsAffected == 0 {
