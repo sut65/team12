@@ -307,7 +307,7 @@ export default function PrincipalDiagnosisUpdate() {
           </Grid>
 
           <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
-            <Grid item xs={5}>
+            <Grid item xs={10}>
               <FormControl fullWidth variant="outlined">
                 <FormLabel>Note</FormLabel>
 
