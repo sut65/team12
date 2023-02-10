@@ -302,8 +302,7 @@ function RequisitionCreate(){
                 <TextField
                   id="Quantity"
                   variant="outlined"
-                  type="number"
-                  InputProps={{inputProps:{min: 1, max : 10000}}}
+                  type="string"
                   size="medium"
                   value={requisition.Quantity || ""}
                   onChange={handleInputChangenumber}
