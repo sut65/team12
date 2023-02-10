@@ -6,6 +6,7 @@ import { RoomInterface } from "./IRoom";
 export interface ErRecordInterface {
     ID: number;
     // Price: number;
+    Description?: string;
     EmployeeID?: number;
     PatientID?: number;
     ToEID?: number;

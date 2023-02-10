@@ -296,7 +296,8 @@ type LoD struct {
 type ErRecord struct {
 	gorm.Model
 	// Price float32
-	Date time.Time
+	Date        time.Time //`valid:"Date isn't plesent~Date isn't plesent"`
+	Description string    `valid:"required~Description not blank, maxstringlength(50)~Description must to be max 50 characters, matches([a-zA-Z0-9ก-๙]$)~Description must have only character and number"`
 
 	//save in FK
 	EmployeeID *uint
@@ -306,10 +307,10 @@ type ErRecord struct {
 	// PriceID    *uint
 
 	//JOIN
-	Employee Employee `gorm:"references:id"`
-	Patient  Patient  `gorm:"references:id"`
-	ToE      ToE      `gorm:"references:id"`
-	Room     Room     `gorm:"references:id"`
+	Employee Employee `valid:"-" gorm:"references:id"`
+	Patient  Patient  `valid:"-" gorm:"references:id"`
+	ToE      ToE      `valid:"-" gorm:"references:id"`
+	Room     Room     `valid:"-" gorm:"references:id"`
 	// Price    Room     `gorm:"references:id"`
 }
 

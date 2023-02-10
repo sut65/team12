@@ -30,7 +30,8 @@ import {
   import { LoDInterface } from "../../interfaces/principaldiagnosis/ILoD";
   import { ListPatient } from "../../services/patient/HttpClineServincePatient";
 //   import { ListEmployee, ListDepartments, ListRoles, CreateEmployee, GetDepartmentByRole } from "../../services/EmployeeSystem/employeeServices";
-import { ListPrincipalDiagnosis, ListEmployee,  ListLoD, CreatePrincipalDiagnosis } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosis";
+import { ListPrincipalDiagnosis, ListEmployee, CreatePrincipalDiagnosis } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosis";
+import { ListLoD } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosis";
   const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
     ref

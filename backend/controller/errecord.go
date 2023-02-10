@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/aamjazrk/team12/entity"
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 )
 
@@ -29,10 +30,17 @@ func CreateErRecord(c *gin.Context) {
 		return
 	}
 
+	///////////////////////////////////////////////////Validate/////////////////////////////
+	if _, err := govalidator.ValidateStruct(errecord); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	//////////////////////////////////////////////////////////////////////////
+
 	// get employee from database
 	if tx := entity.DB().Where("id = ?", errecord.EmployeeID).First(&employee); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "employee is not found",
+			"error": "Please select Employee",
 		})
 		return
 	}
@@ -63,9 +71,10 @@ func CreateErRecord(c *gin.Context) {
 
 	errec := entity.ErRecord{
 
-		Employee: employee,
-		Patient:  patient,
-		ToE:      toe,
+		Employee:    employee,
+		Patient:     patient,
+		ToE:         toe,
+		Description: errecord.Description,
 		// Price:     price,
 		Room: room,
 		Date: errecord.Date,
@@ -133,11 +142,26 @@ func UpdateErRecord(c *gin.Context) {
 		return
 	}
 
+	///////////////////////////////////////////////////Validate/////////////////////////////
+	if _, err := govalidator.ValidateStruct(errecord); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	//////////////////////////////////////////////////////////////////////////
+
 	// Check errec is haved ?
 	if tx := entity.DB().Where("id = ?", errecord.ID).First(&olderrecord); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("ErRecord id = %d not found", errecord.ID)})
 		c.Abort()
 		return
+	}
+
+	if errecord.Description == "" {
+		errecord.Description = olderrecord.Description
+	}
+
+	if errecord.Date.String() == "0001-01-01 00:00:00 +0000 UTC" {
+		errecord.Date = olderrecord.Date
 	}
 
 	// if new have employee id
