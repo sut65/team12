@@ -51,7 +51,7 @@
 </tbody></table>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3" data-tags="">Untitled Test Case</td></tr>
+<tr><td rowspan="1" colspan="3" data-tags="">Quantity must be positive number</td></tr>
 </thead>
 <tbody>
 <tr><td>open</td><td>http://localhost:3000/requisition/create<datalist><option>http://localhost:3000/requisition/create</option></datalist></td><td></td></tr>
