@@ -170,7 +170,7 @@ export default function EmployeeUpdate() {
     <Snackbar
         id="success"        
         open={success}
-        autoHideDuration={8000}
+        autoHideDuration={2000}
         onClose={handleClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
@@ -182,7 +182,7 @@ export default function EmployeeUpdate() {
       <Snackbar 
         id="error"
         open={error} 
-        autoHideDuration={8000} 
+        autoHideDuration={2000} 
         onClose={handleClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         >
@@ -246,11 +246,11 @@ export default function EmployeeUpdate() {
                             size="medium"
                             value={employee.FirstName || ""}
                             onChange={handleInputChange}
-                            onKeyPress={(e) => {
-                                if (/[0-9]/.test(e.key)){
-                                  e.preventDefault()
-                                }
-                              }}
+                            // onKeyPress={(e) => {
+                            //     if (/[0-9]/.test(e.key)){
+                            //       e.preventDefault()
+                            //     }
+                            //   }}
                         />
                         </FormControl>
                     </Grid>
@@ -265,11 +265,11 @@ export default function EmployeeUpdate() {
                             size="medium"
                             value={employee.LastName || ""}
                             onChange={handleInputChange}
-                            onKeyPress={(e) => {
-                                if (/[0-9]/.test(e.key)){
-                                  e.preventDefault()
-                                }
-                              }}
+                            // onKeyPress={(e) => {
+                            //     if (/[0-9]/.test(e.key)){
+                            //       e.preventDefault()
+                            //     }
+                            //   }}
                         />
                         </FormControl>
                     </Grid>
@@ -311,12 +311,12 @@ export default function EmployeeUpdate() {
                             size="medium"
                             value={employee.Civ || ""}
                             onChange={handleInputChange}
-                            onKeyPress={(e) => {
-                                if (!/[0-9]/.test(e.key)){
-                                  e.preventDefault()
-                                }
-                              }}
-                              InputProps={{inputProps:{minLength: 13, maxLength : 13}}}
+                            // onKeyPress={(e) => {
+                            //     if (!/[0-9]/.test(e.key)){
+                            //       e.preventDefault()
+                            //     }
+                            //   }}
+                            inputProps={{maxLength:13}}
                         />
                         </FormControl>
                         </Grid>
@@ -329,7 +329,7 @@ export default function EmployeeUpdate() {
                             size="medium"
                             value={employee.Password || ""}
                             onChange={handleInputChange}
-                            inputProps={{minLength:8}}
+                            // inputProps={{minLength:8}}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -372,12 +372,12 @@ export default function EmployeeUpdate() {
                         size="medium"
                         value={employee.Phone || ""}
                         onChange={handleInputChange}
-                        onKeyPress={(e) => {
-                            if (!/[0-9]/.test(e.key)){
-                              e.preventDefault()
-                            }
-                          }}
-                          InputProps={{inputProps:{minLength: 10, maxLength : 10}}}
+                        // onKeyPress={(e) => {
+                        //     if (!/[0-9]/.test(e.key)){
+                        //       e.preventDefault()
+                        //     }
+                        //   }}
+                        inputProps={{maxLength:10}}
                     />
                     </FormControl>
                 </Grid>

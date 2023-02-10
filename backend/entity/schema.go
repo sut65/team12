@@ -10,8 +10,8 @@ import (
 // ====================================================Employee part=============================================================
 type Employee struct {
 	gorm.Model
-	FirstName string `valid:"required~FirstName cannot be blank,alpha~FirstName must have only character"`
-	LastName  string `valid:"required~LastName cannot be blank,alpha~LastName must have only character"`
+	FirstName string `valid:"required~FirstName cannot be blank,thai_eng_char_vowel~FirstName must have only character"`
+	LastName  string `valid:"required~LastName cannot be blank,thai_eng_char_vowel~LastName must have only character"`
 	Civ       string `gorm:"uniqueIndex" valid:"matches(^([0-9]{13})$)~Identification Number must have only number and lenght is 13,required~Identification Number cannot be blank"`
 	Phone     string `gorm:"uniqueIndex" valid:"matches(^(0)([0-9]{9})$)~Phone must have only number And Start with 0 and lenght is 10,,required~Phone cannot be blank"`
 	Email     string `gorm:"uniqueIndex" valid:"email~Email is not valid,required~Email cannot be blank"`
@@ -69,7 +69,7 @@ type Department struct {
 // ============================================LabXray=========================================================
 type LabXray struct {
 	gorm.Model
-	Description string `valid:"required~Description cannot be blank,maxstringlength(300)~Description length is too long,matches([a-zA-Z0-9ก-๙]$)~Description must have only character and number"`
+	Description string `valid:"required~Description cannot be blank,maxstringlength(300)~Description length is too long,thai_eng_char_vowel_number~Description must have only character and number"`
 	//Description string `valid:"required~Description cannot be blank"`
 	Date time.Time
 	Pic  string `valid:"required~Picture cannot be blank"`
@@ -547,5 +547,33 @@ func init() {
 		t := i.(time.Time)
 		return t.Before(time.Now())
 	})
+	govalidator.CustomTypeTagMap.Set("thai_eng_char_vowel", func(i interface{}, context interface{}) bool {
+		s, ok := i.(string)
+		if !ok {
+			return false
+		}
+
+		for _, c := range s {
+			if !(('ก' <= c && c <= 'ฮ') || ('ะ' <= c && c <= '็') || ('่' <= c && c <= '๋') || ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z')) {
+				return false
+			}
+		}
+		return true
+	})
+
+	govalidator.CustomTypeTagMap.Set("thai_eng_char_vowel_number", func(i interface{}, context interface{}) bool {
+		s, ok := i.(string)
+		if !ok {
+			return false
+		}
+
+		for _, c := range s {
+			if !(('ก' <= c && c <= 'ฮ') || ('ะ' <= c && c <= '็') || ('่' <= c && c <= '๋') || ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') || ('0' <= c && c <= '1') || ('๐' <= c && c <= '๙') ) {
+				return false
+			}
+		}
+		return true
+	})
+
 
 }

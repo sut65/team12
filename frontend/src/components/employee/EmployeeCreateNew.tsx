@@ -178,7 +178,7 @@ import {
         <Snackbar
         id="success"        
         open={success}
-        autoHideDuration={2000}
+        autoHideDuration={8000}
         onClose={handleClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
@@ -190,7 +190,7 @@ import {
       <Snackbar 
         id="error"
         open={error} 
-        autoHideDuration={2000} 
+        autoHideDuration={8000} 
         onClose={handleClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         >
@@ -233,11 +233,11 @@ import {
                     size="medium"
                     value={employee.FirstName || ""}
                     onChange={handleInputChange}
-                    onKeyPress={(e) => {
-                      if (/[0-9]/.test(e.key)){
-                        e.preventDefault()
-                      }
-                    }}
+                    // onKeyPress={(e) => {
+                    //   if (/[0-9]/.test(e.key)){
+                    //     e.preventDefault()
+                    //   }
+                    // }}
                   />
                 </FormControl>
               </Grid>
@@ -252,11 +252,11 @@ import {
                     size="medium"
                     value={employee.LastName || ""}
                     onChange={handleInputChange}
-                    onKeyPress={(e) => {
-                      if (/[0-9]/.test(e.key)){
-                        e.preventDefault()
-                      }
-                    }}
+                    // onKeyPress={(e) => {
+                    //   if (/[0-9]/.test(e.key)){
+                    //     e.preventDefault()
+                    //   }
+                    // }}
                   />
                 </FormControl>
               </Grid>
@@ -329,7 +329,7 @@ import {
                       size="medium"
                       value={employee.Password || ""}
                       onChange={handleInputChange}
-                      inputProps={{minLength:8}}
+                      // inputProps={{minLength:8}}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
