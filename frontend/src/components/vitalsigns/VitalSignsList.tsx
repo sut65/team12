@@ -231,12 +231,11 @@ return (
               </DialogActions>
 
           </Dialog>
-  </Container>
+    </Container>
   
   </div>
   </ThemeProvider>
-
-
-);
+  
+  );
 }
     
