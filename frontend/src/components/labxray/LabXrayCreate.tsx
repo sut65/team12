@@ -266,17 +266,18 @@ import {
               <FormControl fullWidth variant="outlined">
                 <p>Lab type</p>
                 <Select
+                    native
                     value={labxray.LabTypeID}
                     onChange={handleChange}
                     inputProps={{
                         name: "LabTypeID",
                     }}
                     >
-                    <MenuItem value={0} key={0}>
+                    <option value={0} key={0}>
                     กรุณา เลือกชนิดของแลป
-                    </MenuItem>
+                    </option>
                     {labtype.map((item: LabTypeInterface) => (
-                        <MenuItem value={item.ID}>{item.Name}</MenuItem>
+                        <option value={item.ID}>{item.Name}</option>
                     ))}
                 </Select>
                 </FormControl>
@@ -286,17 +287,18 @@ import {
                         <p>Patient</p>
 
                             <Select
+                                native
                                 value={labxray.PatientID}
                                 onChange={handleChange}
                                 inputProps={{
                                 name: "PatientID",
                                 }}
                             >
-                                <MenuItem value={0} key={0}>
+                                <option value={0} key={0}>
                                 กรุณา เลือกรายชื่อผู้ป่วย
-                                </MenuItem>
+                                </option>
                                 {patient.map((item: PatientInterface) => (
-                                <MenuItem value={item.ID}>{item.FirstName + " " +item.LastName}</MenuItem>
+                                <option value={item.ID}>{item.FirstName + " " +item.LastName}</option>
                                 ))}
                             </Select>
                     </FormControl>

@@ -57,17 +57,11 @@ func CreateEmployee(c *gin.Context) {
 		c.Abort()
 		return
 	}
-	if _,err := govalidator.ValidateStruct(employee);err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
 
 	// get role from database
 	if tx := entity.DB().Where("id = ?", employee.RoleID).First(&role); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "role is not found",
+			"error": "Role is not found",
 		})
 		return
 	}
@@ -75,7 +69,7 @@ func CreateEmployee(c *gin.Context) {
 	// get gender from database
 	if tx := entity.DB().Where("id = ?", employee.GenderID).First(&gender); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "gender is not found",
+			"error": "Gender is not found",
 		})
 		return
 	}
@@ -83,7 +77,7 @@ func CreateEmployee(c *gin.Context) {
 	// get department from database
 	if tx := entity.DB().Where("id = ?", employee.DepartmentID).First(&department); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Status is not found",
+			"error": "Department is not found",
 		})
 		return
 	}
@@ -109,6 +103,13 @@ func CreateEmployee(c *gin.Context) {
 		Gender:     gender,
 	}
 
+	if _,err := govalidator.ValidateStruct(employee);err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+	
 	if err := entity.DB().Create(&emp).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),

@@ -244,7 +244,7 @@ function Manage_Show() {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    {`คุณต้องการลบข้อมูลของพนักงาน ${employee.filter((emp) => (emp.ID === deleteID)).at(0)?.FirstName} จริงหรือไม่`}
+                    {`คุณต้องการลบข้อมูลของพนักงาน ${employee.filter((emp) => (emp.ID === deleteID)).at(0)?.FirstName +" "+employee.filter((emp) => (emp.ID === deleteID)).at(0)?.LastName} จริงหรือไม่`}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
