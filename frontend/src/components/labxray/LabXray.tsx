@@ -1,5 +1,5 @@
 import {Container,Box,Snackbar,TextField,Paper,Card,CardActionArea,CardContent,CardMedia,Fab} from "@mui/material";
-import {Button,Dialog,DialogTitle,DialogContent,DialogContentText, DialogActions,Grid,Alert,createTheme, ThemeProvider,Autocomplete,FormControl,Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography  } from "@mui/material";
+import {Button,Dialog,Divider,DialogTitle,DialogContent,DialogContentText, DialogActions,Grid,Alert,createTheme, ThemeProvider,Autocomplete,FormControl,Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography  } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { LabXrayInterface } from "../../interfaces/LabXray/ILabXray";
 import { Link as RouterLink } from "react-router-dom";
@@ -86,14 +86,30 @@ export default function LabXrayShow() {
  return (
     <ThemeProvider theme={theme}>
       <div>
-      <Container maxWidth="xl">
+      <Container 
+      // maxWidth="xl"
+      sx = {{
+        height: "100%", width: "120%"
+      }}
+       >
+      {/* <Paper
+          sx = {{
+            maxWidth:"xl",
+          }}
+          > */}
       <Box
             display="flex"
             sx={{
-              marginTop: 2,
+              marginTop: 5,
             }}
           >
-            <Box flexGrow={1}>
+            <Box flexGrow={1}
+            sx={{
+              marginTop: 3,
+              marginLeft:3,
+              marginBottom:3,
+            }}
+            >
               <Typography
                 component="h2"
                 variant="h6"
@@ -104,7 +120,14 @@ export default function LabXrayShow() {
               </Typography>
             </Box>
     
-            {/* <Box>
+            <Box
+              sx={{
+          marginTop: 3,
+          //marginLeft:3,
+          marginRight:3,
+          marginBottom:3,
+        }}
+            >
               <Button 
                 component={RouterLink}
                 to="/labxray/create"
@@ -120,25 +143,26 @@ export default function LabXrayShow() {
     
                 </Typography>
               </Button>
-            </Box> */}
+            </Box>
           </Box>
+          {/* <Divider/> */}
             <div>
               <Container maxWidth="xl">
-                <div style={{ height: 500, width: "150%", marginTop: "50px" }}>
+                <div style={{ height: "100%", width: "110%", marginTop: "10px" }}>
                   <TableContainer >
                     <Table aria-label="simple table">
                       <TableHead>
                         {/* หัวข้อตาราง */}
                         <TableRow>
                           <TableCell align="center" width="1%"> ID </TableCell>
-                          <TableCell align="center" width="10%"> Doctor </TableCell>
-                          <TableCell align="center" width="10%"> Patient </TableCell>
+                          <TableCell align="center" width="3%"> Doctor </TableCell>
+                          <TableCell align="center" width="3%"> Patient </TableCell>
                           <TableCell align="center" width="5%"> LabType </TableCell>
-                          <TableCell align="center" width="15%"> Description </TableCell>
-                          <TableCell align="center" width="10%"> Date </TableCell>
-                          <TableCell align="center" width="20%"> Picture </TableCell>
-                          <TableCell align="center" width="5%"> Update </TableCell>
-                          <TableCell align="center" width="5%"> Delete </TableCell>
+                          <TableCell align="center" width="10%"> Description </TableCell>
+                          <TableCell align="center" width="12%"> Date </TableCell>
+                          <TableCell align="center" width="10%"> Picture </TableCell>
+                          <TableCell align="center" width="2%"> Update </TableCell>
+                          <TableCell align="center" width="2%"> Delete </TableCell>
     
                         </TableRow>
                       </TableHead>
@@ -184,27 +208,6 @@ export default function LabXrayShow() {
                     
                     </Table>
                     </TableContainer>
-                    <Grid container spacing={3} sx={{ padding: 2 }} >
-          <Grid item xs={10}>
-            <Box>
-              <Button 
-                component={RouterLink}
-                to="/labxray/create"
-                variant="contained"
-                color="primary"
-              >
-                <Typography
-                  color="text"
-                  component="div"
-                  sx={{ flexGrow: 1 }}
-                >
-                  Create Lab X-Ray
-    
-                </Typography>
-              </Button>
-            </Box>
-          </Grid>
-          </Grid>
             <Dialog
                 open={openDelete}
                 onClose={handleDialogDeleteclose}
@@ -229,11 +232,11 @@ export default function LabXrayShow() {
             </Dialog>
             </div>
           </Container>
+          
         </div>
+        {/* </Paper> */}
     </Container>
     </div>
     </ThemeProvider>
-
-
 );
 }
