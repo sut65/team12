@@ -31,7 +31,7 @@ import {
   import { RoomInterface } from "../../interfaces/errecord/IRoom";
 //   import { ListEmployee, ListDepartments, ListRoles, CreateEmployee, GetDepartmentByRole } from "../../services/EmployeeSystem/employeeServices";
   import { ListPatient } from "../../services/patient/HttpClineServincePatient";
-import { ListEmployee,  ListToEs, ListRooms, CreateErRecord, GetRoomByToE } from "../../services/ErRecord/HttpErRecord";
+import { ListEmployee,  ListToE, ListRoom, CreateErRecord, GetRoomByToE } from "../../services/ErRecord/HttpErRecord";
   const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
     ref
@@ -46,8 +46,9 @@ import { ListEmployee,  ListToEs, ListRooms, CreateErRecord, GetRoomByToE } from
       {
         EmployeeID: 0,
         PatientID: 0,
-        //ToEID: 0,
+        ToEID: 0,
         RoomID: 0,
+        Description: "",
         // Note: "",
       }
     );
@@ -59,6 +60,7 @@ import { ListEmployee,  ListToEs, ListRooms, CreateErRecord, GetRoomByToE } from
     const [note, setNote] = React.useState<string>("");
     const [success, setSuccess] = React.useState(false);
     const [error, setError] = React.useState(false);
+    const [message, setAlertMessage] = React.useState("");
     // service
     // get Employee
     const getEmployee = async () => {
@@ -80,7 +82,7 @@ import { ListEmployee,  ListToEs, ListRooms, CreateErRecord, GetRoomByToE } from
     // get ToE
     const getToE = async () => {
       //let id =0;
-      let res = await ListToEs();
+      let res = await ListToE();
       console.log(res);
       if (res) {
         setToE(res);
@@ -90,7 +92,7 @@ import { ListEmployee,  ListToEs, ListRooms, CreateErRecord, GetRoomByToE } from
     // get Room
     const getRoom = async () => {
         //let id =0;
-        let res = await ListRooms();
+        let res = await ListRoom();
         console.log(res);
         if (res) {
           setRoom(res);
@@ -114,24 +116,29 @@ import { ListEmployee,  ListToEs, ListRooms, CreateErRecord, GetRoomByToE } from
       console.log(errecord)
 
       let res = await CreateErRecord(errecord)
-      // console.log(res)
-      if (res) {
+
+      if (res.status) {
+        setAlertMessage("บันทึกข้อมูลสำเร็จ");
         setSuccess(true);
       } else {
         setError(true);
+        setAlertMessage(res.message);
       }
-      if(res.data){
+      if(res.status){
           setTimeout(() => {
               navigator("/errecord")
           }, 3000)
       }
+
+      
     }
+
 
     React.useEffect(() => {
       getEmployee();
       getPatient();
       getToE();
-      //getRoom();
+      // getRoom();
       getRoomByToE();
     }, []);
 
@@ -186,6 +193,7 @@ import { ListEmployee,  ListToEs, ListRooms, CreateErRecord, GetRoomByToE } from
       <ThemeProvider theme={theme}>
         <Container maxWidth="lg" >
           <Snackbar
+            id="success"
             open={success}
             autoHideDuration={6000}
             onClose={handleClose}
@@ -196,9 +204,13 @@ import { ListEmployee,  ListToEs, ListRooms, CreateErRecord, GetRoomByToE } from
             </Alert>
           </Snackbar>
     
-          <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
+          <Snackbar 
+            id="error"
+            open={error} 
+            autoHideDuration={8000} 
+            onClose={handleClose}>
             <Alert onClose={handleClose} severity="error">
-              บันทึกข้อมูลไม่สำเร็จ
+            {message}
             </Alert>
           </Snackbar>
     
@@ -227,7 +239,7 @@ import { ListEmployee,  ListToEs, ListRooms, CreateErRecord, GetRoomByToE } from
 
             <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
               <Grid item xs={5}>
-              <FormLabel>Nurse</FormLabel>
+              <FormLabel>พนักงาน</FormLabel>
                 <FormControl fullWidth variant="outlined">
                   <Select
                     value={errecord.EmployeeID}
@@ -237,7 +249,7 @@ import { ListEmployee,  ListToEs, ListRooms, CreateErRecord, GetRoomByToE } from
                     }}
                   >
                     <MenuItem value={0} key={0}>
-                      เลือกพยาบาล
+                      เลือกพนักงาน
                     </MenuItem>
                     {employee.map((item: EmployeeInterface) => (
                       <MenuItem value={item.ID}>{item.FirstName}</MenuItem>
@@ -281,9 +293,7 @@ import { ListEmployee,  ListToEs, ListRooms, CreateErRecord, GetRoomByToE } from
                       ประเภทของห้องพิเศษ
                     </MenuItem>
                     {toe.map((item: ToEInterface) => (
-                      <MenuItem value={item.ID}>
-                        {item.Roomtype}
-                        </MenuItem>
+                      <MenuItem value={item.ID}>{item.Roomtype}</MenuItem>
                     ))}
                   </Select>
                 </FormControl>
@@ -336,26 +346,23 @@ import { ListEmployee,  ListToEs, ListRooms, CreateErRecord, GetRoomByToE } from
             </Grid>
 
 
-            <Grid container spacing={45} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
+            <Grid container spacing={42} sx={{ padding: 5 }} style={{ marginLeft: "6.5%"}}>
               <Grid item xs={5}>
-                         <FormControl fullWidth variant="outlined">
-                             <p>Date</p>
-                             {/* input from roomid andthen search booking where roomid and get start\stop day in recorded   */}
-                             <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                 <DatePicker
-                                     value={errecord.Date}
-                                     onChange={(newValue) => {
-                                         setErRecord({
-                                             ...errecord,
-                                             Date: newValue,
-                                         });
-                                     }}
-                                     renderInput={(params) => <TextField {...params} />}
-                                 />
-                             </LocalizationProvider>
-                         </FormControl>
+                <FormControl fullWidth variant="outlined">
+                  <FormLabel>หมายเหตุ*</FormLabel>
+
+                  <TextField
+                    id="Description"
+                    variant="outlined"
+                    type="string"
+                    size="medium"
+                    value={errecord.Description || ""}
+                    onChange={handleInputChange}
+                  />
+                </FormControl>
               </Grid>
             </Grid>
+
             <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
               <Grid item xs={4}>
                   <Button component={RouterLink} to="/errecord" variant="contained">

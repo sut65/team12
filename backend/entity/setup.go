@@ -1321,7 +1321,8 @@ func SetupDatabase() {
 		ToE:      toe1,
 		Room:     room1,
 		// Price:    room1.Price,
-		Date: time.Now(),
+		Description: "ห้องที่จองราคา 600 บาท",
+		Date:        time.Date(2023, 1, 11, 0, 0, 0, 0, time.UTC),
 	}
 	db.Model(&ErRecord{}).Create(&errec1)
 
@@ -1331,7 +1332,8 @@ func SetupDatabase() {
 		ToE:      toe2,
 		Room:     room6,
 		// Price:    room6.Price,
-		Date: time.Now(),
+		Description: "ห้องที่จองราคา 4,300 บาท",
+		Date:        time.Date(2023, 1, 16, 0, 0, 0, 0, time.UTC),
 	}
 	db.Model(&ErRecord{}).Create(&errec2)
 
