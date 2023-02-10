@@ -112,26 +112,7 @@ export default function RequisitionList() {
                 <h3>Requisition Equipment and Supplies</h3>
               </Typography>
             </Box>
-    
-            <Box>
-              <Button 
-                component={RouterLink}
-                to="/requisition/create"
-                variant="contained"
-                color="primary"
-                sx={{
-                  marginTop: 3,
-                }}
-              >
-                <Typography
-                  color="secondary"
-                  component="div"
-                  sx={{ flexGrow: 1 }}
-                >
-                  Create Requisition
-                </Typography>
-              </Button>
-            </Box>
+
           </Box>
             <div>
               <Container maxWidth="xl">
@@ -188,10 +169,32 @@ export default function RequisitionList() {
                       </TableRow>
                     ))}
                   </TableBody>
-                    
-                    </Table>
-                    </TableContainer>
-                    </div>
+                </Table>
+              </TableContainer>
+            <Grid container spacing={3} sx={{ padding: 2 }} >
+              <Grid item xs={10}>
+              <Box>
+                <Button 
+                  component={RouterLink}
+                  to="/requisition/create"
+                  variant="contained"
+                  color="primary"
+                  sx={{
+                    marginTop: 3,
+                  }}
+                >
+                  <Typography
+                    color="secondary"
+                    component="div"
+                    sx={{ flexGrow: 1 }}
+                  >
+                    Create Requisition
+                  </Typography>
+                </Button>
+              </Box>
+              </Grid>
+            </Grid>
+            </div>
             </Container>
             </div>
             <Dialog
@@ -229,7 +232,5 @@ export default function RequisitionList() {
     </Container>
     </div>
     </ThemeProvider>
-
-
-);
+  );
 }

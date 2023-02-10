@@ -198,7 +198,7 @@ function RequisitionCreate(){
       </Snackbar>
   
         <Paper>
-          <Box
+        <Box
             display="flex"
             sx={{
               marginTop: 2,
@@ -214,8 +214,41 @@ function RequisitionCreate(){
                 Requisition Equipment and Supplies
               </Typography>
             </Box>
-          </Box>
-  
+        </Box>
+
+        <Grid container margin={1} columnGap={2}>
+          <Grid>
+            <img src="https://th.bing.com/th/id/R.0caddcb9262a4baf0a79b81de967eecf?rik=8ntqrRxNo%2b%2f%2b%2fQ&riu=http%3a%2f%2fi.ebayimg.com%2fimages%2fi%2f300975021241-0-1%2fs-l1000.jpg&ehk=rBYAUSchJ%2fPzlHRlliUXCL0AzQRDMRmFEGQDlUymwi4%3d&risl=&pid=ImgRaw&r=0" alt="" width="200" height="200" />
+          </Grid>
+          <Grid>
+            <img src="https://vcareshop.com/wp-content/uploads/2021/09/238_P_1475293552883-600x629-768x768.png" alt="" width="200" height="200" />
+          </Grid>
+          <Grid>
+            <img src="https://www.สอบเทียบเครื่องมือแพทย์.com/images/content/original-1662713704563.png" alt="" width="200" height="200" />
+          </Grid>
+          <Grid>
+            <img src="https://storage.googleapis.com/prod-hps-bucket/2020/11/product/400130001_1_1604638408.jpg" alt="" width="200" height="200" />
+          </Grid>
+          <Grid>
+            <img src="https://cf.shopee.co.th/file/b3cb6dd425d7afb142409d4d8beb1721" alt="" width="200" height="200" />
+          </Grid>
+          <Grid>
+            <img src="https://media.allonline.7eleven.co.th/pdzoom/205870_Exta_0362_00.jpg" alt="" width="200" height="200" />
+          </Grid>
+          <Grid>
+            <img src="https://media.shopat24.com/pdmain/200642_01_thai_sports_exeo_weight_scale_digital_display_model_eb9377_grey.jpg" alt="" width="200" height="200" />
+          </Grid>
+          <Grid>
+            <img src="https://www.สอบเทียบเครื่องมือแพทย์.com/images/content/original-1662713581563.png" alt="" width="200" height="200" />
+          </Grid>
+          <Grid>
+            <img src="https://www.สอบเทียบเครื่องมือแพทย์.com/images/content/original-1662713511315.png" alt="" width="200" height="200" />
+          </Grid>
+          <Grid>
+            <img src="https://th.bing.com/th/id/R.5523cfb2aabc341f83d797ebdcdaf9d8?rik=0J0Y8tApQu7X6w&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2fe%2fe2%2fDoctors_stethoscope_1.jpg&ehk=szgpSDd2P1lcdk5pcSnHs1Sh5ndRQXcDOa4NfnNsYDk%3d&risl=&pid=ImgRaw&r=0" alt="" width="200" height="200" />
+          </Grid>
+        </Grid>
+
           <Divider />
 
           <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
@@ -298,9 +331,12 @@ function RequisitionCreate(){
             </Grid>
           </Grid>
 
+           
+
           
         </Paper>
       </Container>
   );
 }
 export default RequisitionCreate;
+
