@@ -379,7 +379,7 @@ type ORrecord struct {
 
 	SurgeryStart    time.Time
 	SurgeryEnd      time.Time
-	OperatingResult string `valid:"required~OperatingResult cannot be blank,alpha~OperatingResult cannot be Special Character(only simple character & number)"`
+	OperatingResult string `valid:"required~OperatingResult cannot be blank,matches([a-zA-Z0-9ก-๙]$)~OperatingResult must have only character and number"`
 	Note            string
 	//JOIN
 	User          Employee      `gorm:"references:id" valid:"-"`
