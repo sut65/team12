@@ -57,7 +57,12 @@ func CreateEmployee(c *gin.Context) {
 		c.Abort()
 		return
 	}
-
+	if _,err := govalidator.ValidateStruct(employee);err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
 	// get role from database
 	if tx := entity.DB().Where("id = ?", employee.RoleID).First(&role); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -103,12 +108,7 @@ func CreateEmployee(c *gin.Context) {
 		Gender:     gender,
 	}
 
-	if _,err := govalidator.ValidateStruct(employee);err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
+	
 	
 	if err := entity.DB().Create(&emp).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{

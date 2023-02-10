@@ -101,11 +101,11 @@ import {
         setError(true);
       }
       // console.log(res)
-      if(res.status){
-          setTimeout(() => {
-              navigator("/employee")
-          }, 3000)
-      }
+      // if(res.status){
+      //     setTimeout(() => {
+      //         navigator("/employee")
+      //     }, 5000)
+      // }
     }
 
     React.useEffect(() => {
