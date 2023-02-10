@@ -196,7 +196,7 @@ export default function PrincipalDiagnosisUpdate() {
                           component="h2"
                           variant="h6"
                           gutterBottom
-                          color="black"
+                          color="#3ba299"
                       >
                           แก้ไขข้อมูลการวินิจฉัย
                       </Typography>
