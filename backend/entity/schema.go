@@ -115,7 +115,7 @@ type Patient struct {
 	Civ         string `gorm:"uniqueIndex" valid:"matches(^([0-9]{13})$)~Identification Number must have only number and lenght is 13,required~Identification Number cannot be blank"`
 	FirstName   string `valid:"required~FirstName cannot be blank,thai_eng_char_vowel~FirstName must have only character"`
 	LastName    string `valid:"required~LastName cannot be blank,thai_eng_char_vowel~LastName must have only character"`
-	Age         int
+	Age         int    `valid:"range(0|122)~Age not in range 0-122"`
 	Weight      float32
 	Underlying  string
 	Brithdate   time.Time
