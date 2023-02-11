@@ -55,6 +55,12 @@ func CreateMST(c *gin.Context) {
 		c.Abort()
 		return
 	}
+	if _, err := govalidator.ValidateStruct(mst); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
 
 	// get patient from database
 	if tx := entity.DB().Where("id = ?", mst.PatientID).First(&patient); tx.RowsAffected == 0 {
@@ -96,6 +102,7 @@ func CreateMST(c *gin.Context) {
 		Nurse:      	nurse,
 		Doctor:     	doctor,
 		Hospital:   	hospital,
+		Description: 	mst.Description,
 	}
 
 	if err := entity.DB().Create(&hp).Error; err != nil {
@@ -137,6 +144,9 @@ func UpdateMST(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("MST id = %d not found", mst.ID)})
 		c.Abort()
 		return
+	}
+	if mst.Description == "" {
+		mst.Description = oldmst.Description
 	}
 
 	if mst.RegDateTime.String() == "0001-01-01 00:00:00 +0000 UTC" {
@@ -210,6 +220,12 @@ func UpdateMST(c *gin.Context) {
 		}
 		mst.Hospital = hospital
 	}
+	if _, err := govalidator.ValidateStruct(mst); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
 
 	// Update mst in database
 	if err := entity.DB().Save(&mst).Error; err != nil {
@@ -235,5 +251,35 @@ func DeleteMST(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": id})
 
+}
+
+//ListDoc
+func ListDoc(c *gin.Context) {
+	var employees []entity.Employee
+	if err := entity.DB().Preload("Gender").Preload("Role").Preload("Department").Raw("SELECT * FROM employees WHERE role_id = 1").Find(&employees).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		c.Abort()
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"data": employees,
+	})
+}
+
+//ListNurse
+func ListNurse(c *gin.Context) {
+	var employees []entity.Employee
+	if err := entity.DB().Preload("Gender").Preload("Role").Preload("Department").Raw("SELECT * FROM employees WHERE role_id = 2").Find(&employees).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		c.Abort()
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"data": employees,
+	})
 }
 

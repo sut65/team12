@@ -307,9 +307,59 @@ async function GetEmployee(ID: string | undefined) {
     return res
 
 }
+// List Doc
+async function ListDocs() {
+    const reqOpt = {
+        method: "GET",
+        headers:{
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        }
+    };
+
+    let res = await fetch(`${apiUrl}/msts/listdoc`, reqOpt)
+    .then((response) => response.json())
+    .then((res) => {
+        if(res.data){
+            return res.data
+        } else{
+            return false
+        }
+    })
+    return res
+}
+
+
+
+// List PD
+async function ListPD(ID: number | undefined) {
+    const reqOpt = {
+        method: "GET",
+        headers:{
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        }
+    };
+    let res = await fetch(`${apiUrl}/sfts/listPD/${ID}`, reqOpt)
+    .then((response) => response.json())
+    .then((res) => {
+        if(res.data){
+            return res.data
+        } else{
+            return false
+        }
+    })
+    return res
+}
+
+
 
 
 export {
+
+    
+    ListDocs,
+    
     ListSFTs, 
     ListEmployees, 
     DeleteSFT, 
@@ -322,6 +372,6 @@ export {
     GetPrincipalDiagnosis,
     ListFoodTypes, 
     GetPatient,
-    ListPrincipalDiagnosiss,
+    ListPD,
     //GetDepartmentByRole
 }

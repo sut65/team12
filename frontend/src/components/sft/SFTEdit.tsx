@@ -13,7 +13,7 @@ import {
 import Container from '@mui/material/Container'
 import Dialog from '@mui/material/Dialog'
 import Grid from '@mui/material/Grid'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -27,7 +27,7 @@ import { PatientInterface } from "../../interfaces/patient/IPatient";
 import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { GetSFT,UpdateSFT,ListSFTs, ListFoodTypes, ListPatients, CreateSFT, ListEmployees, GetEmployee, GetPatient, GetFoodType ,GetPrincipalDiagnosis,ListPrincipalDiagnosiss} from "../../services/SFT/sftServices";
+import { GetSFT, UpdateSFT,ListDocs, ListSFTs, ListFoodTypes, ListPatients, CreateSFT, ListEmployees, GetEmployee, GetPatient, GetFoodType, GetPrincipalDiagnosis, ListPD } from "../../services/SFT/sftServices";
 export default function SFTUpdate() {
 
     let { id } = useParams();
@@ -36,6 +36,8 @@ export default function SFTUpdate() {
     // List all Database
     // Get sft by id
     const [sft, setSFT] = React.useState<Partial<SFTInterface>>({})
+    const [success, setSuccess] = React.useState(false);
+    const [error, setError] = React.useState(false);
     const getSFTID = async (id: string | undefined) => {
         let res = await GetSFT(id)
         if (res) {
@@ -54,15 +56,7 @@ export default function SFTUpdate() {
 
     // List PrincipalDiagnosiss
     const [principaldiagnosis, setPrincipalDiagnosis] = React.useState<EmployeeInterface[]>([]);
-    // get PrincipalDiagnosiss
-    const getPrincipalDiagnosis = async () => {
-        //let id =0;
-        let res = await ListPrincipalDiagnosiss();
-        console.log(res);
-        if (res) {
-            setPrincipalDiagnosis(res);
-        }
-    }
+    
     // List FoodType
     const [foodtype, setFoodType] = React.useState<EmployeeInterface[]>([]);
     // get PrincipalDiagnosiss
@@ -79,14 +73,23 @@ export default function SFTUpdate() {
     // get Doctor
     const getDoctor = async () => {
         //let id =0;
-        let res = await ListEmployees();
+        let res = await ListDocs();
         console.log(res);
         if (res) {
             setDoctor(res);
         }
     }
-    
+    // get PrincipalDiagnosis
+  const getPrincipalDiagnosis = async () => {
+    let id = sft.PatientID;
+    let res = await ListPD(id);
+    console.log(res);
+    if (res) {
+      setPrincipalDiagnosis(res);
+    }
+  }
 
+    
 
     React.useEffect(() => {
         getSFTID(id);
@@ -95,30 +98,59 @@ export default function SFTUpdate() {
         getFoodType();
         getDoctor();
     }, []);
-    /*React.useEffect(() => {
-      setDepartment([]);
-      getDepartmentByRole();
-    }, [employee.RoleID]);*/
+    
+    useEffect(() => {
+        setPrincipalDiagnosis([]);
+        getPrincipalDiagnosis();
+    }, [sft.PatientID]);
 
-    // submit
-    const [success, setSuccess] = React.useState(false);
-    const [error, setError] = React.useState(false);
+    //sft Create
+    const convertType = (data: string | number | undefined) => {
+        let val = typeof data === "string" ? parseInt(data) : data;
+        return val
+    }
+    const [message, setAlertMessage] = React.useState("");
 
+    //submit
     const submit = async () => {
         console.log(sft)
+        let data = {
+            ID: convertType(sft.ID),
+            Description: sft.Description,
+            Date: new Date().toJSON().split("Z").at(0) + "+07:00",
+            PrincipalDiagnosisID: convertType(sft.PrincipalDiagnosisID),
+            DoctorID: convertType(sft.DoctorID),
+            FoodTypeID: convertType(sft.FoodTypeID),
+            PatientID: convertType(sft.PatientID),
+        }
+        const reqOpt = {
+            method: "PATCH",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        }
+        const apiUrl = "http://localhost:8080"
 
-        let res = await UpdateSFT(sft)
-        if (res) {
-            setSuccess(true);
-        } else {
-            setError(true);
-        }
-        // console.log(res)
-        if (res.data) {
-            setTimeout(() => {
-                navigator("/sft")
-            }, 3000)
-        }
+        let res = await fetch(`${apiUrl}/labxray/update`, reqOpt)
+            .then((response) => response.json())
+            .then((res) => {
+                console.log(res)
+                if (res.data) {
+                    setSuccess(true);
+                } else {
+                    setError(true);
+                    setAlertMessage(res.error);
+                }
+                // console.log(res)
+                if (res.data) {
+                    setTimeout(() => {
+                        navigator("/labxray")
+                    }, 2000)
+                }
+
+            });
     }
 
     // handle
@@ -145,16 +177,16 @@ export default function SFTUpdate() {
     let theme = createTheme({ // button theme
         palette: {
             primary: {
-              main: "#009688",
+                main: "#009688",
             },
             secondary: {
-              main: "#009688"
+                main: "#009688"
             },
             text: {
-              primary: "#008573",
-              secondary: "#000000"
+                primary: "#008573",
+                secondary: "#000000"
             }
-          },
+        },
     });
 
     const handleClose = (
@@ -195,7 +227,7 @@ export default function SFTUpdate() {
 
             <Snackbar open={error} autoHideDuration={3000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="error">
-                    แก้ไขข้อมูลไม่สำเร็จ
+                    {message}
                 </Alert>
             </Snackbar>
 
@@ -253,7 +285,7 @@ export default function SFTUpdate() {
                                 }}
                             >
                                 <option aria-label="None" value="">
-                                    เลือกเพศ
+                                รหัสบัตรประชาชนผู้ป่วย   
                                 </option>
                                 {
                                     patient.map((item: PatientInterface) =>
@@ -278,12 +310,12 @@ export default function SFTUpdate() {
                                 }}
                             >
                                 <option aria-label="None" value="">
-                                    เลือกโรงพยาบาล
+                                    ผลคำวินิจฉัย
                                 </option>
                                 {
                                     principaldiagnosis.map((item: PrincipalDiagnosisInterface) =>
                                     (<option value={item.ID} key={item.ID}>
-                                        {item.ID}
+                                        {item.Note}
                                     </option>)
                                     )
                                 }
@@ -303,12 +335,12 @@ export default function SFTUpdate() {
                                 }}
                             >
                                 <option aria-label="None" value="">
-                                    พยาบาลผู้ลงทะเบียน
+                                    ประเภทอาหาร
                                 </option>
                                 {
                                     foodtype.map((item: FoodTypeInterface) =>
                                     (<option value={item.ID} key={item.ID}>
-                                        {item.ID}
+                                        {item.FoodType}
                                     </option>)
                                     )
                                 }
@@ -333,25 +365,28 @@ export default function SFTUpdate() {
                                 {
                                     doctor.map((item: EmployeeInterface) =>
                                     (<option value={item.ID} key={item.ID}>
-                                        {item.ID}
+                                        {item.FirstName+ " " +item.LastName}
                                     </option>)
                                     )
                                 }
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12} >
-                        <Button component={RouterLink} to="/mst" variant='contained'>
-                            ย้อนกลับ
-                        </Button>
-                        <Button
-                            style={{ float: "right" }}
-                            variant="contained"
-                            onClick={submit}
-                        >
-                            บันทึกข้อมูล
-                        </Button>
+                    <Grid item xs={10}>
+                        <FormControl fullWidth variant="outlined">
+                            <p>Description</p>
+
+                            <TextField
+                                id="Description"
+                                variant="outlined"
+                                type="string"
+                                size="medium"
+                                value={sft.Description || ""}
+                                onChange={handleInputChange}
+                            />
+                        </FormControl>
                     </Grid>
+                    
 
                     <Grid item xs={12}>
                         <FormControl fullWidth variant="outlined">
@@ -370,6 +405,18 @@ export default function SFTUpdate() {
                                 />
                             </LocalizationProvider>
                         </FormControl>
+                    </Grid>
+                    <Grid item xs={12} >
+                        <Button component={RouterLink} to="/mst" variant='contained'>
+                            ย้อนกลับ
+                        </Button>
+                        <Button
+                            style={{ float: "right" }}
+                            variant="contained"
+                            onClick={submit}
+                        >
+                            บันทึกข้อมูล
+                        </Button>
                     </Grid>
                 </Grid>
             </Paper>

@@ -5,6 +5,8 @@ import (
 	"net/http"
 
 	"github.com/aamjazrk/team12/entity"
+	
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 )
 
@@ -55,6 +57,12 @@ func CreateSFT(c *gin.Context) {
 		c.Abort()
 		return
 	}
+	if _, err := govalidator.ValidateStruct(sft); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
 
 	// get principaldiagnosis from database
 	if tx := entity.DB().Where("id = ?", sft.PrincipalDiagnosisID).First(&principaldiagnosis); tx.RowsAffected == 0 {
@@ -94,6 +102,7 @@ func CreateSFT(c *gin.Context) {
 		FoodType:    		foodtype,
 		Doctor:     		doctor,
 		Date: 				timelocal,
+		Description: 		sft.Description,
 	}
 
 	if err := entity.DB().Create(&emp).Error; err != nil {
@@ -135,6 +144,9 @@ func UpdateSFT(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("SFT id = %d not found", sft.ID)})
 		c.Abort()
 		return
+	}
+	if sft.Description == "" {
+		sft.Description = oldsft.Description
 	}
 	// if new have patient id
 	if sft.PatientID != nil {
@@ -200,6 +212,12 @@ func UpdateSFT(c *gin.Context) {
 	if sft.Date.String() == "0001-01-01 00:00:00 +0000 UTC" {
 		sft.Date = oldsft.Date
 	}
+	if _, err := govalidator.ValidateStruct(sft); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
 
 	// Update sft in database
 	if err := entity.DB().Save(&sft).Error; err != nil {
@@ -225,4 +243,20 @@ func DeleteSFT(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": id})
 
+}
+
+// GET /principaldiagnosiss
+func ListPD(c *gin.Context) {
+	id := c.Param("id")
+	var principaldiagnosiss []entity.PrincipalDiagnosis
+	if err := entity.DB().Preload("Patient").Raw("SELECT * FROM principal_diagnoses WHERE patient_id = ?", id).Find(&principaldiagnosiss).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		c.Abort()
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"data": principaldiagnosiss,
+	})
 }

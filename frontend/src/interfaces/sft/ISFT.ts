@@ -12,5 +12,6 @@ export interface SFTInterface{
     FoodType?:    FoodTypeInterface,
     DoctorID?:    number,
     Doctor?:      EmployeeInterface,
-    Date?:    Date | null;
+    Date?:          Date | null;
+    Description: string ;
 }

@@ -29,7 +29,7 @@ import { SFTInterface } from "../../interfaces/sft/ISFT";
 import { PatientInterface } from "../../interfaces/patient/IPatient";
 import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
 import { FoodTypeInterface } from "../../interfaces/sft/IFoodType";
-import { ListSFTs, ListFoodTypes, ListPatients, CreateSFT, ListEmployees, GetEmployee, GetPatient, GetFoodType ,GetPrincipalDiagnosis,ListPrincipalDiagnosiss} from "../../services/SFT/sftServices";  //เรียกservice
+import { ListSFTs, ListFoodTypes, ListDocs,ListPatients, CreateSFT, ListEmployees, GetEmployee, GetPatient, GetFoodType ,GetPrincipalDiagnosis,ListPD} from "../../services/SFT/sftServices";  //เรียกservice
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
   ref
@@ -51,7 +51,8 @@ function Create_save() {
   const [success, setSuccess] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [sft, setSFT] = React.useState<Partial<SFTInterface>>(
-    {
+    { 
+      Description: "",
       Date: new Date(),
     }
   );
@@ -67,7 +68,8 @@ function Create_save() {
   }
   // get PrincipalDiagnosis
   const getPrincipalDiagnosis = async () => {
-    let res = await ListPrincipalDiagnosiss();
+    let id = sft.PatientID;
+    let res = await ListPD(id);
     console.log(res);
     if (res) {
       setPrincipalDiagnosis(res);
@@ -82,34 +84,60 @@ function Create_save() {
       setFoodType(res);
     }
   }
+  
   // get Doctor
   const getDoctor = async () => {
-    let res = await ListEmployees();
+    let res = await ListDocs();
     console.log(res);
     if (res) {
       setDoctor(res);
     }
   }
-  
 
-  //SFT Create
+  //LabXray Create
   const navigator = useNavigate();
+  const convertType = (data: string | number | undefined) => {
+      let val = typeof data === "string" ? parseInt(data) : data;
+      return val
+  }
+  const [message, setAlertMessage] = React.useState("");
   //submit
   const submit = async () => {
     console.log(sft)
+    let data = {
+      Description: sft.Description,
+      Date: new Date().toJSON().split("Z").at(0)+"+07:00",
+      PrincipalDiagnosisID:convertType(sft.PrincipalDiagnosisID),
+      DoctorID:convertType(sft.DoctorID),
+      FoodTypeID:convertType(sft.FoodTypeID),
+      PatientID: convertType(sft.PatientID),
+    }
+  const reqOpt = {
+    method: "POST",
+    headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data)
+    }
+    const apiUrl = "http://localhost:8080"
 
-    let res = await CreateSFT(sft)
-    if (res) {
-      setSuccess(true);
-    } else {
-      setError(true);
-    }
-    // console.log(res)
-    if (res.data) {
-      setTimeout(() => {
-        navigator("/sft")
-      }, 3000)
-    }
+    let res = await fetch(`${apiUrl}/sft/create`, reqOpt)
+    .then((response) => response.json())
+    .then((res) => {       
+      console.log(res)
+      if (res.data) {
+        setSuccess(true);
+      } else {
+        setError(true);
+        setAlertMessage(res.error);
+      }
+      if(res.data){
+        setTimeout(() => {
+            navigator("/sft")
+        }, 2000)
+      }
+    });
   }
 
   React.useEffect(() => {
@@ -120,10 +148,10 @@ function Create_save() {
     //getDepartmentByRole();
   }, []);
 
-  /*useEffect(() => {
-    setDepartment([]);
-    getDepartmentByRole();
-  }, [employee.RoleID]);*/
+  useEffect(() => {
+    setPrincipalDiagnosis([]);
+    getPrincipalDiagnosis();
+  }, [sft.PatientID]);
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -185,9 +213,9 @@ function Create_save() {
         </Snackbar>
 
         <Snackbar open={error} autoHideDuration={2000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="error">
-            บันทึกข้อมูลไม่สำเร็จ
-          </Alert>
+        <Alert onClose={handleClose} severity="error">
+              {message}
+            </Alert>
         </Snackbar>
 
         <Paper>
@@ -216,17 +244,18 @@ function Create_save() {
               <FormLabel>PatientID</FormLabel>
               <FormControl fullWidth variant="outlined">
                 <Select
+                  native
                   value={sft.PatientID}
                   onChange={handleChange}
                   inputProps={{
                     name: "PatientID",
                   }}
                 >
-                  <MenuItem value={0} key={0}>
-                    กรุณาเลือกCIVผู้ป่วย
-                  </MenuItem>
+                  <option value={0} key={0}>
+                    รหัสบัตรประชาชนผู้ป่วย
+                  </option>
                   {patient.map((item: PatientInterface) => (
-                    <MenuItem value={item.ID}>{item.Civ}</MenuItem>
+                    <option value={item.ID}>{item.Civ}</option>
                   ))}
                 </Select>
               </FormControl>
@@ -236,17 +265,18 @@ function Create_save() {
               <FormLabel>Food Type</FormLabel>
               <FormControl fullWidth variant="outlined">
                 <Select
+                 native
                   value={sft.FoodTypeID}
                   onChange={handleChange}
                   inputProps={{
                     name: "FoodTypeID",
                   }}
                 >
-                  <MenuItem value={0} key={0}>
-                    FoodType
-                  </MenuItem>
+                  <option value={0} key={0}>
+                    ประเภทอาหาร
+                  </option>
                   {foodtype.map((item: FoodTypeInterface) => (
-                    <MenuItem value={item.ID}>{item.FoodType}</MenuItem>
+                    <option value={item.ID}>{item.FoodType}</option>
                   ))}
                 </Select>
               </FormControl>
@@ -256,17 +286,18 @@ function Create_save() {
               <FormLabel>PrincipalDiagnosisID</FormLabel>
               <FormControl fullWidth variant="outlined">
                 <Select
+                  native
                   value={sft.PrincipalDiagnosisID}
                   onChange={handleChange}
                   inputProps={{
                     name: "PrincipalDiagnosisID",
                   }}
                 >
-                  <MenuItem value={0} key={0}>
-                    พยาบาลผู้ลงทะเบียน
-                  </MenuItem>
+                  <option value={0} key={0}>
+                    ผลคำวินิจฉัย
+                  </option>
                   {principaldiagnosis.map((item: PrincipalDiagnosisInterface) => (
-                    <MenuItem value={item.ID}>{item.ID}</MenuItem>
+                    <option value={item.ID}>{item.Note}</option>
                   ))}
                 </Select>
               </FormControl>
@@ -276,17 +307,18 @@ function Create_save() {
               <FormLabel>Doctor</FormLabel>
               <FormControl fullWidth variant="outlined">
                 <Select
+                  native
                   value={sft.DoctorID}
                   onChange={handleChange}
                   inputProps={{
                     name: "DoctorID",
                   }}
                 >
-                  <MenuItem value={0} key={0}>
+                  <option value={0} key={0}>
                     เเพทย์ผู้ลงทะเบียน
-                  </MenuItem>
+                  </option>
                   {doctor.map((item: EmployeeInterface) => (
-                    <MenuItem value={item.ID}>{item.ID}</MenuItem>
+                    <option value={item.ID}>{item.FirstName+ " " +item.LastName}</option>
                   ))}
                 </Select>
               </FormControl>
@@ -311,6 +343,21 @@ function Create_save() {
                   />
                 </LocalizationProvider>
               </FormControl>
+
+              <Grid item xs={12}>
+                <FormControl fullWidth variant="outlined">
+                  <p>Description</p>
+
+                  <TextField
+                    id="Description"
+                    variant="outlined"
+                    type="string"
+                    size="medium"
+                    value={sft.Description || ""}
+                    onChange={handleInputChange}
+                  />
+                </FormControl>
+              </Grid>
             </Grid>
           </Grid>
 
