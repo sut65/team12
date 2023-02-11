@@ -41,7 +41,7 @@ function Prescription() {
         { field: "Annotation", headerName: "หมายเหตุ", width: 250, valueFormatter: (params) => params.value.Annotation},
         { field: "Order", headerName: "ผู้สั่งยา", width: 150, valueFormatter: (params) => params.value.FirstName + " " + params.value.LastName},
         { field: "Employee", headerName: "เภสัชกร", width: 150, valueFormatter: (params) => params.value.FirstName + " " + params.value.LastName},
-        { field: "ScriptTime", headerName: "วันและเวลา", width: 200, valueFormatter: (params) => moment(params.value).format('DD-MM-yyyy เวลา hh:mm:ss')},
+        { field: "ScriptTime", headerName: "วันและเวลา", width: 200, valueFormatter: (params) => moment(params.value).format('DD-MM-yyyy เวลา hh:mm:ss A')},
         {
             field: " ",
             headerName: " ",
@@ -77,7 +77,7 @@ function Prescription() {
 ];
 return(
     <div>
-      <Container maxWidth="md">
+      <Container maxWidth="xl">
         <Box
           display="flex"
           sx={{

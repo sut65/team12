@@ -40,6 +40,7 @@ function PrescriptionCreate(){
 
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
+    const [message, setAlertMessage] = React.useState("");
 
     
 
@@ -138,10 +139,31 @@ function PrescriptionCreate(){
           
           // await รอจนกว่าจะมีการทำงานตามคำสั่งเสร็จ
           let res = await CreatePrescription(data);
-          if (res) {
+          if (res.status) {
+            setAlertMessage("บันทึกข้อมูลสำเร็จ");
             setSuccess(true);
           } else {
+            setAlertMessage(res.message);
             setError(true);
+            if(res.message == "Annotation cannot be blank"){
+              setAlertMessage("กรุณากรอกข้อมูลช่องหมายเหตุ");
+            }
+            else if(res.message == "Annotation length is too long"){
+              setAlertMessage("รูปแบบไม่ถูกต้อง! ข้อความช่องหมายเหตุตัวอักษรเกิน 300 ตัว");
+            }
+            else if(res.message == "Annotation must have only character and number"){
+              setAlertMessage("รูปแบบไม่ถูกต้อง! ข้อมูลช่องหมายเหตุกรองได้เฉพาะตัวอักษรแล้วตัวเลข");
+            }
+            else if(res.message == "patient not found"){
+              setAlertMessage("กรุณาเลือกผู้ป่วย");
+            }
+            else if(res.message == "medicine not found"){
+              setAlertMessage("กรุณาเลือกชนิดยา");
+            }
+            else if(res.message == "order_by not found"){
+              setAlertMessage("กรุณาเลือกผู้สั่งจ่ายยา");
+            }
+
           }
           console.log(data);
   }
@@ -156,7 +178,7 @@ function PrescriptionCreate(){
             onClose={handleClose}
             anchorOrigin={{ vertical: "top", horizontal: "center" }}>
             <Alert 
-              onClose={handleClose} severity="success">บันทึกข้อมูลสำเร็จ
+              onClose={handleClose} severity="success">{message}
             </Alert>
           </Snackbar>
 
@@ -166,7 +188,7 @@ function PrescriptionCreate(){
             onClose={handleClose}
             anchorOrigin={{ vertical: "top", horizontal: "center" }}>
             <Alert 
-              onClose={handleClose} severity="error">บันทึกข้อมูลไม่สำเร็จ 
+              onClose={handleClose} severity="error">{message}
             </Alert>
           </Snackbar>
 
