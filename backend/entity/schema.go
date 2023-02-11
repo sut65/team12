@@ -112,7 +112,7 @@ type PatientRight struct {
 
 type Patient struct {
 	gorm.Model
-	Civ         string `gorm:"uniqueIndex"`
+	Civ         string `gorm:"uniqueIndex" valid:"matches(^([0-9]{13})$)~Identification Number must have only number and lenght is 13,required~Identification Number cannot be blank"`
 	FirstName   string
 	LastName    string
 	Age         int
@@ -571,7 +571,7 @@ func init() {
 		}
 
 		for _, c := range s {
-			if !(('ก' <= c && c <= 'ฮ') || ('ะ' <= c && c <= 'ู') || ('เ' <= c && c <= '์')  || ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') || ('0' <= c && c <= '9') || ('๐' <= c && c <= '๙') || (' '== c) ) {
+			if !(('ก' <= c && c <= 'ฮ') || ('ะ' <= c && c <= 'ู') || ('เ' <= c && c <= '์') || ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') || ('0' <= c && c <= '9') || ('๐' <= c && c <= '๙') || (' ' == c)) {
 				return false
 			}
 		}
