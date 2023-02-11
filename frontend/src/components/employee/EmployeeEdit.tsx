@@ -286,7 +286,7 @@ export default function EmployeeUpdate() {
                                 }}
                             >
                                 <option aria-label="None" value="">
-                                เลือกเพศ
+                                กรุณา ระบุเพศ
                                 </option>
                                 {
                                     gender.map((item: GenderInterface) =>
@@ -395,7 +395,7 @@ export default function EmployeeUpdate() {
                             }}
                         >
                         <option aria-label="None" value="">
-                        เลือกเพศ
+                        กรุณา เลือกสิทธิ์การเข้าถึง
                         </option>
                             {
                                 role.map((item: RoleInterface) =>
@@ -420,7 +420,7 @@ export default function EmployeeUpdate() {
                             }}
                         >
                         <option aria-label="None" value="">
-                        เลือกแผนก
+                        กรุณา เลือกแผนก
                         </option>
                             {
                                 department.map((item: DepartmentInterface) =>

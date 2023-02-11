@@ -317,7 +317,7 @@ import {
                                 }}
                             >
                                 <option aria-label="None" value="">
-                                เลือกเพศ
+                                กรุณา เลือกรายชื่อผู้ป่วย
                                 </option>
                                 {
                                     patient.map((item: PatientInterface) =>
