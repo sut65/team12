@@ -154,7 +154,7 @@ type Medicine struct {
 
 type Prescription struct {
 	gorm.Model
-	Annotation string
+	Annotation string `valid:"required~Annotation cannot be blank,maxstringlength(300)~Annotation length is too long,thai_eng_char_vowel_number~Annotation must have only character and number"`
 	ScriptTime time.Time
 
 	//FK
@@ -164,10 +164,10 @@ type Prescription struct {
 	OrderID    *uint
 
 	//JOIN
-	Patient  Patient  `gorm:"references:id"`
-	Medicine Medicine `gorm:"references:id"`
-	Employee Employee `gorm:"references:id"`
-	Order    Employee `gorm:"references:id"`
+	Patient  Patient  `gorm:"references:id" valid:"-"`
+	Medicine Medicine `gorm:"references:id" valid:"-"`
+	Employee Employee `gorm:"references:id" valid:"-"`
+	Order    Employee `gorm:"references:id" valid:"-"`
 
 	MedicalSlips []MedicalSlip `gorm:"foreignKey:PrescriptionID"`
 }
