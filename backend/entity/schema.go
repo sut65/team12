@@ -464,19 +464,21 @@ type MedicalSlip struct {
 
 type SFT struct {
 	gorm.Model
+	Description string `valid:"required~Description cannot be blank,maxstringlength(300)~Description length is too long,matches([a-zA-Z0-9ก-๙]$)~Description must have only character and number"`
+	//Description string `valid:"required~Description cannot be blank"`
 
 	//FK
-	PatientID *uint
-	Patient   Patient `gorm:"references:id"`
+	PatientID *uint  		`valid:"-"`
+	Patient   Patient 		`gorm:"references:id" valid:"-"`
 
-	PrincipalDiagnosisID *uint
-	PrincipalDiagnosis   PrincipalDiagnosis `gorm:"references:id"`
+	PrincipalDiagnosisID *uint  				`valid:"-"`
+	PrincipalDiagnosis   PrincipalDiagnosis 	`gorm:"references:id" valid:"-"`
 
-	FoodTypeID *uint
-	FoodType   FoodType `gorm:"references:id"`
+	FoodTypeID *uint  		`valid:"-"`
+	FoodType   FoodType 	`gorm:"references:id" valid:"-"`
 
-	DoctorID *uint
-	Doctor   Employee `gorm:"references:id"`
+	DoctorID *uint  		`valid:"-"`
+	Doctor   Employee 		`gorm:"references:id" valid:"-"`
 
 	Date time.Time
 }
@@ -492,22 +494,24 @@ type FoodType struct {
 
 type MST struct {
 	gorm.Model
+	Description string `valid:"required~Description cannot be blank,maxstringlength(300)~Description length is too long,matches([a-zA-Z0-9ก-๙]$)~Description must have only character and number"`
+	//Description string `valid:"required~Description cannot be blank"`
 
 	//FK
-	PatientID *uint
-	Patient   Patient `gorm:"references:id"`
+	PatientID *uint  `valid:"-"`
+	Patient   Patient `gorm:"references:id" valid:"-"`
 
 	RegDateTime time.Time
-	MSTDateTime time.Time
+	MSTDateTime time.Time  `valid:"DateNotPast~Date cannot be Past"`
 
-	NurseID *uint
-	Nurse   Employee `gorm:"references:id"`
+	NurseID *uint       `valid:"-"`
+	Nurse   Employee    `gorm:"references:id" valid:"-"`
 
-	DoctorID *uint
-	Doctor   Employee `gorm:"references:id"`
+	DoctorID *uint      `valid:"-"`
+	Doctor   Employee   `gorm:"references:id" valid:"-"`
 
-	HospitalID *uint
-	Hospital   Hospital
+	HospitalID *uint    `valid:"-"`
+	Hospital   Hospital `gorm:"references:id" valid:"-"`
 }
 
 type Hospital struct {

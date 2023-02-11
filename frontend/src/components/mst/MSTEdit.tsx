@@ -19,12 +19,13 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
+
 import { useNavigate, useParams, Link as RouterLink } from 'react-router-dom'
 import { HospitalInterface } from "../../interfaces/mst/IHospital";
 import { MSTInterface } from "../../interfaces/mst/IMST";
 import { PatientInterface } from "../../interfaces/patient/IPatient";
 import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
-import { ListMSTs, GetMST, ListHospitals, ListPatients, CreateMST, ListEmployees, GetEmployee, GetPatient, GetHospital, UpdateMST } from "../../services/MST/mstServices";
+import { ListMSTs, GetMST,ListDocs,ListNurse, ListHospitals, ListPatients, CreateMST, ListEmployees, GetEmployee, GetPatient, GetHospital, UpdateMST } from "../../services/MST/mstServices";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
@@ -36,6 +37,8 @@ export default function MSTUpdate() {
     // List all Database
     // Get mst by id
     const [mst, setMST] = React.useState<Partial<MSTInterface>>({})
+    const [success, setSuccess] = React.useState(false);
+    const [error, setError] = React.useState(false);
     const getMSTID = async (id: string | undefined) => {
         let res = await GetMST(id)
         if (res) {
@@ -57,7 +60,7 @@ export default function MSTUpdate() {
     // get Nurse
     const getNurse = async () => {
         //let id =0;
-        let res = await ListEmployees();
+        let res = await ListNurse();
         console.log(res);
         if (res) {
             setNurse(res);
@@ -68,21 +71,13 @@ export default function MSTUpdate() {
     // get Doctor
     const getDoctor = async () => {
         //let id =0;
-        let res = await ListEmployees();
+        let res = await ListDocs();
         console.log(res);
         if (res) {
             setDoctor(res);
         }
     }
-    /*const getDepartmentByRole = async () => {
-        //let id =0;
-        let id = employee.RoleID;
-        let res = await GetDepartmentByRole(id);
-        console.log(res);
-        if (res) {
-          setDepartment(res);
-        }
-    }*/
+    
 
     // List Hospital
     const [hospital, setHospital] = React.useState<HospitalInterface[]>([])
@@ -102,30 +97,55 @@ export default function MSTUpdate() {
         getDoctor();
         getHospital();
     }, []);
-    /*React.useEffect(() => {
-      setDepartment([]);
-      getDepartmentByRole();
-    }, [employee.RoleID]);*/
 
-    // submit
-    const [success, setSuccess] = React.useState(false);
-    const [error, setError] = React.useState(false);
-
+    //mst Create
+    const convertType = (data: string | number | undefined) => {
+        let val = typeof data === "string" ? parseInt(data) : data;
+        return val
+    }
+    const [message, setAlertMessage] = React.useState("");
+    //submit
     const submit = async () => {
         console.log(mst)
+        let data = {
+            
+            ID: convertType(mst.ID),
+            RegDateTime: new Date().toJSON().split("Z").at(0) + "+07:00",
+            MSTDateTime: mst.MSTDateTime,
+            HospitalID: convertType(mst.HospitalID),
+            NurseID: convertType(mst.NurseID),
+            DoctorID: convertType(mst.DoctorID),
+            PatientID: convertType(mst.PatientID),
+            Description: mst.Description,
+        }
+        const reqOpt = {
+            method: "PATCH",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        }
+        const apiUrl = "http://localhost:8080"
 
-        let res = await UpdateMST(mst)
-        if (res) {
-            setSuccess(true);
-        } else {
-            setError(true);
-        }
-        // console.log(res)
-        if (res.data) {
-            setTimeout(() => {
-                navigator("/mst")
-            }, 3000)
-        }
+        let res = await fetch(`${apiUrl}/mst/update`, reqOpt)
+            .then((response) => response.json())
+            .then((res) => {
+                console.log(res)
+                if (res.data) {
+                    setSuccess(true);
+                } else {
+                    setError(true);
+                    setAlertMessage(res.error);
+                }
+                // console.log(res)
+                if (res.data) {
+                    setTimeout(() => {
+                        navigator("/mst")
+                    }, 2000)
+                }
+
+            });
     }
 
     // handle
@@ -152,16 +172,16 @@ export default function MSTUpdate() {
     let theme = createTheme({ // button theme
         palette: {
             primary: {
-              main: "#009688",
+                main: "#009688",
             },
             secondary: {
-              main: "#009688"
+                main: "#009688"
             },
             text: {
-              primary: "#008573",
-              secondary: "#000000"
+                primary: "#008573",
+                secondary: "#000000"
             }
-          },
+        },
     });
 
     const handleClose = (
@@ -201,9 +221,9 @@ export default function MSTUpdate() {
             </Snackbar>
 
             <Snackbar open={error} autoHideDuration={3000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="error">
-                    แก้ไขข้อมูลไม่สำเร็จ
-                </Alert>
+            <Alert onClose={handleClose} severity="error">
+              {message}
+            </Alert>
             </Snackbar>
 
             <Paper sx={{ p: 4, pb: 10 }}>
@@ -260,12 +280,12 @@ export default function MSTUpdate() {
                                 }}
                             >
                                 <option aria-label="None" value="">
-                                    เลือกเพศ
+                                    รหัสบัตรประชาชนผู้ป่วย
                                 </option>
                                 {
                                     patient.map((item: PatientInterface) =>
                                     (<option value={item.ID} key={item.ID}>
-                                        {item.ID}
+                                        {item.Civ}
                                     </option>)
                                     )
                                 }
@@ -285,7 +305,7 @@ export default function MSTUpdate() {
                                 }}
                             >
                                 <option aria-label="None" value="">
-                                    เลือกโรงพยาบาล
+                                    โรงพยาบาลปลายทาง
                                 </option>
                                 {
                                     hospital.map((item: HospitalInterface) =>
@@ -315,7 +335,7 @@ export default function MSTUpdate() {
                                 {
                                     nurse.map((item: EmployeeInterface) =>
                                     (<option value={item.ID} key={item.ID}>
-                                        {item.ID}
+                                        {item.FirstName+ " " +item.LastName}
                                     </option>)
                                     )
                                 }
@@ -340,29 +360,32 @@ export default function MSTUpdate() {
                                 {
                                     doctor.map((item: EmployeeInterface) =>
                                     (<option value={item.ID} key={item.ID}>
-                                        {item.ID}
+                                        {item.FirstName+ " " +item.LastName}
                                     </option>)
                                     )
                                 }
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12} >
-                        <Button component={RouterLink} to="/mst" variant='contained'>
-                            ย้อนกลับ
-                        </Button>
-                        <Button
-                            style={{ float: "right" }}
-                            variant="contained"
-                            onClick={submit}
-                        >
-                            บันทึกข้อมูล
-                        </Button>
+                    <Grid item xs={12}>
+                        <FormControl fullWidth variant="outlined">
+                            <p>Description</p>
+
+                            <TextField
+                                id="Description"
+                                variant="outlined"
+                                type="string"
+                                size="medium"
+                                value={mst.Description || ""}
+                                onChange={handleInputChange}
+                            />
+                        </FormControl>
                     </Grid>
+                    
 
                     <Grid item xs={12}>
                         <FormControl fullWidth variant="outlined">
-                            <Typography className='StyledTypography'> RegDate </Typography>
+                            <Typography className='StyledTypography'> วันที่ลงทะเบียน </Typography>
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                 <DatePicker
                                     className='StyledTextField'
@@ -381,7 +404,7 @@ export default function MSTUpdate() {
 
                     <Grid item xs={12}>
                         <FormControl fullWidth variant="outlined">
-                            <Typography className='StyledTypography'> MSTDate </Typography>
+                            <Typography className='StyledTypography'> วันที่ย้ายโรงพยาบาล </Typography>
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                 <DatePicker
                                     className='StyledTextField'
@@ -396,6 +419,19 @@ export default function MSTUpdate() {
                                 />
                             </LocalizationProvider>
                         </FormControl>
+                    </Grid>
+
+                    <Grid item xs={12} >
+                        <Button component={RouterLink} to="/mst" variant='contained'>
+                            ย้อนกลับ
+                        </Button>
+                        <Button
+                            style={{ float: "right" }}
+                            variant="contained"
+                            onClick={submit}
+                        >
+                            บันทึกข้อมูล
+                        </Button>
                     </Grid>
 
 

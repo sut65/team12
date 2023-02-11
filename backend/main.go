@@ -159,6 +159,9 @@ func main() {
 			router.GET("/hospitals/list", controller.ListHospital)
 			router.GET("/hospital/get/:id", controller.GetHospital)
 			// MST Routes
+			router.GET("/msts/listdoc", controller.ListDoc)            // List
+			router.GET("/msts/listnurse", controller.ListNurse)  
+
 			router.GET("/mst/get/:id", controller.GetMST)           // Get by id
 			router.GET("/msts/list", controller.ListMST)            // List
 			router.POST("/mst/create", controller.CreateMST)        // Create
@@ -170,6 +173,7 @@ func main() {
 			router.GET("/foodtype/get/:id", controller.GetFoodType)
 			// SFT Routes
 			router.GET("/sft/get/:id", controller.GetSFT)           // Get by id
+			router.GET("/sfts/listPD/:id", controller.ListPD)
 			router.GET("/sfts/list", controller.ListSFT)            // List
 			router.POST("/sft/create", controller.CreateSFT)        // Create
 			router.PATCH("/sft/update", controller.UpdateSFT)       // UPDATE

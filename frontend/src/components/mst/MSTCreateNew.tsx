@@ -29,7 +29,7 @@ import { MSTInterface } from "../../interfaces/mst/IMST";
 import { PatientInterface } from "../../interfaces/patient/IPatient";
 import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
 import { HospitalInterface } from "../../interfaces/mst/IHospital";
-import { ListMSTs, ListHospitals, ListPatients, CreateMST, ListEmployees, GetEmployee, GetPatient, GetHospital } from "../../services/MST/mstServices";  //เรียกservice
+import { ListMSTs,ListDocs,ListNurse, ListHospitals, ListPatients, CreateMST, ListEmployees, GetEmployee, GetPatient, GetHospital } from "../../services/MST/mstServices";  //เรียกservice
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
   ref
@@ -46,7 +46,8 @@ function Create_save() {
   });
   const [patient, setPatient] = React.useState<PatientInterface[]>([]);
   const [mst, setMST] = React.useState<Partial<MSTInterface>>(
-    {
+    { 
+      Description: "",
       RegDateTime: new Date(),
       MSTDateTime: new Date(),
     }
@@ -68,7 +69,7 @@ function Create_save() {
   }
   // get Nurse
   const getNurse = async () => {
-    let res = await ListEmployees();
+    let res = await ListNurse();
     console.log(res);
     if (res) {
       setNurse(res);
@@ -76,7 +77,7 @@ function Create_save() {
   }
   // get Doctor
   const getDoctor = async () => {
-    let res = await ListEmployees();
+    let res = await ListDocs();
     console.log(res);
     if (res) {
       setDoctor(res);
@@ -101,6 +102,7 @@ function Create_save() {
     }
   }  */
 
+/*
   //MST Create
   const navigator = useNavigate();
   //submit
@@ -119,7 +121,56 @@ function Create_save() {
         navigator("/mst")
       }, 3000)
     }
+  }*/
+
+  //MST Create
+  const navigator = useNavigate();
+  const convertType = (data: string | number | undefined) => {
+  let val = typeof data === "string" ? parseInt(data) : data;
+  return val
   }
+  const [message, setAlertMessage] = React.useState("");
+  //submit
+  const submit = async () => {
+    console.log(mst)
+    let data = {
+      RegDateTime: new Date().toJSON().split("Z").at(0)+"+07:00",
+      MSTDateTime: mst.MSTDateTime,
+      HospitalID:convertType(mst.HospitalID),
+      NurseID:convertType(mst.NurseID),
+      DoctorID:convertType(mst.DoctorID),
+      PatientID: convertType(mst.PatientID),
+      Description: mst.Description,
+    }
+  const reqOpt = {
+    method: "POST",
+    headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data)
+    }
+    const apiUrl = "http://localhost:8080"
+
+    //let res = await CreateMST(mst)
+    let res = await fetch(`${apiUrl}/mst/create`, reqOpt)
+    .then((response) => response.json())
+      .then((res) => {       
+        console.log(res)
+        if (res.data) {
+          setSuccess(true);
+        } else {
+          setError(true);
+          setAlertMessage(res.error);
+        }
+    // console.log(res)
+    if (res.data) {
+      setTimeout(() => {
+        navigator("/mst")
+      }, 3000)
+    }
+  });}
+
 
   React.useEffect(() => {
     getPatient();
@@ -164,7 +215,7 @@ function Create_save() {
       [name]: event.target.value,
     });
   };
-  let theme = createTheme({ // ิbutton theme
+  let theme = createTheme({ // button theme
     palette: {
       primary: {
         main: "#009688",
@@ -194,9 +245,9 @@ function Create_save() {
         </Snackbar>
 
         <Snackbar open={error} autoHideDuration={2000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="error">
-            บันทึกข้อมูลไม่สำเร็จ
-          </Alert>
+        <Alert onClose={handleClose} severity="error">
+              {message}
+            </Alert>
         </Snackbar>
 
         <Paper>
@@ -213,7 +264,7 @@ function Create_save() {
                 color="text"
                 gutterBottom
               >
-                Record SFT Information
+                Record MST Information
               </Typography>
             </Box>
           </Box>
@@ -225,17 +276,18 @@ function Create_save() {
               <FormLabel>PatientID</FormLabel>
               <FormControl fullWidth variant="outlined">
                 <Select
+                  native
                   value={mst.PatientID}
                   onChange={handleChange}
                   inputProps={{
                     name: "PatientID",
                   }}
                 >
-                  <MenuItem value={0} key={0}>
+                  <option value={0} key={0}>
                     กรุณาเลือกCIVผู้ป่วย
-                  </MenuItem>
+                  </option>
                   {patient.map((item: PatientInterface) => (
-                    <MenuItem value={item.ID}>{item.Civ}</MenuItem>
+                    <option value={item.ID}>{item.Civ}</option>
                   ))}
                 </Select>
               </FormControl>
@@ -245,17 +297,18 @@ function Create_save() {
               <FormLabel>Hospital</FormLabel>
               <FormControl fullWidth variant="outlined">
                 <Select
+                  native
                   value={mst.HospitalID}
                   onChange={handleChange}
                   inputProps={{
                     name: "HospitalID",
                   }}
                 >
-                  <MenuItem value={0} key={0}>
+                  <option value={0} key={0}>
                     เลือกรพ.ปลายทาง
-                  </MenuItem>
+                  </option>
                   {hospital.map((item: HospitalInterface) => (
-                    <MenuItem value={item.ID}>{item.Name}</MenuItem>
+                    <option value={item.ID}>{item.Name}</option>
                   ))}
                 </Select>
               </FormControl>
@@ -265,17 +318,18 @@ function Create_save() {
               <FormLabel>NurseID</FormLabel>
               <FormControl fullWidth variant="outlined">
                 <Select
+                  native
                   value={mst.NurseID}
                   onChange={handleChange}
                   inputProps={{
                     name: "NurseID",
                   }}
                 >
-                  <MenuItem value={0} key={0}>
+                  <option value={0} key={0}>
                     พยาบาลผู้ลงทะเบียน
-                  </MenuItem>
+                  </option>
                   {nurse.map((item: EmployeeInterface) => (
-                    <MenuItem value={item.ID}>{item.ID}</MenuItem>
+                    <option value={item.ID}>{item.FirstName+ " " +item.LastName}</option>
                   ))}
                 </Select>
               </FormControl>
@@ -285,20 +339,35 @@ function Create_save() {
               <FormLabel>Doctor</FormLabel>
               <FormControl fullWidth variant="outlined">
                 <Select
+                  native
                   value={mst.DoctorID}
                   onChange={handleChange}
                   inputProps={{
                     name: "DoctorID",
                   }}
                 >
-                  <MenuItem value={0} key={0}>
+                  <option value={0} key={0}>
                     เเพทย์ผู้ลงทะเบียน
-                  </MenuItem>
+                  </option>
                   {doctor.map((item: EmployeeInterface) => (
-                    <MenuItem value={item.ID}>{item.ID}</MenuItem>
+                    <option value={item.ID}>{item.FirstName+ " " +item.LastName}</option>
                   ))}
                 </Select>
               </FormControl>
+            </Grid>
+            <Grid item xs={10}>
+              <FormControl fullWidth variant="outlined">
+                  <p>Description</p>
+
+                  <TextField
+                    id="Description"
+                    variant="outlined"
+                    type="string"
+                    size="medium"
+                    value={mst.Description || ""}
+                    onChange={handleInputChange}
+                  />
+                </FormControl>
             </Grid>
           </Grid>
 
@@ -321,7 +390,7 @@ function Create_save() {
                 </LocalizationProvider>
               </FormControl>
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={10}>
               <FormControl fullWidth variant="outlined">
                 <p>วันที่ย้ายโรงพยาบาล</p>
                 {/* input from roomid andthen search booking where roomid and get start\stop day in recorded   */}

@@ -149,10 +149,11 @@ function Manage_Show() {
                     <TableRow>
                       <TableCell align="center" width="20%"> ID </TableCell>
                       <TableCell align="center" width="20%"> Patient </TableCell>
-                      <TableCell align="center" width="100%"> PrincipalDiagnosisID </TableCell>
+                      <TableCell align="center" width="20%"> PrincipalDiagnosisID </TableCell>
                       <TableCell align="center" width="20%"> FoodTypeID </TableCell>
                       <TableCell align="center" width="20%"> DoctorID </TableCell>
                       <TableCell align="center" width="20%"> Date </TableCell>
+                      <TableCell align="center" width="100%"> Description </TableCell>
                       <TableCell align="center" width="20%"> Edit </TableCell>
                       <TableCell align="center" width="20%"> Delete </TableCell>
                       
@@ -172,6 +173,7 @@ function Manage_Show() {
                         <TableCell align="center">{item.FoodTypeID}</TableCell>
                         <TableCell align="center">{item.DoctorID}</TableCell>
                         <TableCell align="center">{moment(item.Date).format("DD/MM/YYYY")}</TableCell>
+                        <TableCell align="center">{item.Description}</TableCell>
                         <TableCell>
                                                 {
                                                     <Button
