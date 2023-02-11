@@ -41,7 +41,7 @@ function PatientEdit(){
 
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
-
+    const [message, setAlertMessage] = React.useState("");
     
 
     const handleClose = (
@@ -141,6 +141,7 @@ function PatientEdit(){
 
        
       
+
       const submit = async () => {
          //console.log(patient)
          let data = {
@@ -152,7 +153,7 @@ function PatientEdit(){
           Weight: convertType(patient.Weight),
           Underlying: patient.Underlying,
           Brithdate: patient.Brithdate,
-          PatientTime: patient.PatientTime,
+          PatientTime: new Date(),
           
           PatientTypeID: convertType(patient.PatientTypeID),
           EmployeeID: convertType(localStorage.getItem("id") as string),
@@ -163,10 +164,48 @@ function PatientEdit(){
           
           // await รอจนกว่าจะมีการทำงานตามคำสั่งเสร็จ
           let res = await UpdatePatient(data);
-          if (res) {
+          if (res.status) {
+            setAlertMessage("บันทึกข้อมูลสำเร็จ");
             setSuccess(true);
           } else {
+            setAlertMessage(res.message);
             setError(true);
+            if(res.message == "Identification Number must have only number and lenght is 13"){
+                setAlertMessage("รูปแบบไม่ถูกต้อง! หมายเลขประจำตัวประชาชนประกอบด้วยตัวเลข 13");
+              }
+              else if(res.message == "Identification Number cannot be blank"){
+                setAlertMessage("รูปแบบไม่ถูกต้อง! หมายเลขประจำตัวประชาชนห้ามว่าง");
+              }
+              else if(res.message == "FirstName cannot be blank"){
+                setAlertMessage("รูปแบบไม่ถูกต้อง! ชื่อห้ามว่าง");
+              }
+              else if(res.message == "FirstName must have only character"){
+                setAlertMessage("รูปแบบไม่ถูกต้อง! ชื่อต้องเป็นตัวอักษร");
+              }
+              else if(res.message == "LastName cannot be blank"){
+                setAlertMessage("รูปแบบไม่ถูกต้อง! นามสกุลห้ามว่าง");
+              }
+              else if(res.message == "LastName must have only character"){
+                setAlertMessage("รูปแบบไม่ถูกต้อง! นามสกุลต้องเป็นตัวอักษร");
+              }
+              else if(res.message == "Age not in range 0-122"){
+                setAlertMessage("อายุไม่ถูกต้อง! อายุผู้ป่วยต้องอยุ่ในช่วงตั้งแต่ 0 ถึง 122 ปี");
+              }
+              else if(res.message == "Weight not in range 0-595"){
+                setAlertMessage("น้ำหนักไม่ถูกต้อง! น้ำหนักผู้ป่วยต้องอยุ่ในช่วงตั้งแต่ 0 ถึง 595 ปี");
+              }
+              else if(res.message == "Underlying cannot be blank"){
+                setAlertMessage("กรุณากรอกข้อมูลโรคประจำตัว");
+              }
+              else if(res.message == "Brithdate must be in the past"){
+                setAlertMessage("วันเดือนปีเกิดไม่ถูกต้อง! ต้องไม่เกินวันที่ในปัจจุบัน");
+              }
+              else if(res.message == "patientright not found"){
+                setAlertMessage("กรุณาเลือกประเภทสิทธิ์ผู้ป่วย")
+              }
+              else if(res.message == "patienttype not found"){
+                setAlertMessage("กรุณาเลือกประเภทผู้ป่วย")
+              }
           }
           console.log(data);
   }
@@ -187,7 +226,7 @@ function PatientEdit(){
                     severity="success"
                     sx={{ width: '100%', borderRadius: 3 }}
                 >
-                    อัพเดตข้อมูลสำเร็จ
+                    {message}
                 </Alert>
             </Snackbar>
 
@@ -203,7 +242,7 @@ function PatientEdit(){
                     severity="error"
                     sx={{ width: '100%', borderRadius: 3 }}
                 >
-                    อัพเดตข้อมูลไม่สำเร็จ
+                    {message}
                 </Alert>
             </Snackbar>
             <Container

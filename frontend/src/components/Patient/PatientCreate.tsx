@@ -39,7 +39,7 @@ function PatientCreate(){
 
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
-
+    const [message, setAlertMessage] = React.useState("");
     
 
     const handleClose = (
@@ -141,12 +141,51 @@ function PatientCreate(){
   
         };
           
+
           // await รอจนกว่าจะมีการทำงานตามคำสั่งเสร็จ
           let res = await CreatePatient(data);
-          if (res) {
+          if (res.status) {
+            setAlertMessage("บันทึกข้อมูลสำเร็จ");
             setSuccess(true);
           } else {
+            setAlertMessage(res.message);
             setError(true);
+            if(res.message == "Identification Number must have only number and lenght is 13"){
+              setAlertMessage("รูปแบบไม่ถูกต้อง! หมายเลขประจำตัวประชาชนประกอบด้วยตัวเลข 13");
+            }
+            else if(res.message == "Identification Number cannot be blank"){
+              setAlertMessage("รูปแบบไม่ถูกต้อง! หมายเลขประจำตัวประชาชนห้ามว่าง");
+            }
+            else if(res.message == "FirstName cannot be blank"){
+              setAlertMessage("รูปแบบไม่ถูกต้อง! ชื่อห้ามว่าง");
+            }
+            else if(res.message == "FirstName must have only character"){
+              setAlertMessage("รูปแบบไม่ถูกต้อง! ชื่อต้องเป็นตัวอักษร");
+            }
+            else if(res.message == "LastName cannot be blank"){
+              setAlertMessage("รูปแบบไม่ถูกต้อง! นามสกุลห้ามว่าง");
+            }
+            else if(res.message == "LastName must have only character"){
+              setAlertMessage("รูปแบบไม่ถูกต้อง! นามสกุลต้องเป็นตัวอักษร");
+            }
+            else if(res.message == "Age not in range 0-122"){
+              setAlertMessage("อายุไม่ถูกต้อง! อายุผู้ป่วยต้องอยุ่ในช่วงตั้งแต่ 0 ถึง 122 ปี");
+            }
+            else if(res.message == "Weight not in range 0-595"){
+              setAlertMessage("น้ำหนักไม่ถูกต้อง! น้ำหนักผู้ป่วยต้องอยุ่ในช่วงตั้งแต่ 0 ถึง 595 ปี");
+            }
+            else if(res.message == "Underlying cannot be blank"){
+              setAlertMessage("กรุณากรอกข้อมูลโรคประจำตัว");
+            }
+            else if(res.message == "Brithdate must be in the past"){
+              setAlertMessage("วันเดือนปีเกิดไม่ถูกต้อง! ต้องไม่เกินวันที่ในปัจจุบัน");
+            }
+            else if(res.message == "patientright not found"){
+              setAlertMessage("กรุณาเลือกประเภทสิทธิ์ผู้ป่วย")
+            }
+            else if(res.message == "patienttype not found"){
+              setAlertMessage("กรุณาเลือกประเภทผู้ป่วย")
+            }
           }
           console.log(data);
   }
@@ -161,7 +200,7 @@ function PatientCreate(){
             onClose={handleClose}
             anchorOrigin={{ vertical: "top", horizontal: "center" }}>
             <Alert 
-              onClose={handleClose} severity="success">บันทึกข้อมูลสำเร็จ
+              onClose={handleClose} severity="success">{message}
             </Alert>
           </Snackbar>
 
@@ -171,7 +210,7 @@ function PatientCreate(){
             onClose={handleClose}
             anchorOrigin={{ vertical: "top", horizontal: "center" }}>
             <Alert 
-              onClose={handleClose} severity="error">บันทึกข้อมูลไม่สำเร็จ 
+              onClose={handleClose} severity="error">{message}
             </Alert>
           </Snackbar>
 
@@ -284,7 +323,7 @@ function PatientCreate(){
                     <p>เพศ</p>
                     <Select native value={patient.GenderID + ""} onChange={handleChange} inputProps={{name: "GenderID", }}>
                     <option aria-label="None" value="">
-                        เลือกเพศ
+                        ระบุเพศ
                       </option>
                       {gender.map((item: GenderInterface) => (
                         <option value={item.ID} key={item.ID}>
