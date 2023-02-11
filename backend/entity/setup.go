@@ -903,15 +903,15 @@ func SetupDatabase() {
 	db.Model(&Specialist{}).Create(&specialist13)
 
 	// Dummy ข้อมูล surgery state
-	surgerystate1 := SurgeryState{StateName: "MAJOR"}
+	surgerystate1 := SurgeryState{StateName: "EMERGENCY"}
 	db.Model(&SurgeryState{}).Create(&surgerystate1)
-	surgerystate2 := SurgeryState{StateName: "MINOR"}
+	surgerystate2 := SurgeryState{StateName: "ELECTIVE"}
 	db.Model(&SurgeryState{}).Create(&surgerystate2)
 
 	// Dummy ข้อมูล surgery type
-	surgerytype1 := SurgeryType{TypeName: "EMERGENCY"}
+	surgerytype1 := SurgeryType{TypeName: "MAJOR"}
 	db.Model(&SurgeryType{}).Create(&surgerytype1)
-	surgerytype2 := SurgeryType{TypeName: "ELECTIVE"}
+	surgerytype2 := SurgeryType{TypeName: "MINOR"}
 	db.Model(&SurgeryType{}).Create(&surgerytype2)
 
 	// Dummy ข้อมูล OperatingRoom

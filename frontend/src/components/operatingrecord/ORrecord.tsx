@@ -58,7 +58,7 @@ function ORrecord() {
     { field: "User",headerName: "ผู้บันทึก",width: 120, valueFormatter: (params) => params.value.FirstName,},
     { field: "Patient",headerName: "ผู้ป่วย",width: 120, valueFormatter: (params) => params.value.FirstName,},
     { field: "OperatingRoom",headerName: "ห้องผ่าตัด",width: 100, valueFormatter: (params) => params.value.ORname,},
-    { field: "Specialist",headerName: "สาขาเฉพาะทาง",width: 200, valueFormatter: (params) => params.value.SpclistName,},
+    { field: "Specialist",headerName: "สาขาเฉพาะทาง",width: 225, valueFormatter: (params) => params.value.SpclistName,},
     { field: "Doctor",headerName: "แพทย์ผ่าตัด",width: 120, valueFormatter: (params) => params.value.FirstName,},
     { field: "SurgeryState",headerName: "สถานะเข้าผ่าตัด",width: 120, valueFormatter: (params) => params.value.StateName, },
     { field: "SurgeryType",headerName: "ประเภทการผ่าตัด",width: 80, valueFormatter: (params) => params.value.TypeName, },
