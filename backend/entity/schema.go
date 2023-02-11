@@ -128,10 +128,10 @@ type Patient struct {
 	GenderID       *uint
 
 	//JOIN
-	PatientType  PatientType  `gorm:"references:id"`
-	Employee     Employee     `gorm:"references:id"`
-	PatientRight PatientRight `gorm:"references:id"`
-	Gender       Gender       `gorm:"references:id"`
+	PatientType  PatientType  `gorm:"references:id" valid:"-"`
+	Employee     Employee     `gorm:"references:id" valid:"-"`
+	PatientRight PatientRight `gorm:"references:id" valid:"-"`
+	Gender       Gender       `gorm:"references:id" valid:"-"`
 
 	LabXrays     []LabXray      `gorm:"foreignKey:PatientID"`
 	Prescription []Prescription `gorm:"foreignKey:PatientID"`
