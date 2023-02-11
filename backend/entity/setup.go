@@ -784,7 +784,7 @@ func SetupDatabase() {
 		FoodType:           foodtype1,
 		Doctor:             emp1,
 		Date:               theTime,
-		Description: "เเพ้อาหารทะเล",
+		Description:        "เเพ้อาหารทะเล",
 	}
 	db.Model(&SFT{}).Create(&sft1)
 
@@ -794,7 +794,7 @@ func SetupDatabase() {
 		FoodType:           foodtype2,
 		Doctor:             emp1,
 		Date:               theTime2,
-		Description: "เเพ้นมวัว",
+		Description:        "เเพ้นมวัว",
 	}
 	db.Model(&SFT{}).Create(&sft2)
 
@@ -974,8 +974,6 @@ func SetupDatabase() {
 	db.Model(&ClassProb{}).Create(&classprob3)
 	classprob4 := ClassProb{ClassProbType: "ห้องผ่าตัด"}
 	db.Model(&ClassProb{}).Create(&classprob4)
-	classprob5 := ClassProb{ClassProbType: "อื่นๆ"}
-	db.Model(&ClassProb{}).Create(&classprob5)
 
 	// Dummy ข้อมูล problem
 	problem1 := Problem{ProblemName: "ชำรุด"}

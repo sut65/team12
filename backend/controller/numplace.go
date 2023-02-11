@@ -29,3 +29,17 @@ func ListNumPlace(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"data": numplaces})
 }
+
+func ListNumPlaceByClassProb(c *gin.Context) {
+	var numplaces []entity.NumPlace
+	id := c.Param("id")
+	/*if(id == "1"){
+		id = "2"
+	} */
+	if err := entity.DB().Preload("class_probs").Raw("SELECT * FROM num_places where class_prob_id = ?", id).Scan(&numplaces).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": numplaces})
+}

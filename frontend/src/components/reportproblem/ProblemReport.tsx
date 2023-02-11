@@ -56,11 +56,11 @@ function ProblemReport() {
 
   const columns: GridColDef[] = [
     { field: "ID", headerName: "ลำดับ", width: 60 },
-    { field: "ClassProb",headerName: "ประเภท/สิ่งของที่เกิดปัญหา",width: 100, valueFormatter: (params) => params.value.ClassProbType},
+    { field: "ClassProb",headerName: "ประเภท/สิ่งของที่เกิดปัญหา",width: 200, valueFormatter: (params) => params.value.ClassProbType},
     { field: "NumPlace",headerName: "ชื่อเลขที่เกิดปัญหา",width: 120,valueFormatter: (params) => params.value.Name,},
     { field: "Problem",headerName: "ปัญหา",width: 100,valueFormatter: (params) => params.value.ProblemName,},
     { field: "Date", headerName: "วันที่และเวลา", width: 200 },
-    { field: "Comment", headerName: "เพิ่มเพติม*", width: 150 ,},
+    { field: "Comment", headerName: "เพิ่มเติม*", width: 150 ,},
     
     {
       field: "",

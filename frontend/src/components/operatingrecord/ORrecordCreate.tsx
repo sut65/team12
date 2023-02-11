@@ -458,7 +458,7 @@ function ORrecordCreate() {
           </Grid>
 
           <Grid item xs={6}>
-            <p>หมายเหตุ*</p>
+            <p>หมายเหตุ</p>
             <TextField
               fullWidth
               id="Note"

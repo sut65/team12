@@ -190,6 +190,28 @@ async function DeleteProblemReport(ID:number) {
   })
   return res
 }
+// GET By ID NumPlaceByClassProb
+async function GetNumPlaceByClassProb (ID: number | undefined) {
+  const reqOpt = {
+      method: "GET",
+      headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+      }
+  }
+
+  let res = await fetch(`${apiUrl}/ListNumPlaceByClassProb/get/${ID}`, reqOpt)
+  .then((response) => response.json())
+  .then((res) => {
+      if(res.data){
+          return res.data
+      }else{
+          return false
+      }
+  })
+
+  return res
+}
 
 
 export {
@@ -199,6 +221,7 @@ export {
     UpdateProblemReport,
     DeleteProblemReport,
 
+    GetNumPlaceByClassProb,
     GetClassProb,
     GetNumPlace,
     GetProblem,
