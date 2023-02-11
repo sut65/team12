@@ -40,8 +40,8 @@ function Patient() {
         { field: "Underlying", headerName: "หมายเหตุ", width: 150, valueFormatter: (params) => params.value.Underlying},
         { field: "PatientType", headerName: "ประเภทผู้ป่วย", width: 150, valueFormatter: (params) => params.value.Type},
         { field: "PatientRight", headerName: "สิทธิ์ผู้ป่วย", width: 200, valueFormatter: (params) => params.value.Type},
-        { field: "Brithdate", headerName: "วันเกิด", width: 250, valueFormatter: (params) => moment(params.value).format('DD-MM-yyyy เวลา hh:mm:ss')},
-        { field: "PatientTime", headerName: "วันที่และเวลา", width: 250, valueFormatter: (params) => moment(params.value).format('DD-MM-yyyy เวลา hh:mm:ss')},
+        { field: "Brithdate", headerName: "วันเกิด", width: 250, valueFormatter: (params) => moment(params.value).format('DD-MM-yyyy เวลา hh:mm:ss A')},
+        { field: "PatientTime", headerName: "วันที่และเวลา", width: 250, valueFormatter: (params) => moment(params.value).format('DD-MM-yyyy เวลา hh:mm:ss A')},
         { field: "Employee", headerName: "พยาบาล", width: 150, valueFormatter: (params) => params.value.FirstName + " " + params.value.LastName},
         { field: "Gender", headerName: "เพศ", width: 150, valueFormatter: (params) => params.value.Name},
         {
@@ -68,7 +68,7 @@ function Patient() {
 ];
 return(
     <div>
-      <Container maxWidth="md">
+      <Container maxWidth="xl">
         <Box
           display="flex"
           sx={{
