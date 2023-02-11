@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/aamjazrk/team12/entity"
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 )
 
@@ -54,6 +55,12 @@ func CreatePrescription(c *gin.Context) {
 		Order:      order,
 		Annotation: prescription.Annotation,
 		ScriptTime: prescription.ScriptTime,
+	}
+
+	// แทรกการ validate ไว้ช่วงนี้ของ controller
+	if _, err := govalidator.ValidateStruct(s1); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	// ขั้นตอนที่ 13 บันทึก
@@ -193,6 +200,12 @@ func UpdatePrescription(c *gin.Context) {
 			return
 		}
 		newprescription.Order = order
+	}
+
+	// แทรกการ validate ไว้ช่วงนี้ของ controller
+	if _, err := govalidator.ValidateStruct(newprescription); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	// Update emp in database
