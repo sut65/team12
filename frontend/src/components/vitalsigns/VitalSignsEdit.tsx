@@ -259,6 +259,9 @@ export default function VitalSignsEdit() {
                         variant="outlined"
                         type="string"
                         size="medium"
+                        InputProps={{
+                            endAdornment: <InputAdornment position="end">mmHg</InputAdornment>,
+                          }}
                         value={vitalsign.BloodPressureHigh || ""}
                         onChange={handleInputChangenumber}
                     />
@@ -273,6 +276,9 @@ export default function VitalSignsEdit() {
                             variant="outlined"
                             type="string"
                             size="medium"
+                            InputProps={{
+                                endAdornment: <InputAdornment position="end">mmHg</InputAdornment>,
+                              }}
                             value={vitalsign.BloodPressureLow || ""}
                             onChange={handleInputChangenumber}
                         />
@@ -290,6 +296,9 @@ export default function VitalSignsEdit() {
                             variant="outlined"
                             type="string"
                             size="medium"
+                            InputProps={{
+                                endAdornment: <InputAdornment position="end">bpm</InputAdornment>,
+                              }}
                             value={vitalsign.PulseRate || ""}
                             onChange={handleInputChangenumber}
                         />
@@ -304,6 +313,9 @@ export default function VitalSignsEdit() {
                             variant="outlined"
                             type="string"
                             size="medium"
+                            InputProps={{
+                                endAdornment: <InputAdornment position="end">bpm</InputAdornment>,
+                              }}
                             value={vitalsign.RespirationRate || ""}
                             onChange={handleInputChangenumber}
                         />
@@ -321,6 +333,9 @@ export default function VitalSignsEdit() {
                             variant="outlined"
                             type="string"
                             size="medium"
+                            InputProps={{
+                                endAdornment: <InputAdornment position="end">° C</InputAdornment>,
+                            }}
                             value={vitalsign.BodyTemperature || ""}
                             onChange={handleInputChange}
                         />
