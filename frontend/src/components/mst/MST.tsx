@@ -154,7 +154,8 @@ function Manage_Show() {
                       <TableCell align="center" width="20%"> MSTDate Time </TableCell>
                       <TableCell align="center" width="20%"> NurseID </TableCell>
                       <TableCell align="center" width="20%"> DoctorID </TableCell>
-                      <TableCell align="center" width="100%"> HospitalID </TableCell>
+                      <TableCell align="center" width="20%"> HospitalID </TableCell>
+                      <TableCell align="center" width="100%"> Description </TableCell>
                       <TableCell align="center" width="20%"> Edit </TableCell>
                       <TableCell align="center" width="20%"> Delete </TableCell>
 
@@ -174,6 +175,7 @@ function Manage_Show() {
                         <TableCell align="center">{item.NurseID}</TableCell>
                         <TableCell align="center">{item.DoctorID}</TableCell>
                         <TableCell align="center">{item.HospitalID}</TableCell>
+                        <TableCell align="center">{item.Description}</TableCell>
                         <TableCell>
                                                 {
                                                     <Button

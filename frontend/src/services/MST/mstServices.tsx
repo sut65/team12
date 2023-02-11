@@ -29,6 +29,50 @@ async function ListMSTs() {
     return res
 }
 
+// List Doc
+async function ListDocs() {
+    const reqOpt = {
+        method: "GET",
+        headers:{
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        }
+    };
+
+    let res = await fetch(`${apiUrl}/msts/listdoc`, reqOpt)
+    .then((response) => response.json())
+    .then((res) => {
+        if(res.data){
+            return res.data
+        } else{
+            return false
+        }
+    })
+    return res
+}
+
+// List Nurse
+async function ListNurse() {
+    const reqOpt = {
+        method: "GET",
+        headers:{
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        }
+    };
+
+    let res = await fetch(`${apiUrl}/msts/listnurse`, reqOpt)
+    .then((response) => response.json())
+    .then((res) => {
+        if(res.data){
+            return res.data
+        } else{
+            return false
+        }
+    })
+    return res
+}
+
 // GET By ID MST
 async function GetMST(ID: string | undefined) {
     const reqOpt = {
@@ -313,6 +357,8 @@ export {
     
     GetEmployee,
     GetHospital,
+    ListNurse,
+    ListDocs,
 
     ListHospitals, 
     GetPatient,
