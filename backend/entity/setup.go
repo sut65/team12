@@ -970,8 +970,6 @@ func SetupDatabase() {
 	db.Model(&ClassProb{}).Create(&classprob3)
 	classprob4 := ClassProb{ClassProbType: "ห้องผ่าตัด"}
 	db.Model(&ClassProb{}).Create(&classprob4)
-	classprob5 := ClassProb{ClassProbType: "อื่นๆ"}
-	db.Model(&ClassProb{}).Create(&classprob5)
 
 	// Dummy ข้อมูล problem
 	problem1 := Problem{ProblemName: "ชำรุด"}

@@ -27,7 +27,9 @@ import { ListEmployees } from "../../services/EmployeeSystem/employeeServices";
 import { CreateProblemReport,
         GetClassProb,
         GetNumPlace,
-        GetProblem } from "../../services/ReportProblemSystem/HttpClientServinceProbRep";
+        GetProblem,
+        GetNumPlaceByClassProb } from "../../services/ReportProblemSystem/HttpClientServinceProbRep";
+import ProblemReport from "./ProblemReport";
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
   ref
@@ -110,13 +112,27 @@ function ProblemReportCreate() {
     }
   };
 
+  const getNumPlaceByClassProb = async () => {
+    //let id =0;
+    let id = problemreport.ClassProbID;
+    let res = await GetNumPlaceByClassProb(id);
+    console.log(res);
+    if (res) {
+      setNumplace(res);
+    }
+  }   
+
   useEffect(() => {
     getUser();
     getClassProb();
     getNumPlace();
     getProblem();
-
+    //getNumPlaceByClassProb();
   }, []);
+  useEffect(() => {
+    setNumplace([]);
+    getNumPlaceByClassProb();
+  }, [problemreport.ClassProbID]);
 
   //=========================== ทำถึงนี่แล้ว ไปซื้อข้าวอยู่ ===========================
   
