@@ -90,13 +90,13 @@ return (
     <div>
     {/* <Paper elevation={3}/> */}
     <Container maxWidth="xl">
-    <Paper
+    {/* <Paper
     sx = {{
       maxWidth:"xl",
       Width:6000,
       bgcolor: '#F0EEED'
     }}
-    >
+    > */}
     <Box
       display="flex"
       sx={{
@@ -257,7 +257,7 @@ return (
           </div>
           </Container>
         </div>
-        </Paper>
+        {/* </Paper> */}
     </Container>
   
   </div>
