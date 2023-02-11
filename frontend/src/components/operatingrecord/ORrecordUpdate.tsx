@@ -481,7 +481,7 @@ function ORrecordUpdate() {
           </Grid>
 
           <Grid item xs={6}>
-          <p>หมายเหตุ *</p>
+          <p>หมายเหตุ</p>
             <TextField className='StyledTextField'
                 autoComplete="off"
                 id="Note"
