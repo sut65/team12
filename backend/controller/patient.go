@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/aamjazrk/team12/entity"
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 )
 
@@ -60,6 +61,12 @@ func CreatePatient(c *gin.Context) {
 		Underlying:   patient.Underlying,
 		Brithdate:    patient.Brithdate,
 		PatientTime:  patient.PatientTime,
+	}
+
+	// แทรกการ validate ไว้ช่วงนี้ของ controller
+	if _, err := govalidator.ValidateStruct(p1); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	// ขั้นตอนที่ 13 บันทึก
@@ -212,6 +219,12 @@ func UpdatePatient(c *gin.Context) {
 			return
 		}
 		newpatient.Gender = gender
+	}
+
+	// แทรกการ validate ไว้ช่วงนี้ของ controller
+	if _, err := govalidator.ValidateStruct(newpatient); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	// Update patient in database

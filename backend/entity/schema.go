@@ -112,13 +112,13 @@ type PatientRight struct {
 
 type Patient struct {
 	gorm.Model
-	Civ         string `gorm:"uniqueIndex"`
-	FirstName   string
-	LastName    string
-	Age         int
-	Weight      float32
-	Underlying  string
-	Brithdate   time.Time
+	Civ         string    `gorm:"uniqueIndex" valid:"matches(^([0-9]{13})$)~Identification Number must have only number and lenght is 13,required~Identification Number cannot be blank"`
+	FirstName   string    `valid:"required~FirstName cannot be blank,thai_eng_char_vowel~FirstName must have only character"`
+	LastName    string    `valid:"required~LastName cannot be blank,thai_eng_char_vowel~LastName must have only character"`
+	Age         int       `valid:"range(0|122)~Age not in range 0-122"`
+	Weight      float32   `valid:"range(0|595)~Weight not in range 0-595"`
+	Underlying  string    `valid:"required~Underlying cannot be blank"`
+	Brithdate   time.Time `valid:"past~Brithdate must be in the past"`
 	PatientTime time.Time
 
 	//FK
@@ -128,10 +128,10 @@ type Patient struct {
 	GenderID       *uint
 
 	//JOIN
-	PatientType  PatientType  `gorm:"references:id"`
-	Employee     Employee     `gorm:"references:id"`
-	PatientRight PatientRight `gorm:"references:id"`
-	Gender       Gender       `gorm:"references:id"`
+	PatientType  PatientType  `gorm:"references:id" valid:"-"`
+	Employee     Employee     `gorm:"references:id" valid:"-"`
+	PatientRight PatientRight `gorm:"references:id" valid:"-"`
+	Gender       Gender       `gorm:"references:id" valid:"-"`
 
 	LabXrays     []LabXray      `gorm:"foreignKey:PatientID"`
 	Prescription []Prescription `gorm:"foreignKey:PatientID"`
@@ -468,17 +468,17 @@ type SFT struct {
 	//Description string `valid:"required~Description cannot be blank"`
 
 	//FK
-	PatientID *uint  		`valid:"-"`
-	Patient   Patient 		`gorm:"references:id" valid:"-"`
+	PatientID *uint   `valid:"-"`
+	Patient   Patient `gorm:"references:id" valid:"-"`
 
-	PrincipalDiagnosisID *uint  				`valid:"-"`
-	PrincipalDiagnosis   PrincipalDiagnosis 	`gorm:"references:id" valid:"-"`
+	PrincipalDiagnosisID *uint              `valid:"-"`
+	PrincipalDiagnosis   PrincipalDiagnosis `gorm:"references:id" valid:"-"`
 
-	FoodTypeID *uint  		`valid:"-"`
-	FoodType   FoodType 	`gorm:"references:id" valid:"-"`
+	FoodTypeID *uint    `valid:"-"`
+	FoodType   FoodType `gorm:"references:id" valid:"-"`
 
-	DoctorID *uint  		`valid:"-"`
-	Doctor   Employee 		`gorm:"references:id" valid:"-"`
+	DoctorID *uint    `valid:"-"`
+	Doctor   Employee `gorm:"references:id" valid:"-"`
 
 	Date time.Time
 }
@@ -498,17 +498,17 @@ type MST struct {
 	//Description string `valid:"required~Description cannot be blank"`
 
 	//FK
-	PatientID *uint  `valid:"-"`
+	PatientID *uint   `valid:"-"`
 	Patient   Patient `gorm:"references:id" valid:"-"`
 
 	RegDateTime time.Time
-	MSTDateTime time.Time  `valid:"DateNotPast~Date cannot be Past"`
+	MSTDateTime time.Time `valid:"DateNotPast~Date cannot be Past"`
 
-	NurseID *uint       `valid:"-"`
-	Nurse   Employee    `gorm:"references:id" valid:"-"`
+	NurseID *uint    `valid:"-"`
+	Nurse   Employee `gorm:"references:id" valid:"-"`
 
-	DoctorID *uint      `valid:"-"`
-	Doctor   Employee   `gorm:"references:id" valid:"-"`
+	DoctorID *uint    `valid:"-"`
+	Doctor   Employee `gorm:"references:id" valid:"-"`
 
 	HospitalID *uint    `valid:"-"`
 	Hospital   Hospital `gorm:"references:id" valid:"-"`
@@ -575,7 +575,7 @@ func init() {
 		}
 
 		for _, c := range s {
-			if !(('ก' <= c && c <= 'ฮ') || ('ะ' <= c && c <= 'ู') || ('เ' <= c && c <= '์')  || ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') || ('0' <= c && c <= '9') || ('๐' <= c && c <= '๙') || (' '== c) ) {
+			if !(('ก' <= c && c <= 'ฮ') || ('ะ' <= c && c <= 'ู') || ('เ' <= c && c <= '์') || ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') || ('0' <= c && c <= '9') || ('๐' <= c && c <= '๙') || (' ' == c)) {
 				return false
 			}
 		}
