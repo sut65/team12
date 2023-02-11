@@ -19,16 +19,23 @@ import {
     UpdateRequisition,
 } from "../../services/RequisitionSystem/RequisitionServices";
 export default function RequisitionList() {
-    let theme = createTheme({ // ิbutton theme
-        palette: {
-            primary: {
-              main: '#648c8a', //เขียว
-            },
-            secondary: {
-              main: '#edf2ff', //ขาว
-            },
-        },
-    });
+  let theme = createTheme({ // ิbutton theme
+    palette: {
+      primary: {
+        main: "#009688",
+      },
+      secondary: {
+        main: "#009688"
+      },
+      text: {
+        primary: "#008573",
+        secondary: "#000000"
+      },
+      info:{
+        main: "#d8e2dc"
+      }
+    },
+  });
 
     //requisition State
    const [requisition, setRequisition] = React.useState<RequisitionRecordInterface[]>([])
@@ -103,7 +110,13 @@ export default function RequisitionList() {
               marginTop: 2,
             }}
           >
-            <Box flexGrow={1}>
+            <Box flexGrow={1}
+              sx={{
+                marginTop: 3,
+                marginLeft:3,
+                // bgcolor: '#F0EEED'
+              }}
+            >
               <Typography
                 variant="h6"
                 color="primary"
@@ -111,6 +124,32 @@ export default function RequisitionList() {
               >
                 <h3>Requisition Equipment and Supplies</h3>
               </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                marginTop: 3,
+                marginRight:3,
+                marginBottom:3,
+              }}
+            >
+                <Button 
+                  component={RouterLink}
+                  to="/requisition/create"
+                  variant="contained"
+                  color="primary"
+                  sx={{
+                    marginTop: 3,
+                  }}
+                >
+                  <Typography
+                    color="text"
+                    component="div"
+                    sx={{ flexGrow: 1 }}
+                  >
+                    Create Requisition
+                  </Typography>
+                </Button>
             </Box>
 
           </Box>
@@ -171,29 +210,7 @@ export default function RequisitionList() {
                   </TableBody>
                 </Table>
               </TableContainer>
-            <Grid container spacing={3} sx={{ padding: 2 }} >
-              <Grid item xs={10}>
-              <Box>
-                <Button 
-                  component={RouterLink}
-                  to="/requisition/create"
-                  variant="contained"
-                  color="primary"
-                  sx={{
-                    marginTop: 3,
-                  }}
-                >
-                  <Typography
-                    color="secondary"
-                    component="div"
-                    sx={{ flexGrow: 1 }}
-                  >
-                    Create Requisition
-                  </Typography>
-                </Button>
-              </Box>
-              </Grid>
-            </Grid>
+            
             </div>
             </Container>
             </div>
