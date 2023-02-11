@@ -202,6 +202,7 @@ func main() {
 			// Routes NumPlace
 			router.GET("/ListNumPlace", controller.ListNumPlace)
 			router.GET("/GetNumPlace/:id", controller.GetNumPlace)
+			router.GET("/ListNumPlaceByClassProb/get/:id", controller.ListNumPlaceByClassProb)
 			// Routes Problem
 			router.GET("/ListProblem", controller.ListProblem)
 			router.GET("/GetProblem/:id", controller.GetProblem)
