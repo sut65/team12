@@ -376,7 +376,7 @@ import {
                     }}
                   >
                     <option value={0} key={0}>
-                      เลือกสิทธิ์การเข้าถึง
+                    กรุณา เลือกสิทธิ์การเข้าถึง
                     </option>
                     {role.map((item: RoleInterface) => (
                       <option value={item.ID}>{item.Name}</option>
@@ -396,7 +396,7 @@ import {
                     }}
                   >
                     <option value={0} key={0}>
-                      ระบุเพศ
+                    กรุณา ระบุเพศ
                     </option>
                     {gender.map((item: GenderInterface) => (
                       <option value={item.ID}>{item.Name}</option>
@@ -419,7 +419,7 @@ import {
                     }}
                   >
                     <option value={0} key={0}>
-                      เลือกแผนก
+                    กรุณา เลือกแผนก
                     </option>
                     {department.map((item: DepartmentInterface) => (
                       <option value={item.ID}>{item.Type}</option>
