@@ -225,7 +225,7 @@ function Manage_Show() {
                 </Table>
               </TableContainer>
               <Box>
-        </Box>
+          </Box>
               <Dialog
                 open={openDelete}
                 onClose={handleDialogDeleteclose}

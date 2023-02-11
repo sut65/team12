@@ -16,15 +16,22 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./Pigments.css"
 
 export default function VitalSignsList() {
-  let theme = createTheme({ // button theme
-      palette: {
-          primary: {
-            main: '#648c8a', //เขียว
-          },
-          secondary: {
-            main: '#edf2ff', //ขาว
-          },
+  let theme = createTheme({ // ิbutton theme
+    palette: {
+      primary: {
+        main: "#009688",
       },
+      secondary: {
+        main: "#009688"
+      },
+      text: {
+        primary: "#008573",
+        secondary: "#000000"
+      },
+      info:{
+        main: "#d8e2dc"
+      }
+    },
   });
 
   //Vitalsign State
@@ -83,13 +90,26 @@ return (
     <div>
     {/* <Paper elevation={3}/> */}
     <Container maxWidth="xl">
+    <Paper
+    sx = {{
+      maxWidth:"xl",
+      Width:6000,
+      bgcolor: '#F0EEED'
+    }}
+    >
     <Box
       display="flex"
       sx={{
         marginTop: 2,
       }}
     >
-          <Box flexGrow={1}>
+          <Box flexGrow={1}
+            sx={{
+              marginTop: 3,
+              marginLeft:3,
+              // bgcolor: '#F0EEED'
+            }}
+          >
             <Typography
               // component="h1"
               variant="h6"
@@ -98,6 +118,33 @@ return (
             >
               <h3>Vital Signs List Information</h3>
             </Typography>
+          </Box>
+
+          <Box
+            sx={{
+              marginTop: 3,
+              marginRight:3,
+              marginBottom:3,
+            }}
+          >
+            <Button 
+              component={RouterLink}
+              to="/vitalsign/create"
+              variant="contained"
+              color="primary"
+              sx={{
+                marginTop: 3,
+              }}        
+            >
+              <Typography
+                color="text"
+                component="div"
+                sx={{ flexGrow: 1 }}            
+                // sx = {{borderRadius: 3,'&:hover': {backgroundColor: '#70c4bc'}}}
+              >
+                Vital Signs Record
+              </Typography>
+            </Button>
           </Box>
 
           
@@ -172,33 +219,9 @@ return (
                 </TableBody>
               </Table>
             </TableContainer>
-          <Grid container spacing={3} sx={{ padding: 2 }} >
-            <Grid item xs={10}>
-            <Box>
-            <Button 
-              component={RouterLink}
-              to="/vitalsign/create"
-              variant="contained"
-              color="primary"
-              sx={{
-                marginTop: 3,
-              }}        
-            >
-              <Typography
-                color="secondary"
-                component="div"
-                sx={{ flexGrow: 1 }}            
-                // sx = {{borderRadius: 3,'&:hover': {backgroundColor: '#70c4bc'}}}
-              >
-                Vital Signs Record
-              </Typography>
-            </Button>
-            </Box>
-            </Grid>
-          </Grid>
-          </div>
-          </Container>
-          </div>
+          
+          
+          
           <Dialog
               open={openDelete}
               onClose={handleDialogDeleteclose}
@@ -231,6 +254,10 @@ return (
               </DialogActions>
 
           </Dialog>
+          </div>
+          </Container>
+        </div>
+        </Paper>
     </Container>
   
   </div>
