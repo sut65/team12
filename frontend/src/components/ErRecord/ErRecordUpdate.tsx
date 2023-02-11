@@ -225,7 +225,7 @@ export default function ErRecordUpdate() {
                           component="h2"
                           variant="h6"
                           gutterBottom
-                          color="black"
+                          color="primary"
                       >
                           แก้ไขข้อมูลการจองห้องพิเศษ
                       </Typography>

@@ -537,7 +537,8 @@ func init() {
 	})
 
 	govalidator.CustomTypeTagMap.Set("PositiveInt", func(i interface{}, context interface{}) bool {
-		return i.(int) >= 0
+		num := i
+		return num.(int) > 0
 	})
 
 	govalidator.CustomTypeTagMap.Set("DateNotPast", func(i interface{}, context interface{}) bool {
@@ -576,6 +577,5 @@ func init() {
 		}
 		return true
 	})
-
 
 }
