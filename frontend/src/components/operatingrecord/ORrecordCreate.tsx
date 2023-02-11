@@ -194,7 +194,7 @@ function ORrecordCreate() {
 
 
   return (
-    <Container maxWidth="md" >
+    <Container maxWidth="xl" >
       <Snackbar
         id="success" 
         open={success}
