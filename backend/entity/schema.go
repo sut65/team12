@@ -112,7 +112,7 @@ type PatientRight struct {
 
 type Patient struct {
 	gorm.Model
-	Civ         string `gorm:"uniqueIndex"`
+	Civ         string `gorm:"uniqueIndex" valid:"matches(^([0-9]{13})$)~Identification Number must have only number and lenght is 13,required~Identification Number cannot be blank"`
 	FirstName   string
 	LastName    string
 	Age         int
@@ -468,17 +468,17 @@ type SFT struct {
 	//Description string `valid:"required~Description cannot be blank"`
 
 	//FK
-	PatientID *uint  		`valid:"-"`
-	Patient   Patient 		`gorm:"references:id" valid:"-"`
+	PatientID *uint   `valid:"-"`
+	Patient   Patient `gorm:"references:id" valid:"-"`
 
-	PrincipalDiagnosisID *uint  				`valid:"-"`
-	PrincipalDiagnosis   PrincipalDiagnosis 	`gorm:"references:id" valid:"-"`
+	PrincipalDiagnosisID *uint              `valid:"-"`
+	PrincipalDiagnosis   PrincipalDiagnosis `gorm:"references:id" valid:"-"`
 
-	FoodTypeID *uint  		`valid:"-"`
-	FoodType   FoodType 	`gorm:"references:id" valid:"-"`
+	FoodTypeID *uint    `valid:"-"`
+	FoodType   FoodType `gorm:"references:id" valid:"-"`
 
-	DoctorID *uint  		`valid:"-"`
-	Doctor   Employee 		`gorm:"references:id" valid:"-"`
+	DoctorID *uint    `valid:"-"`
+	Doctor   Employee `gorm:"references:id" valid:"-"`
 
 	Date time.Time
 }
@@ -498,17 +498,17 @@ type MST struct {
 	//Description string `valid:"required~Description cannot be blank"`
 
 	//FK
-	PatientID *uint  `valid:"-"`
+	PatientID *uint   `valid:"-"`
 	Patient   Patient `gorm:"references:id" valid:"-"`
 
 	RegDateTime time.Time
-	MSTDateTime time.Time  `valid:"DateNotPast~Date cannot be Past"`
+	MSTDateTime time.Time `valid:"DateNotPast~Date cannot be Past"`
 
-	NurseID *uint       `valid:"-"`
-	Nurse   Employee    `gorm:"references:id" valid:"-"`
+	NurseID *uint    `valid:"-"`
+	Nurse   Employee `gorm:"references:id" valid:"-"`
 
-	DoctorID *uint      `valid:"-"`
-	Doctor   Employee   `gorm:"references:id" valid:"-"`
+	DoctorID *uint    `valid:"-"`
+	Doctor   Employee `gorm:"references:id" valid:"-"`
 
 	HospitalID *uint    `valid:"-"`
 	Hospital   Hospital `gorm:"references:id" valid:"-"`
@@ -575,7 +575,7 @@ func init() {
 		}
 
 		for _, c := range s {
-			if !(('ก' <= c && c <= 'ฮ') || ('ะ' <= c && c <= 'ู') || ('เ' <= c && c <= '์')  || ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') || ('0' <= c && c <= '9') || ('๐' <= c && c <= '๙') || (' '== c) ) {
+			if !(('ก' <= c && c <= 'ฮ') || ('ะ' <= c && c <= 'ู') || ('เ' <= c && c <= '์') || ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') || ('0' <= c && c <= '9') || ('๐' <= c && c <= '๙') || (' ' == c)) {
 				return false
 			}
 		}
