@@ -280,6 +280,7 @@ function App() {
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
               <Routes>
                 <Route path="/home" element={<Home/>} />
+                <Route path="/" element={<Home/>} />
                 <Route  path="/managebed" element={<ManageBed />} />
                 <Route  path="/managebed/create" element={<ManageBedCreate />} />
                 <Route  path="/managebed/update" element={<ManageBedUpdate />} />

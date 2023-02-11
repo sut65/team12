@@ -100,12 +100,12 @@ import {
         setAlertMessage(res.message);
         setError(true);
       }
-      // console.log(res)
-      // if(res.status){
-      //     setTimeout(() => {
-      //         navigator("/employee")
-      //     }, 5000)
-      // }
+      console.log(res)
+      if(res.status){
+          setTimeout(() => {
+              navigator("/employee")
+          }, 5000)
+      }
     }
 
     React.useEffect(() => {
