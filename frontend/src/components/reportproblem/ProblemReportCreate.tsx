@@ -29,7 +29,7 @@ import { CreateProblemReport,
         GetNumPlace,
         GetProblem,
         GetNumPlaceByClassProb } from "../../services/ReportProblemSystem/HttpClientServinceProbRep";
-import ProblemReport from "./ProblemReport";
+
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
   ref
@@ -227,7 +227,7 @@ function ProblemReportCreate() {
           </Grid> */}
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>ประเภทหมวดหมู่ที่ที่เกิดปัยหา</p>
+              <p>ประเภทหมวดหมู่เกิดปัญหา</p>
               <Select
                 native
                 value={problemreport.ClassProbID + ""}
