@@ -3,6 +3,7 @@ package controller
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/aamjazrk/team12/entity"
 	"github.com/asaskevich/govalidator"
@@ -90,11 +91,12 @@ func CreateLabXray(c *gin.Context) {
 
 	lab := entity.LabXray{
 		Description: labxray.Description,
-		Date:        labxray.Date,
-		Pic:         labxray.Pic,
-		Doctor:      doctor,
-		Patient:     patient,
-		LabType:     labtype,
+		// Date:        labxray.Date,
+		Date:    time.Now().Local(),
+		Pic:     labxray.Pic,
+		Doctor:  doctor,
+		Patient: patient,
+		LabType: labtype,
 	}
 
 	if err := entity.DB().Create(&lab).Error; err != nil {
@@ -145,9 +147,10 @@ func UpdateLabXray(c *gin.Context) {
 		labxray.Pic = oldlabxray.Pic
 	}
 
-	if labxray.Date.String() == "0001-01-01 00:00:00 +0000 UTC" {
-		labxray.Date = oldlabxray.Date
-	}
+	// if labxray.Date.String() == "0001-01-01 00:00:00 +0000 UTC" {
+	// 	labxray.Date = oldlabxray.Date
+	// }
+	labxray.Date= time.Now().Local();
 	// if new have doctor id
 	if labxray.DoctorID != nil {
 		if tx := entity.DB().Where("id = ?", labxray.DoctorID).First(&doctor); tx.RowsAffected == 0 {

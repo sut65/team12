@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
 import { ListEmployees,DeleteEmployee, } from "../../services/EmployeeSystem/employeeServices";
+import { info } from "console";
 function Manage_Show() {
   let theme = createTheme({ // ิbutton theme
     palette: {
@@ -17,6 +18,9 @@ function Manage_Show() {
       text: {
         primary: "#008573",
         secondary: "#000000"
+      },
+      info:{
+        main: "#d8e2dc"
       }
     },
   });
@@ -104,6 +108,7 @@ function Manage_Show() {
   sx = {{
     maxWidth:"xl",
     Width:3000,
+    bgcolor: '#F0EEED'
   }}
   >
   <Box
@@ -116,11 +121,13 @@ function Manage_Show() {
         sx={{
           marginTop: 3,
           marginLeft:3,
+          // bgcolor: '#F0EEED'
         }}>
           <Typography
-            component="h2"
-            variant="h6"
-            color="primary"
+            component="h4"
+            variant="h4"
+            // color="#AD8E70"
+            color="text"
             gutterBottom
           >
             Record Employee Information
@@ -218,24 +225,6 @@ function Manage_Show() {
                 </Table>
               </TableContainer>
               <Box>
-          {/* <Grid container spacing={3} sx={{ padding: 2 }} >
-          <Grid item xs={10}>
-          <Button 
-            component={RouterLink}
-            to="/employee/create"
-            variant="contained"
-            color="primary"
-          >
-            <Typography
-              color="text"
-              component="div"
-              sx={{ flexGrow: 1}}
-            >
-              Create Employee
-            </Typography>
-          </Button>
-          </Grid>
-          </Grid> */}
         </Box>
               <Dialog
                 open={openDelete}
