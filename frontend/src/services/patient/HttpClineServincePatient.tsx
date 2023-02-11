@@ -71,9 +71,11 @@ async function CreatePatient(data: PatientInterface) {
     .then((response) => response.json())
     .then((res) => {
       if (res.data) {
-        return res.data;
+        //return res.data;
+        return { status: true, message: res.data };
       } else {
-        return false;
+        //return false;
+        return { status: false, message: res.error };
       }
     });
   
@@ -97,12 +99,14 @@ async function UpdatePatient(data: PatientInterface) {
         .then((response) => response.json())
         .then((res) => {
             if (res.data) {
-                return res.data
+                //return res.data
+                return { status: true, message: res.data };
             } else {
-                return false
+                //return false
+                return { status: false, message: res.error };
             }
         })
-    return res
+    return res;
 }
 
 // Delete Patient
