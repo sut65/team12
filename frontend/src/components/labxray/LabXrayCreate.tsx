@@ -92,7 +92,7 @@ import {
       let data = {
         Description: labxray.Description,
         Pic: imageString,
-        Date: new Date().toJSON().split("Z").at(0)+"+07:00",
+        // Date: new Date().toJSON().split("Z").at(0)+"+07:00",
         LabTypeID:convertType(labxray.LabTypeID),
         DoctorID: convertType(localStorage.getItem("id") as string),
         PatientID: convertType(labxray.PatientID),

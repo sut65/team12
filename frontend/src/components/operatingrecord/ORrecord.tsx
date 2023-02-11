@@ -55,9 +55,10 @@ function ORrecord() {
 
   const columns: GridColDef[] = [
     { field: "ID", headerName: "ลำดับ", width: 60 },
-    { field: "User",headerName: "ผู้บันทึก",width: 120, valueFormatter: (params) => params.value.FirstName,},
-    { field: "Patient",headerName: "ผู้ป่วย",width: 120, valueFormatter: (params) => params.value.FirstName,},
+    { field: "User",headerName: "ผู้บันทึก",width: 100, valueFormatter: (params) => params.value.FirstName,},
+    { field: "Patient",headerName: "ผู้ป่วย",width: 100, valueFormatter: (params) => params.value.FirstName,},
     { field: "OperatingRoom",headerName: "ห้องผ่าตัด",width: 100, valueFormatter: (params) => params.value.ORname,},
+<<<<<<< HEAD
     { field: "Specialist",headerName: "สาขาเฉพาะทาง",width: 225, valueFormatter: (params) => params.value.SpclistName,},
     { field: "Doctor",headerName: "แพทย์ผ่าตัด",width: 120, valueFormatter: (params) => params.value.FirstName,},
     { field: "SurgeryState",headerName: "สถานะเข้าผ่าตัด",width: 120, valueFormatter: (params) => params.value.StateName, },
@@ -66,6 +67,16 @@ function ORrecord() {
     { field: "SurgeryEnd",headerName: "เวลาสิ้นสุดการผ่าตัด",width: 200, valueFormatter: (params) => params.value.SurgeryEnd, },
     { field: "StaffReciving",headerName: "เจ้าหน้าที่รับผู้ป่วย",width: 120, valueFormatter: (params) => params.value.FirstName, },
     { field: "StaffReturing",headerName: "เจ้าหน้าที่ส่งผู้ป่วย",width: 120, valueFormatter: (params) => params.value.FirstName, },
+=======
+    { field: "Specialist",headerName: "สาขาเฉพาะทาง",width: 100, valueFormatter: (params) => params.value.SpclistName,},
+    { field: "Doctor",headerName: "แพทย์ผ่าตัด",width: 100, valueFormatter: (params) => params.value.FirstName,},
+    { field: "SurgeryState",headerName: "สถานะเข้าผ่าตัด",width: 100, valueFormatter: (params) => params.value.StateName, },
+    { field: "SurgeryStart",headerName: "เวลาเริ่มการผ่าตัด",width: 100, valueFormatter: (params) => params.value.SurgeryStart, },
+    { field: "SurgeryEnd",headerName: "เวลาสิ้นสุดการผ่าตัด",width: 100, valueFormatter: (params) => params.value.SurgeryEnd, },
+    { field: "SurgeryType",headerName: "ประเภทการผ่าตัด",width: 100, valueFormatter: (params) => params.value.TypeName, },
+    { field: "StaffReciving",headerName: "เจ้าหน้าที่รับผู้ป่วย",width: 100, valueFormatter: (params) => params.value.FirstName, },
+    { field: "StaffReturing",headerName: "เจ้าหน้าที่ส่งผู้ป่วย",width: 100, valueFormatter: (params) => params.value.FirstName, },
+>>>>>>> f0f7c8fe051707d9ea6bd7d8aaccc2a6eec21658
     { field: "OperatingResult", headerName: "ผลการผ่าตัด*", width: 150 ,},
     { field: "Note", headerName: "หมายเหตุ", width: 150 ,},
 
@@ -123,16 +134,16 @@ function ORrecord() {
               color="primary"
               gutterBottom
             >
-            ข้อมูลบันทึกเข้าใช้ห้องผ่าตัด
+              ข้อมูลบันทึกเข้าใช้ห้องผ่าตัด
             </Typography>
           </Box>
-          <Box style={{ height: 15, width: "25%", marginTop: "12px" }}>
+          <Box style={{ height: 10, width: "18%", marginTop: "10px" }}>
             <Button
               component={RouterLink}
               to="/orrecord/create"
               variant="contained"
               color="primary"
-              sx = {{borderRadius: 3,'&:hover': {backgroundColor: '#70c4bc'}}}
+              sx = {{borderRadius: 2,'&:hover': {backgroundColor: '#70c4bc'}}}
             >
               + เพิ่มบันทึกเข้าใช้ห้องผ่าตัด
             </Button>

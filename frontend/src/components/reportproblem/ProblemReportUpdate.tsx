@@ -28,9 +28,8 @@ import { UpdateProblemReport,
         GetProblemReportID,
         GetClassProb,
         GetNumPlace,
-        GetProblem,
-       GetNumPlaceByClassProb } from "../../services/ReportProblemSystem/HttpClientServinceProbRep";
-
+        GetProblem } from "../../services/ReportProblemSystem/HttpClientServinceProbRep";
+import ORrecord from "../operatingrecord/ORrecord";
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
   ref
@@ -120,16 +119,6 @@ function ProblemReportUpdate() {
     }
   }
 
-   const getNumPlaceByClassProb = async () => {
-    //let id =0;
-    let id = problemreport.ClassProbID;
-    let res = await GetNumPlaceByClassProb(id);
-    console.log(res);
-    if (res) {
-      setNumplace(res);
-    }
-  } 
-
   useEffect(() => {
     getUser();
     getClassProb();
@@ -138,10 +127,6 @@ function ProblemReportUpdate() {
     getProblemReportID();
 
   }, []);
-   useEffect(() => {
-    setNumplace([]);
-    getNumPlaceByClassProb();
-  }, [problemreport.ClassProbID]);
 
   //=========================== ทำถึงนี่แล้ว ไปซื้อข้าวอยู่ ===========================
   
@@ -236,7 +221,7 @@ function ProblemReportUpdate() {
           </Grid> */}
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>ประเภทหมวดหมู่ที่เกิดปัญหา</p>
+              <p>ประเภทหมวดหมู่ที่ที่เกิดปัญหา</p>
               <Select
                 native
                 value={problemreport.ClassProbID + ""}

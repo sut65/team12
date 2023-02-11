@@ -80,7 +80,7 @@ export default function LabXrayShow() {
 
     const convertDateFormat = (date: Date) => {
         const newDate = new Date(date)
-        return `${newDate.getDate()} / ${newDate.getMonth() + 1} / ${newDate.getFullYear()} | ${newDate.getHours()} : ${newDate.getMinutes()}`
+        return `${newDate.getDate()} / ${newDate.getMonth() + 1} / ${newDate.getFullYear()} | ${newDate.getHours()} : ${newDate.getMinutes()} น`
     }
     
  return (
@@ -147,7 +147,7 @@ export default function LabXrayShow() {
           </Box>
           {/* <Divider/> */}
             <div>
-              <Container maxWidth="xl">
+              <Container maxWidth="xl" >
                 <div style={{ height: "100%", width: "110%", marginTop: "10px" }}>
                   <TableContainer >
                     <Table aria-label="simple table">

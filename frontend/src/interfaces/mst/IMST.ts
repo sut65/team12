@@ -15,6 +15,7 @@ export interface MSTInterface {
     Doctor?:        EmployeeInterface;
     HospitalID?:    number;
     Hospital?:      HospitalInterface;
+    Description:    string ;
     
 
 }
