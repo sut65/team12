@@ -220,7 +220,7 @@ function PrescriptionCreate(){
                   </FormControl>
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={12}>
                   <FormControl fullWidth variant="outlined">
                     <p>ยา</p>
                     <Select native value={prescription.MedicineID + ""} onChange={handleChange} inputProps={{name: "MedicineID", }}>
@@ -239,7 +239,7 @@ function PrescriptionCreate(){
         
         
         
-        <Grid item xs={6}>
+        <Grid item xs={12}>
             <FormControl fullWidth variant="outlined">
               <p>หมายเหตุ</p>
               <TextField
@@ -254,7 +254,7 @@ function PrescriptionCreate(){
             </FormControl>
         </Grid>    
 
-        <Grid item xs={6}>
+        <Grid item xs={12}>
                   <FormControl fullWidth variant="outlined">
                     <p>ผู้สั่งจ่ายยา</p>
                     <Select native value={prescription.OrderID + ""} onChange={handleChange} inputProps={{name: "OrderID", }}>
@@ -274,7 +274,7 @@ function PrescriptionCreate(){
           
           
           
-          <Grid item xs={6}>
+          <Grid item xs={12}>
                   <FormControl fullWidth variant="outlined">
                     <p>วันที่และเวลา</p>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
