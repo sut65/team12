@@ -147,7 +147,7 @@ function PrescriptionEdit(){
          let data = {
           ID: convertType(prescription.ID),
           Annotation: prescription.Annotation,
-          ScriptTime: prescription.ScriptTime,
+          ScriptTime: new Date(),
           
           
           PatientID: convertType(prescription.PatientID),
