@@ -18,8 +18,18 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
 
 
+const useStyles = makeStyles(theme => ({
+  error: {
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'red',
+      },
+    },
+  },
+}));
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -186,9 +196,16 @@ function PatientCreate(){
             else if(res.message == "patienttype not found"){
               setAlertMessage("กรุณาเลือกประเภทผู้ป่วย")
             }
+            else{
+              setAlertMessage("กรอกข้อมูลไม่ครบถ้วน")
+            }
           }
           console.log(data);
   }
+
+
+      const classes = useStyles();
+      const isInvalidCiv = patient.Civ && patient.Civ.length !== 13;
 
       
 
@@ -225,26 +242,26 @@ function PatientCreate(){
             <Divider>
               <Grid container spacing={3} sx={{ padding: 2 }}>
                 
-          <Grid item xs={12}>
-            <FormControl fullWidth variant="outlined">
-              <p>เลขบัตรประชาชน</p>
-              <TextField
-                id="Civ"
-                variant="outlined"
-                type="string"
-                size="medium"
-                placeholder="กรุณากรอกเลขบัตรประชาชน"
-                value={patient.Civ || ""}
-                onChange={handleInputChange}
-                onKeyPress={(e) => {
-                  if (!/[0-9]/.test(e.key)){
-                    e.preventDefault()
-                  }
-                }}
-                inputProps={{maxLength :13}}
-              />
-            </FormControl>
-          </Grid>
+              <Grid item xs={12} >
+                <FormControl fullWidth variant="outlined">
+                  <p>เลขบัตรประชาชน</p>
+                  <TextField className={isInvalidCiv ? classes.error : ''}
+                    id="Civ"
+                    variant="outlined"
+                    type="string"
+                    size="medium"
+                    placeholder="กรุณากรอกเลขบัตรประชาชน"
+                    value={patient.Civ || ""}
+                    onChange={handleInputChange}
+                    onKeyPress={(e) => {
+                      if (!/[0-9]/.test(e.key)){
+                        e.preventDefault()
+                      }
+                    }}
+                    inputProps={{maxLength :13}}
+                  />
+                </FormControl>
+              </Grid>
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
@@ -295,9 +312,14 @@ function PatientCreate(){
                 type="number"
                 size="medium"
                 InputProps={{inputProps:{min: 1, max : 300}}}
-                placeholder="ระบุน้ำหนัก"
+                placeholder="ระบุอายุ"
                 value={patient.Age || ""}
                 onChange={handleInputChangenumber}
+                onKeyPress={(e) => {
+                  if (!/[0-9]/.test(e.key)){
+                    e.preventDefault()
+                  }
+                }}
               />
             </FormControl>
           </Grid>
@@ -314,6 +336,11 @@ function PatientCreate(){
                 placeholder="ระบุน้ำหนัก"
                 value={patient.Weight || ""}
                 onChange={handleInputChangenumber}
+                onKeyPress={(e) => {
+                  if (!/^\d*\.?\d*$/.test(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
               />
             </FormControl>
           </Grid>
