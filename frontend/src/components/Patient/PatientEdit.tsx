@@ -289,7 +289,7 @@ function PatientEdit(){
                             <Typography className='StyledTypography'> ชื่อ </Typography>
                             <TextField className='StyledTextField'
                                 autoComplete="off"
-                                id="Name"
+                                id="FirstName"
                                 variant="outlined"
                                 size="small"
                                 color="primary"
@@ -311,7 +311,7 @@ function PatientEdit(){
                             <Typography className='StyledTypography'> นามสกุล </Typography>
                             <TextField className='StyledTextField'
                                 autoComplete="off"
-                                id="Name"
+                                id="LastName"
                                 variant="outlined"
                                 size="small"
                                 color="primary"
@@ -333,7 +333,7 @@ function PatientEdit(){
                             <Typography className='StyledTypography'> อายุ </Typography>
                             <TextField className='StyledTextField'
                                 autoComplete="off"
-                                id="Name"
+                                id="Age"
                                 variant="outlined"
                                 size="small"
                                 color="primary"
@@ -350,7 +350,7 @@ function PatientEdit(){
                             <Typography className='StyledTypography'> น้ำหนัก </Typography>
                             <TextField className='StyledTextField'
                                 autoComplete="off"
-                                id="Name"
+                                id="Weight"
                                 variant="outlined"
                                 size="small"
                                 color="primary"
@@ -448,7 +448,7 @@ function PatientEdit(){
                         <Typography className='StyledTypography'> หมายเหตุ </Typography>
                         <TextField className='StyledTextField'
                             autoComplete="off"
-                            id="Name"
+                            id="Underlying"
                             variant="outlined"
                             size="small"
                             color="primary"
