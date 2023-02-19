@@ -116,7 +116,7 @@ type Patient struct {
 	FirstName   string    `valid:"required~FirstName cannot be blank,thai_eng_char_vowel~FirstName must have only character"`
 	LastName    string    `valid:"required~LastName cannot be blank,thai_eng_char_vowel~LastName must have only character"`
 	Age         int       `valid:"range(0|122)~Age not in range 0-122,required~Age cannot be blank"`
-	Weight      float32   `valid:"range(0|595)~Weight not in range 0-595"`
+	Weight      float32   `valid:"range(0|595)~Weight not in range 0-595,required~Weight cannot be blank"`
 	Underlying  string    `valid:"required~Underlying cannot be blank"`
 	Brithdate   time.Time `valid:"past~Brithdate must be in the past"`
 	PatientTime time.Time
