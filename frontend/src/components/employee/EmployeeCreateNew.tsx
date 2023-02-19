@@ -118,6 +118,7 @@ import {
     useEffect(() => {
       setDepartment([]);
       getDepartmentByRole();
+      employee.DepartmentID=0;
     }, [employee.RoleID]);
 
     const handleClose = (

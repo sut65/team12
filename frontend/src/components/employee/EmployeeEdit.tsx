@@ -82,6 +82,7 @@ export default function EmployeeUpdate() {
     React.useEffect(() => {
       setDepartment([]);
       getDepartmentByRole();
+      employee.DepartmentID=0;
     }, [employee.RoleID]);
 
     // submit
