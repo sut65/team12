@@ -59,7 +59,7 @@ function MedicalSlip() {
     { field: "LabXray",headerName: "Lab-Xray ",width: 100, valueFormatter: (params) => params.value.ID,},
     { field: "ORrecord",headerName: "ห้องผ่าตัด",width: 100,valueFormatter: (params) => params.value.ID,},
     { field: "Prescription",headerName: "หมายเลขใบสั่งยา",width: 120,valueFormatter: (params) => params.value.ID,},
-    { field: "Total", headerName: "จำนวนค่ารักษา", width: 130 ,},
+    { field: "Total", headerName: "จำนวนค่ารักษา", width: 130, valueFormatter: (params) => params.value.Total},
     { field: "Note", headerName: "หมายเหตุ*", width: 150 ,},
     { field: "MedicalDate", headerName: "วันที่ออกบิล", width: 230 ,valueFormatter: (params) => moment(params.value).format('DD-MM-yyyy เวลา hh:mm:ss')},
     {

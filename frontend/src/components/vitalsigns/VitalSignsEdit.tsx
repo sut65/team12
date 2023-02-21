@@ -131,16 +131,16 @@ export default function VitalSignsEdit() {
         })
     }
 
-      let theme = createTheme({ // button theme
+    let theme = createTheme({ // button theme
         palette: {
-          primary: {
-            main: '#12a178', //เขียว
-          },
-          secondary: {
-            main: '#edf2ff', //ขาว
-          },
+            primary: {
+              main: '#339966', //เขียว
+            },
+            secondary: {
+              main: '#339999', 
+            },
         },
-      });
+    });
 
       const handleClose = (
         event?: React.SyntheticEvent | Event,
@@ -156,6 +156,7 @@ export default function VitalSignsEdit() {
       };
 
       return (
+        <ThemeProvider theme={theme}>
         <Container maxWidth="lg">
 
         <Snackbar
@@ -235,7 +236,7 @@ export default function VitalSignsEdit() {
                                 // disabled 
                             >
                                 <option aria-label="None" value="">
-                                เลือกผู้ป่วย
+                                กรุณาเลือกผู้ป่วย
                                 </option>
                                 {
                                     patient.map((item: PatientInterface) =>
@@ -259,6 +260,7 @@ export default function VitalSignsEdit() {
                         variant="outlined"
                         type="string"
                         size="medium"
+                        placeholder="กรุณาระบุความดันโลหิตสูงสุด"
                         InputProps={{
                             endAdornment: <InputAdornment position="end">mmHg</InputAdornment>,
                           }}
@@ -276,6 +278,7 @@ export default function VitalSignsEdit() {
                             variant="outlined"
                             type="string"
                             size="medium"
+                            placeholder="กรุณาระบุความดันโลหิตต่ำสุด"
                             InputProps={{
                                 endAdornment: <InputAdornment position="end">mmHg</InputAdornment>,
                               }}
@@ -296,6 +299,7 @@ export default function VitalSignsEdit() {
                             variant="outlined"
                             type="string"
                             size="medium"
+                            placeholder="กรุณาระบุอัตราการเต้นของหัวใจ"
                             InputProps={{
                                 endAdornment: <InputAdornment position="end">bpm</InputAdornment>,
                               }}
@@ -313,6 +317,7 @@ export default function VitalSignsEdit() {
                             variant="outlined"
                             type="string"
                             size="medium"
+                            placeholder="กรุณาระบุอัตราการหายใจ"
                             InputProps={{
                                 endAdornment: <InputAdornment position="end">bpm</InputAdornment>,
                               }}
@@ -333,6 +338,7 @@ export default function VitalSignsEdit() {
                             variant="outlined"
                             type="string"
                             size="medium"
+                            placeholder="กรุณาระบุอุณหภูมิร่างกาย"
                             InputProps={{
                                 endAdornment: <InputAdornment position="end">° C</InputAdornment>,
                             }}
@@ -354,7 +360,7 @@ export default function VitalSignsEdit() {
                             }}
                         >
                         <option aria-label="None" value="">
-                        เลือกสถานะ
+                        กรุณาเลือกสถานะ
                         </option>
                             {
                                 status.map((item: StatusesInterface) =>
@@ -370,13 +376,14 @@ export default function VitalSignsEdit() {
                                 
            
                 <Grid item xs={12} >
-                        <Button component={RouterLink} to="/vitalsign" variant='contained'>
+                        <Button component={RouterLink} to="/vitalsign" variant='contained' color="secondary">
                             ย้อนกลับ
                         </Button>
                         <Button
                             style={{ float: "right" }}
                             variant="contained"
                             onClick={submit}
+                            color="secondary"
                         >
                             บันทึกข้อมูล
                         </Button>
@@ -384,5 +391,6 @@ export default function VitalSignsEdit() {
                 
             </Paper>
         </Container>
+    </ThemeProvider>
     )
 }

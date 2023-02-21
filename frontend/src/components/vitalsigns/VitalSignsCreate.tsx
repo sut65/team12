@@ -258,7 +258,7 @@ function VitalSignsCreate(){
                   }}
                 >
                   <MenuItem value={0} key={0}>
-                    เลือกผู้ป่วย
+                    กรุณาเลือกผู้ป่วย
                   </MenuItem>
                   {patient.map((item: PatientInterface) => (
                     <MenuItem value={item.ID}>{item.FirstName + " "+item.LastName}</MenuItem>
@@ -281,6 +281,7 @@ function VitalSignsCreate(){
                     endAdornment: <InputAdornment position="end">mmHg</InputAdornment>,
                   }}
                   size="medium"
+                  placeholder="กรุณาระบุความดันโลหิตสูงสุด"
                   value={vitalsign.BloodPressureHigh || ""}
                   onChange={handleInputChangenumber}
                 />
@@ -298,6 +299,7 @@ function VitalSignsCreate(){
                     endAdornment: <InputAdornment position="end">mmHg</InputAdornment>,
                   }}
                   size="medium"
+                  placeholder="กรุณาระบุความดันโลหิตต่ำสุด"
                   value={vitalsign.BloodPressureLow || ""}
                   onChange={handleInputChangenumber}
                 />
@@ -317,6 +319,7 @@ function VitalSignsCreate(){
                     endAdornment: <InputAdornment position="end">bpm</InputAdornment>,
                   }}
                   size="medium"
+                  placeholder="กรุณาระบุอัตราการเต้นของหัวใจ"
                   value={vitalsign.PulseRate || ""}
                   onChange={handleInputChangenumber}
                 />
@@ -334,6 +337,7 @@ function VitalSignsCreate(){
                     endAdornment: <InputAdornment position="end">bpm</InputAdornment>,
                   }}
                   size="medium"
+                  placeholder="กรุณาระบุอัตราการหายใจ"
                   value={vitalsign.RespirationRate || ""}
                   onChange={handleInputChangenumber}
                 />
@@ -353,6 +357,7 @@ function VitalSignsCreate(){
                     endAdornment: <InputAdornment position="end">° C</InputAdornment>,
                   }}
                   size="medium"
+                  placeholder="กรุณาระบุอุณหภูมิร่างกาย"
                   value={vitalsign.BodyTemperature || ""}
                   onChange={handleInputChange}
                 />
@@ -371,7 +376,7 @@ function VitalSignsCreate(){
                   }}
                 >
                   <MenuItem value={0} key={0}>
-                    เลือกสถานะ
+                    กรุณาเลือกสถานะ
                   </MenuItem>
                   {status.map((item: StatusesInterface) => (
                     <MenuItem value={item.ID}>{item.Status}</MenuItem>
