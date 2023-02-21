@@ -290,6 +290,7 @@ export default function RequisitionEdit() {
                             variant="outlined"
                             type="string"
                             size="medium"
+                            placeholder="กรุณาระบุจำนวนอุปกรณ์ทางการเเพทย์"
                             value={requisition.Quantity}
                             onChange={handleInputChange}
                         />
