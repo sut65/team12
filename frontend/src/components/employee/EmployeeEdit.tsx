@@ -5,7 +5,6 @@ import { Alert, Box, Button, FormControl, Paper, Select, Snackbar, TextField, Ty
     OutlinedInput,
     ThemeProvider, } from '@mui/material'
 import Container from '@mui/material/Container'
-import Dialog from '@mui/material/Dialog'
 import Grid from '@mui/material/Grid'
 import React from 'react'
 import { useNavigate, useParams, Link as RouterLink } from 'react-router-dom'
@@ -171,7 +170,7 @@ export default function EmployeeUpdate() {
     <Snackbar
         id="success"        
         open={success}
-        autoHideDuration={2000}
+        autoHideDuration={4000}
         onClose={handleClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
@@ -183,7 +182,7 @@ export default function EmployeeUpdate() {
       <Snackbar 
         id="error"
         open={error} 
-        autoHideDuration={2000} 
+        autoHideDuration={4000} 
         onClose={handleClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         >
