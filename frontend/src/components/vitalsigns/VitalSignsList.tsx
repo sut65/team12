@@ -105,8 +105,8 @@ return (
     >
           <Box flexGrow={1}
             sx={{
-              marginTop: 3,
-              marginLeft:3,
+              // marginTop: 3,
+              // marginLeft:3,
               // bgcolor: '#F0EEED'
             }}
           >
@@ -116,15 +116,15 @@ return (
               color="primary"
               gutterBottom
             >
-              <h3>Vital Signs List Information</h3>
+              <h4>Vital Signs List Information</h4>
             </Typography>
           </Box>
 
           <Box
             sx={{
-              marginTop: 3,
-              marginRight:3,
-              marginBottom:3,
+              // marginTop: 3,
+              // marginRight:3,
+              // marginBottom:3,
             }}
           >
             <Button 
