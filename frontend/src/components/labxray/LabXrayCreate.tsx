@@ -7,12 +7,7 @@ import Button from "@mui/material/Button";
 import {FormControl, Container,Paper,Grid,Box,Typography,Divider,Snackbar} from "@mui/material";
 
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import {
     createTheme,
     MenuItem,
@@ -25,7 +20,6 @@ import {
   import { PatientInterface } from "../../interfaces/patient/IPatient";
   import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
   import { ListLabTypes, CreateLabXray } from "../../services/LabXraySystem/LabXrayServices";
-  import { ListEmployees } from "../../services/EmployeeSystem/employeeServices";
   import { ListPatient } from "../../services/patient/HttpClineServincePatient";
   const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -92,7 +86,6 @@ import {
       let data = {
         Description: labxray.Description,
         Pic: imageString,
-        // Date: new Date().toJSON().split("Z").at(0)+"+07:00",
         LabTypeID:convertType(labxray.LabTypeID),
         DoctorID: convertType(localStorage.getItem("id") as string),
         PatientID: convertType(labxray.PatientID),

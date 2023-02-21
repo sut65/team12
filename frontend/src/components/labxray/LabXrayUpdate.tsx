@@ -3,17 +3,9 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import {FormControl, Container,Paper,Grid,Box,Typography,Divider,Snackbar} from "@mui/material";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { useNavigate, useParams, Link as RouterLink } from 'react-router-dom'
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import {
     createTheme,
-    FormControlLabel,
-    FormLabel,
-    MenuItem,
-    Radio,
-    RadioGroup,
     Select,
     SelectChangeEvent,
     ThemeProvider,
@@ -23,7 +15,6 @@ import {
   import { PatientInterface } from "../../interfaces/patient/IPatient";
   import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
   import { ListLabTypes, CreateLabXray,UpdateLabXray } from "../../services/LabXraySystem/LabXrayServices";
-  import { ListEmployees } from "../../services/EmployeeSystem/employeeServices";
   import { ListPatient } from "../../services/patient/HttpClineServincePatient";
   import { GetLabXray } from "../../services/LabXraySystem/LabXrayServices";
   export default function UpdateLabXrayNew() {
@@ -86,7 +77,6 @@ import {
           ID: convertType(labxray.ID),
           Description: labxray.Description,
           Pic: imageString,
-          // Date: new Date().toJSON().split("Z").at(0)+"+07:00",
           LabTypeID:convertType(labxray.LabTypeID),
           DoctorID: convertType(localStorage.getItem("id") as string),
           PatientID: convertType(labxray.PatientID),
