@@ -251,17 +251,18 @@ function VitalSignsCreate(){
             <FormLabel>Patient</FormLabel>
               <FormControl fullWidth variant="outlined">
                 <Select
+                  native
                   value={vitalsign.PatientID}
                   onChange={handleChange}
                   inputProps={{
                     name: "PatientID",
                   }}
                 >
-                  <MenuItem value={0} key={0}>
+                  <option value={0} key={0}>
                     กรุณาเลือกผู้ป่วย
-                  </MenuItem>
+                  </option>
                   {patient.map((item: PatientInterface) => (
-                    <MenuItem value={item.ID}>{item.FirstName + " "+item.LastName}</MenuItem>
+                    <option value={item.ID}>{item.FirstName + " "+item.LastName}</option>
                   ))}
                 </Select>
               </FormControl>
@@ -369,17 +370,18 @@ function VitalSignsCreate(){
               <FormLabel>Status</FormLabel>
               <FormControl fullWidth variant="outlined">
                 <Select
+                  native
                   value={vitalsign.StatusID}
                   onChange={handleChange}
                   inputProps={{
                     name: "StatusID",
                   }}
                 >
-                  <MenuItem value={0} key={0}>
+                  <option value={0} key={0}>
                     กรุณาเลือกสถานะ
-                  </MenuItem>
+                  </option>
                   {status.map((item: StatusesInterface) => (
-                    <MenuItem value={item.ID}>{item.Status}</MenuItem>
+                    <option value={item.ID}>{item.Status}</option>
                   ))}
                 </Select>
               </FormControl>
