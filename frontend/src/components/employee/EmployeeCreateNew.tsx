@@ -104,7 +104,7 @@ import {
       if(res.status){
           setTimeout(() => {
               navigator("/employee")
-          }, 5000)
+          }, 3000)
       }
     }
 

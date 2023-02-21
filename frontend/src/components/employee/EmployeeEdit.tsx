@@ -171,7 +171,7 @@ export default function EmployeeUpdate() {
     <Snackbar
         id="success"        
         open={success}
-        autoHideDuration={2000}
+        autoHideDuration={4000}
         onClose={handleClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
@@ -183,7 +183,7 @@ export default function EmployeeUpdate() {
       <Snackbar 
         id="error"
         open={error} 
-        autoHideDuration={2000} 
+        autoHideDuration={4000} 
         onClose={handleClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         >
