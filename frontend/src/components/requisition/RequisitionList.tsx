@@ -112,8 +112,8 @@ export default function RequisitionList() {
           >
             <Box flexGrow={1}
               sx={{
-                marginTop: 3,
-                marginLeft:3,
+                // marginTop: 3,
+                // marginLeft:3,
                 // bgcolor: '#F0EEED'
               }}
             >
@@ -122,15 +122,15 @@ export default function RequisitionList() {
                 color="primary"
                 gutterBottom
               >
-                <h3>Requisition Equipment and Supplies</h3>
+                <h4>Requisition Equipment and Supplies</h4>
               </Typography>
             </Box>
 
             <Box
               sx={{
-                marginTop: 3,
-                marginRight:3,
-                marginBottom:3,
+                // marginTop: 3,
+                // marginRight:3,
+                // marginBottom:3,
               }}
             >
                 <Button 

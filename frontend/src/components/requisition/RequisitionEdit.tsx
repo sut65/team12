@@ -131,14 +131,14 @@ export default function RequisitionEdit() {
         })
     }
 
-      let theme = createTheme({ // button theme
+    let theme = createTheme({ // button theme
         palette: {
-          primary: {
-            main: '#12a178', //เขียว
-          },
-          secondary: {
-            main: '#edf2ff', //ขาว
-          },
+            primary: {
+              main: '#339966', //เขียว
+            },
+            secondary: {
+              main: '#339999', 
+            },
         },
       });
 
@@ -156,6 +156,7 @@ export default function RequisitionEdit() {
       };
 
       return (
+        <ThemeProvider theme={theme}>
         <Container maxWidth="lg">
 
         <Snackbar
@@ -236,7 +237,7 @@ export default function RequisitionEdit() {
                                 
                             >
                                 <option aria-label="None" value="">
-                                    เลือกแผนก
+                                    กรุณาเลือกแผนก
                                 </option>
                                 {
                                     departmentforequipment.map((item: DepartmentForEquipmentsInterface) =>
@@ -253,7 +254,7 @@ export default function RequisitionEdit() {
                 <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
                     <Grid item xs={10}>
                     <FormControl fullWidth variant='outlined'>
-                            <p>Equipment</p>
+                            <p>Equipment and Supplies</p>
                             <Select
                                 native
                                 value={requisition.EquipmentID}
@@ -265,7 +266,7 @@ export default function RequisitionEdit() {
                                 
                             >
                                 <option aria-label="None" value="">
-                                    เลือกอุุปกรณ์ทางการเเพทย์
+                                    กรุณาเลือกอุุปกรณ์ทางการเเพทย์
                                 </option>
                                 {
                                     equipment.map((item: EquipmentsInterface) =>
@@ -297,13 +298,14 @@ export default function RequisitionEdit() {
                 </Grid>
            
                 <Grid item xs={12} >
-                        <Button component={RouterLink} to="/requisition" variant='contained'>
+                        <Button component={RouterLink} to="/requisition" variant='contained' color="secondary">
                             ย้อนกลับ
                         </Button>
                         <Button
                             style={{ float: "right" }}
                             variant="contained"
                             onClick={submit}
+                            color="secondary"
                         >
                             บันทึกข้อมูล
                         </Button>
@@ -311,5 +313,6 @@ export default function RequisitionEdit() {
                 
             </Paper>
         </Container>
+    </ThemeProvider>
     )
 }

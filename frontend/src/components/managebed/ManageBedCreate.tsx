@@ -205,7 +205,7 @@ function ManageBedCreate() {
                 </option>
                 {patient.map((item: PatientInterface) => (
                   <option value={item.ID} key={item.ID}>
-                    {item.FirstName}
+                    {(item.FirstName) +" " +(item.LastName)}
                   </option>
                 ))}
               </Select>

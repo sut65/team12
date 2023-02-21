@@ -58,13 +58,6 @@ func CreateLabXray(c *gin.Context) {
 		return
 	}
 
-	if _, err := govalidator.ValidateStruct(labxray); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
-
 	// get doctor from database
 	if tx := entity.DB().Where("id = ?", labxray.DoctorID).First(&doctor); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -91,14 +84,18 @@ func CreateLabXray(c *gin.Context) {
 
 	lab := entity.LabXray{
 		Description: labxray.Description,
-		// Date:        labxray.Date,
 		Date:    time.Now().Local(),
 		Pic:     labxray.Pic,
 		Doctor:  doctor,
 		Patient: patient,
 		LabType: labtype,
 	}
-
+	if _, err := govalidator.ValidateStruct(lab); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
 	if err := entity.DB().Create(&lab).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
@@ -147,9 +144,6 @@ func UpdateLabXray(c *gin.Context) {
 		labxray.Pic = oldlabxray.Pic
 	}
 
-	// if labxray.Date.String() == "0001-01-01 00:00:00 +0000 UTC" {
-	// 	labxray.Date = oldlabxray.Date
-	// }
 	labxray.Date= time.Now().Local();
 	// if new have doctor id
 	if labxray.DoctorID != nil {

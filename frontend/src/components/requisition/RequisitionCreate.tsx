@@ -43,6 +43,16 @@ import { ListEmployees } from "../../services/EmployeeSystem/employeeServices";
 import { RequisitionRecordInterface } from "../../interfaces/requisitionRecord/IRequisitionRecord";
 
 function RequisitionCreate(){
+  let theme = createTheme({ // button theme
+    palette: {
+        primary: {
+          main: '#339966', //เขียว
+        },
+        secondary: {
+          main: '#339999', 
+        },
+    },
+  });
   const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
     ref
@@ -161,18 +171,9 @@ function RequisitionCreate(){
       [name]: event.target.value,
     });
   };
-  let theme = createTheme({
-    palette: {
-      primary: {
-        main: '#0052cc',
-      },
-      secondary: {
-        main: '#edf2ff',
-      },
-    },
-  });
 
   return (
+    <ThemeProvider theme={theme}>
       <Container maxWidth="lg" >
       <Snackbar
         id="success"
@@ -251,10 +252,10 @@ function RequisitionCreate(){
 
           <Divider />
 
-          <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
+          <Grid container spacing={3} sx={{ padding: 1,marginTop: 1 }} style={{ marginLeft: "6.5%"}}>
             <Grid item xs={10}>
-            <FormLabel>Department</FormLabel>
               <FormControl fullWidth variant="outlined">
+              <FormLabel>Department</FormLabel>
                 <Select
                   value={requisition.DepartmentForEquipmentID}
                   onChange={handleChange}
@@ -263,7 +264,7 @@ function RequisitionCreate(){
                   }}
                 >
                   <MenuItem value={0} key={0}>
-                    เลือกแผนกที่ต้องการเบิกอุปกร์ทางการเเพทย์
+                    กรุณาเลือกแผนกที่ต้องการเบิกอุปกร์ทางการเเพทย์
                   </MenuItem>
                   {departmentforequipment.map((item: DepartmentForEquipmentsInterface) => (
                     <MenuItem value={item.ID}>{item.Type}</MenuItem>
@@ -273,7 +274,7 @@ function RequisitionCreate(){
             </Grid>
           </Grid>
 
-          <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
+          <Grid container spacing={3} sx={{ padding: 1,marginTop: 0 }} style={{ marginLeft: "6.5%"}}>
             <Grid item xs={10}>
             <FormLabel>Equipment and Supplies</FormLabel>
               <FormControl fullWidth variant="outlined">
@@ -285,7 +286,7 @@ function RequisitionCreate(){
                   }}
                 >
                   <MenuItem value={0} key={0}>
-                    เลือกอุุปกรณ์ทางการเเพทย์
+                    กรุณาเลือกอุุปกรณ์ทางการเเพทย์
                   </MenuItem>
                   {equipment.map((item: EquipmentsInterface) => (
                     <MenuItem value={item.ID}>{item.Name}</MenuItem>
@@ -295,15 +296,16 @@ function RequisitionCreate(){
             </Grid>
           </Grid>
 
-          <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
+          <Grid container spacing={3} sx={{ padding: 1,marginTop: 0 }} style={{ marginLeft: "6.5%"}}>
             <Grid item xs={6}>
+            <FormLabel>Quantity</FormLabel>
               <FormControl fullWidth variant="outlined">
-                <FormLabel>Quantity</FormLabel>
                 <TextField
                   id="Quantity"
                   variant="outlined"
                   type="string"
                   size="medium"
+                  placeholder="กรุณาระบุจำนวนอุปกรณ์ทางการเเพทย์"
                   value={requisition.Quantity}
                   onChange={handleInputChange}
                 />
@@ -314,7 +316,7 @@ function RequisitionCreate(){
           
           <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
             <Grid item xs={4}>
-                <Button component={RouterLink} to="/requisition" variant="contained">
+                <Button component={RouterLink} to="/requisition" variant="contained" color="secondary">
                   Back
                 </Button>
             </Grid>
@@ -323,7 +325,7 @@ function RequisitionCreate(){
                   style={{ float: "right" }}
                   onClick={submit}
                   variant="contained"
-                  // color="primary"
+                  color="secondary"
                 >
                   บันทึกข้อมูล
                 </Button>
@@ -335,6 +337,7 @@ function RequisitionCreate(){
           
         </Paper>
       </Container>
+    </ThemeProvider>
   );
 }
 export default RequisitionCreate;

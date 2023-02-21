@@ -1341,7 +1341,7 @@ func SetupDatabase() {
 
 	//=========================================MedicalSlip=================================
 	medicalslip1 := MedicalSlip{
-		Total:        100000.00,
+		Total:        100000.50,
 		Note:         "Personal Payment",
 		MedicalDate:  time.Now(),
 		LabXray:      LabX1,
@@ -1354,7 +1354,7 @@ func SetupDatabase() {
 	db.Model(&MedicalSlip{}).Create(&medicalslip1)
 
 	medicalslip2 := MedicalSlip{
-		Total:        205000.00,
+		Total:        205000.25,
 		Note:         "Organization Payment",
 		MedicalDate:  time.Now(),
 		LabXray:      LabX2,
