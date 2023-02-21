@@ -257,17 +257,18 @@ function RequisitionCreate(){
               <FormControl fullWidth variant="outlined">
               <FormLabel>Department</FormLabel>
                 <Select
+                  native
                   value={requisition.DepartmentForEquipmentID}
                   onChange={handleChange}
                   inputProps={{
                     name: "DepartmentForEquipmentID",
                   }}
                 >
-                  <MenuItem value={0} key={0}>
+                  <option value={0} key={0}>
                     กรุณาเลือกแผนกที่ต้องการเบิกอุปกร์ทางการเเพทย์
-                  </MenuItem>
+                  </option>
                   {departmentforequipment.map((item: DepartmentForEquipmentsInterface) => (
-                    <MenuItem value={item.ID}>{item.Type}</MenuItem>
+                    <option value={item.ID}>{item.Type}</option>
                   ))}
                 </Select>
               </FormControl>
@@ -279,17 +280,18 @@ function RequisitionCreate(){
             <FormLabel>Equipment and Supplies</FormLabel>
               <FormControl fullWidth variant="outlined">
                 <Select
+                  native
                   value={requisition.EquipmentID}
                   onChange={handleChange}
                   inputProps={{
                     name: "EquipmentID",
                   }}
                 >
-                  <MenuItem value={0} key={0}>
+                  <option value={0} key={0}>
                     กรุณาเลือกอุุปกรณ์ทางการเเพทย์
-                  </MenuItem>
+                  </option>
                   {equipment.map((item: EquipmentsInterface) => (
-                    <MenuItem value={item.ID}>{item.Name}</MenuItem>
+                    <option value={item.ID}>{item.Name}</option>
                   ))}
                 </Select>
               </FormControl>
