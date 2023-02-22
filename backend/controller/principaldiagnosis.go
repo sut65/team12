@@ -17,7 +17,7 @@ func CreatePrincipalDiagnosis(c *gin.Context) {
 	//main
 	var principaldiagnosis entity.PrincipalDiagnosis
 	//relation
-	var employee entity.Employee
+	var doctor entity.Employee
 	var patient entity.Patient
 	var lod entity.LoD
 
@@ -35,13 +35,14 @@ func CreatePrincipalDiagnosis(c *gin.Context) {
 	}
 	//////////////////////////////////////////////////////////////////////////
 
-	// get employee from database
-	if tx := entity.DB().Where("id = ?", principaldiagnosis.EmployeeID).First(&employee); tx.RowsAffected == 0 {
+	// get doctor from database
+	if tx := entity.DB().Where("id = ?", principaldiagnosis.DoctorID).First(&doctor); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Please select Employee",
+			"error": "not found doctor",
 		})
 		return
 	}
+	//////////////////////////////////////////////////////////////////////////
 
 	// get patient from database
 	if tx := entity.DB().Where("id = ?", principaldiagnosis.PatientID).First(&patient); tx.RowsAffected == 0 {
@@ -61,10 +62,10 @@ func CreatePrincipalDiagnosis(c *gin.Context) {
 
 	pd := entity.PrincipalDiagnosis{
 
-		Employee: employee,
-		Patient:  patient,
-		LoD:      lod,
-		Note:     principaldiagnosis.Note,
+		Doctor:  doctor,
+		Patient: patient,
+		LoD:     lod,
+		Note:    principaldiagnosis.Note,
 		// Price:     price,
 		Date: principaldiagnosis.Date,
 	}
@@ -97,7 +98,7 @@ func GetPrincipalDiagnosis(c *gin.Context) {
 // GET /principaldiagnosiss
 func ListPrincipalDiagnosis(c *gin.Context) {
 	var principaldiagnosiss []entity.PrincipalDiagnosis
-	if err := entity.DB().Preload("Employee").Preload("Patient").Preload("LoD").Raw("SELECT * FROM principal_diagnoses").Find(&principaldiagnosiss).Error; err != nil {
+	if err := entity.DB().Preload("Doctor").Preload("Patient").Preload("LoD").Raw("SELECT * FROM principal_diagnoses").Find(&principaldiagnosiss).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
@@ -117,7 +118,7 @@ func UpdatePrincipalDiagnosis(c *gin.Context) {
 	var principaldiagnosis entity.PrincipalDiagnosis
 	var oldprincipaldiagnosis entity.PrincipalDiagnosis
 	//relation
-	var employee entity.Employee
+	var doctor entity.Employee
 	var patient entity.Patient
 	var lod entity.LoD
 
@@ -152,21 +153,21 @@ func UpdatePrincipalDiagnosis(c *gin.Context) {
 		principaldiagnosis.Date = oldprincipaldiagnosis.Date
 	}
 
-	// if new have employee id
-	if principaldiagnosis.EmployeeID != nil {
-		if tx := entity.DB().Where("id = ?", principaldiagnosis.EmployeeID).First(&employee); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found employee"})
+	// if new have doctor id
+	if principaldiagnosis.DoctorID != nil {
+		if tx := entity.DB().Where("id = ?", principaldiagnosis.DoctorID).First(&doctor); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "not found doctor"})
 			return
 		}
 		fmt.Print("NOT NULL")
-		principaldiagnosis.Employee = employee
+		principaldiagnosis.Doctor = doctor
 	} else {
-		if tx := entity.DB().Where("id = ?", oldprincipaldiagnosis.EmployeeID).First(&employee); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found oldyee"})
+		if tx := entity.DB().Where("id = ?", oldprincipaldiagnosis.DoctorID).First(&doctor); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "not found doctor"})
 			return
 		}
 		fmt.Print("NULL")
-		principaldiagnosis.Employee = employee
+		principaldiagnosis.Doctor = doctor
 	}
 
 	// if new have patient id
@@ -223,4 +224,19 @@ func DeletePrincipalDiagnosis(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": id})
 
+}
+
+// ListDoc
+func ListDoctorPrin(c *gin.Context) {
+	var employees []entity.Employee
+	if err := entity.DB().Preload("Gender").Preload("Role").Preload("Department").Raw("SELECT * FROM employees WHERE role_id = 1").Find(&employees).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		c.Abort()
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"data": employees,
+	})
 }

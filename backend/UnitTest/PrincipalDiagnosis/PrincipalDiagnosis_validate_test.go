@@ -17,11 +17,11 @@ func TestPDValidatenotBlank(t *testing.T) {
 
 	t.Run("check Note not blank", func(t *testing.T) {
 		pd := PrincipalDiagnosis{
-			EmployeeID: nil,
-			PatientID:  &test,
-			LoDID:      &test,
-			Note:       "",
-			Date:       time.Now(),
+			DoctorID:  &test,
+			PatientID: &test,
+			LoDID:     &test,
+			Note:      "",
+			Date:      time.Now(),
 		}
 
 		ok, err := govalidator.ValidateStruct(pd)
@@ -32,35 +32,35 @@ func TestPDValidatenotBlank(t *testing.T) {
 
 	})
 
-	// t.Run("check Employee not nil", func(t *testing.T) {
-	// 	pd := PrincipalDiagnosis{
-	// 		EmployeeID: nil,
-	// 		PatientID:  &test,
-	// 		LoDID:      &test,
-	// 		Note:       "SS",
-	// 		Date:       time.Now(),
-	// 	}
+	t.Run("check Doctor not nil", func(t *testing.T) {
+		pd := PrincipalDiagnosis{
+			DoctorID:  nil,
+			PatientID: &test,
+			LoDID:     &test,
+			Note:      "SS",
+			Date:      time.Now(),
+		}
 
-	// 	ok, err := govalidator.ValidateStruct(pd)
+		ok, err := govalidator.ValidateStruct(pd)
 
-	// 	// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
-	// 	g.Expect(ok).NotTo(gomega.BeTrue())
+		// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
+		g.Expect(ok).NotTo(gomega.BeTrue())
 
-	// 	// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
-	// 	g.Expect(err).ToNot(gomega.BeNil())
+		// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
+		g.Expect(err).ToNot(gomega.BeNil())
 
-	// 	// err.Error ต้องมี error message แสดงออกมา
-	// 	g.Expect(err.Error()).To(gomega.Equal("Please select Employee"))
+		// err.Error ต้องมี error message แสดงออกมา
+		g.Expect(err.Error()).To(gomega.Equal("Please select Doctor"))
 
-	// })
+	})
 
 	t.Run("check Patient not nil", func(t *testing.T) {
 		pd := PrincipalDiagnosis{
-			EmployeeID: &test,
-			PatientID:  nil,
-			LoDID:      &test,
-			Note:       "GG",
-			Date:       time.Now(),
+			DoctorID:  &test,
+			PatientID: nil,
+			LoDID:     &test,
+			Note:      "GG",
+			Date:      time.Now(),
 		}
 
 		ok, err := govalidator.ValidateStruct(pd)
@@ -78,11 +78,11 @@ func TestPDValidatenotBlank(t *testing.T) {
 
 	t.Run("check LoD not nil", func(t *testing.T) {
 		pd := PrincipalDiagnosis{
-			EmployeeID: &test,
-			PatientID:  &test,
-			LoDID:      nil,
-			Note:       "GG",
-			Date:       time.Now(),
+			DoctorID:  &test,
+			PatientID: &test,
+			LoDID:     nil,
+			Note:      "GG",
+			Date:      time.Now(),
 		}
 
 		ok, err := govalidator.ValidateStruct(pd)
@@ -101,11 +101,11 @@ func TestPDValidateNoteMaxCharacters(t *testing.T) {
 	test := uint(1)
 	t.Run("Note must to be max 150 characters", func(t *testing.T) {
 		pd := PrincipalDiagnosis{
-			EmployeeID: &test,
-			PatientID:  &test,
-			LoDID:      &test,
-			Date:       time.Now(),
-			Note:       "Baby Shark, doo-doo, doo-doo Baby Shark, doo-doo, doo-dooBaby Shark, doo-doo, doo-dooBaby SharkMommy Shark, doo-doo, doo-dooMommy Shark, doo-doo, doo-dooMommy Shark, doo-doo, doo-dooMommy Shark",
+			DoctorID:  &test,
+			PatientID: &test,
+			LoDID:     &test,
+			Date:      time.Now(),
+			Note:      "Baby Shark, doo-doo, doo-doo Baby Shark, doo-doo, doo-dooBaby Shark, doo-doo, doo-dooBaby SharkMommy Shark, doo-doo, doo-dooMommy Shark, doo-doo, doo-dooMommy Shark, doo-doo, doo-dooMommy Shark",
 		}
 
 		ok, err := govalidator.ValidateStruct(pd)
