@@ -30,21 +30,21 @@ type Employee struct {
 	//to easier for adding FK
 	Department Department `gorm:"references:id" valid:"-"`
 
-	Patient           []Patient      `gorm:"foreignKey:EmployeeID"`
-	LabXrays          []LabXray      `gorm:"foreignKey:DoctorID"`
-	Prescription      []Prescription `gorm:"foreignKey:EmployeeID"`
-	PrescriptionOrder []Prescription `gorm:"foreignKey:OrderID"`
-	userORrecord      []ORrecord     `gorm:"foreignKey:UserID"`
-	drORrecord        []ORrecord     `gorm:"foreignKey:DoctorID"`
-	rcORrecord        []ORrecord     `gorm:"foreignKey:StaffRecivingID"`
-	rtORrecord        []ORrecord     `gorm:"foreignKey:StaffReturingID"`
-	ManageBeds        []ManageBed    `gorm:"foreignKey:EmployeeID"`
-	SFTs              []SFT          `gorm:"foreignKey:DoctorID"`
-	MedicalSlips      []MedicalSlip  `gorm:"foreignKey:EmployeeID"`
-	MSTs              []MST          `gorm:"foreignKey:NurseID"`
-	sMSTs             []MST          `gorm:"foreignKey:DoctorID"`
-	// PrincipalDiagnosis []PrincipalDiagnosis `gorm:"foreignKey:DoctorID"`
-	ErRecord []ErRecord `gorm:"foreignKey:NurseID"`
+	Patient            []Patient            `gorm:"foreignKey:EmployeeID"`
+	LabXrays           []LabXray            `gorm:"foreignKey:DoctorID"`
+	Prescription       []Prescription       `gorm:"foreignKey:EmployeeID"`
+	PrescriptionOrder  []Prescription       `gorm:"foreignKey:OrderID"`
+	userORrecord       []ORrecord           `gorm:"foreignKey:UserID"`
+	drORrecord         []ORrecord           `gorm:"foreignKey:DoctorID"`
+	rcORrecord         []ORrecord           `gorm:"foreignKey:StaffRecivingID"`
+	rtORrecord         []ORrecord           `gorm:"foreignKey:StaffReturingID"`
+	ManageBeds         []ManageBed          `gorm:"foreignKey:EmployeeID"`
+	SFTs               []SFT                `gorm:"foreignKey:DoctorID"`
+	MedicalSlips       []MedicalSlip        `gorm:"foreignKey:EmployeeID"`
+	MSTs               []MST                `gorm:"foreignKey:NurseID"`
+	sMSTs              []MST                `gorm:"foreignKey:DoctorID"`
+	PrincipalDiagnosis []PrincipalDiagnosis `gorm:"foreignKey:DoctorID"`
+	ErRecord           []ErRecord           `gorm:"foreignKey:NurseID"`
 }
 type Role struct {
 	gorm.Model
@@ -276,14 +276,14 @@ type PrincipalDiagnosis struct {
 	Date time.Time
 
 	//save in FK
-	EmployeeID *uint `valid:"required~Please select Employee`
-	PatientID  *uint `valid:"required~Please select Patient"`
-	LoDID      *uint `valid:"required~Please select LoD"`
+	DoctorID  *uint `valid:"required~Please select Doctor"`
+	PatientID *uint `valid:"required~Please select Patient"`
+	LoDID     *uint `valid:"required~Please select LoD"`
 
 	//JOIN
-	Employee Employee `valid:"-" gorm:"references:id"`
-	Patient  Patient  `valid:"-" gorm:"references:id"`
-	LoD      LoD      `valid:"-" gorm:"references:id"`
+	Doctor  Employee `gorm:"references:id" valid:"-"`
+	Patient Patient  `valid:"-" gorm:"references:id"`
+	LoD     LoD      `valid:"-" gorm:"references:id"`
 }
 
 type LoD struct {

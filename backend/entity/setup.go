@@ -550,20 +550,20 @@ func SetupDatabase() {
 	db.Model(&LoD{}).Create(&lod5)
 
 	pd1 := PrincipalDiagnosis{
-		Employee: emp1,
-		Patient:  patient1,
-		LoD:      lod3,
-		Note:     "-ความดันโลหิตสูงชนิด Primary Hypertension, -ห้ามสูบบุหรี่",
-		Date:     time.Date(2023, 1, 11, 0, 0, 0, 0, time.UTC),
+		Doctor:  emp1,
+		Patient: patient1,
+		LoD:     lod3,
+		Note:    "-ความดันโลหิตสูงชนิด Primary Hypertension, -ห้ามสูบบุหรี่",
+		Date:    time.Date(2023, 1, 11, 0, 0, 0, 0, time.UTC),
 	}
 	db.Model(&PrincipalDiagnosis{}).Create(&pd1)
 
 	pd2 := PrincipalDiagnosis{
-		Employee: emp1,
-		Patient:  patient2,
-		LoD:      lod5,
-		Note:     "-ไอมีเลือดปน, -หายใจมีเสียงหวีด, -การตัดชิ้นเนื้อเพื่อวิเคราะห์ (biopsy)",
-		Date:     time.Date(2023, 1, 16, 0, 0, 0, 0, time.UTC),
+		Doctor:  emp1,
+		Patient: patient2,
+		LoD:     lod5,
+		Note:    "-ไอมีเลือดปน, -หายใจมีเสียงหวีด, -การตัดชิ้นเนื้อเพื่อวิเคราะห์ (biopsy)",
+		Date:    time.Date(2023, 1, 16, 0, 0, 0, 0, time.UTC),
 	}
 	db.Model(&PrincipalDiagnosis{}).Create(&pd2)
 	//==========================================================================================//
