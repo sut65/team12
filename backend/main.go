@@ -53,6 +53,8 @@ func main() {
 			router.GET("/principaldiagnosis/get/:id", controller.GetPrincipalDiagnosis)
 			// List
 			router.GET("/principaldiagnosiss/list", controller.ListPrincipalDiagnosis)
+			// List Doctor
+			router.GET("/errecords/listdoctor", controller.ListDoctorPrin)
 			// Create
 			router.POST("/principaldiagnosis/create", controller.CreatePrincipalDiagnosis)
 			// UPDATE
