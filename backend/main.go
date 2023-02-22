@@ -30,6 +30,8 @@ func main() {
 			router.GET("/errecord/get/:id", controller.GetErRecord)
 			// List
 			router.GET("/errecords/list", controller.ListErRecord)
+			// List Nurse
+			router.GET("/errecords/listnurse", controller.ListNurseErRecord)
 			// Create
 			router.POST("/errecord/create", controller.CreateErRecord)
 			// UPDATE
