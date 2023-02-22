@@ -116,7 +116,7 @@ return (
 <Box
       display="flex"
       sx={{
-        marginTop: 2,
+        marginTop: 10,
       }}
     >
       <Box flexGrow={1}>
@@ -156,9 +156,9 @@ return (
                 <TableHead>
                   {/* หัวข้อตาราง */}
                   <TableRow>
-                    <TableCell align="center" width="10%"> ID </TableCell>
-                    <TableCell align="center" width="10%"> Employee  </TableCell>
-                    <TableCell align="center" width="10%"> Patient </TableCell>
+                    <TableCell align="center" width="5%"> ID </TableCell>
+                    <TableCell align="center" width="10%"> Nurse  </TableCell>
+                    <TableCell align="center" width="11%"> Patient </TableCell>
                     <TableCell align="center" width="10%"> ประเภทห้องพิเศษ</TableCell>
                     <TableCell align="center" width="10%"> ห้อง </TableCell>
                     <TableCell align="center" width="10%"> Description </TableCell>
@@ -176,8 +176,8 @@ return (
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                       <TableCell align="center">{item.ID}</TableCell>
-                      <TableCell align="center">{item.Employee?.FirstName}</TableCell>
-                      <TableCell align="center">{item.Patient?.FirstName}</TableCell>
+                      <TableCell align="center">{item.Nurse?.FirstName + " "+item.Nurse?.LastName}</TableCell>
+                      <TableCell align="center">{item.Patient?.FirstName + " "+item.Patient?.LastName}</TableCell>
                       <TableCell align="center">{item.ToE?.Roomtype}</TableCell>
                       <TableCell align="center">{item.Room?.Roomname}</TableCell>
                       <TableCell align="center">{item.Description}</TableCell>

@@ -263,11 +263,32 @@ async function GetPatient(ID: string | undefined) {
 
     return res
 }
-    // List ToE
+//     // List ToE
+// async function ListToE() {
+//     const reqOpt = {
+//         method: "GET",
+//         header: {
+//             Authorization: `Bearer ${localStorage.getItem("token")}`,
+//             "Content-Type": "application/json",
+//         }
+//     }
+//     let res = await fetch(`${apiUrl}/toes/list`, reqOpt)
+//     .then((response) => response.json())
+//     .then((res) => {
+//         if(res.data){
+//             return res.data
+//         } else{
+//             return false
+//         }
+//     })
+//     return res
+// }
+
+// List ToE
 async function ListToE() {
     const reqOpt = {
         method: "GET",
-        header: {
+        headers:{
             Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
         }
@@ -283,6 +304,7 @@ async function ListToE() {
     })
     return res
 }
+
 
 // GET By ID ToE
 async function GetToE(ID: string | undefined) {

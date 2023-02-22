@@ -31,7 +31,8 @@ import {
   import { RoomInterface } from "../../interfaces/errecord/IRoom";
 //   import { ListEmployee, ListDepartments, ListRoles, CreateEmployee, GetDepartmentByRole } from "../../services/EmployeeSystem/employeeServices";
   import { ListPatient } from "../../services/patient/HttpClineServincePatient";
-import { ListEmployee,  ListToE, ListRoom, CreateErRecord, GetRoomByToE } from "../../services/ErRecord/HttpErRecord";
+import { ListEmployee,  ListRoom, CreateErRecord, GetRoomByToE , ListNurseErRecord} from "../../services/ErRecord/HttpErRecord";
+import { ListToE } from "../../services/ErRecord/HttpErRecord";
   const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
     ref
@@ -44,16 +45,19 @@ import { ListEmployee,  ListToE, ListRoom, CreateErRecord, GetRoomByToE } from "
 
     const [errecord, setErRecord] = React.useState<Partial<ErRecordInterface>>(
       {
-        EmployeeID: 0,
+        // EmployeeID: 0,
+        NurseID: 0,
         PatientID: 0,
         ToEID: 0,
         RoomID: 0,
         Description: "",
         // Note: "",
+        
       }
     );
     const [firstName, setFirstName] = React.useState<string>("");
     const [employee, setEmployee] = React.useState<EmployeeInterface[]>([]);
+    const [nurse, setNurse] = React.useState<EmployeeInterface[]>([]);
     const [patient, setPatient] = React.useState<PatientInterface[]>([]);
     const [toe, setToE] = React.useState<ToEInterface[]>([]);
     const [room, setRoom] = React.useState<RoomInterface[]>([]);
@@ -71,6 +75,15 @@ import { ListEmployee,  ListToE, ListRoom, CreateErRecord, GetRoomByToE } from "
         setEmployee(res);
       }
     }   
+
+     // get Nurse
+  const getNurse = async () => {
+    let res = await ListNurseErRecord();
+    console.log(res);
+    if (res) {
+      setNurse(res);
+    }
+  }
     // get Patient
     const getPatient = async () => {
       let res = await ListPatient();
@@ -79,16 +92,24 @@ import { ListEmployee,  ListToE, ListRoom, CreateErRecord, GetRoomByToE } from "
         setPatient(res);
       }
     }   
+    // // get ToE
+    // const getToE = async () => {
+    //   //let id =0;
+    //   let res = await ListToE();
+    //   console.log(res);
+    //   if (res) {
+    //     setToE(res);
+    //   }
+    // }   
+
     // get ToE
     const getToE = async () => {
-      //let id =0;
       let res = await ListToE();
       console.log(res);
       if (res) {
         setToE(res);
       }
-    }   
-
+    } 
     // get Room
     const getRoom = async () => {
         //let id =0;
@@ -140,6 +161,7 @@ import { ListEmployee,  ListToE, ListRoom, CreateErRecord, GetRoomByToE } from "
       getToE();
       // getRoom();
       getRoomByToE();
+      getNurse();
     }, []);
 
     useEffect(() => {
@@ -181,11 +203,13 @@ import { ListEmployee,  ListToE, ListRoom, CreateErRecord, GetRoomByToE } from "
     let theme = createTheme({
       palette: {
         primary: {
-          main: "#3ba299",
+          main: '#3ba299',
         },
         secondary: {
           main: '#edf2ff',
         },
+
+        
       },
     });
     
@@ -239,39 +263,42 @@ import { ListEmployee,  ListToE, ListRoom, CreateErRecord, GetRoomByToE } from "
 
             <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
               <Grid item xs={5}>
-              <FormLabel>พนักงาน</FormLabel>
+              <FormLabel>พยาบาล</FormLabel>
                 <FormControl fullWidth variant="outlined">
                   <Select
-                    value={errecord.EmployeeID}
+                    native
+
+                    value={errecord.NurseID}
                     onChange={handleChange}
                     inputProps={{
-                      name: "EmployeeID",
+                      name: "NurseID",
                     }}
                   >
-                    <MenuItem value={0} key={0}>
-                      เลือกพนักงาน
-                    </MenuItem>
-                    {employee.map((item: EmployeeInterface) => (
-                      <MenuItem value={item.ID}>{item.FirstName}</MenuItem>
+                    <option value={0} key={0}>
+                      เลือกพยาบาล
+                    </option>
+                    {nurse.map((item: EmployeeInterface) => (
+                      <option value={item.ID}>{item.FirstName + " "+item.LastName}</option>
                     ))}
                   </Select>
                 </FormControl>
               </Grid>
               <Grid item xs={5}>
-              <FormLabel>Patient</FormLabel>
+              <FormLabel>ผู้ป่วย</FormLabel>
                 <FormControl fullWidth variant="outlined">
                   <Select
+                    native
                     value={errecord.PatientID}
                     onChange={handleChange}
                     inputProps={{
                       name: "PatientID",
                     }}
                   >
-                    <MenuItem value={0} key={0}>
+                    <option value={0} key={0}>
                       เลือกผู้ป่วย
-                    </MenuItem>
+                    </option>
                     {patient.map((item: PatientInterface) => (
-                      <MenuItem value={item.ID}>{item.FirstName}</MenuItem>
+                      <option value={item.ID}>{item.FirstName + " "+item.LastName}</option>
                     ))}
                   </Select>
                 </FormControl>
@@ -283,17 +310,18 @@ import { ListEmployee,  ListToE, ListRoom, CreateErRecord, GetRoomByToE } from "
               <FormLabel>Type of Exclusive Room</FormLabel>
                 <FormControl fullWidth variant="outlined">
                   <Select
+                    native
                     value={errecord.ToEID}
                     onChange={handleChange}
                     inputProps={{
                       name: "ToEID",
                     }}
                   >
-                    <MenuItem value={0} key={0}>
+                    <option value={0} key={0}>
                       ประเภทของห้องพิเศษ
-                    </MenuItem>
+                    </option>
                     {toe.map((item: ToEInterface) => (
-                      <MenuItem value={item.ID}>{item.Roomtype}</MenuItem>
+                      <option value={item.ID}>{item.Roomtype}</option>
                     ))}
                   </Select>
                 </FormControl>
@@ -328,17 +356,18 @@ import { ListEmployee,  ListToE, ListRoom, CreateErRecord, GetRoomByToE } from "
               <FormLabel>Exclusive Room</FormLabel>
                 <FormControl fullWidth variant="outlined">
                   <Select
+                    native
                     value={errecord.RoomID}
                     onChange={handleChange}
                     inputProps={{
                       name: "RoomID",
                     }}
                   >
-                    <MenuItem value={0} key={0}>
+                    <option value={0} key={0}>
                       ห้องพิเศษ
-                    </MenuItem>
+                    </option>
                     {room.map((item: RoomInterface) => (
-                      <MenuItem value={item.ID}>{item.Roomname}</MenuItem>
+                      <option value={item.ID}>{item.Roomname}</option>
                     ))}
                   </Select>
                 </FormControl>
