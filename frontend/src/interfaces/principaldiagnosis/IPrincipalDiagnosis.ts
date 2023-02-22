@@ -5,13 +5,15 @@ import { PatientInterface } from "../patient/IPatient";
 
 export interface PrincipalDiagnosisInterface {
     ID: number;
-    EmployeeID?: number;
+    // EmployeeID?: number;
     PatientID?: number;
     LoDID?: number;
     Note?: string;
     Date?: Date | null;
+    DoctorID?: number,
 
-    Employee?: EmployeeInterface;
+
+    Doctor?: EmployeeInterface;
     Patient?: PatientInterface;
     LoD?: LoDInterface;
 
