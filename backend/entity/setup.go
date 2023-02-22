@@ -1318,10 +1318,10 @@ func SetupDatabase() {
 	db.Model(&Room{}).Create(&room25)
 
 	errec1 := ErRecord{
-		Employee: emp3,
-		Patient:  patient1,
-		ToE:      toe1,
-		Room:     room1,
+		Nurse:   emp3,
+		Patient: patient1,
+		ToE:     toe1,
+		Room:    room1,
 		// Price:    room1.Price,
 		Description: "ห้องที่จองราคา 600 บาท",
 		Date:        time.Date(2023, 1, 11, 0, 0, 0, 0, time.UTC),
@@ -1329,12 +1329,12 @@ func SetupDatabase() {
 	db.Model(&ErRecord{}).Create(&errec1)
 
 	errec2 := ErRecord{
-		Employee: emp3,
-		Patient:  patient2,
-		ToE:      toe2,
-		Room:     room6,
+		Nurse:   emp3,
+		Patient: patient2,
+		ToE:     toe2,
+		Room:    room6,
 		// Price:    room6.Price,
-		Description: "ห้องที่จองราคา 4,300 บาท",
+		Description: "ห้องที่จองราคา 4300 บาท",
 		Date:        time.Date(2023, 1, 16, 0, 0, 0, 0, time.UTC),
 	}
 	db.Model(&ErRecord{}).Create(&errec2)

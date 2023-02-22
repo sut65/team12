@@ -17,7 +17,7 @@ func CreateErRecord(c *gin.Context) {
 	//main
 	var errecord entity.ErRecord
 	//relation
-	var employee entity.Employee
+	var nurse entity.Employee
 	var patient entity.Patient
 	var toe entity.ToE
 	var room entity.Room
@@ -37,14 +37,23 @@ func CreateErRecord(c *gin.Context) {
 	}
 	//////////////////////////////////////////////////////////////////////////
 
-	// get employee from database
-	if tx := entity.DB().Where("id = ?", errecord.EmployeeID).First(&employee); tx.RowsAffected == 0 {
+	// // get employee from database
+	// if tx := entity.DB().Where("id = ?", errecord.EmployeeID).First(&employee); tx.RowsAffected == 0 {
+	// 	c.JSON(http.StatusBadRequest, gin.H{
+	// 		"error": "Please select Employee",
+	// 	})
+	// 	return
+	// }
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// get nurse from database
+	if tx := entity.DB().Where("id = ?", errecord.NurseID).First(&nurse); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Please select Employee",
+			"error": "nurse is not found",
 		})
 		return
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// get patient from database
 	if tx := entity.DB().Where("id = ?", errecord.PatientID).First(&patient); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -71,7 +80,7 @@ func CreateErRecord(c *gin.Context) {
 
 	errec := entity.ErRecord{
 
-		Employee:    employee,
+		Nurse:       nurse,
 		Patient:     patient,
 		ToE:         toe,
 		Description: errecord.Description,
@@ -108,7 +117,7 @@ func GetErRecord(c *gin.Context) {
 // GET /errecords
 func ListErRecord(c *gin.Context) {
 	var errecords []entity.ErRecord
-	if err := entity.DB().Preload("Employee").Preload("Patient").Preload("ToE").Preload("Room").Raw("SELECT * FROM er_records").Find(&errecords).Error; err != nil {
+	if err := entity.DB().Preload("Nurse").Preload("Patient").Preload("ToE").Preload("Room").Raw("SELECT * FROM er_records").Find(&errecords).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
@@ -128,7 +137,7 @@ func UpdateErRecord(c *gin.Context) {
 	var errecord entity.ErRecord
 	var olderrecord entity.ErRecord
 	//relation
-	var employee entity.Employee
+	var nurse entity.Employee
 	var patient entity.Patient
 	var toe entity.ToE
 	var room entity.Room
@@ -164,21 +173,21 @@ func UpdateErRecord(c *gin.Context) {
 		errecord.Date = olderrecord.Date
 	}
 
-	// if new have employee id
-	if errecord.EmployeeID != nil {
-		if tx := entity.DB().Where("id = ?", errecord.EmployeeID).First(&employee); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found employee"})
+	// if new have nurse id
+	if errecord.NurseID != nil {
+		if tx := entity.DB().Where("id = ?", errecord.NurseID).First(&nurse); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "not found nurse"})
 			return
 		}
 		fmt.Print("NOT NULL")
-		errecord.Employee = employee
+		errecord.Nurse = nurse
 	} else {
-		if tx := entity.DB().Where("id = ?", olderrecord.EmployeeID).First(&employee); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found oldyee"})
+		if tx := entity.DB().Where("id = ?", olderrecord.NurseID).First(&nurse); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "not found oldnurse"})
 			return
 		}
 		fmt.Print("NULL")
-		errecord.Employee = employee
+		errecord.Nurse = nurse
 	}
 
 	// if new have patient id
@@ -250,4 +259,19 @@ func DeleteErRecord(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": id})
 
+}
+
+// ListNurse
+func ListNurseErRecord(c *gin.Context) {
+	var employees []entity.Employee
+	if err := entity.DB().Preload("Gender").Preload("Role").Preload("Department").Raw("SELECT * FROM employees WHERE role_id = 2").Find(&employees).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		c.Abort()
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"data": employees,
+	})
 }

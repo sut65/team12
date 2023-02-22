@@ -43,6 +43,8 @@ type Employee struct {
 	MedicalSlips      []MedicalSlip  `gorm:"foreignKey:EmployeeID"`
 	MSTs              []MST          `gorm:"foreignKey:NurseID"`
 	sMSTs             []MST          `gorm:"foreignKey:DoctorID"`
+	// PrincipalDiagnosis []PrincipalDiagnosis `gorm:"foreignKey:DoctorID"`
+	ErRecord []ErRecord `gorm:"foreignKey:NurseID"`
 }
 type Role struct {
 	gorm.Model
@@ -300,17 +302,17 @@ type ErRecord struct {
 	Description string    `valid:"required~Description not blank, maxstringlength(50)~Description must to be max 50 characters, matches([a-zA-Z0-9ก-๙]$)~Description must have only character and number"`
 
 	//save in FK
-	EmployeeID *uint
-	PatientID  *uint
-	ToEID      *uint
-	RoomID     *uint
+	NurseID   *uint
+	PatientID *uint
+	ToEID     *uint
+	RoomID    *uint
 	// PriceID    *uint
 
 	//JOIN
-	Employee Employee `valid:"-" gorm:"references:id"`
-	Patient  Patient  `valid:"-" gorm:"references:id"`
-	ToE      ToE      `valid:"-" gorm:"references:id"`
-	Room     Room     `valid:"-" gorm:"references:id"`
+	Nurse   Employee `gorm:"references:id" valid:"-"`
+	Patient Patient  `valid:"-" gorm:"references:id"`
+	ToE     ToE      `valid:"-" gorm:"references:id"`
+	Room    Room     `valid:"-" gorm:"references:id"`
 	// Price    Room     `gorm:"references:id"`
 }
 
