@@ -163,7 +163,7 @@ function Manage_Show() {
                         <TableCell align="center" width="10%"> ID </TableCell>
                         <TableCell align="center" width="10%"> Doctor  </TableCell>
                         <TableCell align="center" width="10%"> Patient </TableCell>
-                        <TableCell align="center" width="10%"> Level Of Disease</TableCell>
+                        <TableCell align="center" width="10%"> Level of Disease</TableCell>
                         <TableCell align="center" width="10%"> Note </TableCell>
                         <TableCell align="center" width="10%"> Date </TableCell>
                         <TableCell align="center" width="10%"> Update </TableCell>
@@ -179,8 +179,8 @@ function Manage_Show() {
                           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                           <TableCell align="center">{item.ID}</TableCell>
-                          <TableCell align="center">{item.Employee?.FirstName}</TableCell>
-                          <TableCell align="center">{item.Patient?.FirstName}</TableCell>
+                          <TableCell align="center">{item.Doctor?.FirstName + " "+item.Doctor?.LastName}</TableCell>
+                          <TableCell align="center">{item.Patient?.FirstName + " "+item.Patient?.LastName}</TableCell>
                           <TableCell align="center">{item.LoD?.Disease}</TableCell>
                           <TableCell align="center">{item.Note}</TableCell>
                           <TableCell align="center">{moment(item.Date).format("DD/MM/YYYY")}</TableCell>

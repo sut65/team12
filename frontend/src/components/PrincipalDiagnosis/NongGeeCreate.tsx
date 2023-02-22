@@ -31,6 +31,7 @@ import {
   import { ListPatient } from "../../services/patient/HttpClineServincePatient";
 //   import { ListEmployee, ListDepartments, ListRoles, CreateEmployee, GetDepartmentByRole } from "../../services/EmployeeSystem/employeeServices";
 import { ListPrincipalDiagnosis, ListEmployee, CreatePrincipalDiagnosis } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosis";
+import { ListDoctorPrin } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosis";
 import { ListLoD } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosis";
   const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -44,7 +45,7 @@ import { ListLoD } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosi
 
     const [principaldiagnosis, setPrincipalDiagnosis] = React.useState<Partial<PrincipalDiagnosisInterface>>(
       {
-        EmployeeID: 0,
+        DoctorID: 0,
         PatientID: 0,
         LoDID: 0,
         // Note: "",
@@ -58,6 +59,7 @@ import { ListLoD } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosi
     const [success, setSuccess] = React.useState(false);
     const [error, setError] = React.useState(false);
     const [message, setAlertMessage] = React.useState("");
+    const [doctor, setDoctor] = React.useState<EmployeeInterface[]>([]);
     // service
     // get Employee
     const getEmployee = async () => {
@@ -76,15 +78,24 @@ import { ListLoD } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosi
         setPatient(res);
       }
     }   
-    // get LoD
-    const getLoD = async () => {
-      //let id =0;
-      let res = await ListLoD();
-      console.log(res);
-      if (res) {
-        setLoD(res);
-      }
-    }   
+
+      // get Doctor
+  const getDoctorPrin= async () => {
+    let res = await ListDoctorPrin();
+    console.log(res);
+    if (res) {
+      setDoctor(res);
+    }
+  }
+
+        // get Role
+        const getLoD = async () => {
+          let res = await ListLoD();
+          console.log(res);
+          if (res) {
+            setLoD(res);
+          }
+        }   
     
     //Principal Diagnosis Create
     const navigator = useNavigate();
@@ -118,6 +129,7 @@ import { ListLoD } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosi
       getEmployee();
       getPatient();
       getLoD();
+      getDoctorPrin();
       //getDepartmentByRole();
     }, []);
 
@@ -218,39 +230,41 @@ import { ListLoD } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosi
 
             <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
               <Grid item xs={5}>
-              <FormLabel>พนักงาน</FormLabel>
+              <FormLabel>แพทย์</FormLabel>
                 <FormControl fullWidth variant="outlined">
                   <Select
-                    value={principaldiagnosis.EmployeeID}
+                    native
+                    value={principaldiagnosis.DoctorID}
                     onChange={handleChange}
                     inputProps={{
-                      name: "EmployeeID",
+                      name: "DoctorID",
                     }}
                   >
-                    <MenuItem value={0} key={0}>
-                      เลือกพนักงาน
-                    </MenuItem>
-                    {employee.map((item: EmployeeInterface) => (
-                      <MenuItem value={item.ID}>{item.FirstName}</MenuItem>
+                    <option value={0} key={0}>
+                      เลือกแพทย์
+                    </option>
+                    {doctor.map((item: EmployeeInterface) => (
+                      <option value={item.ID}>{item.FirstName + " "+item.LastName}</option>
                     ))}
                   </Select>
                 </FormControl>
               </Grid>
               <Grid item xs={5}>
-              <FormLabel>Patient</FormLabel>
+              <FormLabel>ผู้ป่วย</FormLabel>
                 <FormControl fullWidth variant="outlined">
                   <Select
+                    native
                     value={principaldiagnosis.PatientID}
                     onChange={handleChange}
                     inputProps={{
                       name: "PatientID",
                     }}
                   >
-                    <MenuItem value={0} key={0}>
+                    <option value={0} key={0}>
                       เลือกผู้ป่วย
-                    </MenuItem>
+                    </option>
                     {patient.map((item: PatientInterface) => (
-                      <MenuItem value={item.ID}>{item.FirstName}</MenuItem>
+                      <option value={item.ID}>{item.FirstName + " "+item.LastName}</option>
                     ))}
                   </Select>
                 </FormControl>
@@ -262,17 +276,18 @@ import { ListLoD } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosi
               <FormLabel>ระดับความรุนแรงของโรค</FormLabel>
                 <FormControl fullWidth variant="outlined">
                   <Select
+                    native
                     value={principaldiagnosis.LoDID}
                     onChange={handleChange}
                     inputProps={{
                       name: "LoDID",
                     }}
                   >
-                    <MenuItem value={0} key={0}>
+                    <option value={0} key={0}>
                       เลือกระดับความรุนแรงของโรค
-                    </MenuItem>
+                    </option>
                     {lod.map((item: LoDInterface) => (
-                      <MenuItem value={item.ID}>{item.Disease}</MenuItem>
+                      <option value={item.ID}>{item.Disease}</option>
                     ))}
                   </Select>
                 </FormControl>
