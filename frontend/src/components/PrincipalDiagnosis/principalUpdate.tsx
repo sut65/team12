@@ -19,6 +19,7 @@ import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
 import { PatientInterface } from "../../interfaces/patient/IPatient";
 import { LoDInterface } from "../../interfaces/principaldiagnosis/ILoD";
 import { ListEmployee,  ListLoD, CreatePrincipalDiagnosis, GetPrincipalDiagnosis, UpdatePrincipalDiagnosis } from "../../services/PrincipalDiagnosis/HttpPrincipaldiagnosis";
+import { ListDoctorPrin } from '../../services/PrincipalDiagnosis/HttpPrincipaldiagnosis'
 import { ListPatient } from '../../services/patient/HttpClineServincePatient'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -49,47 +50,60 @@ export default function PrincipalDiagnosisUpdate() {
       }
   }
 
-  // List LoD
-  const [lod, setLoD] = React.useState<LoDInterface[]>([]);
-  // get LoD
-  const getLoD = async () => {
+
+    // List Gender
+    const [lod, setLoD] = React.useState<LoDInterface[]>([])
+    // get LoD
+    const getLoD = async () => {
+        let res = await ListLoD()
+        if(res){
+            setLoD(res)
+        }
+    }
+
+
+  // // List Employee
+  // const [employee, setEmployee] = React.useState<EmployeeInterface[]>([])
+  // const getEmployee = async () => {
+  //     let res = await ListEmployee();
+  //     console.log(res);
+  //     if (res) {
+  //       setEmployee(res);
+  //     }
+  //   } 
+
+       // List Doctor
+  // get Doctor
+  const getDoctorPrin = async () => {
       //let id =0;
-      let res = await ListLoD();
+      let res = await ListDoctorPrin();
       console.log(res);
       if (res) {
-        setLoD(res);
+          setDoctor(res);
       }
   }
-
-  // List Employee
-  const [employee, setEmployee] = React.useState<EmployeeInterface[]>([])
-  const getEmployee = async () => {
-      let res = await ListEmployee();
-      console.log(res);
-      if (res) {
-        setEmployee(res);
-      }
-    } 
   
 
   
   React.useEffect(() => {
 
 
-      getEmployee();
+      getDoctorPrin();
       getPatient();
       getLoD();
       getPrincipalDiagnosisByID(id);
+      
     }, []);
-  React.useEffect(() => {
-    setEmployee([]);
+  // React.useEffect(() => {
+  //   setDoctorPrin([]);
  
-  }, []);
+  // }, []);
 
   // submit
   const [success, setSuccess] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [message, setAlertMessage] = React.useState("");
+  const [doctor, setDoctor] = React.useState<EmployeeInterface[]>([]);
 
   const submit = async () => {
       console.log(principaldiagnosis)
@@ -230,23 +244,23 @@ export default function PrincipalDiagnosisUpdate() {
 
               <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
             <Grid item xs={5}>
-            <FormLabel>พนักงาน</FormLabel>
+            <FormLabel>แพทย์</FormLabel>
               <FormControl fullWidth variant="outlined">
                 <Select
                   native
-                  value={principaldiagnosis.EmployeeID}
+                  value={principaldiagnosis.DoctorID}
                   onChange={handleChange}
                   inputProps={{
-                    name: "EmployeeID",
+                    name: "DoctorID",
                   }}
                 >
                   <option aria-label="None" value="">
-                              เลือกพนักงาน
+                              เลือกแพทย์
                               </option>
                               {
-                                  employee.map((item: EmployeeInterface) =>
+                                  doctor.map((item: EmployeeInterface) =>
                                   (<option value={item.ID} key={item.ID}>
-                                      {item.FirstName}
+                                      {item.FirstName + " "+item.LastName}
                                   </option>)
                                   )
                               }
@@ -270,7 +284,7 @@ export default function PrincipalDiagnosisUpdate() {
                               {
                                   patient.map((item: PatientInterface) =>
                                   (<option value={item.ID} key={item.ID}>
-                                      {item.FirstName}
+                                      {item.FirstName + " "+item.LastName}
                                   </option>)
                                   )
                               }
@@ -307,7 +321,7 @@ export default function PrincipalDiagnosisUpdate() {
           </Grid>
 
           <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
-            <Grid item xs={10}>
+            <Grid item xs={5}>
               <FormControl fullWidth variant="outlined">
                 <FormLabel>Note</FormLabel>
 

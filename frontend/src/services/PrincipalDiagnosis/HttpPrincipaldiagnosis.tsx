@@ -263,11 +263,31 @@ async function GetPatient(ID: string | undefined) {
 
 }
 
-// List LoD
+// // List LoD
+// async function ListLoD() {
+//     const reqOpt = {
+//         method: "GET",
+//         header: {
+//             Authorization: `Bearer ${localStorage.getItem("token")}`,
+//             "Content-Type": "application/json",
+//         }
+//     }
+//     let res = await fetch(`${apiUrl}/lods`, reqOpt)
+//     .then((response) => response.json())
+//     .then((res) => {
+//         if(res.data){
+//             return res.data
+//         } else{
+//             return false
+//         }
+//     })
+//     return res
+// }
+
 async function ListLoD() {
     const reqOpt = {
         method: "GET",
-        header: {
+        headers:{
             Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
         }
