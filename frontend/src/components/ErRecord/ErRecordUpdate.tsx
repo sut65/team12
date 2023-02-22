@@ -19,7 +19,8 @@ import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
 import { PatientInterface } from "../../interfaces/patient/IPatient";
 import { ToEInterface } from '../../interfaces/errecord/IToE'
 import { RoomInterface } from '../../interfaces/errecord/IRoom'
-import { ListEmployee, ListToE, ListRoom, CreateErRecord, GetErRecord, UpdateErRecord, GetRoomByToE } from "../../services/ErRecord/HttpErRecord";
+import { ListEmployee, ListRoom, CreateErRecord, GetErRecord, UpdateErRecord, GetRoomByToE, ListNurseErRecord} from "../../services/ErRecord/HttpErRecord";
+import { ListToE } from '../../services/ErRecord/HttpErRecord'
 import { ListPatient } from '../../services/patient/HttpClineServincePatient'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -51,6 +52,19 @@ export default function ErRecordUpdate() {
       }
   }
 
+  const [nurse, setNurse] = React.useState<EmployeeInterface[]>([]);
+      // get Nurse
+const getNurse = async () => {
+  let res = await ListNurseErRecord();
+  console.log(res);
+  if (res) {
+    setNurse(res);
+  }
+}
+
+
+
+
   // List ToE
   const [toe, setToE] = React.useState<ToEInterface[]>([]);
   // get ToE
@@ -72,6 +86,8 @@ export default function ErRecordUpdate() {
         setEmployee(res);
       }
     } 
+
+    
    // List ToE
    const [room, setRoom] = React.useState<RoomInterface[]>([]);
    // get ToE
@@ -103,6 +119,7 @@ export default function ErRecordUpdate() {
       getToE();
       getErRecordByID(id);
       getRoom();
+      getNurse();
 
     }, []);
   React.useEffect(() => {
@@ -259,23 +276,23 @@ export default function ErRecordUpdate() {
 
               <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
             <Grid item xs={5}>
-            <FormLabel>พนักงาน</FormLabel>
+            <FormLabel>พยาบาล</FormLabel>
               <FormControl fullWidth variant="outlined">
                 <Select
                   native
-                  value={errecord.EmployeeID}
+                  value={errecord.NurseID}
                   onChange={handleChange}
                   inputProps={{
-                    name: "EmployeeID",
+                    name: "NurseID",
                   }}
                 >
                   <option aria-label="None" value="">
-                              เลือกพนักงาน
+                              เลือกพยาบาล
                               </option>
                               {
-                                  employee.map((item: EmployeeInterface) =>
+                                  nurse.map((item: EmployeeInterface) =>
                                   (<option value={item.ID} key={item.ID}>
-                                      {item.FirstName}
+                                      {item.FirstName + " "+item.LastName}
                                   </option>)
                                   )
                               }
@@ -283,7 +300,7 @@ export default function ErRecordUpdate() {
               </FormControl>
             </Grid>
             <Grid item xs={5}>
-            <FormLabel>Patient</FormLabel>
+            <FormLabel>ผู้ป่วย</FormLabel>
               <FormControl fullWidth variant="outlined">
               <Select
                   native
@@ -299,7 +316,7 @@ export default function ErRecordUpdate() {
                               {
                                   patient.map((item: PatientInterface) =>
                                   (<option value={item.ID} key={item.ID}>
-                                      {item.FirstName}
+                                      {item.FirstName + " "+item.LastName}
                                   </option>)
                                   )
                               }
@@ -310,7 +327,7 @@ export default function ErRecordUpdate() {
 
           <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
             <Grid item xs={10}>
-            <FormLabel>ToE</FormLabel>
+            <FormLabel>Type of Exclusive Room</FormLabel>
               <FormControl fullWidth variant="outlined">
               <Select
                   native
@@ -337,7 +354,7 @@ export default function ErRecordUpdate() {
 
           <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
             <Grid item xs={10}>
-            <FormLabel>Room</FormLabel>
+            <FormLabel>Exclusive Room</FormLabel>
               <FormControl fullWidth variant="outlined">
               <Select
                   native
@@ -403,14 +420,14 @@ export default function ErRecordUpdate() {
 
               <Grid item xs={12} >
                       <Button component={RouterLink} to="/errecord" variant='contained'>
-                          ย้อนกลับ
+                          BACK
                       </Button>
                       <Button
                           style={{ float: "right" }}
                           variant="contained"
                           onClick={submit}
                       >
-                          บันทึกข้อมูล
+                          SUBMIT
                       </Button>
               </Grid>
               
