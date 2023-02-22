@@ -7,12 +7,15 @@ export interface ErRecordInterface {
     ID: number;
     // Price: number;
     Description?: string;
-    EmployeeID?: number;
+    // EmployeeID?: number;
     PatientID?: number;
     ToEID?: number;
     RoomID?: number;
     Date?: Date | null;
+    NurseID?: number,
+    
 
+	Nurse?:         EmployeeInterface,
     Employee?: EmployeeInterface;
     Patient?: PatientInterface;
     ToE?: ToEInterface;
