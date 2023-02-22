@@ -29,6 +29,28 @@ async function ListPrincipalDiagnosis() {
     return res
 }
 
+// List Doc
+async function ListDoctorPrin() {
+    const reqOpt = {
+        method: "GET",
+        headers:{
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        }
+    };
+
+    let res = await fetch(`${apiUrl}/errecords/listdoctor`, reqOpt)
+    .then((response) => response.json())
+    .then((res) => {
+        if(res.data){
+            return res.data
+        } else{
+            return false
+        }
+    })
+    return res
+}
+
 // GET By ID PrincipalDiagnosis
 async function GetPrincipalDiagnosis(ID: string | undefined) {
     const reqOpt = {
@@ -60,7 +82,7 @@ async function CreatePrincipalDiagnosis(pd:Partial<PrincipalDiagnosisInterface>)
         Note: pd.Note,
         Date: new Date().toJSON().split("Z").at(0)+"+07:00",
         // Date: pd.Date,
-        EmployeeID:convertType(pd.EmployeeID),
+        DoctorID:convertType(pd.DoctorID),
         PatientID: convertType(pd.PatientID),
         LoDID: convertType(pd.LoDID)
     }
@@ -100,7 +122,7 @@ async function UpdatePrincipalDiagnosis(pd : Partial<PrincipalDiagnosisInterface
         ID:convertType(pd.ID),
         Note: pd.Note,
         Date: pd.Date,
-        EmployeeID:convertType(pd.EmployeeID),
+        DoctorID:convertType(pd.DoctorID),
         PatientID: convertType(pd.PatientID),
         LoDID: convertType(pd.LoDID)
     }
@@ -241,32 +263,11 @@ async function GetPatient(ID: string | undefined) {
 
 }
 
-// // List LoD
-// async function ListLoD() {
-//     const reqOpt = {
-//         method: "GET",
-//         header: {
-//             Authorization: `Bearer ${localStorage.getItem("token")}`,
-//             "Content-Type": "application/json",
-//         }
-//     }
-//     let res = await fetch(`${apiUrl}/lods`, reqOpt)
-//     .then((response) => response.json())
-//     .then((res) => {
-//         if(res.data){
-//             return res.data
-//         } else{
-//             return false
-//         }
-//     })
-//     return res
-// }
-
 // List LoD
 async function ListLoD() {
     const reqOpt = {
         method: "GET",
-        headers:{
+        header: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
         }
@@ -282,7 +283,6 @@ async function ListLoD() {
     })
     return res
 }
-
 
 // GET By ID LoD
 async function GetLoD(ID: string | undefined) {
@@ -323,4 +323,5 @@ export {
     GetPatient,
     ListLoD,
     GetLoD,
+    ListDoctorPrin,
 }
