@@ -6,6 +6,7 @@ import (
 
 	//"time"
 	. "github.com/aamjazrk/team12/entity"
+
 	"github.com/asaskevich/govalidator"
 	"github.com/onsi/gomega"
 )
@@ -43,7 +44,7 @@ func TestErRecordValidateDescriptMaxCharacters(t *testing.T) {
 	test := uint(1)
 	t.Run("Description must to be max 50 characters", func(t *testing.T) {
 		errec := ErRecord{
-			EmployeeID:  &test,
+			NurseID:     &test,
 			PatientID:   &test,
 			ToEID:       &test,
 			RoomID:      &test,
@@ -66,7 +67,7 @@ func TestErRecordValidateDescriptNotBlank(t *testing.T) {
 	test := uint(1)
 	t.Run("Description not blank", func(t *testing.T) {
 		errec := ErRecord{
-			EmployeeID:  &test,
+			NurseID:     &test,
 			PatientID:   &test,
 			ToEID:       &test,
 			RoomID:      &test,
@@ -90,7 +91,7 @@ func TestErRecordValidateDescriptonchracaterAndNumber(t *testing.T) {
 
 	t.Run("Description must have only character and number", func(t *testing.T) {
 		errec := ErRecord{
-			EmployeeID:  &test,
+			NurseID:     &test,
 			PatientID:   &test,
 			ToEID:       &test,
 			RoomID:      &test,
