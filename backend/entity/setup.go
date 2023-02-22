@@ -1341,7 +1341,7 @@ func SetupDatabase() {
 
 	//=========================================MedicalSlip=================================
 	medicalslip1 := MedicalSlip{
-		Total:        100000.50,
+		Total:        100000.75,
 		Note:         "Personal Payment",
 		MedicalDate:  time.Now(),
 		LabXray:      LabX1,
