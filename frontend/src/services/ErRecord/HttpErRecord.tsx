@@ -57,7 +57,7 @@ async function CreateErRecord(errec:Partial<ErRecordInterface>) {
     let data = {
 
         // Price: errec.Price,
-        EmployeeID:convertType(errec.EmployeeID),
+        NurseID:convertType(errec.NurseID),
         PatientID: convertType(errec.PatientID),
         ToEID:convertType(errec.ToEID),
         RoomID: convertType(errec.RoomID),
@@ -99,7 +99,7 @@ async function UpdateErRecord(errec : Partial<ErRecordInterface>){
     let data = {
         ID:convertType(errec.ID),
         // Price: errec.Price,
-        EmployeeID:convertType(errec.EmployeeID),
+        NurseID:convertType(errec.NurseID),
         PatientID: convertType(errec.PatientID),
         ToEID:convertType(errec.ToEID),
         RoomID: convertType(errec.RoomID),
@@ -163,6 +163,28 @@ async function ListEmployee() {
         }
     }
     let res = await fetch(`${apiUrl}/employees/list`, reqOpt)
+    .then((response) => response.json())
+    .then((res) => {
+        if(res.data){
+            return res.data
+        } else{
+            return false
+        }
+    })
+    return res
+}
+
+// List Nurse
+async function ListNurseErRecord() {
+    const reqOpt = {
+        method: "GET",
+        headers:{
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        }
+    };
+
+    let res = await fetch(`${apiUrl}/errecords/listnurse`, reqOpt)
     .then((response) => response.json())
     .then((res) => {
         if(res.data){
@@ -241,32 +263,11 @@ async function GetPatient(ID: string | undefined) {
 
     return res
 }
-//     // List ToE
-// async function ListToE() {
-//     const reqOpt = {
-//         method: "GET",
-//         header: {
-//             Authorization: `Bearer ${localStorage.getItem("token")}`,
-//             "Content-Type": "application/json",
-//         }
-//     }
-//     let res = await fetch(`${apiUrl}/toes/list`, reqOpt)
-//     .then((response) => response.json())
-//     .then((res) => {
-//         if(res.data){
-//             return res.data
-//         } else{
-//             return false
-//         }
-//     })
-//     return res
-// }
-
-// List ToE
+    // List ToE
 async function ListToE() {
     const reqOpt = {
         method: "GET",
-        headers:{
+        header: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
         }
@@ -306,32 +307,11 @@ async function GetToE(ID: string | undefined) {
     return res
 }
 
-//     // List Room
-// async function ListRoom() {
-//     const reqOpt = {
-//         method: "GET",
-//         header: {
-//             Authorization: `Bearer ${localStorage.getItem("token")}`,
-//             "Content-Type": "application/json",
-//         }
-//     }
-//     let res = await fetch(`${apiUrl}/rooms/list`, reqOpt)
-//     .then((response) => response.json())
-//     .then((res) => {
-//         if(res.data){
-//             return res.data
-//         } else{
-//             return false
-//         }
-//     })
-//     return res
-// }
-
-// List Room
+    // List Room
 async function ListRoom() {
     const reqOpt = {
         method: "GET",
-        headers:{
+        header: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
         }
@@ -410,6 +390,7 @@ export {
     ListRoom,
     GetRoomByToE,
     GetRoom,
+    ListNurseErRecord
     
     
 }
