@@ -246,11 +246,7 @@ export default function EmployeeUpdate() {
                             size="medium"
                             value={employee.FirstName || ""}
                             onChange={handleInputChange}
-                            // onKeyPress={(e) => {
-                            //     if (/[0-9]/.test(e.key)){
-                            //       e.preventDefault()
-                            //     }
-                            //   }}
+                            
                         />
                         </FormControl>
                     </Grid>
@@ -265,11 +261,7 @@ export default function EmployeeUpdate() {
                             size="medium"
                             value={employee.LastName || ""}
                             onChange={handleInputChange}
-                            // onKeyPress={(e) => {
-                            //     if (/[0-9]/.test(e.key)){
-                            //       e.preventDefault()
-                            //     }
-                            //   }}
+                            
                         />
                         </FormControl>
                     </Grid>
@@ -311,11 +303,7 @@ export default function EmployeeUpdate() {
                             size="medium"
                             value={employee.Civ || ""}
                             onChange={handleInputChange}
-                            // onKeyPress={(e) => {
-                            //     if (!/[0-9]/.test(e.key)){
-                            //       e.preventDefault()
-                            //     }
-                            //   }}
+                           
                             inputProps={{maxLength:13}}
                         />
                         </FormControl>
@@ -372,11 +360,7 @@ export default function EmployeeUpdate() {
                         size="medium"
                         value={employee.Phone || ""}
                         onChange={handleInputChange}
-                        // onKeyPress={(e) => {
-                        //     if (!/[0-9]/.test(e.key)){
-                        //       e.preventDefault()
-                        //     }
-                        //   }}
+                       
                         inputProps={{maxLength:10}}
                     />
                     </FormControl>

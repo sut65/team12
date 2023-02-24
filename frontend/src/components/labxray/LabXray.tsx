@@ -32,17 +32,7 @@ export default function LabXrayShow() {
    }
    // image
    const [imageString, setImageString] = React.useState<string | ArrayBuffer | null>(null);
-   //image
-  const handleImageChange = (event: any) => {
-    const image = event.target.files[0];
-
-    const reader = new FileReader();
-    reader.readAsDataURL(image);
-    reader.onload = () => {
-      const base64Data = reader.result;
-      setImageString(base64Data)
-    }
-  }
+ 
    //For Delete state 
    const [deleteID, setDeleteID] = React.useState<number>(0)
 
@@ -92,11 +82,6 @@ export default function LabXrayShow() {
         height: "100%", width: "120%"
       }}
        >
-      {/* <Paper
-          sx = {{
-            maxWidth:"xl",
-          }}
-          > */}
       <Box
             display="flex"
             sx={{
@@ -180,7 +165,6 @@ export default function LabXrayShow() {
                         <TableCell align="center">{convertDateFormat(item.Date)}</TableCell>
                         <TableCell align="center">{
                             <img src={`${item.Pic}`} width="200" height="200"/>
-                            //<input type="file" onChange={handleImageChange} data:image/jpeg;base64,/>
                         
                         }</TableCell>
                         <TableCell>

@@ -85,17 +85,6 @@ function Manage_Show() {
 
    }
 
-   const handleDialogUpdateclose = async () => {
-       setOpenUpdate(false)
-       setTimeout(() => {
-           setEditID(0)
-       }, 500)
-   }
-
-   const handleDialogUpdateOpen = async (ID: number) => {
-       setEditID(ID)
-       setOpenUpdate(true)
-   }
  useEffect(() => {
    getEmployee();
  }, []);
