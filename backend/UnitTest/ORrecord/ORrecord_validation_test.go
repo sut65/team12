@@ -16,7 +16,7 @@ func TestORrecordResultValidate(t *testing.T) {
 		e := ORrecord{
 			SurgeryStart:    time.Date(2023, 1, 24, 4, 12, 0, 0, time.UTC),
 			SurgeryEnd:      time.Date(2023, 1, 24, 8, 41, 0, 0, time.UTC),
-			OperatingResult: "", //ตรวจสอบว่าง
+			OperatingResult: "", //ตรวจสอบผลผ่าตัดว่าง
 			Note:            "ระวังผู้ป่วยเลือดออก",
 		}
 
