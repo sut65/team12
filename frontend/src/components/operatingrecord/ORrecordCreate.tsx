@@ -296,7 +296,7 @@ function ORrecordCreate() {
                 }}
               >
                 <option aria-label="None" value="">
-                  กรุณาเลือกหมายเลขห้องผ่าตัด
+                  กรุณาระบุหมายเลขห้องผ่าตัด
                 </option>
                 {operatingRoom.map((item: OperatingRoomInterface) => (
                   <option value={item.ID} key={item.ID}>
