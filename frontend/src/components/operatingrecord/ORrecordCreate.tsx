@@ -470,7 +470,7 @@ function ORrecordCreate() {
         
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-                <p>วันที่และเวลาเริ่มการผ่าตัด</p>
+                <p>วันที่และเวลา เริ่มการผ่าตัด</p>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <Stack spacing={3}>
                         <DesktopDateTimePicker
@@ -491,7 +491,7 @@ function ORrecordCreate() {
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-                <p>วันที่และเวลาสิ้งสุดการผ่าตัด</p>
+                <p>วันที่และเวลา สิ้งสุดการผ่าตัด</p>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <Stack spacing={3}>
                         <DesktopDateTimePicker
