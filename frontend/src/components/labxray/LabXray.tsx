@@ -30,9 +30,7 @@ export default function LabXrayShow() {
            console.log(res)
        }
    }
-   // image
-   const [imageString, setImageString] = React.useState<string | ArrayBuffer | null>(null);
- 
+
    //For Delete state 
    const [deleteID, setDeleteID] = React.useState<number>(0)
 
@@ -49,14 +47,14 @@ export default function LabXrayShow() {
         setOpenDelete(true)
     }
 
-    const handleDialogDeleteclose = () => {
+    const handleDialogDeleteclose = () => { // when click cancel
         setOpenDelete(false)
         setTimeout(() => {
             setDeleteID(0)
         }, 500)
     }
 
-    const handleDelete = async () => {
+    const handleDelete = async () => { // when click submit
         let res = await DeleteLabXray(deleteID)
         if (res) {
             console.log(res.data)

@@ -163,6 +163,9 @@ function PrescriptionCreate(){
             else if(res.message == "order_by not found"){
               setAlertMessage("กรุณาเลือกผู้สั่งจ่ายยา");
             }
+            else{
+              setAlertMessage("กรอกข้อมูลไม่ครบถ้วน")
+            }
 
           }
           console.log(data);
