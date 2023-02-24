@@ -105,12 +105,12 @@ func SetupDatabase() {
 	db.Model(&Role{}).Create(&admin3)
 
 	admin4 := Role{
-		Name: "accounting(ฝ่ายการเงิน)",
+		Name: "Accounting(ฝ่ายการเงิน)",
 	}
 	db.Model(&Role{}).Create(&admin4)
 
 	admin5 := Role{
-		Name: "pharmacist(เภสัชกร)",
+		Name: "Pharmacist(เภสัชกร)",
 	}
 	db.Model(&Role{}).Create(&admin5)
 
