@@ -580,7 +580,7 @@ func SetupDatabase() {
 
 	//Vital signs 1
 	vsr1 := VitalSignsRecord{
-		BloodPressureHigh: 120,
+		BloodPressureHigh: 145,
 		BloodPressureLow:  80,
 		PulseRate:         70,
 		RespirationRate:   20,
@@ -594,7 +594,7 @@ func SetupDatabase() {
 
 	//Vital signs 2
 	vsr2 := VitalSignsRecord{
-		BloodPressureHigh: 100,
+		BloodPressureHigh: 150,
 		BloodPressureLow:  70,
 		PulseRate:         80,
 		RespirationRate:   22,
