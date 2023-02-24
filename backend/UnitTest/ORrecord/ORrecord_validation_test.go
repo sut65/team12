@@ -51,7 +51,7 @@ func TestORrecordResultValidate(t *testing.T) {
 			SurgeryStart:    time.Now().Add(time.Hour * -2),
 			SurgeryEnd:      time.Now().Add(time.Minute * +1), //ลองให้ SurgeryEND เป็นอนาคต
 			OperatingResult: "testing sugeryEND",
-			Note:            "ระวังผู้ป่วยเลือดออก",
+			Note:            "ระวังผู้ป่วยหลงรักคุณหมอ",
 		}
 
 		ok, err := govalidator.ValidateStruct(e)
