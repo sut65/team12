@@ -15,6 +15,8 @@ import { PatientInterface } from "../../interfaces/patient/IPatient";
 import { PatientTypeInterface } from "../../interfaces/patient/IPatientType";
 import { PatientRightInterface } from "../../interfaces/patient/IPatientRight";
 import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DesktopDateTimePicker } from "@mui/x-date-pickers";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -464,8 +466,8 @@ function PatientEdit(){
                     <Grid item xs={12}>
                         <FormControl fullWidth variant="outlined">
                             <Typography className='StyledTypography'> วันเกิดผู้ป่วย </Typography>
-                            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                <DatePicker
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DesktopDateTimePicker
                                     className='StyledTextField'
                                     value={patient.Brithdate}
                                     onChange={(newValue) => {
