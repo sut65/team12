@@ -268,7 +268,7 @@ function ProblemReportCreate() {
             </FormControl>
           </Grid>
           <Grid item xs={6}>
-            <p>รายละเอียด</p>
+            <p>รายละเอียด *</p>
             <TextField
               fullWidth
               id="Comment"
