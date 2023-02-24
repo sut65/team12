@@ -204,6 +204,7 @@ function PatientCreate(){
             else{
               setAlertMessage("กรอกข้อมูลไม่ครบถ้วน")
             }
+            
           }
           console.log(data);
   }

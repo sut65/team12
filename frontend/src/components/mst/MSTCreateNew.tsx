@@ -347,7 +347,7 @@ function Create_save() {
                   }}
                 >
                   <option value={0} key={0}>
-                    เเพทย์ผู้ลงทะเบียน
+                    เเพทย์ผู้รับรอง
                   </option>
                   {doctor.map((item: EmployeeInterface) => (
                     <option value={item.ID}>{item.FirstName+ " " +item.LastName}</option>

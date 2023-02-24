@@ -28,7 +28,6 @@ import {
       });
       const [labxray, setLabXray] = React.useState<Partial<LabXrayInterface>>({});
       const [patient, setPatient] = React.useState<PatientInterface[]>([]);
-      const [employee, setEmployee] = React.useState<EmployeeInterface[]>([]);
       const [labtype, setLabType] = React.useState<LabTypeInterface[]>([])
       const [success, setSuccess] = React.useState(false);
       const [error, setError] = React.useState(false);

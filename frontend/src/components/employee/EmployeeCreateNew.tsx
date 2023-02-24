@@ -36,13 +36,6 @@ import {
       }
     );
     const [message, setAlertMessage] = React.useState("");
-    const [firstName, setFirstName] = React.useState<string>("");
-    const [lastName, setLastName] = React.useState<string>("");
-    const [civ, setCiv] = React.useState<string>("");
-    const [phone, setPhone] = React.useState<string>("");
-    const [email, setEmail] = React.useState<string>("");
-    const [password, setPassword] = React.useState<string>("");
-    const [address, setAddress] = React.useState<string>("");
     const [department, setDepartment] = React.useState<DepartmentInterface[]>([]);
     const [gender, setGender] = React.useState<GenderInterface[]>([]);
     const [role, setRole] = React.useState<RoleInterface[]>([])

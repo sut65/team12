@@ -218,6 +218,9 @@ function PatientEdit(){
               else if(res.message == "patienttype not found"){
                 setAlertMessage("กรุณาเลือกประเภทผู้ป่วย")
               }
+              else{
+                setAlertMessage("กรอกข้อมูลไม่ครบถ้วน")
+              }
           }
           console.log(data);
   }
@@ -355,10 +358,11 @@ function PatientEdit(){
                                 autoComplete="off"
                                 id="Age"
                                 variant="outlined"
+                                type="number"
                                 size="small"
                                 color="primary"
                                 fullWidth
-                                onChange={handleChangeTextField}
+                                onChange={handleInputChangenumber}
                                 onKeyPress={(e) => {
                                     if (!/[0-9]/.test(e.key)){
                                       e.preventDefault()
@@ -377,10 +381,11 @@ function PatientEdit(){
                                 autoComplete="off"
                                 id="Weight"
                                 variant="outlined"
+                                type="number"
                                 size="small"
                                 color="primary"
                                 fullWidth
-                                onChange={handleChangeTextField}
+                                onChange={handleInputChangenumber}
                                 onKeyPress={(e) => {
                                     if (!/^\d*\.?\d*$/.test(e.key)) {
                                       e.preventDefault();

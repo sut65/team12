@@ -42,23 +42,10 @@ function Manage_Show() {
    // For Set dialog open
    const [openDelete, setOpenDelete] = React.useState(false);
 
-   const [openUpdate, setOpenUpdate] = React.useState(false);
-   const [editID, setEditID] = React.useState(0);
-
-
-
    React.useEffect(() => {
        getEmployee();
 
    }, [])
-
-
-   const convertDateFormat = (date: Date) => {
-       const newDate = new Date(date)
-       return `${newDate.getDate()} / ${newDate.getMonth() + 1} / ${newDate.getFullYear()} | ${newDate.getHours()} : ${newDate.getMinutes()}`
-   }
-
-
 
    const handleDialogDeleteOpen = (ID: number) => {
        setDeleteID(ID)
