@@ -245,7 +245,7 @@ function ProblemReportUpdate() {
                 }}
               >
                 <option aria-label="None" value="">
-                  กรุณาเลือกชื่อเลข
+                  กรุณาเลือกชื่อเลขสถานที่เกิดเหตุ
                 </option>
                 {numPlace.map((item: NumPlaceInterface) => (
                   <option value={item.ID} key={item.ID}>
