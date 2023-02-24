@@ -33,7 +33,7 @@ func TestORrecordResultValidate(t *testing.T) {
 		e := ORrecord{
 			SurgeryStart:    time.Date(2023, 1, 24, 4, 12, 0, 0, time.UTC),
 			SurgeryEnd:      time.Date(2023, 1, 24, 8, 41, 0, 0, time.UTC),
-			OperatingResult: "!@#$%^&*()_+", //ตรวจสอบอักษรพิเศษ
+			OperatingResult: "!@#$%^&*()_+", //ตรวจสอบอักษรพิเศษ(ให้เป็นแค่ตัวเลขกับตัสวอักษร)
 			Note:            "ระวังผู้ป่วยเลือดออก",
 		}
 
