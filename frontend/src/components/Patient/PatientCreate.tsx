@@ -19,6 +19,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DesktopDateTimePicker } from "@mui/x-date-pickers";
 
 
 const useStyles = makeStyles(theme => ({
@@ -423,8 +425,8 @@ function PatientCreate(){
                 <Grid item xs={6}>
                   <FormControl fullWidth variant="outlined">
                     <p>วันเกิดผู้ป่วย</p>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                      <DatePicker
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DesktopDateTimePicker
                         value={patient.Brithdate}
                         onChange={(newValue) => {
                           setPatient({

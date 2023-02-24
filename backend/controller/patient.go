@@ -177,14 +177,14 @@ func UpdatePatient(c *gin.Context) {
 	// if new have patienttype id
 	if newpatient.PatientTypeID != nil {
 		if tx := entity.DB().Where("id = ?", newpatient.PatientTypeID).First(&patienttype); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found patient_type"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "patienttype not found"})
 			return
 		}
 		fmt.Print("NOT NULL")
 		newpatient.PatientType = patienttype
 	} else {
 		if tx := entity.DB().Where("id = ?", oldpatient.PatientTypeID).First(&patienttype); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found patient_type"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "patienttype not found"})
 			return
 		}
 		fmt.Print("NULL")
@@ -194,13 +194,13 @@ func UpdatePatient(c *gin.Context) {
 	// if new have patientright id
 	if newpatient.PatientRightID != nil {
 		if tx := entity.DB().Where("id = ?", newpatient.PatientRightID).First(&patientright); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found patient_right"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "patientright not found"})
 			return
 		}
 		newpatient.PatientRight = patientright
 	} else {
 		if tx := entity.DB().Where("id = ?", oldpatient.PatientRightID).First(&patientright); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found patient_right"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "patientright not found"})
 			return
 		}
 		newpatient.PatientRight = patientright
@@ -209,13 +209,13 @@ func UpdatePatient(c *gin.Context) {
 	//if new have gender id
 	if newpatient.GenderID != nil {
 		if tx := entity.DB().Where("id = ?", newpatient.GenderID).First(&gender); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found gender"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "gender not found"})
 			return
 		}
 		newpatient.Gender = gender
 	} else {
 		if tx := entity.DB().Where("id = ?", oldpatient.Gender).First(&gender); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found gender"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "gender not found"})
 			return
 		}
 		newpatient.Gender = gender

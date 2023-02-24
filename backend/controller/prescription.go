@@ -158,14 +158,14 @@ func UpdatePrescription(c *gin.Context) {
 	// if new have patient id
 	if newprescription.PatientID != nil {
 		if tx := entity.DB().Where("id = ?", newprescription.PatientID).First(&patient); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found patient"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "patient not found"})
 			return
 		}
 		fmt.Print("NOT NULL")
 		newprescription.Patient = patient
 	} else {
 		if tx := entity.DB().Where("id = ?", oldprescription.PatientID).First(&patient); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found patient"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "patient not found"})
 			return
 		}
 		fmt.Print("NULL")
@@ -175,13 +175,13 @@ func UpdatePrescription(c *gin.Context) {
 	// if new have Medicine id
 	if newprescription.MedicineID != nil {
 		if tx := entity.DB().Where("id = ?", newprescription.MedicineID).First(&medicine); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found medicine"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "medicine not found"})
 			return
 		}
 		newprescription.Medicine = medicine
 	} else {
 		if tx := entity.DB().Where("id = ?", oldprescription.MedicineID).First(&medicine); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found medicine"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "medicine not found"})
 			return
 		}
 		newprescription.Medicine = medicine
@@ -190,13 +190,13 @@ func UpdatePrescription(c *gin.Context) {
 	//if new have order id
 	if newprescription.OrderID != nil {
 		if tx := entity.DB().Where("id = ?", newprescription.OrderID).First(&order); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found order_by"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "order_by not found"})
 			return
 		}
 		newprescription.Order = order
 	} else {
 		if tx := entity.DB().Where("id = ?", oldprescription.OrderID).First(&order); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "not found order_by"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "order_by not found"})
 			return
 		}
 		newprescription.Order = order
