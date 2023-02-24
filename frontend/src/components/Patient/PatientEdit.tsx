@@ -17,6 +17,18 @@ import { PatientRightInterface } from "../../interfaces/patient/IPatientRight";
 import { EmployeeInterface } from "../../interfaces/employee/IEmployee";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDateTimePicker } from "@mui/x-date-pickers";
+import { makeStyles } from '@material-ui/core/styles';
+
+
+const useStyles = makeStyles(theme => ({
+    error: {
+      '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+          borderColor: 'red',
+        },
+      },
+    },
+  }));
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -26,14 +38,9 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 });
 
 function PatientEdit(){
-    const [patient, setPatient] = useState<PatientInterface>({
-      Civ: "",
-      FirstName: "",
-      LastName: "",
+    const [patient, setPatient] = useState<PatientInterface>({    
       //Age: 0,
       //Weight: 0,
-      Underlying: "",
-      Brithdate: new Date(),
       PatientTime: new Date(),
     });
     const [patienttype, setPatienttype] = useState<PatientTypeInterface[]>([]);
@@ -155,7 +162,7 @@ function PatientEdit(){
           Weight: convertType(patient.Weight),
           Underlying: patient.Underlying,
           Brithdate: patient.Brithdate,
-          PatientTime: new Date(),
+          PatientTime: patient.PatientTime,
           
           PatientTypeID: convertType(patient.PatientTypeID),
           EmployeeID: convertType(localStorage.getItem("id") as string),
@@ -177,6 +184,9 @@ function PatientEdit(){
               }
               else if(res.message == "Identification Number cannot be blank"){
                 setAlertMessage("รูปแบบไม่ถูกต้อง! หมายเลขประจำตัวประชาชนห้ามว่าง");
+              }
+              else if(res.message == "UNIQUE constraint failed: patients.civ"){
+                setAlertMessage("รูปแบบไม่ถูกต้อง! หมายเลขประจำตัวมีชื่ออยู่ในระบบแล้ว");
               }
               else if(res.message == "FirstName cannot be blank"){
                 setAlertMessage("รูปแบบไม่ถูกต้อง! ชื่อห้ามว่าง");
@@ -212,6 +222,8 @@ function PatientEdit(){
           console.log(data);
   }
 
+        const classes = useStyles();
+        const isInvalidCiv = patient.Civ && patient.Civ.length !== 13;
       
 
       return(
@@ -272,7 +284,7 @@ function PatientEdit(){
                 <Grid container spacing={2} >
                     <Grid item={true} xs={6}>
                             <Typography className='StyledTypography'> บัตรประชาชน </Typography>
-                            <TextField className='StyledTextField'
+                            <TextField className={isInvalidCiv ? classes.error : ''}
                                 autoComplete="off"
                                 id="Civ"
                                 variant="outlined"
@@ -280,8 +292,14 @@ function PatientEdit(){
                                 color="primary"
                                 fullWidth
                                 onChange={handleChangeTextField}
+                                onKeyPress={(e) => {
+                                    if (!/[0-9]/.test(e.key)){
+                                      e.preventDefault()
+                                    }
+                                  }}
                                 inputProps={{
                                     name: "Civ",
+                                    maxLength :13
                                 }}
                                 value={patient.Civ}
                             />
@@ -297,14 +315,14 @@ function PatientEdit(){
                                 color="primary"
                                 fullWidth
                                 onChange={handleChangeTextField}
-                                inputProps={{
-                                    name: "FirstName",
-                                }}
                                 onKeyPress={(e) => {
-                                    if (!/[0-9]/.test(e.key)){
+                                    if (/[0-9]/.test(e.key)){
                                       e.preventDefault()
                                     }
                                   }}
+                                inputProps={{
+                                    name: "FirstName",
+                                }}
                                 value={patient.FirstName}
                             />
                     </Grid>
@@ -319,14 +337,14 @@ function PatientEdit(){
                                 color="primary"
                                 fullWidth
                                 onChange={handleChangeTextField}
-                                inputProps={{
-                                    name: "LastName",
-                                }}
                                 onKeyPress={(e) => {
-                                    if (!/[0-9]/.test(e.key)){
+                                    if (/[0-9]/.test(e.key)){
                                       e.preventDefault()
                                     }
                                   }}
+                                inputProps={{
+                                    name: "LastName",
+                                }}
                                 value={patient.LastName}
                             />
                     </Grid>
@@ -341,6 +359,11 @@ function PatientEdit(){
                                 color="primary"
                                 fullWidth
                                 onChange={handleChangeTextField}
+                                onKeyPress={(e) => {
+                                    if (!/[0-9]/.test(e.key)){
+                                      e.preventDefault()
+                                    }
+                                  }}
                                 inputProps={{
                                     name: "Age",
                                 }}
@@ -358,6 +381,11 @@ function PatientEdit(){
                                 color="primary"
                                 fullWidth
                                 onChange={handleChangeTextField}
+                                onKeyPress={(e) => {
+                                    if (!/^\d*\.?\d*$/.test(e.key)) {
+                                      e.preventDefault();
+                                    }
+                                  }}
                                 inputProps={{
                                     name: "Weight",
                                 }}
