@@ -115,7 +115,7 @@ import {
         getPatient();
         getLabXrayByID(id);
     
-        //getDepartmentByRole();
+ 
       }, []);
 
       //image

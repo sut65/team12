@@ -211,28 +211,6 @@ function ProblemReportUpdate() {
         </Box>
         <Divider />
         <Grid container spacing={2} sx={{ padding: 2 }}>
-          {/* <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>ชื่อผู้แจ้ง</p>
-              <Select
-                native
-                value={problemreport.UserID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "UserID",
-                }}
-              >
-                <option aria-label="None" value="">
-                  กรุณาระบุชื่อ
-                </option>
-                {user.map((item: EmployeeInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.FirstName}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid> */}
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>ประเภทหมวดหมู่ที่เกิดปัญหา</p>

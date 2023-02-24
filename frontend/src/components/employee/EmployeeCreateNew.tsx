@@ -10,7 +10,6 @@ import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import {
     createTheme,
-    MenuItem,
     Select,
     SelectChangeEvent,
     ThemeProvider,
@@ -234,11 +233,7 @@ import {
                     size="medium"
                     value={employee.FirstName || ""}
                     onChange={handleInputChange}
-                    // onKeyPress={(e) => {
-                    //   if (/[0-9]/.test(e.key)){
-                    //     e.preventDefault()
-                    //   }
-                    // }}
+                    
                   />
                 </FormControl>
               </Grid>
@@ -253,11 +248,7 @@ import {
                     size="medium"
                     value={employee.LastName || ""}
                     onChange={handleInputChange}
-                    // onKeyPress={(e) => {
-                    //   if (/[0-9]/.test(e.key)){
-                    //     e.preventDefault()
-                    //   }
-                    // }}
+                    
                   />
                 </FormControl>
               </Grid>
@@ -274,13 +265,9 @@ import {
                     size="medium"
                     value={employee.Civ || ""}
                     onChange={handleInputChange}
-                    // onKeyPress={(e) => {
-                    //   if (!/[0-9]/.test(e.key)){
-                    //     e.preventDefault()
-                    //   }
-                    // }}
+                   
                     inputProps={{maxLength:13}}
-                    //inputProps={{minLength:13,maxLength :13}}
+                   
                   />
                 </FormControl>
               </Grid>
@@ -295,11 +282,7 @@ import {
                     size="medium"
                     value={employee.Phone || ""}
                     onChange={handleInputChange}
-                    // onKeyPress={(e) => {
-                    //   if (!/[0-9]/.test(e.key)){
-                    //     e.preventDefault()
-                    //   }
-                    // }}
+                    
                     inputProps={{maxLength:10}}
                   />
                 </FormControl>
@@ -330,11 +313,11 @@ import {
                       size="medium"
                       value={employee.Password || ""}
                       onChange={handleInputChange}
-                      // inputProps={{minLength:8}}
+                      
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
-                                //aria-label="toggle password visibility"
+   
                                 onClick={handleClickShowPassword}
                                 onMouseDown={handleMouseDownPassword}
                                 edge="end"
