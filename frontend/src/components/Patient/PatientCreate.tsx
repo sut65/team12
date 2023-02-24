@@ -168,6 +168,9 @@ function PatientCreate(){
             else if(res.message == "Identification Number cannot be blank"){
               setAlertMessage("รูปแบบไม่ถูกต้อง! หมายเลขประจำตัวประชาชนห้ามว่าง");
             }
+            else if(res.message == "UNIQUE constraint failed: patients.civ"){
+              setAlertMessage("รูปแบบไม่ถูกต้อง! หมายเลขประจำตัวมีชื่ออยู่ในระบบแล้ว");
+            }
             else if(res.message == "FirstName cannot be blank"){
               setAlertMessage("รูปแบบไม่ถูกต้อง! ชื่อห้ามว่าง");
             }
