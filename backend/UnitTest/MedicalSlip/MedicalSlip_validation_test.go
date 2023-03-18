@@ -10,6 +10,25 @@ import (
 	. "github.com/onsi/gomega"
 )
 
+func TestMedicalSlipPass(t *testing.T) {
+	g := NewGomegaWithT(t)
+	medical := MedicalSlip{
+		Total:       100000.00,
+		Note:        "Accident", 
+		MedicalDate: time.Now(),
+	}
+	// ตรวจสอบด้วย govalidator
+	ok, err := govalidator.ValidateStruct(medical)
+
+	// ok ต้องเป็น true แปลว่าไม่มี error
+	g.Expect(ok).To(BeTrue())
+
+	// err เป็นค่า nil แปลว่าไม่มี error
+	g.Expect(err).To(BeNil())
+}
+
+
+
 // ตรวจสอบค่าว่างของชื่อแล้วต้องเจอ Error
 func TestMedicalValidate(t *testing.T) {
 	g := NewGomegaWithT(t)

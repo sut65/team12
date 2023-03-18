@@ -10,6 +10,23 @@ import (
 	. "github.com/onsi/gomega"
 )
 
+func TestManageBedPass(t *testing.T) {
+	g := NewGomegaWithT(t)
+	managebed := ManageBed{
+		Note:       "Acicident", 
+		Hn:         20020939,
+		ManageDate: time.Now(),
+	}
+	// ตรวจสอบด้วย govalidator
+	ok, err := govalidator.ValidateStruct(managebed)
+
+	// ok ต้องเป็น true แปลว่าไม่มี error
+	g.Expect(ok).To(BeTrue())
+
+	// err เป็นค่า nil แปลว่าไม่มี error
+	g.Expect(err).To(BeNil())
+}
+
 // ตรวจสอบค่าว่างของชื่อแล้วต้องเจอ Error
 func TestManageBedValidate(t *testing.T) {
 	g := NewGomegaWithT(t)

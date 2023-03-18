@@ -11,10 +11,21 @@ import * as React from "react";
 import Carousel from "react-material-ui-carousel";
 
 import background from "../Image/im11.jpg"
+import im4 from "../Image/im4.png"
+import i1 from "../Image/i1.png"
+import i2 from "../Image/i2.png"
+import i3 from "../Image/i3.png"
+import i4 from "../Image/i4.png"
+import i5 from "../Image/i5.png"
+import i6 from "../Image/i6.png"
+import i7 from "../Image/i7.png"
+
+
+
+
 
 import im14 from "../Image/im14.jpg"
 import im10 from "../Image/im10.jpg"
-import im4 from "../Image/im4.jpg"
 import im2 from "../Image/im2.jpg"
 import im3 from "../Image/im3.jpg"
 import im13 from "../Image/im13.jpg"
@@ -102,13 +113,25 @@ function Home() {
       Image: im4,
     },
     {
-      Image: im2,
+      Image: i1,
     },
     {
-      Image: im3,
+      Image: i2,
     },
     {
-      Image: im14,
+      Image: i3,
+    },
+    {
+      Image: i4,
+    },
+    {
+      Image: i7,
+    },
+    {
+      Image: i5,
+    },
+    {
+      Image: i6,
     },
     {
       Image: im16,

@@ -232,7 +232,7 @@ function ManageBedUpdate() {
                 </option>
                 {patient.map((item: PatientInterface) => (
                   <option value={item.ID} key={item.ID}>
-                    {(item.FirstName) +" " +(item.LastName)}
+                    {(item.FirstName)}
                   </option>
                 ))}
               </Select>
